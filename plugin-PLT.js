@@ -138,8 +138,10 @@ jsPsychPLT = (function(jspsych) {
                     width: 25vw;
                     flex-direction: column;
                     margin: auto;
-                    border: 20px solid transparent;
+                }
 
+                #rightImg, #leftImg {
+                    border: 1px solid darkgrey;
                 }
                 
                 .helperTxt {
