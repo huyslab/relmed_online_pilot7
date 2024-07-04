@@ -189,14 +189,15 @@
         },
         {
             type: jsPsychPLT,
-            imgLeft: function() {'imgs/'+ jsPsych.timelineVariable('stimulus_left')},
-            imgRight: function() {'imgs/'+ jsPsych.timelineVariable('stimulus_right')},
+            imgLeft: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_left'),
+            imgRight: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_right'),
             outcomeLeft: jsPsych.timelineVariable('feedback_left'),
             outcomeRight: jsPsych.timelineVariable('feedback_left'),
             optimalRight: jsPsych.timelineVariable('optimal_right'),
             data: {
                 trialphase: "task",
             },
+            on_start: trial => {console.log(trial)},
             on_finish: function(data) {
                 if (data.isOptimal) {
                     window.accNumber++;
@@ -245,10 +246,10 @@
     function run_full_experiment(structure){
         
         // Add instructions
-        let procedure = prepare_instructions();
+        // procedure = prepare_instructions();
 
         // Add PLT
-        // procedure = procedure.concat(build_PLT_task(structure));
+        procedure = procedure.concat(build_PLT_task(structure));
 
         // Final messages and data saving
         procedure.push({                
@@ -262,6 +263,7 @@
         jsPsych.run(procedure);
     }
 
+    var procedure = [];
     load_squences(window.condition, window.sessionNum);
         
 </script>
