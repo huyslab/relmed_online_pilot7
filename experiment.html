@@ -105,6 +105,7 @@
         prolific_pid: window.prolificPID,
         study_id: window.studyId,
         session_id: window.sessionId,
+        session: window.sessionNum,
         condition: window.condition,
         early_stop: window.earlyStop,
         valence_grouped: window.valenceGrouped,
@@ -196,6 +197,9 @@
             optimalRight: jsPsych.timelineVariable('optimal_right'),
             data: {
                 trialphase: "task",
+                block: jsPsych.timelineVariable('block'),
+                trial: jsPsych.timelineVariable('trial'),
+                valence: jsPsych.timelineVariable('valence')
             },
             on_finish: function(data) {
                 if (data.isOptimal) {

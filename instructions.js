@@ -15,9 +15,9 @@ function prepare_instructions() {
     {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: "<p>Let's try it out! Two cards will appear on the next screen. \
-                Use the 'F' key to choose the left card, or the 'K' key to choose the right card.</p>\
-                <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'K' key to continue.</p>",
-        chioces: ['d', 'k'],
+                Use the 'F' key to choose the left card, or the 'J' key to choose the right card.</p>\
+                <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
+        chioces: ['f', 'j'],
         data: {trialphase: "instruction"}
     },
     {
@@ -45,16 +45,16 @@ function prepare_instructions() {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: "<p>Let's practice both versions. We'll start with winning coins. \
             You begin with zero coins. Try to collect as many as you can.</p>\
-            <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'K' key to continue.</p>",
-        chioces: ['d', 'k'],
+            <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
+        chioces: ['f', 'j'],
         data: {trialphase: "instruction"}
     },
     {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: "<p>Well done! You would have earned £X in this game.</p>\
         <p>Now, let's practice avoiding losses. You'll start with £Y of coins. Try to lose as few as possible.</p>\
-        <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'K' key to continue.</p>",
-        chioces: ['d', 'k'],
+        <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
+        chioces: ['f', 'j'],
         data: {trialphase: "instruction"}
     },
     {

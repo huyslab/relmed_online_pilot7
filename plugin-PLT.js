@@ -65,8 +65,8 @@ jsPsychPLT = (function(jspsych) {
                 trialphase: 'task',
             }
             this.keys = {
-                'arrowleft':'left',
-                'arrowright': 'right',
+                'f':'left',
+                'j': 'right',
             }
         }
 
