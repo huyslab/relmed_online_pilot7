@@ -69,7 +69,6 @@
     })
 
     window.skipThisBlock = false;
-    window.accNumber = 0;
     
     inter_block_msg = {
         type: jsPsychHtmlKeyboardResponse,
@@ -85,12 +84,7 @@
         data: {
             trialphase: "break",
         },
-        on_start: saveDataREDCap,
-        on_finish: (data) => {
-            data.earlybreak = window.skipThisBlock;
-            window.skipThisBlock = false;
-            window.accNumber = 0;
-        }
+        on_start: saveDataREDCap
     }
 
     inter_valence_msg = [
@@ -117,12 +111,7 @@
             data: {
                 trialphase: "change_valence",
             },
-            on_start: saveDataREDCap,
-            on_finish: (data) => {
-                data.earlybreak = window.skipThisBlock;
-                window.skipThisBlock = false;
-                window.accNumber = 0;
-            }
+            on_start: saveDataREDCap
         },
         {
             type: jsPsychHtmlKeyboardResponse,
@@ -154,24 +143,20 @@
                 block: jsPsych.timelineVariable('block'),
                 trial: jsPsych.timelineVariable('trial'),
                 valence: jsPsych.timelineVariable('valence')
-            },
-            on_finish: function(data) {
-                if (data.isOptimal) {
-                    window.accNumber++;
-                } else {
-                    window.accNumber = 0;
-                }
-                if (window.accNumber === 5){
-                    if (earlyStop & !data.block.includes("practice")){
-                        window.skipThisBlock = true
-                    }
-                }
-                console.log(window.accNumber)
             }
         }
         ],
         conditional_function: function(){
-            return !window.skipThisBlock
+            if (window.earlyStop && 
+                Number.isInteger(jsPsych.timelineVariable('block')) && 
+                jsPsych.timelineVariable('trial') > 5){
+                    let num_optimal = jsPsych.data.get().filter({
+                        trial_type: "PLT"
+                    }).last(jsPsych.timelineVariable('trial') - 1).select('isOptimal').sum()
+                    console.log(num_optimal)
+                    return num_optimal < 5
+            }
+            
         }
     } 
     

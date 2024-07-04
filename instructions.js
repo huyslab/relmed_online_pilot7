@@ -39,11 +39,7 @@ function prepare_instructions() {
                     }
                 ]],
                 false
-            ),
-            on_timeline_finish: () => {
-                window.accNumber = 0;
-                console.log(window.accNumber)
-            }
+            )
         }
     );
         
@@ -101,11 +97,7 @@ function prepare_instructions() {
                     )
                 ],
                 false
-            ),
-            on_timeline_finish: () => {
-                window.accNumber = 0;
-                console.log(window.accNumber)
-            }
+            )
         }
     )
 
@@ -156,11 +148,7 @@ function prepare_instructions() {
                     )
                 ],
                 false
-            ),
-            on_timeline_finish: () => {
-                window.accNumber = 0;
-                console.log(window.accNumber)
-            }
+            )
         }
     );
 
