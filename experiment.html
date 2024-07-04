@@ -173,7 +173,16 @@
         for (let i=0; i < window.totalBlockNumber; i++){
             block = [
                 {
-                    timeline: [PLT_trial],
+                    timeline: [
+                        {
+                            type: jsPsychPreload,
+                            images: [
+                                "imgs/" + structure[i][0]["stimulus_right"],
+                                "imgs/" + structure[i][0]["stimulus_left"]
+                            ],
+                        },
+                        PLT_trial
+                    ],
                     timeline_variables: structure[i]
                 }
             ];
@@ -192,9 +201,21 @@
     }
 
     function run_full_experiment(structure){
+
+        // Preload images
+        procedure = [
+            {
+                type: jsPsychPreload,
+                images: [
+                    "1penny.png", "1pennybroken.png",
+                    "1pound.png", "1poundbroken.png",
+                    "50pence.png", "50pencebroken.png"
+                ].map(s => "imgs/" + s)
+            }
+        ]
         
         // Add instructions
-        // procedure = prepare_instructions();
+        // procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));
