@@ -168,9 +168,9 @@
         }
     } 
     
-    function build_PLT_task(structure){
+    function build_PLT_task(structure, insert_msg = true){
         let PLT_task = [];
-        for (let i=0; i < window.totalBlockNumber; i++){
+        for (let i=0; i < structure.length; i++){
             block = [
                 {
                     timeline: [
@@ -188,10 +188,12 @@
             ];
             
             // Add message
-            if (window.valenceGrouped & (i == (totalBlockNumber / 2 - 1))) {
-                block.push(inter_valence_msg);
-            } else {
-                block.push(inter_block_msg);
+            if (insert_msg){
+                if (window.valenceGrouped & (i == (totalBlockNumber / 2 - 1))) {
+                    block.push(inter_valence_msg);
+                } else {
+                    block.push(inter_block_msg);
+                }
             }
             
             PLT_task = PLT_task.concat(block)

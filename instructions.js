@@ -1,6 +1,6 @@
 // Instructions for the PLT
 function prepare_instructions() {
-    return [
+    let inst =  [
         {
         type: jsPsychInstructions,
         pages: [
@@ -19,8 +19,27 @@ function prepare_instructions() {
                 <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
         chioces: ['f', 'j'],
         data: {trialphase: "instruction"}
-    },
-    {
+    }];
+
+    inst = inst.concat(
+        build_PLT_task(
+            [[
+                {
+                    stimulus_left: "binoculars.png",
+                    stimulus_right: "clock.png",
+                    feedback_left: 1,
+                    feedback_right: 1,
+                    optimal_right: 1,
+                    block: "practice1",
+                    trial: 1,
+                    valence: 1
+                }
+            ]],
+            false
+        )
+    )
+    
+    inst = inst.concat([{
         type: jsPsychInstructions,
         pages: [
             "<p>Well done! You found a one-pound coin.</p>",
@@ -96,5 +115,7 @@ function prepare_instructions() {
         show_clickable_nav: true,
         data: {trialphase: "instructions"}
     }
-    ]
+    ])
+
+    return inst
 } 
