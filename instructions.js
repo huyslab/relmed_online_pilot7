@@ -23,24 +23,31 @@ function prepare_instructions() {
         data: {trialphase: "instruction"}
     }];
 
-    inst = inst.concat(
-        build_PLT_task(
-            [[
-                {
-                    stimulus_left: "binoculars.png",
-                    stimulus_right: "clock.png",
-                    feedback_left: 1,
-                    feedback_right: 1,
-                    optimal_right: 1,
-                    block: "practice1",
-                    trial: 1,
-                    valence: 1
-                }
-            ]],
-            false
-        )
-    )
-    
+    inst.push(
+        {
+            timeline: build_PLT_task(
+                [[
+                    {
+                        stimulus_left: "binoculars.png",
+                        stimulus_right: "clock.png",
+                        feedback_left: 1,
+                        feedback_right: 1,
+                        optimal_right: 1,
+                        block: "practice1",
+                        trial: 1,
+                        valence: 1
+                    }
+                ]],
+                false
+            ),
+            on_timeline_finish: () => {
+                window.accNumber = 0;
+                console.log(window.accNumber)
+            }
+        }
+    );
+        
+  
     inst = inst.concat([{
         type: jsPsychInstructions,
         css_classes: ['instructions'],
@@ -76,24 +83,30 @@ function prepare_instructions() {
     let dumbbell_on_right = [true, true, false, true, false, false];
     let reward_magnitude = [0.5, 1, 1, 0.5, 1, 0.5];
 
-    inst = inst.concat(
-        build_PLT_task(
-            [
-                dumbbell_on_right.map((e, i) => 
-                    ({
-                        stimulus_left: e ? "flashlight.png" : "dumbbell.png",
-                        stimulus_right: e ? "dumbbell.png" : "flashlight.png",
-                        feedback_left: e ? 0.01 : reward_magnitude[i],
-                        feedback_right: e ? reward_magnitude[i] : 0.01,
-                        optimal_right: e,
-                        block: "practice2",
-                        trial: i,
-                        valence: 1
-                    })
-                )
-            ],
-            false
-        )
+    inst.push(
+        {
+            timeline: build_PLT_task(
+                [
+                    dumbbell_on_right.map((e, i) => 
+                        ({
+                            stimulus_left: e ? "flashlight.png" : "dumbbell.png",
+                            stimulus_right: e ? "dumbbell.png" : "flashlight.png",
+                            feedback_left: e ? 0.01 : reward_magnitude[i],
+                            feedback_right: e ? reward_magnitude[i] : 0.01,
+                            optimal_right: e,
+                            block: "practice2",
+                            trial: i,
+                            valence: 1
+                        })
+                    )
+                ],
+                false
+            ),
+            on_timeline_finish: () => {
+                window.accNumber = 0;
+                console.log(window.accNumber)
+            }
+        }
     )
 
 
@@ -125,24 +138,30 @@ function prepare_instructions() {
     let hammer_on_right = [false, true, false, true, false, false];
     let punishment_magnitude = [-1, -0.5, -0.5, -1, -1, -0.5];
 
-    inst = inst.concat(
-        build_PLT_task(
-            [
-                hammer_on_right.map((e, i) => 
-                    ({
-                        stimulus_left: e ? "tricycle.png" : "hammer.png",
-                        stimulus_right: e ? "hammer.png" : "tricycle.png",
-                        feedback_left: e ? -0.01 : punishment_magnitude[i],
-                        feedback_right: e ? punishment_magnitude[i] : -0.01,
-                        optimal_right: !e,
-                        block: "practice3",
-                        trial: i,
-                        valence: -1
-                    })
-                )
-            ],
-            false
-        )
+    inst.push(
+        {
+            timeline: build_PLT_task(
+                [
+                    hammer_on_right.map((e, i) => 
+                        ({
+                            stimulus_left: e ? "tricycle.png" : "hammer.png",
+                            stimulus_right: e ? "hammer.png" : "tricycle.png",
+                            feedback_left: e ? -0.01 : punishment_magnitude[i],
+                            feedback_right: e ? punishment_magnitude[i] : -0.01,
+                            optimal_right: !e,
+                            block: "practice3",
+                            trial: i,
+                            valence: -1
+                        })
+                    )
+                ],
+                false
+            ),
+            on_timeline_finish: () => {
+                window.accNumber = 0;
+                console.log(window.accNumber)
+            }
+        }
     );
 
     inst = inst.concat(
