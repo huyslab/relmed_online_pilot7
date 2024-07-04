@@ -147,12 +147,16 @@
         }
         ],
         conditional_function: function(){
+            // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
             if (window.earlyStop && 
                 Number.isInteger(jsPsych.timelineVariable('block')) && 
                 jsPsych.timelineVariable('trial') > 5){
+
+                    // Compute number of previous optimal choices in the past 5 trials
                     let num_optimal = jsPsych.data.get().filter({
                         trial_type: "PLT"
                     }).last(jsPsych.timelineVariable('trial') - 1).select('isOptimal').sum()
+                    
                     console.log(num_optimal)
                     return num_optimal < 5
             }
