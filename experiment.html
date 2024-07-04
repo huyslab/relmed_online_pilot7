@@ -34,24 +34,6 @@
     // Second digit - valence grouped / interleaved. 0 - interleaved, 1 - grouped.
     // Third digit - reward first. 0 - punishment first, 1 - reward first, undefined - NA
 
-    function format_date_from_string(s){
-        const dateTime = new Date(s);
-
-        // Get individual components
-        const year = dateTime.getFullYear();
-        const month = String(dateTime.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-        const day = String(dateTime.getDate()).padStart(2, '0');
-        const hours = String(dateTime.getHours()).padStart(2, '0');
-        const minutes = String(dateTime.getMinutes()).padStart(2, '0');
-        const seconds = String(dateTime.getSeconds()).padStart(2, '0');
-
-        // Format the date and time
-        const formattedDate = `${year}-${month}-${day}`;
-        const formattedTime = `${hours}:${minutes}:${seconds}`;
-
-        return formattedDate + "_" + formattedTime
-    }
-
     async function load_squences(condition, session) {
         try {
             const response = await fetch('PLT_task_structure_' + condition + '.json');

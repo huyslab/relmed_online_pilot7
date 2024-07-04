@@ -45,3 +45,22 @@ function saveDataREDCap() {
         console.error('Error:', error);
     });
 }
+
+// Function for formatting data from API
+function format_date_from_string(s){
+    const dateTime = new Date(s);
+
+    // Get individual components
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(dateTime.getDate()).padStart(2, '0');
+    const hours = String(dateTime.getHours()).padStart(2, '0');
+    const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+    const seconds = String(dateTime.getSeconds()).padStart(2, '0');
+
+    // Format the date and time
+    const formattedDate = `${year}-${month}-${day}`;
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+    return formattedDate + "_" + formattedTime
+}
