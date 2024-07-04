@@ -34,37 +34,6 @@
     // Second digit - valence grouped / interleaved. 0 - interleaved, 1 - grouped.
     // Third digit - reward first. 0 - punishment first, 1 - reward first, undefined - NA
 
-    async function load_squences(condition, session) {
-        try {
-            const response = await fetch('PLT_task_structure_' + condition + '.json');
-            
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            const structure = await response.json();
-            const sess_structure = structure[session - 1];
-
-            window.totalBlockNumber = sess_structure.length
-
-            // Fetch the current time from the World Time API
-            const time_resp = await fetch('http://worldtimeapi.org/api/timezone/Europe/London');
-
-            if (!time_resp.ok) {
-            throw new Error('Network response was not ok');
-            }
-
-            const date_data = await time_resp.json();
-
-            const verifiedDateString = date_data.datetime;
-
-            window.startTime = format_date_from_string(verifiedDateString)
-
-            run_full_experiment(sess_structure);
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    }
-
     // Initialize jsPysch object
     let jsPsych = initJsPsych({
         display_element: 'display_element',
@@ -248,7 +217,40 @@
         jsPsych.run(procedure);
     }
 
+    // Load sequences and start
     var procedure = [];
+
+    async function load_squences(condition, session) {
+        try {
+            const response = await fetch('PLT_task_structure_' + condition + '.json');
+            
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            const structure = await response.json();
+            const sess_structure = structure[session - 1];
+
+            window.totalBlockNumber = sess_structure.length
+
+            // Fetch the current time from the World Time API
+            const time_resp = await fetch('http://worldtimeapi.org/api/timezone/Europe/London');
+
+            if (!time_resp.ok) {
+            throw new Error('Network response was not ok');
+            }
+
+            const date_data = await time_resp.json();
+
+            const verifiedDateString = date_data.datetime;
+
+            window.startTime = format_date_from_string(verifiedDateString)
+
+            run_full_experiment(sess_structure);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
     load_squences(window.condition, window.sessionNum);
         
 </script>
