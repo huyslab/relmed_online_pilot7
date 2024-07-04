@@ -71,56 +71,127 @@ function prepare_instructions() {
             <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
         chioces: ['f', 'j'],
         data: {trialphase: "instruction"}
-    },
-    {
-        type: jsPsychHtmlKeyboardResponse,
-        css_classes: ['instructions'],
-        stimulus: "<p>Well done! You would have earned £X in this game.</p>\
-        <p>Now, let's practice avoiding losses. You'll start with £Y of coins. Try to lose as few as possible.</p>\
-        <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
-        chioces: ['f', 'j'],
-        data: {trialphase: "instruction"}
-    },
-    {
-        type: jsPsychInstructions,
-        css_classes: ['instructions'],
-        pages: function() {
-            let pages = [
-                "<p>Well done! You would have earned £X in this game.</p>"
-            ];
+    }]);
+
+    let dumbbell_on_right = [true, true, false, true, false, false];
+    let reward_magnitude = [0.5, 1, 1, 0.5, 1, 0.5];
+
+    inst = inst.concat(
+        build_PLT_task(
+            [
+                dumbbell_on_right.map((e, i) => 
+                    ({
+                        stimulus_left: e ? "flashlight.png" : "dumbbell.png",
+                        stimulus_right: e ? "dumbbell.png" : "flashlight.png",
+                        feedback_left: e ? 0.01 : reward_magnitude[i],
+                        feedback_right: e ? reward_magnitude[i] : 0.01,
+                        optimal_right: e,
+                        block: "practice2",
+                        trial: i,
+                        valence: 1
+                    })
+                )
+            ],
+            false
+        )
+    )
+
+
+    inst = inst.concat([
+        {
+            type: jsPsychInstructions,
+            css_classes: ['instructions'],
+            pages: function() {
+                let earnings = Math.round(jsPsych.data.get().filter({
+                    block: "practice2", 
+                    trial_type: "PLT"
+                }).select('chosenOutcome').sum() * 1000) / 1000
     
-            if (window.earlyStop) {
-                pages.push("<p>To save time, if you select the better card five times in a row, \
-            the game will end, and you will get all the remaining coins as if you \
-            had chosen the better card each time.</p>");
-            }
-    
-            let final_page = "<p>You are almost ready to play for real.</p>\
-                <p>You will play multiple rounds of The Card Collector's Challenge.";
-            
-            if (window.valenceGrouped){
-                if (window.rewardFirst){
-                    final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
-                        " rounds to win coins, and then another " +  window.totalBlockNumber / 2 + 
-                        " rounds to avoid losing coins.</p>";
-                } else {
-                    final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
-                        " rounds to avoid losing coins, and then another " +  window.totalBlockNumber / 2 + 
-                        " rounds to win coins. You start the game with £x of coins.</p>";
-                }
-            } else {
-                final_page += "You will play  " +  window.totalBlockNumber  + 
-                        " rounds, sometimes to win coins, and sometimes to avoid losing them.<br>\
-                        You start the game with £x of coins. ";
-            }
-            
-            pages.push(final_page);
-    
-            return(pages)
+                return ["<p>Well done! You would have earned £" + earnings + " in this game.</p>"]
+            },
+            show_clickable_nav: true,
+            data: {trialphase: "instructions"}
         },
-        show_clickable_nav: true,
-        data: {trialphase: "instructions"}
-    }
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            css_classes: ['instructions'],
+            stimulus: "<p>Now, let's practice avoiding losses. You'll start with £4.5 in coins. Try to lose as few as possible.</p>\
+                <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
+            chioces: ['f', 'j'],
+            data: {trialphase: "instruction"}
+        }
+    ]);
+
+    let hammer_on_right = [false, true, false, true, false, false];
+    let punishment_magnitude = [-1, -0.5, -0.5, -1, -1, -0.5];
+
+    inst = inst.concat(
+        build_PLT_task(
+            [
+                hammer_on_right.map((e, i) => 
+                    ({
+                        stimulus_left: e ? "tricycle.png" : "hammer.png",
+                        stimulus_right: e ? "hammer.png" : "tricycle.png",
+                        feedback_left: e ? -0.01 : punishment_magnitude[i],
+                        feedback_right: e ? punishment_magnitude[i] : -0.01,
+                        optimal_right: !e,
+                        block: "practice3",
+                        trial: i,
+                        valence: -1
+                    })
+                )
+            ],
+            false
+        )
+    );
+
+    inst = inst.concat(
+        [
+        {
+            type: jsPsychInstructions,
+            css_classes: ['instructions'],
+            pages: function() {
+                let earnings = Math.round((4.5 + jsPsych.data.get().filter({
+                    block: "practice3", 
+                    trial_type: "PLT"
+                }).select('chosenOutcome').sum()) * 1000) / 1000
+
+                let pages = [
+                    "<p>Well done! You would have earned £" + earnings + " in this game.</p>"
+                ];
+        
+                if (window.earlyStop) {
+                    pages.push("<p>To save time in the real game, if you select the better card five times in a row, \
+                the game will end, and you will get all the remaining coins as if you \
+                had chosen the better card each time.</p>");
+                }
+        
+                let final_page = "<p>You are almost ready to play for real.</p>\
+                    <p>You will play multiple rounds of The Card Collector's Challenge.";
+                
+                if (window.valenceGrouped){
+                    if (window.rewardFirst){
+                        final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
+                            " rounds to win coins, and then another " +  window.totalBlockNumber / 2 + 
+                            " rounds to avoid losing coins.</p>";
+                    } else {
+                        final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
+                            " rounds to avoid losing coins, and then another " +  window.totalBlockNumber / 2 + 
+                            " rounds to win coins. You start the game with £x of coins.</p>";
+                    }
+                } else {
+                    final_page += "You will play  " +  window.totalBlockNumber  + 
+                            " rounds, sometimes to win coins, and sometimes to avoid losing them.<br>\
+                            You start the game with £x of coins. ";
+                }
+                
+                pages.push(final_page);
+        
+                return(pages)
+            },
+            show_clickable_nav: true,
+            data: {trialphase: "instructions"}
+        }
     ])
 
     return inst
