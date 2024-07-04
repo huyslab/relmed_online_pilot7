@@ -91,6 +91,7 @@ jsPsychPLT = (function(jspsych) {
             this.data.imageRight = this.contingency.img[1]
             this.data.outcomeLeft = this.contingency.outcome[0]
             this.data.outcomeRight = this.contingency.outcome[1]
+            this.data.optimalRight = trial.optimalRight
 
             display_element.innerHTML = this.initGamPage()
 
@@ -179,7 +180,6 @@ jsPsychPLT = (function(jspsych) {
         }
 
         keyResponse(e) {
-            console.log(e)
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.data.keyPressOnset = performance.now()
@@ -200,7 +200,6 @@ jsPsychPLT = (function(jspsych) {
                     this.data.chosenOutcome = this.contingency.outcome[1]
                 }
 
-                console.log(this.data)
                 // draw selection box:
                 const selImg = document.getElementById(this.data.choice + 'Img')
                 selImg.style.border = '20px solid darkgrey'
@@ -255,7 +254,7 @@ jsPsychPLT = (function(jspsych) {
         }
 
         endTrial() {
-            this.data.optimalSide = this.optimalRight == 1 ? 'right' : 'left'
+            this.data.optimalSide = this.data.optimalRight == 1 ? 'right' : 'left'
             this.data.isOptimal = this.data.choice === this.data.optimalSide
             this.data.endTime = performance.now()
             this.data.duration = this.data.endTime - this.data.initTime
