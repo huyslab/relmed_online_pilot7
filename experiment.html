@@ -74,6 +74,7 @@
     inter_block_msg = {
         type: jsPsychHtmlKeyboardResponse,
         choices: ['s'],
+        css_classes: ['instructions'],
         stimulus: function(){
             if (earlyStop & window.skipThisBlock){
                 return "You've clearly identified the optimal card.<br><br>You will now see two new cards.<br><br>Press S key to continue.";
@@ -96,6 +97,7 @@
         {
             type: jsPsychHtmlKeyboardResponse,
             choices: ['space'],
+            css_classes: ['instructions'],
             stimulus: function(){
                 if ((window.rewardFirst & window.sessionNum == 1) | ((!window.rewardFirst) & window.sessionNum == 2)) {
                     return "<p>Well done.</p><p>You will now continue playing the Card Collector's Challenge, \
