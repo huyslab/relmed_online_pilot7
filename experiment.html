@@ -129,6 +129,7 @@
         data: {
             trialphase: "break",
         },
+        on_start: saveDataREDCap,
         on_finish: (data) => {
             data.earlybreak = window.skipThisBlock;
             window.skipThisBlock = false;
@@ -160,6 +161,7 @@
             data: {
                 trialphase: "change_valence",
             },
+            on_start: saveDataREDCap,
             on_finish: (data) => {
                 data.earlybreak = window.skipThisBlock;
                 window.skipThisBlock = false;
