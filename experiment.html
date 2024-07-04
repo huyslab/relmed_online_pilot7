@@ -65,8 +65,6 @@
 
     window.skipThisBlock = false;
     window.accNumber = 0;
-    window.blockNumber = 1;
-    window.interimOutcome = 0;
     
     inter_block_msg = {
         type: jsPsychHtmlKeyboardResponse,
@@ -86,7 +84,6 @@
             data.earlybreak = window.skipThisBlock;
             window.skipThisBlock = false;
             window.accNumber = 0;
-            window.interimOutcome = 0;
         }
     }
 
@@ -118,7 +115,6 @@
                 data.earlybreak = window.skipThisBlock;
                 window.skipThisBlock = false;
                 window.accNumber = 0;
-                window.interimOutcome = 0;
             }
         },
         {
@@ -163,8 +159,6 @@
                         window.skipThisBlock = true
                     }
                 }
-                data.blockNumber = window.blockNumber;
-                window.interimOutcome = window.interimOutcome + data.chosenOutcome;
                 console.log(window.accNumber)
             }
         }
