@@ -1,0 +1,6 @@
+binoculars.png
+clock.png
+dumbbell.png
+flashlight.png
+hammer.png
+tricycle.png
