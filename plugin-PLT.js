@@ -47,7 +47,7 @@ jsPsychPLT = (function(jspsych) {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
             this.timing = {
-                maxRespTime: 2500,
+                maxRespTime: 3000,
                 fbDur:1000,
                 flipFb: 500,
             }
