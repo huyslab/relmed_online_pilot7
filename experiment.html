@@ -200,41 +200,6 @@
         return PLT_task
     }
 
-    function run_full_experiment(structure){
-
-        // Preload images
-        procedure = [
-            {
-                type: jsPsychPreload,
-                images: [
-                    "1penny.png", "1pennybroken.png",
-                    "1pound.png", "1poundbroken.png",
-                    "50pence.png", "50pencebroken.png"
-                ].map(s => "imgs/" + s)
-            }
-        ]
-        
-        // Add instructions
-        // procedure = procedure.concat(prepare_instructions());
-
-        // Add PLT
-        procedure = procedure.concat(build_PLT_task(structure));
-
-        // Final messages and data saving
-        procedure.push({                
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: "Well done! You have finished the experiment.",
-            data: {trialphase: "end"},
-            on_start: saveDataREDCap
-        })
-
-        // Run
-        jsPsych.run(procedure);
-    }
-
-    // Load sequences and start
-    var procedure = [];
-
     async function load_squences(condition, session) {
         try {
             const response = await fetch('PLT_task_structure_' + condition + '.json');
@@ -265,6 +230,41 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
+
+    function run_full_experiment(structure){
+
+        // Preload images
+        procedure = [
+            {
+                type: jsPsychPreload,
+                images: [
+                    "1penny.png", "1pennybroken.png",
+                    "1pound.png", "1poundbroken.png",
+                    "50pence.png", "50pencebroken.png"
+                ].map(s => "imgs/" + s)
+            }
+        ]
+        
+        // Add instructions
+        procedure = procedure.concat(prepare_instructions());
+
+        // Add PLT
+        procedure = procedure.concat(build_PLT_task(structure));
+
+        // Final messages and data saving
+        procedure.push({                
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: "Well done! You have finished the experiment.",
+            data: {trialphase: "end"},
+            on_start: saveDataREDCap
+        })
+
+        // Run
+        jsPsych.run(procedure);
+    }
+
+    // Load sequences and start
+    var procedure = [];
 
     load_squences(window.condition, window.sessionNum);
         
