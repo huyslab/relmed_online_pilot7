@@ -162,7 +162,7 @@
                     window.accNumber = 0;
                 }
                 if (window.accNumber === 5){
-                    if (earlyStop){
+                    if (earlyStop & !data.block.includes("practice")){
                         window.skipThisBlock = true
                     }
                 }

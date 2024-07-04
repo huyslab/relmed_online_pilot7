@@ -248,7 +248,7 @@ jsPsychPLT = (function(jspsych) {
                 // no response
                 this.data.choice = 'noresp'
                 //this.data.pts = Math.min(...Object.values(this.data.contingency.opt))
-                this.data.chosenOutcome = data.outcomeLeft > 0 ? 0 : -.755
+                this.data.chosenOutcome = this.data.outcomeLeft > 0 ? 0 : -.755
                 document.getElementById('centerTxt').innerText = 'Too Slow!'
 
                 this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.fbDur))
