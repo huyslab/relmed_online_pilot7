@@ -192,12 +192,11 @@
             imgLeft: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_left'),
             imgRight: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_right'),
             outcomeLeft: jsPsych.timelineVariable('feedback_left'),
-            outcomeRight: jsPsych.timelineVariable('feedback_left'),
+            outcomeRight: jsPsych.timelineVariable('feedback_right'),
             optimalRight: jsPsych.timelineVariable('optimal_right'),
             data: {
                 trialphase: "task",
             },
-            on_start: trial => {console.log(trial)},
             on_finish: function(data) {
                 if (data.isOptimal) {
                     window.accNumber++;
