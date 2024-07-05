@@ -178,7 +178,7 @@ function prepare_instructions() {
                 }
         
                 let final_page = "<p>You are almost ready to play for real.</p>\
-                    <p>You will play multiple rounds of The Card Collector's Challenge.";
+                    <p>You will play multiple rounds of The Card Collector's Challenge. ";
                 
                 if (window.valenceGrouped){
                     if (window.rewardFirst){

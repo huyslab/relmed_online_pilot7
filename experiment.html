@@ -71,19 +71,41 @@
     
     inter_block_msg = {
         type: jsPsychHtmlKeyboardResponse,
-        choices: ['s'],
+        choices: ['arrowright', 'arrowleft'],
         css_classes: ['instructions'],
         stimulus: function(){
+            let valence = jsPsych.data.get().filter({type: "PLT"}).last(1).select("valence").values[0];
+            let num_observed = countPLTAfterLastNonPLT(jsPsych.data.get().filter([
+                {trial_type: "PLT"},
+                {trialphase: "break"}, 
+                {trialphase: "change_valence"}, 
+                {trialphase: "instructions"}]).select('trial_type').values)
+            
+            let past_feedback_right = jsPsych.data.get().filter({type: "PLT"}).last(num_observed).select('rightOutcome').values
+            let past_feedback_left = jsPsych.data.get().filter({type: "PLT"}).last(num_observed).select('leftOutcome').values
+            let sum_past_high_magnitude = getSumofMax(past_feedback_right, past_feedback_left)
+            let remaining_feedback = Math.round((10 - sum_past_high_magnitude) * 1000) / 1000
+            
             if (earlyStop & window.skipThisBlock){
-                return "You've clearly identified the optimal card.<br><br>You will now see two new cards.<br><br>Press S key to continue.";
+                txt = "<p>You've found the better card.</p><p>You will skip the remaining turns, and ";
+                
+                txt += valence == 1 ? ("automatically win all the remaining £" + remaining_feedback + " in coins left hidden under this card.") : 
+                    ("lose only the " +  (13 - num_observed) + " pence left hidden under this card.")
+
+                txt += "</p><p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>";
+
+                return  txt
+            
             }else{
-                return "New round! You will see two new cards!";
+                return "<p>This is the end of this round.</p>\
+                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>";
             }
         },
         data: {
-            trialphase: "break",
+            trialphase: "inter_block",
         },
-        on_start: saveDataREDCap
+        on_start: saveDataREDCap,
+        on_finish: () => {window.skipThisBlock = false}
     }
 
     inter_valence_msg = [
@@ -110,7 +132,8 @@
             data: {
                 trialphase: "change_valence",
             },
-            on_start: saveDataREDCap
+            on_start: saveDataREDCap,
+            on_finish: () => {window.skipThisBlock = false}
         },
         {
             type: jsPsychHtmlKeyboardResponse,
@@ -148,6 +171,7 @@
         }
         ],
         conditional_function: function(){
+
             // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
             if (window.earlyStop && 
                 Number.isInteger(jsPsych.timelineVariable('block')) && 
@@ -156,9 +180,10 @@
                     // Compute number of previous optimal choices in the past 5 trials
                     let num_optimal = jsPsych.data.get().filter({
                         trial_type: "PLT"
-                    }).last(jsPsych.timelineVariable('trial') - 1).select('isOptimal').sum()
+                    }).last(5).select('isOptimal').sum()
 
-                    console.log(num_optimal)
+                    window.skipThisBlock = true;
+
                     return num_optimal < 5
             }
             
@@ -245,7 +270,7 @@
         ]
         
         // Add instructions
-        procedure = procedure.concat(prepare_instructions());
+        // procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));

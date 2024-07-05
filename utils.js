@@ -64,3 +64,30 @@ function format_date_from_string(s){
 
     return formattedDate + "_" + formattedTime
 }
+
+// Functions for computing remaining feedback after early stop
+function countPLTAfterLastNonPLT(arr) {
+    let count = 0;
+    let foundNonPLT = false;
+    
+    // Iterate from the end to the beginning of the array
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i] !== "PLT") {
+        // If a non-PLT string is found, stop the iteration
+        foundNonPLT = true;
+        break;
+      } else {
+        // If foundNonPLT is true and we encounter "PLT", increase the count
+        count++;
+      }
+    }
+  
+    return count;
+}
+
+function getSumofMax(arr1, arr2) {
+// Assuming arr1 and arr2 are of the same length
+    return Math.max(arr1.map((value, index) => Math.max(value, arr2[index])));
+}
+  
+  
