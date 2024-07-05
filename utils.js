@@ -86,8 +86,12 @@ function countPLTAfterLastNonPLT(arr) {
 }
 
 function getSumofMax(arr1, arr2) {
+    function add(accumulator, a) {
+        return accumulator + a;
+      }
+      
 // Assuming arr1 and arr2 are of the same length
-    return Math.max(arr1.map((value, index) => Math.max(value, arr2[index])));
+    return arr1.map((value, index) => Math.max(value, arr2[index])).reduce(add, 0);
 }
   
   
