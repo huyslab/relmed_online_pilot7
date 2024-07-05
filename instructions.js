@@ -35,7 +35,8 @@ function prepare_instructions() {
                         optimal_right: 1,
                         block: "practice1",
                         trial: 1,
-                        valence: 1
+                        valence: 1,
+                        maxRespTime: -1
                     }
                 ]],
                 false

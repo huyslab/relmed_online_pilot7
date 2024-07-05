@@ -38,7 +38,7 @@ jsPsychPLT = (function(jspsych) {
             },
             maxRespTime: {
                 type: jspsych.ParameterType.INT,
-                default: -1,
+                default: 3000,
             }
         }
     }
@@ -47,7 +47,7 @@ jsPsychPLT = (function(jspsych) {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
             this.timing = {
-                maxRespTime: 3000,
+                maxRespTime: this.trial.maxRespTime,
                 fbDur:1000,
                 flipFb: 500,
             }
@@ -78,10 +78,6 @@ jsPsychPLT = (function(jspsych) {
             }
 
             this.data.initTime = performance.now()
-            // this.data.info = trial.info
-            if (trial.maxRespTime > 0) {
-                this.timing.maxRespTime = trial.maxRespTime
-            }
 
             this.contingency = {
                 img: [trial.imgLeft, trial.imgRight],
@@ -103,9 +99,11 @@ jsPsychPLT = (function(jspsych) {
                 allow_held_key: false
             });
 
-            this.jsPsych.pluginAPI.setTimeout(() => {
-                this.keyResponse('')
-            }, this.timing.maxRespTime);
+            if (trial.maxRespTime > 0) {
+                this.jsPsych.pluginAPI.setTimeout(() => {
+                    this.keyResponse('')
+                }, trial.maxRespTime);
+            }
         }
 
         initGamPage() {
