@@ -48,7 +48,8 @@ jsPsychPLT = (function(jspsych) {
             this.jsPsych = jsPsych;
             this.timing = {
                 maxRespTime: this.trial.maxRespTime,
-                fbDur:1000,
+                fbDur: 1000,
+                deadlineDur: 1500,
                 flipFb: 500,
             }
             this.data = {
@@ -65,8 +66,8 @@ jsPsychPLT = (function(jspsych) {
                 trialphase: 'task',
             }
             this.keys = {
-                'f':'left',
-                'j': 'right',
+                'arrowleft':'left',
+                'arrowright': 'right',
             }
         }
 
@@ -124,16 +125,16 @@ jsPsychPLT = (function(jspsych) {
                 .optionSide {
                     display: flex;
                     flex-direction: column;
-                    max-height: 70vh;
-                    min-height: 70vh;
-                    min-width: 30vw;
-                    max-width: 30vw;
+                    height: 70vh;
+                    width: 30vw;
+                    max-width: 465px;
                     
                 }
                 
                 .optionSide img {
                     height: auto;
                     width: 25vw;
+                    max-width: 230px;
                     flex-direction: column;
                     margin: auto;
                 }
@@ -146,8 +147,8 @@ jsPsychPLT = (function(jspsych) {
                     display: flex;
                     justify-content: space-around;
                     margin: auto;
-                    min-width: 10vw;
-                    max-width: 10vw;
+                    width: 10vw;
+                    max-width: 150px;
                     
                     text-wrap: normal;
                     font-size: 1.5rem;
@@ -245,10 +246,15 @@ jsPsychPLT = (function(jspsych) {
             } else {
                 // no response
                 this.data.choice = 'noresp'
-                //this.data.pts = Math.min(...Object.values(this.data.contingency.opt))
-                this.data.chosenOutcome = this.data.outcomeLeft > 0 ? 0 : -.755
+
+                // Set outcome to lowest possible on trial
+                this.data.chosenOutcome = Math.min(this.data.outcomeLeft, this.data.outcomeRight)
+
+                // Display messge
                 document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
-                this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.fbDur * 1.5))
+
+
+                this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.deadlineDur))
             }
         }
 

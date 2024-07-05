@@ -17,9 +17,9 @@ function prepare_instructions() {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
         stimulus: "<p>Let's try it out! Two cards will appear on the next screen. \
-                Use the 'F' key to choose the left card, or the 'J' key to choose the right card.</p>\
-                <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
-        chioces: ['f', 'j'],
+                Use the left arrow key to choose the left card, or the right arrow key to choose the right card.</p>\
+                <p>Place your fingers on the left and right arrow keys, and press either one to start the practice.</p>",
+        choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
     }];
 
@@ -72,8 +72,8 @@ function prepare_instructions() {
         css_classes: ['instructions'],
         stimulus: "<p>Let's practice both versions. We'll start with winning coins. \
             You begin with zero coins. Try to collect as many as you can.</p>\
-            <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
-        chioces: ['f', 'j'],
+            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
+        choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
     }]);
 
@@ -122,8 +122,8 @@ function prepare_instructions() {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
             stimulus: "<p>Now, let's practice avoiding losses. You'll start with £4.5 in coins. Try to lose as few as possible.</p>\
-                <p>Place your fingers on the keyboard as shown below, and press either the 'F' or 'J' key to continue.</p>",
-            chioces: ['f', 'j'],
+                <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
+            choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"}
         }
     ]);
