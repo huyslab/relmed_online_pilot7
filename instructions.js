@@ -158,13 +158,16 @@ function prepare_instructions() {
             type: jsPsychInstructions,
             css_classes: ['instructions'],
             pages: function() {
-                let earnings = Math.round((4.5 + jsPsych.data.get().filter({
+                let losses = jsPsych.data.get().filter({
                     block: "practice3", 
                     trial_type: "PLT"
-                }).select('chosenOutcome').sum()) * 1000) / 1000
+                }).select('chosenOutcome').sum();
+
+                let earnings = Math.round((4.5 + losses) * 1000) / 1000
 
                 let pages = [
-                    "<p>Well done! You would have earned £" + earnings + " in this game.</p>"
+                    "<p>Well done!</><p>You would have lost £" +  Math.round(Math.abs(losses) * 1000) / 1000 +
+                    " in coins in this game, leaving £" + earnings + " in your purse.</p>"
                 ];
         
                 if (window.earlyStop) {
