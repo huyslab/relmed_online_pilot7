@@ -157,6 +157,23 @@ var jsPsychCoinLottery = (function(jspsych) {
                     }
                 });
             }
+
+            // Make clickable function
+            function makeClickable(){
+                const rects = document.querySelectorAll('.rect');
+                rects.forEach(rect => {
+                    // Add click event listener to flip the rect
+                    rect.addEventListener('click', function() {
+                        rect.classList.toggle('flipped');
+                        const transform = rect.style.transform;
+                        if (rect.classList.contains('flipped')) {
+                            rect.style.transform = transform + ' rotateY(180deg)';
+                        } else {
+                            rect.style.transform = transform.replace(' rotateY(180deg)', '');
+                        }
+                    });
+                });
+            }
     
             // Initial shuffle if specified
             if (trial.shuffle) {
@@ -169,7 +186,8 @@ var jsPsychCoinLottery = (function(jspsych) {
                 flipButton.innerHTML = 'Flip and shuffle';
                 flipButton.onclick = () => {
                     flipAllDivs();
-                    jsPsych.pluginAPI.setTimeout(shuffleDivs, 600);    
+                    jsPsych.pluginAPI.setTimeout(shuffleDivs, 600);
+                    makeClickable();
                 };
                 display_element.appendChild(flipButton);
             }
