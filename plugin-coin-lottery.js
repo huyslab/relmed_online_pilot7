@@ -303,6 +303,9 @@ var jsPsychCoinLottery = (function(jspsych) {
 
             // End trial function
             function end_trial() {
+                // Add rt to data
+                data.end_rt = Math.round(performance.now() - start_time);
+
                 // kill any remaining setTimeout handlers
                 jsPsych.pluginAPI.clearAllTimeouts();
 
@@ -314,6 +317,12 @@ var jsPsychCoinLottery = (function(jspsych) {
 
             // What to do when button is clicked
             function initiate_button () {
+
+                // Start measuring RT
+                start_time = performance.now();
+
+                data.start_time = start_time;
+
                 // Flip cards
                 flip_all_cards();
                 
@@ -338,9 +347,6 @@ var jsPsychCoinLottery = (function(jspsych) {
 
                 // Remove flip button
                 display_element.removeChild(flipButton);
-
-                // Start measuring RT
-                start_time = performance.now();
             }
 
             // Sample from categorical distribution
