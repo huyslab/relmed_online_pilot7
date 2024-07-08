@@ -37,6 +37,11 @@ var jsPsychCoinLottery = (function(jspsych) {
                 type: jspsych.ParameterType.INT,
                 default: 10,
                 description: 'Gap between cards in _'
+            },
+            coins: {
+                type: jspsych.ParameterType.COMPLEX,
+                default: undefined,
+                description: "Coin values to show"
             }
         }
     };
@@ -47,6 +52,7 @@ var jsPsychCoinLottery = (function(jspsych) {
         }
 
         trial(display_element, trial) {
+            
             // Placeholder for choices
             var response = {
                 choices: [],
@@ -63,6 +69,13 @@ var jsPsychCoinLottery = (function(jspsych) {
             const m = trial.num_rects; // Number of divs
             const j = trial.num_rows; // Number of rows
             const k = trial.num_cols; // Number of columns
+
+            // Coin dictionary
+            const coin_names = {
+                0.01: "1penny",
+                0.5: "50pence",
+                1: "1pound"
+            }
     
             // Create and append divs
             for (let i = 0; i < m; i++) {
@@ -78,7 +91,7 @@ var jsPsychCoinLottery = (function(jspsych) {
 
                 const coin = document.createElement('img');
                 coin.className = 'coin';
-                coin.src = "imgs/1penny.png"
+                coin.src = "imgs/" + coin_names[trial.coins[i]] + ".png"
                 
                 front.appendChild(coin);
                 div.appendChild(front);
@@ -119,10 +132,10 @@ var jsPsychCoinLottery = (function(jspsych) {
                 }
 
                 .rect .front {
-                    background-color: blue;
+                    background-color: lightgrey;
                 }
                 .rect .back {
-                    background-color: red;
+                    background-color: darkgrey;
                     transform: rotateY(180deg);
                 }
                 .flipped {
