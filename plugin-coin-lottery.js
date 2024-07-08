@@ -75,7 +75,12 @@ var jsPsychCoinLottery = (function(jspsych) {
                 front.className = 'side front';
                 const back = document.createElement('div');
                 back.className = 'side back';
-    
+
+                const coin = document.createElement('img');
+                coin.className = 'coin';
+                coin.src = "imgs/1penny.png"
+                
+                front.appendChild(coin);
                 div.appendChild(front);
                 div.appendChild(back);
                 container.appendChild(div);
@@ -107,6 +112,12 @@ var jsPsychCoinLottery = (function(jspsych) {
                     backface-visibility: hidden;
                     border: 1px solid #000;
                 }
+                .rect .coin {
+                    width: 100%;
+                    height: 100%;
+                    backface-visibility: hidden;
+                }
+
                 .rect .front {
                     background-color: blue;
                 }
