@@ -18,11 +18,6 @@ var jsPsychCoinLottery = (function(jspsych) {
                 default: 3,
                 description: 'Number of columns in the grid'
             },
-            shuffle: {
-                type: jspsych.ParameterType.BOOL,
-                default: true,
-                description: 'Whether to shuffle the divs initially'
-            },
             flip: {
                 type: jspsych.ParameterType.BOOL,
                 default: true,
@@ -174,12 +169,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                     });
                 });
             }
-    
-            // Initial shuffle if specified
-            if (trial.shuffle) {
-                shuffleDivs();
-            }
-    
+        
             // Add flip button if flip is enabled
             if (trial.flip) {
                 const flipButton = document.createElement('button');
