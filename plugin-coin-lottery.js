@@ -290,8 +290,9 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
 
                 // Change message
-                prompt.innerHTML = "<p>The coins above will be added to your bonus payment.</p>\
-                    <p>Press the button to continue:  </p>"
+                var msg_part = trial.n_flips > 1 ? "The coins above" : "This coin"
+                prompt.innerHTML = `<p>${msg_part} will be added to your bonus payment.</p>\
+                    <p>Press the button to continue:  </p>`
 
                 // Add end trial button
                 const endButton = document.createElement('button');
