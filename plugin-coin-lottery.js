@@ -5,17 +5,17 @@ var jsPsychCoinLottery = (function(jspsych) {
         parameters: {
             num_rects: {
                 type: jspsych.ParameterType.INT,
-                default: 9,
+                default: 30,
                 description: 'Number of rectangle divs'
             },
             num_rows: {
                 type: jspsych.ParameterType.INT,
-                default: 3,
+                default: 5,
                 description: 'Number of rows in the grid'
             },
             num_cols: {
                 type: jspsych.ParameterType.INT,
-                default: 3,
+                default: 6,
                 description: 'Number of columns in the grid'
             },
             n_flips: {
@@ -86,9 +86,8 @@ var jsPsychCoinLottery = (function(jspsych) {
             style.innerHTML = `
                 #container {
                     position: relative;
-                    height: 40vh;
-                    width: 30vw;
-                    max-width: 465px;
+                    height: ${(trial.num_rows * (trial.card_height + trial.card_gap))}px;
+                    width: ${(trial.num_cols * (trial.card_width + trial.card_gap))}px;
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                     gap: 10px;
