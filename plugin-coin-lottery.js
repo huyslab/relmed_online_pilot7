@@ -18,10 +18,10 @@ var jsPsychCoinLottery = (function(jspsych) {
                 default: 3,
                 description: 'Number of columns in the grid'
             },
-            flip: {
-                type: jspsych.ParameterType.BOOL,
-                default: true,
-                description: 'Whether to allow flipping the divs'
+            n_flips: {
+                type: jspsych.ParameterType.INT,
+                default: 3,
+                description: 'Number of flips allowed'
             }
         }
     };
@@ -190,17 +190,15 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
             }
         
-            // Add flip button if flip is enabled
-            if (trial.flip) {
-                const flipButton = document.createElement('button');
-                flipButton.innerHTML = 'Flip and shuffle';
-                flipButton.onclick = () => {
-                    flipAllDivs();
-                    jsPsych.pluginAPI.setTimeout(shuffleDivs, 600);
-                    makeClickable();
-                };
-                display_element.appendChild(flipButton);
-            }
+            // Add flip button
+            const flipButton = document.createElement('button');
+            flipButton.innerHTML = 'Flip and shuffle';
+            flipButton.onclick = () => {
+                flipAllDivs();
+                jsPsych.pluginAPI.setTimeout(shuffleDivs, 600);
+                makeClickable();
+            };
+            display_element.appendChild(flipButton);
     
             // Add end trial button
             const endButton = document.createElement('button');
