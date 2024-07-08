@@ -26,12 +26,18 @@ var jsPsychCoinLottery = (function(jspsych) {
         }
     };
 
-    class CointLotteryPlugin {
+    class CoinLotteryPlugin {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
         }
 
         trial(display_element, trial) {
+            // Placeholder for choices
+            var response = {
+                chioces: [],
+                rts: []
+            }
+
             // Create the container div
             display_element.innerHTML = '<div id="container"></div>';
             const container = display_element.querySelector('#container');
@@ -45,6 +51,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 const div = document.createElement('div');
                 div.className = 'rect';
                 div.id = `rect-${i}`;
+                div.setAttribute("data-choice", i)
     
                 const front = document.createElement('div');
                 front.className = 'side front';
@@ -193,8 +200,8 @@ var jsPsychCoinLottery = (function(jspsych) {
         }
     }
 
-    CointLotteryPlugin.info = info;
+    CoinLotteryPlugin.info = info;
 
-    return CointLotteryPlugin;
+    return CoinLotteryPlugin;
 
 })(jsPsychModule);
