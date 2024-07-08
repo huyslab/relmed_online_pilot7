@@ -282,10 +282,22 @@ var jsPsychCoinLottery = (function(jspsych) {
 
             // What to do after last response
             function after_last_response(){
+
+                // Make cards unclickable
                 const rects = document.querySelectorAll('.rect');
                 rects.forEach(rect => {
                     rect.removeEventListener('click', click_function);
                 });
+
+                // Change message
+                prompt.innerHTML = "<p>The coins above will be added to your bonus payment.</p>\
+                    <p>Press the button to continue:  </p>"
+
+                // Add end trial button
+                const endButton = document.createElement('button');
+                endButton.innerHTML = 'Continue';
+                endButton.onclick = end_trial;
+                prompt.children[1].appendChild(endButton);
             }
 
             // End trial function
@@ -313,6 +325,19 @@ var jsPsychCoinLottery = (function(jspsych) {
                 // Remove images
                 remove_imgs();
 
+                // Change message
+                var msg = "<p>Using the mouse, pick "
+
+                if (trial.n_flips > 1) {
+                    msg += `${trial.n_flips} cards.</p>`
+                } else {
+                    msg += "one card.</p>"
+                }
+                prompt.innerHTML = msg;
+
+                // Remove flip button
+                display_element.removeChild(flipButton);
+
                 // Start measuring RT
                 start_time = performance.now();
             }
@@ -338,18 +363,20 @@ var jsPsychCoinLottery = (function(jspsych) {
                 // In case of floating point precision issues, return the last category
                 return probabilities.length - 1;
             }
-        
+            
+            // Add text
+            const prompt = document.createElement('div');
+            prompt.innerHTML = "<p>These are the coins you collected in the challenge.</p>\
+                <p>Press this button to hide and shuffle them: </p>";
+            prompt.className = "instructions";
+            display_element.appendChild(prompt);
+
             // Add flip button
             const flipButton = document.createElement('button');
             flipButton.innerHTML = 'Flip and shuffle';
             flipButton.onclick = initiate_button;
-            display_element.appendChild(flipButton);
+            prompt.children[1].appendChild(flipButton);
     
-            // Add end trial button
-            const endButton = document.createElement('button');
-            endButton.innerHTML = 'End Trial';
-            endButton.onclick = end_trial;
-            display_element.appendChild(endButton);
         }
     }
 
