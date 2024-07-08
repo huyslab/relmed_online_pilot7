@@ -38,6 +38,9 @@ var jsPsychCoinLottery = (function(jspsych) {
                 rts: []
             }
 
+            // Placeholder for start time
+            var start_time;
+
             // Create the container div
             display_element.innerHTML = '<div id="container"></div>';
             const container = display_element.querySelector('#container');
@@ -160,34 +163,53 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
             }
 
+            // Function for each button click
+            function click_function(e) {
+
+                var rect = e.currentTarget;
+
+                // Get data
+                var choice = rect.getAttribute("data-choice");
+                var rt = Math.round(performance.now() - start_time);
+
+                response.choices.push(choice);
+                response.rts.push(rt);
+
+                // Call after_last_response if last response
+                if (response.choices.length >= trial.n_flips){
+                    after_last_response();
+                }
+
+                // Flip
+                rect.classList.toggle('flipped');
+                const transform = rect.style.transform;
+                if (rect.classList.contains('flipped')) {
+                    rect.style.transform = transform + ' rotateY(180deg)';
+                } else {
+                    rect.style.transform = transform.replace(' rotateY(180deg)', '');
+                }
+            }
+
             // Make clickable function
             function makeClickable(){
 
                 // Start measuring RT
-                var start_time = performance.now();
+                start_time = performance.now();
 
                 const rects = document.querySelectorAll('.rect');
                 rects.forEach(rect => {
                     // Add click event listener to flip the rect
-                    rect.addEventListener('click', function() {
-
-                        // Get data
-                        var choice = rect.getAttribute("data-choice");
-                        var rt = Math.round(performance.now() - start_time);
-
-                        response.choices.push(choice);
-                        response.rts.push(rt);
-
-                        // Flip
-                        rect.classList.toggle('flipped');
-                        const transform = rect.style.transform;
-                        if (rect.classList.contains('flipped')) {
-                            rect.style.transform = transform + ' rotateY(180deg)';
-                        } else {
-                            rect.style.transform = transform.replace(' rotateY(180deg)', '');
-                        }
-                    });
+                    rect.addEventListener('click', click_function);
                 });
+            }
+
+            // What to do after last response
+            function after_last_response(){
+                const rects = document.querySelectorAll('.rect');
+                rects.forEach(rect => {
+                    rect.removeEventListener('click', click_function);
+                });
+                console.log("disabled")
             }
         
             // Add flip button
