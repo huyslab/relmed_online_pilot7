@@ -92,6 +92,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 const coin = document.createElement('img');
                 coin.className = 'coin';
                 coin.src = "imgs/" + coin_names[trial.coins[i]] + ".png"
+                coin.id = `coin-${i}`
                 
                 front.appendChild(coin);
                 div.appendChild(front);
@@ -189,6 +190,20 @@ var jsPsychCoinLottery = (function(jspsych) {
                     rect.style.transform = `translate(${x}px, ${y}px) rotateY(${rect.classList.contains('flipped') ? 180 : 0}deg)`;
                 });
             }
+
+            // Remove image function
+            function remove_imgs(){
+                const rects = Array.from(document.querySelectorAll('.rect'));
+                
+                rects.forEach((rect, i) => {
+                    var img = document.getElementById(`coin-${i}`);
+
+                    if (img) {
+                        rect.children[0].removeChild(img);
+                    }                    
+
+                })
+            }
     
             // Flip function
             function flip_all_cards() {
@@ -270,6 +285,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 flip_all_cards();
                 jsPsych.pluginAPI.setTimeout(shuffle_cards, 600);
                 make_clickable();
+                remove_imgs();
             };
             display_element.appendChild(flipButton);
     
