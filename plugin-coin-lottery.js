@@ -34,7 +34,7 @@ var jsPsychCoinLottery = (function(jspsych) {
         trial(display_element, trial) {
             // Placeholder for choices
             var response = {
-                chioces: [],
+                choices: [],
                 rts: []
             }
 
@@ -162,10 +162,23 @@ var jsPsychCoinLottery = (function(jspsych) {
 
             // Make clickable function
             function makeClickable(){
+
+                // Start measuring RT
+                var start_time = performance.now();
+
                 const rects = document.querySelectorAll('.rect');
                 rects.forEach(rect => {
                     // Add click event listener to flip the rect
                     rect.addEventListener('click', function() {
+
+                        // Get data
+                        var choice = rect.getAttribute("data-choice");
+                        var rt = Math.round(performance.now() - start_time);
+
+                        response.choices.push(choice);
+                        response.rts.push(rt);
+
+                        // Flip
                         rect.classList.toggle('flipped');
                         const transform = rect.style.transform;
                         if (rect.classList.contains('flipped')) {
