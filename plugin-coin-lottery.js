@@ -211,6 +211,17 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
                 console.log("disabled")
             }
+
+            // End trial function
+            function end_trial() {
+                // kill any remaining setTimeout handlers
+                jsPsych.pluginAPI.clearAllTimeouts();
+
+                // Clear the display
+                display_element.innerHTML = ""; 
+
+                jsPsych.finishTrial(response);
+            }
         
             // Add flip button
             const flipButton = document.createElement('button');
@@ -225,15 +236,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             // Add end trial button
             const endButton = document.createElement('button');
             endButton.innerHTML = 'End Trial';
-            endButton.onclick = () => {
-                // kill any remaining setTimeout handlers
-                jsPsych.pluginAPI.clearAllTimeouts();
-
-                // Clear the display
-                display_element.innerHTML = ""; 
-
-                jsPsych.finishTrial(response);
-            };
+            endButton.onclick = end_trial;
             display_element.appendChild(endButton);
         }
     }
