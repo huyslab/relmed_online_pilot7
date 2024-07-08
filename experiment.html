@@ -9,6 +9,7 @@
     <script src="jspsych/plugin-call-function.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
     <script src="plugin-PLT.js"></script>
+    <script src="plugin-coin-lottery.js"></script>
     <script src="instructions.js"></script>
     <script src="utils.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
@@ -224,43 +225,6 @@
         return PLT_task
     }
 
-    let lottery_bonus = {
-        type: jsPsychCallFunction,
-        func: function() {
-            // Get block numbers for filtering
-            let blocks = jsPsych.data.get().filter({trial_type: "PLT"}).select('block').values;
-
-            // Get block valence for each trial
-            let valence = jsPsych.data.get().filter({trial_type: "PLT"}).select('valence').values;
-
-            // Get left and right outcome for each trial
-            let outcomeRight = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeRight').values;
-            let outcomeLeft = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeLeft').values;
-
-            // Get chioce
-            let choice = jsPsych.data.get().filter({trial_type: "PLT"}).select('choice').values;
-
-            let coins_for_lottery = []
-            for (i=0; i<valence.length; i++){
-                console.log(blocks[i] + "," + valence[i] + "," + outcomeRight[i] + "," + outcomeLeft[i] + "," + chioce[i])
-                if ((typeof blocks[i] !== "number") || choice[i] == "noresp"){
-                    console.log('skipped')
-                    continue
-                }
-
-                if (valence[i] == 1){
-                    coins_for_lottery.push(choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]);
-                    console.log("pushed" + (choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]))
-                } else {
-                    coins_for_lottery.push(choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]);
-                    console.log("pushed " + (choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]))
-                }
-            }
-
-            return coins_for_lottery
-        }
-    }
-
     async function load_squences(condition, session) {
         try {
             const response = await fetch('PLT_task_structure_' + condition + '.json');
@@ -305,6 +269,16 @@
                 ].map(s => "imgs/" + s)
             }
         ]
+
+        procedure.push({
+            type: jsPsychCoinLottery,
+            num_rects: 9,
+            num_rows: 3,
+            num_cols: 3,
+            shuffle: true,
+            flip: true
+        });
+
         
         // Add instructions
         // procedure = procedure.concat(prepare_instructions());
