@@ -134,7 +134,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             }
     
             // Shuffle function
-            function shuffleDivs() {
+            function shuffle_cards() {
                 const rects = Array.from(document.querySelectorAll('.rect'));
                 const indices = rects.map((_, i) => i);
                 const shuffledIndices = shuffleArray(indices);
@@ -150,7 +150,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             }
     
             // Flip function
-            function flipAllDivs() {
+            function flip_all_cards() {
                 const rects = document.querySelectorAll('.rect');
                 rects.forEach(rect => {
                     rect.classList.toggle('flipped');
@@ -191,7 +191,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             }
 
             // Make clickable function
-            function makeClickable(){
+            function make_clickable(){
 
                 // Start measuring RT
                 start_time = performance.now();
@@ -209,7 +209,6 @@ var jsPsychCoinLottery = (function(jspsych) {
                 rects.forEach(rect => {
                     rect.removeEventListener('click', click_function);
                 });
-                console.log("disabled")
             }
 
             // End trial function
@@ -227,9 +226,9 @@ var jsPsychCoinLottery = (function(jspsych) {
             const flipButton = document.createElement('button');
             flipButton.innerHTML = 'Flip and shuffle';
             flipButton.onclick = () => {
-                flipAllDivs();
-                jsPsych.pluginAPI.setTimeout(shuffleDivs, 600);
-                makeClickable();
+                flip_all_cards();
+                jsPsych.pluginAPI.setTimeout(shuffle_cards, 600);
+                make_clickable();
             };
             display_element.appendChild(flipButton);
     
