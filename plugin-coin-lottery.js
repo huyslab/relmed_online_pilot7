@@ -64,9 +64,10 @@ var jsPsychCoinLottery = (function(jspsych) {
         trial(display_element, trial) {
             
             // Placeholder for choices
-            var response = {
+            var data = {
                 choices: [],
-                rts: []
+                rts: [],
+                outcomes: []
             }
 
             // Placeholder for start time
@@ -238,11 +239,11 @@ var jsPsychCoinLottery = (function(jspsych) {
                 var choice = rect.getAttribute("data-choice");
                 var rt = Math.round(performance.now() - start_time);
 
-                response.choices.push(choice);
-                response.rts.push(rt);
+                data.choices.push(choice);
+                data.rts.push(rt);
 
                 // Call after_last_response if last response
-                if (response.choices.length >= trial.n_flips){
+                if (data.choices.length >= trial.n_flips){
                     after_last_response();
                 }
 
@@ -255,6 +256,9 @@ var jsPsychCoinLottery = (function(jspsych) {
                 coin.src = "imgs/" + coin_names[trial.values[draw]] + ".png"
 
                 rect.children[0].appendChild(coin);
+
+                // Save drawn outcome to data
+                data.outcomes.push(trial.values[draw]);
 
                 // Flip
                 rect.classList.toggle('flipped');
@@ -292,7 +296,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 // Clear the display
                 display_element.innerHTML = ""; 
 
-                jsPsych.finishTrial(response);
+                jsPsych.finishTrial(data);
             }
 
             // What to do when button is clicked
