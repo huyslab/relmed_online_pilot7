@@ -85,6 +85,7 @@ function countPLTAfterLastNonPLT(arr) {
     return count;
 }
 
+// Find maximum of two vectors in each positin, and return sum
 function getSumofMax(arr1, arr2) {
     function add(accumulator, a) {
         return accumulator + a;
@@ -92,6 +93,41 @@ function getSumofMax(arr1, arr2) {
       
 // Assuming arr1 and arr2 are of the same length
     return arr1.map((value, index) => Math.max(value, arr2[index])).reduce(add, 0);
+}
+
+// Extract observed coins for lottery
+function get_coins_from_data() {
+    // Get block numbers for filtering
+    let blocks = jsPsych.data.get().filter({trial_type: "PLT"}).select('block').values;
+
+    // Get block valence for each trial
+    let valence = jsPsych.data.get().filter({trial_type: "PLT"}).select('valence').values;
+
+    // Get left and right outcome for each trial
+    let outcomeRight = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeRight').values;
+    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeLeft').values;
+
+    // Get choice
+    let choice = jsPsych.data.get().filter({trial_type: "PLT"}).select('choice').values;
+
+    let coins_for_lottery = []
+    for (i=0; i<valence.length; i++){
+        console.log(blocks[i] + "," + valence[i] + "," + outcomeRight[i] + "," + outcomeLeft[i] + "," + choice[i])
+        if ((typeof blocks[i] !== "number") || choice[i] == "noresp"){
+            console.log('skipped')
+            continue
+        }
+
+        if (valence[i] == 1){
+            coins_for_lottery.push(choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]);
+            console.log("pushed" + (choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]))
+        } else {
+            coins_for_lottery.push(choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]);
+            console.log("pushed " + (choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]))
+        }
+    }
+
+    return coins_for_lottery
 }
   
   
