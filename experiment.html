@@ -190,6 +190,35 @@
             
         }
     } 
+
+    coin_lottery = {
+        type: jsPsychCoinLottery,
+        coins: () => {
+            const coins_from_data = get_coins_from_data();
+
+            return createProportionalArray(coins_from_data, 30)
+        },
+        props: () => {
+
+            // Compute data proportion
+            const coins_from_data = get_coins_from_data();
+
+            const raw_props = computeCategoryProportions(coins_from_data);
+
+            const prior = [0.1, 0.3, 0.6];
+
+            // Take weighted average
+            const weight_data = 0.6;
+
+            let weightedSum = raw_props.map((value, index) => {
+                return (value * weight_data) + (prior[index] * (1 - weight_data));
+            });
+
+            // Normalize and return
+            let sum = weightedSum.reduce((acc, value) => acc + value, 0);
+            return weightedSum.map(value => value / sum);
+        }
+    }
     
     function build_PLT_task(structure, insert_msg = true){
         let PLT_task = [];
@@ -269,19 +298,15 @@
                 ].map(s => "imgs/" + s)
             }
         ]
-
-        procedure.push({
-            type: jsPsychCoinLottery,
-            coins: Array(10).fill(1).concat(Array(10).fill(0.5), Array(10).fill(0.01)),
-            props: [0.2, 0.3, 0.5]
-        });
-
         
         // Add instructions
-        // procedure = procedure.concat(prepare_instructions());
+        procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));
+
+        // Add coin lottery
+        procedure.push(coin_lottery);
 
         // Final messages and data saving
         procedure.push({                

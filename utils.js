@@ -130,8 +130,7 @@ function get_coins_from_data() {
     return coins_for_lottery
 }
 
-// Create a represantative array of coins of n length
-function createProportionalArray(originalArray, newSize) {
+function computeCategoryProportions(originalArray){
     // Step 1: Calculate the frequency of each unique float value
     const frequencyMap = {};
     originalArray.forEach(value => {
@@ -148,6 +147,15 @@ function createProportionalArray(originalArray, newSize) {
     for (let value in frequencyMap) {
         proportionMap[value] = frequencyMap[value] / totalSize;
     }
+
+    return proportionMap
+}
+
+// Create a represantative array of coins of n length
+function createProportionalArray(originalArray, newSize) {
+    
+    // Steps 1 and 2: Compute proportions
+    const proportionMap = computeCategoryProportions(originalArray);
 
     // Step 3: Calculate the counts for the new array
     const newCounts = {};
@@ -177,27 +185,4 @@ function createProportionalArray(originalArray, newSize) {
     }
 
     return newArray;
-}
-
-
-// Sample from categorical distribution
-function sampleCategorical(probabilities) {
-    // Step 1: Generate a random number between 0 and 1
-    const random = Math.random();
-    
-    // Step 2: Initialize cumulative sum
-    let cumulativeSum = 0;
-    
-    // Step 3: Iterate through probabilities array
-    for (let i = 0; i < probabilities.length; i++) {
-        cumulativeSum += probabilities[i];
-        
-        // Step 4: Select the category if the random number is less than the cumulative sum
-        if (random < cumulativeSum) {
-            return i;
-        }
-    }
-    
-    // In case of floating point precision issues, return the last category
-    return probabilities.length - 1;
 }
