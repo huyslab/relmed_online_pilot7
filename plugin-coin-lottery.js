@@ -249,9 +249,6 @@ var jsPsychCoinLottery = (function(jspsych) {
             // Make clickable function
             function make_clickable(){
 
-                // Start measuring RT
-                start_time = performance.now();
-
                 const rects = document.querySelectorAll('.rect');
                 rects.forEach(rect => {
                     // Add click event listener to flip the rect
@@ -277,16 +274,28 @@ var jsPsychCoinLottery = (function(jspsych) {
 
                 jsPsych.finishTrial(response);
             }
+
+            function initiate_button () {
+                // Flip cards
+                flip_all_cards();
+                
+                // Shuffle cards
+                jsPsych.pluginAPI.setTimeout(shuffle_cards, 600);
+                
+                // Make them clickable
+                make_clickable();
+                
+                // Remove images
+                remove_imgs();
+
+                // Start measuring RT
+                start_time = performance.now();
+            }
         
             // Add flip button
             const flipButton = document.createElement('button');
             flipButton.innerHTML = 'Flip and shuffle';
-            flipButton.onclick = () => {
-                flip_all_cards();
-                jsPsych.pluginAPI.setTimeout(shuffle_cards, 600);
-                make_clickable();
-                remove_imgs();
-            };
+            flipButton.onclick = initiate_button;
             display_element.appendChild(flipButton);
     
             // Add end trial button
