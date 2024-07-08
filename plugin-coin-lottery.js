@@ -115,12 +115,16 @@ var jsPsychCoinLottery = (function(jspsych) {
             const style = document.createElement('style');
             style.innerHTML = `
                 #container {
-                    position: relative;
+                    position: fixed;
+                    top: 10vh;
                     height: ${(trial.num_rows * (trial.card_height + trial.card_gap))}px;
                     width: ${(trial.num_cols * (trial.card_width + trial.card_gap))}px;
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                     gap: 10px;
+                }
+                #prompt {
+                    margin-top: ${(trial.num_rows * (trial.card_height + trial.card_gap)) + trial.card_gap}px;
                 }
                 .rect {
                     width: ${trial.card_width}px;
@@ -376,6 +380,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             prompt.innerHTML = "<p>These are the coins you collected in the challenge.</p>\
                 <p>Press this button to hide and shuffle them: </p>";
             prompt.className = "instructions";
+            prompt.id = "prompt";
             display_element.appendChild(prompt);
 
             // Add flip button
