@@ -42,6 +42,16 @@ var jsPsychCoinLottery = (function(jspsych) {
                 type: jspsych.ParameterType.COMPLEX,
                 default: undefined,
                 description: "Coin values to show"
+            },
+            props: {
+                type: jspsych.ParameterType.COMPLEX,
+                default: undefined,
+                description: "Proportions of coin values"
+            },
+            values: {
+                type: jspsych.ParameterType.COMPLEX,
+                default: [0.01, 0.5, 1],
+                description: "Unique coin values, match props in indices"
             }
         }
     };
@@ -236,6 +246,16 @@ var jsPsychCoinLottery = (function(jspsych) {
                     after_last_response();
                 }
 
+                // Add coin
+                var draw = sampleCategorical(trial.props);
+                console.log(draw);
+                
+                const coin = document.createElement('img');
+                coin.className = 'coin';
+                coin.src = "imgs/" + coin_names[trial.values[draw]] + ".png"
+
+                rect.children[0].appendChild(coin);
+
                 // Flip
                 rect.classList.toggle('flipped');
                 const transform = rect.style.transform;
@@ -275,6 +295,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 jsPsych.finishTrial(response);
             }
 
+            // What to do when button is clicked
             function initiate_button () {
                 // Flip cards
                 flip_all_cards();
@@ -290,6 +311,28 @@ var jsPsychCoinLottery = (function(jspsych) {
 
                 // Start measuring RT
                 start_time = performance.now();
+            }
+
+            // Sample from categorical distribution
+            function sampleCategorical(probabilities) {
+                // Step 1: Generate a random number between 0 and 1
+                const random = Math.random();
+                
+                // Step 2: Initialize cumulative sum
+                let cumulativeSum = 0;
+                
+                // Step 3: Iterate through probabilities array
+                for (let i = 0; i < probabilities.length; i++) {
+                    cumulativeSum += probabilities[i];
+                    
+                    // Step 4: Select the category if the random number is less than the cumulative sum
+                    if (random < cumulativeSum) {
+                        return i;
+                    }
+                }
+                
+                // In case of floating point precision issues, return the last category
+                return probabilities.length - 1;
             }
         
             // Add flip button

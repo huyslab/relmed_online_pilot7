@@ -179,5 +179,25 @@ function createProportionalArray(originalArray, newSize) {
     return newArray;
 }
 
-  
-  
+
+// Sample from categorical distribution
+function sampleCategorical(probabilities) {
+    // Step 1: Generate a random number between 0 and 1
+    const random = Math.random();
+    
+    // Step 2: Initialize cumulative sum
+    let cumulativeSum = 0;
+    
+    // Step 3: Iterate through probabilities array
+    for (let i = 0; i < probabilities.length; i++) {
+        cumulativeSum += probabilities[i];
+        
+        // Step 4: Select the category if the random number is less than the cumulative sum
+        if (random < cumulativeSum) {
+            return i;
+        }
+    }
+    
+    // In case of floating point precision issues, return the last category
+    return probabilities.length - 1;
+}
