@@ -22,6 +22,21 @@ var jsPsychCoinLottery = (function(jspsych) {
                 type: jspsych.ParameterType.INT,
                 default: 3,
                 description: 'Number of flips allowed'
+            },
+            card_width: {
+                type: jspsych.ParameterType.INT,
+                default: 100,
+                description: 'Width of card in _'
+            },
+            card_height: {
+                type: jspsych.ParameterType.INT,
+                default: 100,
+                description: 'Height of card in _'
+            },
+            card_gap: {
+                type: jspsych.ParameterType.INT,
+                default: 10,
+                description: 'Gap between cards in _'
             }
         }
     };
@@ -71,15 +86,16 @@ var jsPsychCoinLottery = (function(jspsych) {
             style.innerHTML = `
                 #container {
                     position: relative;
-                    width: 100%;
-                    height: 500px;
+                    height: 40vh;
+                    width: 30vw;
+                    max-width: 465px;
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                     gap: 10px;
                 }
                 .rect {
-                    width: 100px;
-                    height: 100px;
+                    width: ${trial.card_width}px;
+                    height: ${trial.card_height}px;
                     position: absolute;
                     transition: transform 0.5s ease;
                     transform-style: preserve-3d;
@@ -111,8 +127,10 @@ var jsPsychCoinLottery = (function(jspsych) {
                 rects.forEach((rect, index) => {
                     const row = Math.floor(index / k);
                     const col = index % k;
-                    const x = col * 110; // 100px width + 10px gap
-                    const y = row * 110; // 100px height + 10px gap
+
+                    // Find coordinates of rect
+                    const x = col * (trial.card_width + trial.card_gap); 
+                    const y = row * (trial.card_height + trial.card_gap); 
                     rect.style.transform = `translate(${x}px, ${y}px) rotateY(${rect.classList.contains('flipped') ? 180 : 0}deg)`;
                 });
             }
@@ -143,8 +161,8 @@ var jsPsychCoinLottery = (function(jspsych) {
                     const newIndex = shuffledIndices[index];
                     const row = Math.floor(newIndex / k);
                     const col = newIndex % k;
-                    const x = col * 110;
-                    const y = row * 110;
+                    const x = col * (trial.card_width + trial.card_gap); 
+                    const y = row * (trial.card_height + trial.card_gap); 
                     rect.style.transform = `translate(${x}px, ${y}px) rotateY(${rect.classList.contains('flipped') ? 180 : 0}deg)`;
                 });
             }
