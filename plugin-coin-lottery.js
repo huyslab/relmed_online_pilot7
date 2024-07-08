@@ -226,8 +226,13 @@ var jsPsychCoinLottery = (function(jspsych) {
             const endButton = document.createElement('button');
             endButton.innerHTML = 'End Trial';
             endButton.onclick = () => {
-                display_element.innerHTML = ""; // Clear the display
-                jsPsych.finishTrial();
+                // kill any remaining setTimeout handlers
+                jsPsych.pluginAPI.clearAllTimeouts();
+
+                // Clear the display
+                display_element.innerHTML = ""; 
+
+                jsPsych.finishTrial(response);
             };
             display_element.appendChild(endButton);
         }
