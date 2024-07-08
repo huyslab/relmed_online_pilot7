@@ -129,5 +129,55 @@ function get_coins_from_data() {
 
     return coins_for_lottery
 }
+
+// Create a represantative array of coins of n length
+function createProportionalArray(originalArray, newSize) {
+    // Step 1: Calculate the frequency of each unique float value
+    const frequencyMap = {};
+    originalArray.forEach(value => {
+        if (frequencyMap[value]) {
+            frequencyMap[value]++;
+        } else {
+            frequencyMap[value] = 1;
+        }
+    });
+
+    // Step 2: Calculate the proportions
+    const totalSize = originalArray.length;
+    const proportionMap = {};
+    for (let value in frequencyMap) {
+        proportionMap[value] = frequencyMap[value] / totalSize;
+    }
+
+    // Step 3: Calculate the counts for the new array
+    const newCounts = {};
+    let sumCounts = 0;
+    for (let value in proportionMap) {
+        newCounts[value] = Math.floor(proportionMap[value] * newSize);
+        sumCounts += newCounts[value];
+    }
+
+    // Step 4: Distribute the remaining elements to ensure the new array has the correct size
+    let remainingElements = newSize - sumCounts;
+    while (remainingElements > 0) {
+        for (let value in newCounts) {
+            if (remainingElements > 0) {
+                newCounts[value]++;
+                remainingElements--;
+            }
+        }
+    }
+
+    // Step 5: Create the new array based on the calculated counts
+    const newArray = [];
+    for (let value in newCounts) {
+        for (let i = 0; i < newCounts[value]; i++) {
+            newArray.push(parseFloat(value)); // Convert the key back to float
+        }
+    }
+
+    return newArray;
+}
+
   
   
