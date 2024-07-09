@@ -34,7 +34,8 @@
     <div id='display_element' class='jsPsychDE'></div>
 </body>
 <script>
-    code_version = 0.1
+    window.code_version = 0.1
+    window.maxWarnings = 10
 
     // Conditions:
     // First digit - early stopping. 0 - no early stopping, 1 - early stopping
@@ -61,6 +62,7 @@
 
     // Save participant variables to data
     jsPsych.data.addProperties({
+        code_version: window.code_version,
         prolific_pid: window.prolificPID,
         study_id: window.studyId,
         session_id: window.sessionId,
@@ -193,7 +195,9 @@
     ]
 
     const PLT_trial =  {
-        timeline: [fullscreen_prompt,
+        timeline: [
+            kick_out,
+            fullscreen_prompt,
             {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div style="font-size:60px">+</div>',
@@ -215,7 +219,15 @@
                 block: jsPsych.timelineVariable('block'),
                 trial: jsPsych.timelineVariable('trial'),
                 valence: jsPsych.timelineVariable('valence')
-            }
+            },
+            on_finish: function(data) {
+                if (data.choice === "noresp") {
+                    var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+                    jsPsych.data.addProperties({
+                        n_warnings: up_to_now + 1
+                    });
+                }
+             },
         }
         ],
         conditional_function: function(){

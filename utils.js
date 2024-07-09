@@ -27,7 +27,39 @@ const fullscreen_prompt = {
     data: {
       trialphase: 'fullscreen-prompt'
     }
-  }
+}
+
+const kick_out = {
+    type: jsPsychHtmlKeyboardResponse,
+    conditional_function: function() {
+      if (jsPsych.data.get().last(1).select('n_warnings').values[0] >= window.maxWarnings) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    css_classes: ['instructions'],
+    timeline: [{
+      stimulus: `<p>It seems that you are not following the study instructions.</p>
+        <p>Unfortunately, you cannot continue with this study.</p>
+        <p>If you believe this is a mistake, please email y.abir@ucl.ac.uk, explaining the circumstances.</p>
+        <p>Please return this tudy on Prolific.</p>
+        <p>You may now close this tab.</p>
+      `
+    }],
+    choices: ["NO_KEYS"],
+    on_start: function() {
+        // Save data
+        saveDataREDCap(retry = 3);
+
+        // Allow refresh
+        window.removeEventListener('beforeunload', preventRefresh);
+    },
+    data: {
+      trialphase: 'kick-out'
+    }
+}
+  
   
   // Function that checks for fullscreen
 function check_fullscreen(){
