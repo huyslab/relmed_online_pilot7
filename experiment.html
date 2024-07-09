@@ -5,6 +5,7 @@
     <title>PLT</title>
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-browser-check.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
     <script src="jspsych/plugin-call-function.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
@@ -71,8 +72,50 @@
     })
 
     window.skipThisBlock = false;
+
+    // Preliminary checks
+    const preliminary_checks = [
+        {
+            type: jsPsychBrowserCheck,
+            css_classes: ['instructions'],
+            features: ["width", "height",
+                "browser",
+                "mobile",
+                "fullscreen"
+            ],
+            minimum_height: 600,
+            minimum_width: 900,
+            inclusion_function: (data) => {
+                return (['chrome', 'firefox'].includes(data.browser)) && 
+                    (data.mobile === false) &&
+                    (data.fullscreen === true)
+            },
+            exclusion_message: () => {
+                return `<div class=instructions><p>You must use Chrome or Firefox to complete this study. 
+                    Mobile devices are not allowed. 
+                    Your browser has to be able to dispaly in fullscreen mode, 
+                    and meet the minimal window size requirements.</p>
+                    <p>Please reopen this study on a device that matches these criteria, 
+                        or return this study to Prolific.</p></div>`
+            }
+        },
+        {
+            type: jsPsychPreload,
+            images: [
+                "1penny.png", "1pennybroken.png",
+                "1pound.png", "1poundbroken.png",
+                "50pence.png", "50pencebroken.png"
+            ].map(s => "imgs/" + s)
+        },
+        {
+            type: jsPsychFullscreen,
+            fullscreen_mode: true,
+            css_classes: ['instructions'],
+            message: "<p>This study runs in full screen mode.</p><p>Press the button below to continue.</p>"
+        }
+    ]
     
-    inter_block_msg = {
+    const inter_block_msg = {
         type: jsPsychHtmlKeyboardResponse,
         choices: ['arrowright', 'arrowleft'],
         css_classes: ['instructions'],
@@ -111,7 +154,7 @@
         on_finish: () => {window.skipThisBlock = false}
     }
 
-    inter_valence_msg = [
+    const inter_valence_msg = [
         {
             type: jsPsychHtmlKeyboardResponse,
             choices: ['space'],
@@ -148,7 +191,7 @@
         }
     ]
 
-    PLT_trial =  {
+    const PLT_trial =  {
         timeline: [{
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div style="font-size:60px">+</div>',
@@ -193,7 +236,7 @@
         }
     } 
 
-    coin_lottery = {
+    const coin_lottery = {
         type: jsPsychCoinLottery,
         coins: () => {
             const coins_from_data = get_coins_from_data();
@@ -287,7 +330,7 @@
         }
     }
 
-    end_experiment_msgs = [
+    const end_experiment_msgs = [
         {
             type: jsPsychInstructions,
             css_classes: ['instructions'],
@@ -315,16 +358,9 @@
     function run_full_experiment(structure){
 
         // Preload images
-        procedure = [
-            {
-                type: jsPsychPreload,
-                images: [
-                    "1penny.png", "1pennybroken.png",
-                    "1pound.png", "1poundbroken.png",
-                    "50pence.png", "50pencebroken.png"
-                ].map(s => "imgs/" + s)
-            }
-        ]
+        let procedure = [];
+
+        procedure = procedure.concat(preliminary_checks);
         
         // Add instructions
         procedure = procedure.concat(prepare_instructions());

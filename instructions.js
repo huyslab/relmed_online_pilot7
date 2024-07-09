@@ -2,12 +2,6 @@
 function prepare_instructions() {
     let inst =  [
         {
-            type: jsPsychFullscreen,
-            fullscreen_mode: true,
-            css_classes: ['instructions'],
-            message: "<p>This study runs in full screen mode.</p><p>Press the button below to continue.</p>"
-        },
-        {
         type: jsPsychInstructions,
         css_classes: ['instructions'],
         pages: [
