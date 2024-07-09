@@ -122,7 +122,7 @@ function prepare_instructions() {
         {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
-            stimulus: "<p>Now, let's practice avoiding losses. You'll start with £4.5 in coins. Try to lose as few as possible.</p>\
+            stimulus: "<p>Now, let's practice avoiding losses. You'll start with £6 in coins. Try to lose as few as possible.</p>\
                 <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
             choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"}
