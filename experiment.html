@@ -285,7 +285,7 @@
         }
     }
 
-    end_experiment = [
+    end_experiment_msgs = [
         {
             type: jsPsychInstructions,
             css_classes: ['instructions'],
@@ -335,7 +335,7 @@
         procedure.push(coin_lottery);
 
         // Final messages and data saving
-        procedure = procedure.concat(end_experiment);
+        procedure = procedure.concat(end_experiment_msgs);
 
         // Run
         jsPsych.run(procedure);

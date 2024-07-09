@@ -1,5 +1,5 @@
 // Save data to REDCap
-function saveDataREDCap() {
+function saveDataREDCap(retry = 1) {
 
     const auto_number = window.record_id == undefined
 
@@ -43,7 +43,23 @@ function saveDataREDCap() {
     )
     .catch(error => {
         console.error('Error:', error);
+        if (retry > 0) {
+            console.log('Retrying to submit data...');
+            saveDataREDCap(retry - 1);
+        } else {
+            console.error('Failed to submit data after retrying.');
+        }
     });
+}
+
+// Function to call at the end of the experiment
+function end_experiment() {
+
+    // Save data
+    saveDataREDCap(retry = 3);
+
+    // Redirect
+    window.location.replace("https://en.wikipedia.org/wiki/Recursive_islands_and_lakes")
 }
 
 // Function for formatting data from API
