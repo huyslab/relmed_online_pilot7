@@ -227,14 +227,14 @@
         for (let i=0; i < structure.length; i++){
             block = [
                 {
+                    type: jsPsychPreload,
+                    images: [
+                        "imgs/" + structure[i][0]["stimulus_right"],
+                        "imgs/" + structure[i][0]["stimulus_left"]
+                    ],
+                },
+                {
                     timeline: [
-                        {
-                            type: jsPsychPreload,
-                            images: [
-                                "imgs/" + structure[i][0]["stimulus_right"],
-                                "imgs/" + structure[i][0]["stimulus_left"]
-                            ],
-                        },
                         PLT_trial
                     ],
                     timeline_variables: structure[i]
