@@ -178,36 +178,130 @@ function prepare_instructions() {
                 had chosen the better card each time.</p>");
                 }
         
-                let final_page = "<p>You are almost ready to play for real.</p>\
+                let penultimate_pate = "<p>You are almost ready to play for real.</p>\
                     <p>You will play multiple rounds of The Card Collector's Challenge. ";
                 
                 if (window.valenceGrouped){
                     if (window.rewardFirst){
-                        final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
+                        penultimate_pate += "At first you'll play " +  window.totalBlockNumber / 2 + 
                             " rounds to win coins, and then another " +  window.totalBlockNumber / 2 + 
                             " rounds to avoid losing coins.</p>";
                     } else {
-                        final_page += "At first you'll play " +  window.totalBlockNumber / 2 + 
+                        penultimate_pate += "At first you'll play " +  window.totalBlockNumber / 2 + 
                             " rounds to avoid losing coins, and then another " +  window.totalBlockNumber / 2 + 
                             " rounds to win coins. You start the game with £x of coins.</p>";
                     }
                 } else {
-                    final_page += "You will play  " +  window.totalBlockNumber  + 
+                    penultimate_pate += "You will play  " +  window.totalBlockNumber  + 
                             " rounds, sometimes to win coins, and sometimes to avoid losing them.<br>\
                             You start the game with £x of coins. ";
                 }
                 
-                pages.push(final_page);
+                pages.push(penultimate_pate);
+
+                pages.push(
+                    `<p>Before you being the challenge, we will ask you to answer a few questions about the instructions you have just read.</p>
+                    <p>You must answer all questions correctly to begin the challenge</p>\
+                    <p>Otherwise, you can repeat the instructions and try again.</p>`
+                )
         
                 return(pages)
             },
             show_clickable_nav: true,
             data: {trialphase: "instructions"}
         }
-    ])
+    ]);
 
-    return inst
+    let quiz_questions = [
+        {
+            prompt: "The Card Collector always has a favorite card where they like to hide the higher value coins.",
+            options: ["True", "False"],
+            required: true
+        },
+        {
+            prompt: "If I find a broken coin, that means it will be removed from my purse.",
+            options: ["True", "False"],
+            required: true
+        },
+        {
+            prompt: "My goal is to collect as many high-value coins as I can.",
+            options: ["True", "False"],
+            required: true
+        },
+    ];
+
+    if (window.valenceGrouped){
+        if (window.rewardFirst){
+            quiz_questions.push(
+                {
+                    prompt: "I will first play 12 rounds to win coins, and then 12 rounds to avoid losing coins.",
+                    options: ["True", "False"],
+                    required: true
+                }
+            );
+        }else{
+            quiz_questions.push(
+                {
+                    prompt: "I will first play 12 rounds to avoid losing coins, and then 12 rounds to win coins.",
+                    options: ["True", "False"],
+                    required: true
+                }
+            );
+        }
+    }else{
+        quiz_questions.push(
+            {
+                prompt: "I will sometimes play to win coins, and sometimes to avoid losing coins.",
+                options: ["True", "False"],
+                required: true
+            }
+        );
+    }
+
+    inst.push(
+        {
+            type: jsPsychSurveyMultiChoice,
+            questions: quiz_questions,
+            preamble: `<div class=instuctions><p>For each statement, please indicate whether it is true or false:</p></div>`,
+            data: {
+                trialphase: "instruction_quiz"
+            }
+        }
+    );
+
+    inst.push(
+        {
+            type: jsPsychInstructions,
+            css_classes: ['instructions'],
+            timeline: [
+                {
+                    pages: [
+                    `<p>You did not answer all the quiz questions correctly. 
+                    Please read the instructions again before you continue</p>`
+                    ]
+                }
+            ],
+            conditional_function: check_quiz_failed,
+            show_clickable_nav: true,
+            data: {
+                trialphase: "quiz_failure"
+            }
+        }
+    );
+
+    inst_loop = {
+        timeline: inst,
+        loop_function: check_quiz_failed
+    }
+
+    return inst_loop
 } 
+
+function check_quiz_failed() {
+    const data = jsPsych.data.get().filter({trialphase: "instruction_quiz"}).last(1).select('response').values[0];
+    console.log(data)
+    return !Object.values(data).every(value => value === "True");
+}
 
 const lottery_instructions = {
     type: jsPsychInstructions,
