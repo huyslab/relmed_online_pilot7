@@ -189,12 +189,12 @@ function prepare_instructions() {
                     } else {
                         penultimate_pate += "At first you'll play " +  window.totalBlockNumber / 2 + 
                             " rounds to avoid losing coins, and then another " +  window.totalBlockNumber / 2 + 
-                            " rounds to win coins. You start the game with £x of coins.</p>";
+                            " rounds to win coins. You start the game with £114 of coins.</p>";
                     }
                 } else {
                     penultimate_pate += "You will play  " +  window.totalBlockNumber  + 
                             " rounds, sometimes to win coins, and sometimes to avoid losing them.<br>\
-                            You start the game with £x of coins. ";
+                            You start the game with £114 of coins. ";
                 }
                 
                 pages.push(penultimate_pate);
