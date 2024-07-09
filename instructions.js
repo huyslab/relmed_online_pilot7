@@ -72,6 +72,7 @@ function prepare_instructions() {
         css_classes: ['instructions'],
         stimulus: "<p>Let's practice both versions. We'll start with winning coins. \
             You begin with zero coins. Try to collect as many as you can.</p>\
+            <p>Note that from now onward, you will be presented with a message asking you to respond more quickly if you take too long to decide which card to flip.</p>\
             <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
