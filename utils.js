@@ -1,3 +1,11 @@
+// Prevent refreshing the page
+function preventRefresh(e) {
+    // Cancel the event
+    e.preventDefault();
+    e.returnValue = '';
+  }
+  
+
 // Save data to REDCap
 function saveDataREDCap(retry = 1) {
 
@@ -57,6 +65,9 @@ function end_experiment() {
 
     // Save data
     saveDataREDCap(retry = 3);
+
+    // Allow refresh
+    window.removeEventListener('beforeunload', preventRefresh);
 
     // Redirect
     window.location.replace("https://en.wikipedia.org/wiki/Recursive_islands_and_lakes")
