@@ -3,7 +3,7 @@ var jsPsychCoinLottery = (function(jspsych) {
     const info = {
         name: 'coin-lottery',
         parameters: {
-            num_rects: {
+            num_cards: {
                 type: jspsych.ParameterType.INT,
                 default: 30,
                 description: 'Number of rectangle divs'
@@ -62,6 +62,19 @@ var jsPsychCoinLottery = (function(jspsych) {
         }
 
         trial(display_element, trial) {
+
+            // Test arguments
+            if (trial.num_cards > trial.num_rows * trial.num_cols) {
+                throw new Error("num_rows and num_cols don't match num_cards")
+            }
+
+            if (trial.coins.length < trial.num_cards) {
+                throw new Error("The length of coins cannot be smaller than num_cards")
+            }
+
+            if (trial.props.length !== trial.values.length){
+                throw new Error("Lengths of props and values don't match.")
+            }
             
             // Placeholder for choices
             var data = {
@@ -77,7 +90,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             display_element.innerHTML = '<div id="container"></div>';
             const container = display_element.querySelector('#container');
             
-            const m = trial.num_rects; // Number of divs
+            const m = trial.num_cards; // Number of divs
             const j = trial.num_rows; // Number of rows
             const k = trial.num_cols; // Number of columns
 
