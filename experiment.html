@@ -285,6 +285,31 @@
         }
     }
 
+    end_experiment = [
+        {
+            type: jsPsychInstructions,
+            css_classes: ['instructions'],
+            pages: [
+                `<p>Thank you for participating in this study!</p>
+                <p>The purpose of this study is to develop games that can measure people's individual learning tendencies.
+                    In the future, these games will be used to facilitate mental health research ongoing at UCL.</p>`,
+                `<p>When you click continue, your data will be uploaded to the server. This may take up to two minutes.
+                    Please don't close or refresh your browser at this time.</p><p>When data upload is complete, you will be 
+                        rediredted to Prolific to complete your submission</p>`
+            ],
+            show_clickable_nav: true,
+            data: {trialphase: "experiment_end_message"}
+        },
+        {                
+            type: jsPsychHtmlKeyboardResponse,
+            css_classes: ['instructions'],
+            stimulus: "<p>Uploading data. Please don't close or refresh this window.</p>",
+            data: {trialphase: "end"},
+            data: {trialphase: "data_upload"},
+            on_start: saveDataREDCap
+        }
+    ]
+
     function run_full_experiment(structure){
 
         // Preload images
@@ -310,12 +335,7 @@
         procedure.push(coin_lottery);
 
         // Final messages and data saving
-        procedure.push({                
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: "Well done! You have finished the experiment.",
-            data: {trialphase: "end"},
-            on_start: saveDataREDCap
-        })
+        procedure = procedure.concat(end_experiment);
 
         // Run
         jsPsych.run(procedure);
