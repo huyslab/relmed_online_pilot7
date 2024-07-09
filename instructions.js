@@ -112,7 +112,7 @@ function prepare_instructions() {
                 let earnings = Math.round(jsPsych.data.get().filter({
                     block: "practice2", 
                     trial_type: "PLT"
-                }).select('chosenOutcome').sum() * 1000) / 1000
+                }).last(6).select('chosenOutcome').sum() * 1000) / 1000
     
                 return ["<p>Well done! You would have earned £" + earnings + " in this game.</p>"]
             },
@@ -163,7 +163,7 @@ function prepare_instructions() {
                 let losses = jsPsych.data.get().filter({
                     block: "practice3", 
                     trial_type: "PLT"
-                }).select('chosenOutcome').sum();
+                }).last(6).select('chosenOutcome').sum();
 
                 let earnings = Math.round((4.5 + losses) * 1000) / 1000
 
