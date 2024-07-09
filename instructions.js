@@ -51,7 +51,7 @@ function prepare_instructions() {
         pages: [
             "<p>Well done! You found a one-pound coin.</p>",
             "<p>The Card Collector uses 1 penny coins, 50 pence coins, and 1-pound coins. \
-                Usually, the 50 pence or 1-pound coin is hidden under the same card each time, \
+                Usually, the 1-pound coin is hidden under the same card each time, \
                 while the penny is under the other card. However, they sometimes mix it up.</p>\
             <p>Your goal is to collect as many valuable coins as possible by figuring out which card usually hides the better coins. \
                 When you complete the game, you will receive bonus money based on the value of the coins you collected.</p>",
