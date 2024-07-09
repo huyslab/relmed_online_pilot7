@@ -30,25 +30,25 @@ const fullscreen_prompt = {
   }
   
   // Function that checks for fullscreen
-  function check_fullscreen(){
+function check_fullscreen(){
     if (window.debug){
-      return false
+        return false
     }
-  
+
     var int = jsPsych.data.getInteractionData(),
     exit = int.values().filter(function(e){
-      return e.event == "fullscreenexit"
+        return e.event == "fullscreenexit"
     }),
     enter = int.values().filter(function(e){
-      return e.event == "fullscreenenter"
+        return e.event == "fullscreenenter"
     });
-  
+
     if (exit.length > 0){
-      return exit[exit.length - 1].time > enter[enter.length - 1].time
+        return exit[exit.length - 1].time > enter[enter.length - 1].time
     }else{
-      return false
+        return false
     }
-  }
+}
   
 
 // Save data to REDCap
