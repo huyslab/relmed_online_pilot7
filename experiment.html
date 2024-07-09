@@ -306,6 +306,7 @@
         procedure = procedure.concat(build_PLT_task(structure));
 
         // Add coin lottery
+        procedure.push(lottery_instructions);
         procedure.push(coin_lottery);
 
         // Final messages and data saving

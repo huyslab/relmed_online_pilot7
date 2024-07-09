@@ -207,3 +207,17 @@ function prepare_instructions() {
 
     return inst
 } 
+
+const lottery_instructions = {
+    type: jsPsychInstructions,
+    css_classes: ['instructions'],
+    pages: [
+        '<p>You have completed the Card Collector Challenge!</p>\
+            <p>Next, your bonus payment will be determined.</p>\
+            <p>On the next page, you will be presented with a representative sample of the coins \
+            you have collected during the challenge. The Card Collector will hide the coins behind cards and \
+            shuffle them. You will then be able to chose one card, to reveal the coin that will be paid to you as a bonus.</p> '
+    ],
+    show_clickable_nav: true,
+    data: {trialphase: "lottery_instructions"}
+}
