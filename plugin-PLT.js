@@ -147,7 +147,7 @@ jsPsychPLT = (function(jspsych) {
                     display: flex;
                     justify-content: space-around;
                     margin: auto;
-                    width: 10vw;
+                    width: 15vw;
                     max-width: 150px;
                     
                     text-wrap: normal;
