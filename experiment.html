@@ -126,22 +126,13 @@
         css_classes: ['instructions'],
         stimulus: function(){
             let valence = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select("valence").values[0];
-            let num_observed = countPLTAfterLastNonPLT(jsPsych.data.get().filter([
-                {trial_type: "PLT"},
-                {trialphase: "inter_block"}, 
-                {trialphase: "change_valence"}, 
-                {trialphase: "instructions"}]).select('trial_type').values)
-            
-            let past_feedback_right = jsPsych.data.get().filter({trial_type: "PLT"}).last(num_observed).select('outcomeRight').values
-            let past_feedback_left = jsPsych.data.get().filter({trial_type: "PLT"}).last(num_observed).select('outcomeLeft').values
-            let sum_past_high_magnitude = getSumofMax(past_feedback_right, past_feedback_left)
-            let remaining_feedback = Math.round((10 - sum_past_high_magnitude) * 1000) / 1000
-            
+            let best_rest = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select("best_rest").values[0];
+
             if (earlyStop & window.skipThisBlock){
                 txt = "<p>You've found the better card.</p><p>You will skip the remaining turns, and ";
                 
-                txt += valence == 1 ? ("automatically win all the remaining £" + remaining_feedback + " in coins left hidden under this card.") : 
-                    ("lose only the " +  (13 - num_observed) + " pence left hidden under this card.")
+                txt += valence == 1 ? ("automatically win all the remaining £" + best_rest + " in coins left hidden under this card.") : 
+                    ("lose only the £" +  Math.abs(best_rest) + " in broken coins left hidden under this card.")
 
                 txt += "</p><p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>";
 
@@ -220,7 +211,8 @@
                 trialphase: "task",
                 block: jsPsych.timelineVariable('block'),
                 trial: jsPsych.timelineVariable('trial'),
-                valence: jsPsych.timelineVariable('valence')
+                valence: jsPsych.timelineVariable('valence'),
+                best_rest: jsPsych.timelineVariable('best_rest')
             },
             on_finish: function(data) {
                 if (data.choice === "noresp") {
