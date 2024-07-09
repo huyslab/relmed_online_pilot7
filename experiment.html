@@ -108,7 +108,8 @@
                 "1penny.png", "1pennybroken.png",
                 "1pound.png", "1poundbroken.png",
                 "50pence.png", "50pencebroken.png"
-            ].map(s => "imgs/" + s)
+            ].map(s => "imgs/" + s),
+            post_trial_gap: 800
         },
         {
             type: jsPsychFullscreen,
@@ -289,6 +290,7 @@
                         "imgs/" + structure[i][0]["stimulus_right"],
                         "imgs/" + structure[i][0]["stimulus_left"]
                     ],
+                    post_trial_gap: 800
                 },
                 {
                     timeline: [
