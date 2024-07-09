@@ -130,7 +130,7 @@ function prepare_instructions() {
     ]);
 
     let hammer_on_right = [false, true, false, true, false, false];
-    let punishment_magnitude = [-1, -0.5, -0.5, -1, -1, -0.5];
+    let punishment_magnitude = [-0.01, -0.5, -0.5, -0.01, -0.01, -0.5];
 
     inst.push(
         {
@@ -140,9 +140,9 @@ function prepare_instructions() {
                         ({
                             stimulus_left: e ? "tricycle.png" : "hammer.png",
                             stimulus_right: e ? "hammer.png" : "tricycle.png",
-                            feedback_left: e ? -0.01 : punishment_magnitude[i],
-                            feedback_right: e ? punishment_magnitude[i] : -0.01,
-                            optimal_right: !e,
+                            feedback_left: e ? -1 : punishment_magnitude[i],
+                            feedback_right: e ? punishment_magnitude[i] : -1,
+                            optimal_right: e,
                             block: "practice3",
                             trial: i,
                             valence: -1
