@@ -5,6 +5,51 @@ function preventRefresh(e) {
     e.returnValue = '';
   }
   
+// Make sure fullscreen is kept, warn otherwise and return to full screen
+const fullscreen_prompt = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    css_classes: ['instructions'],
+    timeline: [
+      {
+        message: `<p>This study only runs in full screen mode.<p>
+            <p>Press the button below to return to full screen mode and continue.</p>`
+      }
+    ],
+    conditional_function: check_fullscreen,
+    on_finish: function() {
+      // Update warning count
+      var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+      jsPsych.data.addProperties({
+        n_warnings: up_to_now + 1
+      });
+    },
+    data: {
+      trialphase: 'fullscreen-prompt'
+    }
+  }
+  
+  // Function that checks for fullscreen
+  function check_fullscreen(){
+    if (window.debug){
+      return false
+    }
+  
+    var int = jsPsych.data.getInteractionData(),
+    exit = int.values().filter(function(e){
+      return e.event == "fullscreenexit"
+    }),
+    enter = int.values().filter(function(e){
+      return e.event == "fullscreenenter"
+    });
+  
+    if (exit.length > 0){
+      return exit[exit.length - 1].time > enter[enter.length - 1].time
+    }else{
+      return false
+    }
+  }
+  
 
 // Save data to REDCap
 function saveDataREDCap(retry = 1) {

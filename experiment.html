@@ -68,7 +68,8 @@
         condition: window.condition,
         early_stop: window.earlyStop,
         valence_grouped: window.valenceGrouped,
-        reward_first: window.rewardFirst
+        reward_first: window.rewardFirst,
+        n_warnings: 0
     })
 
     window.skipThisBlock = false;
@@ -192,7 +193,8 @@
     ]
 
     const PLT_trial =  {
-        timeline: [{
+        timeline: [fullscreen_prompt,
+            {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div style="font-size:60px">+</div>',
             choices: "NO_KEYS",
