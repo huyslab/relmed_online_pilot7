@@ -330,4 +330,84 @@ function countOccurrences(array) {
   
     return Object.fromEntries(counts);
 }
-  
+
+function isValidNumber(value) {
+    return typeof value === 'number' && !isNaN(value);
+}
+
+
+// Function to compile inter_block_stimulus
+function inter_block_stimulus(){
+
+    const last_trial = jsPsych.data.get().filter({trial_type: "PLT"}).last(1);
+
+    // Valence of block
+    const valence = last_trial.select("valence").values[0];
+    
+    // Block number for filtering
+    const block = last_trial.select('block').values[0];
+
+    // Find chosen outcomes for block
+    let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
+        block: block
+    }).select('chosenOutcome').values;
+
+    // Summarize into counts
+    chosen_outcomes = countOccurrences(chosen_outcomes);
+
+    // Initiate text
+    let txt = ``
+
+    // Add text and tallies for early stop
+    if (window.earlyStop & window.skipThisBlock){
+        
+        txt += `<p>You've found the better card.</p><p>You will skip the remaining turns and `;
+        
+        txt += valence == 1 ? `collect the remaining coins hidden under this card.` : 
+            `lose only the reamining coins hidden under this card.`;
+        
+        txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
+        <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken and removed from your safe"} on this round:<p>`
+        
+        // Add rest to outcomes
+        chosen_outcomes[valence * 1] += last_trial.select('rest_1pound').values[0];
+        chosen_outcomes[valence * 0.5] += last_trial.select('rest_50pence').values[0];
+        chosen_outcomes[valence * 0.01] += last_trial.select('rest_1penny').values[0];
+
+    } else {
+        txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
+        <p>These coins ${isValidNumber(block) ? "were" : "would have been"} 
+        ${valence == 1 ? "added to your safe" : "broken and removed from your safe"} on this round:</p>`
+    }
+
+    if (valence == 1){
+
+        txt += `<div style='display: grid'><table><tr>
+            <td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+            <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+            <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+            </tr>
+            <tr>
+            <td>${isValidNumber(chosen_outcomes[1]) ? chosen_outcomes[1] : 0}</td>
+            <td>${isValidNumber(chosen_outcomes[0.5]) ? chosen_outcomes[0.5] : 0}</td>
+            <td>${isValidNumber(chosen_outcomes[0.01]) ? chosen_outcomes[0.01] : 0}</td>
+            </tr></table></div>`;
+    } else {
+        txt += `<div style='display: grid'><table>
+            <tr><td><img src='imgs/1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+            <td><img src='imgs/50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+            <td><img src='imgs/1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+            </tr>
+            <tr>
+            <td>${isValidNumber(chosen_outcomes[-1]) ? chosen_outcomes[-1] : 0}</td>
+            <td>${isValidNumber(chosen_outcomes[-0.5]) ? chosen_outcomes[-0.5] : 0}</td>
+            <td>${isValidNumber(chosen_outcomes[-0.01]) ? chosen_outcomes[-0.01] : 0}</td>
+            </tr></table></div>`;
+    }
+
+    if (isValidNumber(block)){
+        txt += `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`
+    }
+
+    return txt
+}

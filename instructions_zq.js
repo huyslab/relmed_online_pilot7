@@ -2,6 +2,14 @@
 const small_coin_size = 70;
 
 function prepare_instructions() {
+    const inter_block_instruct = {
+        type: jsPsychInstructions,
+        css_classes: ['instructions'],
+        pages: () => [inter_block_stimulus()],
+        show_clickable_nav: true,
+        data: {trialphase: "instruction"}
+    }
+
     let inst =  [
         {
         type: jsPsychInstructions,
@@ -114,7 +122,7 @@ function prepare_instructions() {
 
 
     inst = inst.concat([
-        inter_block_msg,
+        inter_block_instruct,
         {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
@@ -153,7 +161,7 @@ function prepare_instructions() {
 
     inst = inst.concat(
         [
-            inter_block_msg,
+            inter_block_instruct,
             {
                 type: jsPsychInstructions,
                 css_classes: ['instructions'],
