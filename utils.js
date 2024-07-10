@@ -98,7 +98,7 @@ function saveDataREDCap(retry = 1) {
         study_id: window.studyId,
         session_id: window.sessionId,
         start_time: window.startTime,
-        exp_code_version: code_version,
+        exp_code_version: window.code_version,
         group: window.condition,
         jspsych_data: jspsych_data,
         auto_number: auto_number ? 'true' : 'false'
