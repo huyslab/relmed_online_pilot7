@@ -230,11 +230,6 @@ function prepare_instructions() {
 
     let quiz_questions = [
         {
-            prompt: "The Card Collector always has a favorite card where they like to hide the higher value coins.",
-            options: ["True", "False"],
-            required: true
-        },
-        {
             prompt: "If I find a broken coin, that means it will be removed from my purse.",
             options: ["True", "False"],
             required: true
@@ -288,7 +283,6 @@ function prepare_instructions() {
                         Q0: `True`,
                         Q1: `True`,
                         Q2: `True`,
-                        Q3: `True`
                     }
                 }
             }   
