@@ -165,7 +165,7 @@ function prepare_instructions() {
                     trial_type: "PLT"
                 }).last(6).select('chosenOutcome').sum();
 
-                let earnings = Math.round((4.5 + losses) * 1000) / 1000
+                let earnings = Math.round((6 + losses) * 1000) / 1000
 
                 let pages = [
                     "<p>Well done!</><p>You would have lost £" +  Math.round(Math.abs(losses) * 1000) / 1000 +
