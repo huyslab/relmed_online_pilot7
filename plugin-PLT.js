@@ -176,14 +176,14 @@ jsPsychPLT = (function(jspsych) {
                     flex-direction: column;
                     height: 70vh;
                     width: 30vw;
-                    max-width: 465px;
+                    max-width: 1000px;
                     position: relative;
                 }
                 
                 .optionSide img {
                     height: auto;
                     width: 25vw;
-                    max-width: 230px;
+                    max-width: 500px;
                    /* flex-direction: column;*/
                     margin: auto;
                     grid-column: 1;
@@ -199,7 +199,7 @@ jsPsychPLT = (function(jspsych) {
                     justify-content: space-around;
                     margin: auto;
                     width: 15vw;
-                    max-width: 150px;
+                    max-width: 325px;
                     
                     text-wrap: normal;
                     font-size: 1.5rem;
