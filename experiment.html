@@ -128,7 +128,7 @@
             let valence = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select("valence").values[0];
             let best_rest = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select("best_rest").values[0];
 
-            if (earlyStop & window.skipThisBlock){
+            if (window.earlyStop & window.skipThisBlock){
                 txt = "<p>You've found the better card.</p><p>You will skip the remaining turns, and ";
                 
                 txt += valence == 1 ? ("automatically win all the remaining £" + best_rest + " in coins left hidden under this card.") : 
