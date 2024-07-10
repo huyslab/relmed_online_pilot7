@@ -1,5 +1,5 @@
 // Instructions for the PLT
-const small_coin_size = 60;
+const small_coin_size = 70;
 
 function prepare_instructions() {
     let inst =  [
@@ -20,22 +20,16 @@ function prepare_instructions() {
             `<p>On each turn of this game, you will see two cards.
                 You have three seconds to flip one of the two cards.</p>
                 <p>This will reveal the coin you collect: either 1 pound, 50 pence, or 1 penny.</p>
-                <div style='display: grid;'><table style='width: 200px; grid-column: 2;'><tr><td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <div style='display: grid;'><table style='width: 200px; grid-column: 2;'><tr>
+                <td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
                 <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
-                <td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>`
-        ],
-        show_clickable_nav: true,
-        data: {trialphase: "instruction"}
-    },
-    {
-        type: jsPsychInstructions,
-        css_classes: ['instructions'],
-        pages: [
-            "<p>If you see broken coins like these:</p>\
-                    <img src='1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 35%; top: 60%;'>\
-                    <img src='50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 50%; top: 60%;'>\
-                    <img src='1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 65%; top: 60%;'>\
-                    <p>This means that a coin of that value in your safe was broken and removed.</p>"
+                <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>`,
+            `<p>When you flip a card, you might also see broken coins like these:</p>\
+                <div style='display: grid;'><table style='width: 200px; grid-column: 2;'><tr>
+                <td><img src='imgs/1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <td><img src='imgs/50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <td><img src='imgs/1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>
+                <p>This means that such a coin was broken and removed from your safe.</p>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
