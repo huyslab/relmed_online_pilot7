@@ -197,6 +197,9 @@
             choices: "NO_KEYS",
             trial_duration: 800,
             data: {trialphase: "fixation"},
+             simulation_options: {
+                mode: 'data-only'
+             }
         },
         {
             type: jsPsychPLT,
@@ -222,6 +225,9 @@
                     });
                 }
              },
+             simulation_options: {
+                mode: 'data-only'
+             }
         }
         ],
         conditional_function: function(){
@@ -302,7 +308,7 @@
             // Add message
             if (insert_msg){
                 if (window.valenceGrouped & (i == (totalBlockNumber / 2 - 1))) {
-                    block.push(inter_valence_msg);
+                    block = block.concat(inter_valence_msg);
                 } else {
                     block.push(inter_block_msg);
                 }
@@ -402,7 +408,19 @@
         }
 
         // Run
-        jsPsych.run(procedure);
+        if (window.prolificPID.includes("simulate")) {
+            const simulation_options = {
+                default: {
+                    data: {
+                    rt: 200
+                    }
+                }
+            }
+
+            jsPsych.simulate(procedure, "visual", simulation_options);
+        } else {
+            jsPsych.run(procedure);
+        }
     }
 
     // Load sequences and start

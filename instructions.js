@@ -265,7 +265,17 @@ function prepare_instructions() {
             preamble: `<div class=instuctions><p>For each statement, please indicate whether it is true or false:</p></div>`,
             data: {
                 trialphase: "instruction_quiz"
-            }
+            },
+            simulation_options: {
+                data: {
+                    response: {
+                        Q0: `True`,
+                        Q1: `True`,
+                        Q2: `True`,
+                        Q3: `True`
+                    }
+                }
+            }   
         }
     );
 
