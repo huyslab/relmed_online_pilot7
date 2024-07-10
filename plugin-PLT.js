@@ -310,6 +310,10 @@ jsPsychPLT = (function(jspsych) {
         }
 
         endTrial() {
+            // clear the display
+            let optionBox = document.getElementById("optionBox");
+            optionBox.style.display = 'none';
+
             this.data.optimalSide = this.data.optimalRight == 1 ? 'right' : 'left'
             this.data.isOptimal = this.data.choice === this.data.optimalSide
             this.data.endTime = performance.now()
@@ -317,6 +321,7 @@ jsPsychPLT = (function(jspsych) {
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.jsPsych.finishTrial(this.data)
+
         }
     }
     PLTPlugin.info = info;

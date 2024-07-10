@@ -266,16 +266,6 @@
         timeline: [
             kick_out,
             fullscreen_prompt,
-            {
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: '<div style="font-size:60px">+</div>',
-            choices: "NO_KEYS",
-            trial_duration: 800,
-            data: {trialphase: "fixation"},
-             simulation_options: {
-                mode: 'data-only'
-             }
-        },
         {
             type: jsPsychPLT,
             imgLeft: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_left'),
@@ -304,7 +294,8 @@
              },
              simulation_options: {
                 mode: 'data-only'
-             }
+             },
+            post_trial_gap: 400
         }
         ],
         conditional_function: function(){
