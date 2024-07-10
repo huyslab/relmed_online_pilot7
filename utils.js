@@ -43,7 +43,7 @@ const kick_out = {
       stimulus: `<p>It seems that you are not following the study instructions.</p>
         <p>Unfortunately, you cannot continue with this study.</p>
         <p>If you believe this is a mistake, please email y.abir@ucl.ac.uk, explaining the circumstances.</p>
-        <p>Please return this tudy on Prolific.</p>
+        <p>Please return this study on Prolific.</p>
         <p>You may now close this tab.</p>
       `
     }],
@@ -364,7 +364,7 @@ function inter_block_stimulus(){
         txt += `<p>You've found the better card.</p><p>You will skip the remaining turns and `;
         
         txt += valence == 1 ? `collect the remaining coins hidden under this card.` : 
-            `lose only the reamining coins hidden under this card.`;
+            `lose only the remaining coins hidden under this card.`;
         
         txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
         <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken and removed from your safe"} on this round:<p>`
