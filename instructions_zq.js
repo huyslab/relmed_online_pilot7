@@ -70,9 +70,9 @@ function prepare_instructions() {
         type: jsPsychInstructions,
         css_classes: ['instructions'],
         pages: [
-            "<p>Some cards are better than others, but even good cards can sometimes only give a penny \
-            <p>or might sometimes break a 1 pound coin.</p>\
-            <p>All the coins you collect go in your safe.</p>"
+            `<p>You found a one pound coin!</p>
+            <p>Some cards are better than others, but even good cards can sometimes only give a penny 
+            or might sometimes break a one pound coin.</p>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
@@ -80,9 +80,9 @@ function prepare_instructions() {
     {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
-        stimulus: "<p>Let's practice both versions. We'll start with winning coins. \
-            You begin with zero coins. Try to collect as many as you can.</p>\
-            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
+        stimulus: `<p>Let's practice collecting coins. \
+            On the next screen, choose card to collect as much money as you can.</p>
+            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
     }]);
