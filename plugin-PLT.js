@@ -172,20 +172,22 @@ jsPsychPLT = (function(jspsych) {
                 }
                 
                 .optionSide {
-                    display: flex;
+                    display: grid;
                     flex-direction: column;
                     height: 70vh;
                     width: 30vw;
                     max-width: 465px;
-                    
+                    position: relative;
                 }
                 
                 .optionSide img {
                     height: auto;
                     width: 25vw;
                     max-width: 230px;
-                    flex-direction: column;
+                   /* flex-direction: column;*/
                     margin: auto;
+                    grid-column: 1;
+                    grid-row: 1;
                 }
 
                 #rightImg, #leftImg {
@@ -206,7 +208,7 @@ jsPsychPLT = (function(jspsych) {
                 }
                 
                 .coin {
-                    display: none;
+                    visibility: hidden;
                     max-width: 15vw;
                     margin: auto;
                 }
@@ -277,15 +279,15 @@ jsPsychPLT = (function(jspsych) {
                 this.jsPsych.pluginAPI.setTimeout(()=> {
                     document.getElementById(inverse_choice+'Img').style.opacity = '0'
                     const ani1 = selImg.animate([
-                        { transform: "rotateY(0)", display: "inline"},
-                        { transform: "rotateY(90deg)", display: "none" },
+                        { transform: "rotateY(0)", visibility: "visible" },
+                        { transform: "rotateY(90deg)", visibility: "hidden"},
                     ],{duration:250,iterations:1,fill:'forwards'})
 
                     ani1.finished.then(()=> {
 
                         const ani2 = coin.animate([
-                            { transform: "rotateY(90deg)", display: "none"},
-                            { transform: "rotateY(0deg)", display: "inline" },
+                            { transform: "rotateY(90deg)", visibility: "hidden"},
+                            { transform: "rotateY(0deg)", visibility: "visible" },
                         ],{duration:250,iterations:1,fill:'forwards'})
                         ani2.finished.then(()=> {
                             this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.fbDur))
