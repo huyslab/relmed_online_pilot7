@@ -1,30 +1,28 @@
 // Instructions for the PLT
+const small_coin_size = 60;
+
 function prepare_instructions() {
     let inst =  [
         {
         type: jsPsychInstructions,
         css_classes: ['instructions'],
         pages: [
-            "<p><b>CARD CHOOSING GAME</b></p>\
-                <p>In this game you are the owner of a safe.</p>\
-                <img src='safe.png' style='width:100px; height:100px; position:absolute; right: 50%; top: 60%;'>\
-                    <p>You start the game with money in your safe: x 1 pound coins, x 50 pence coins, and x penny coins.</p>\
-                    <p>At the end of the game, you will draw one coin from your safe, and that will be your bonus payment.</p>\
-                    <p>On each round of the game, you will try to add coins to your safe and avoid losing coins already in your safe.</p>"
-        ],
-        show_clickable_nav: true,
-        data: {trialphase: "instruction"}
-    },
-    {
-        type: jsPsychHtmlKeyboardResponse,
-        css_classes: ['instructions'],
-        pages: [
-            "<p>On each turn of this game, you will see two cards.\
-                You have 3 seconds to flip one of the two cards.</p>\
-                <p>This will reveal the coin you collect: either 1 pound, or 50 pence, or 1 penny.</p>\
-                <img src='1penny.png' style='width:50px; height:50px; position:absolute; right: 35%; top: 60%;'>\
-                <img src='50pence.png' style='width:50px; height:50px; position:absolute; right: 50%; top: 60%;'>\
-                <img src='1pound.png' style='width:50px; height:50px; position:absolute; right: 65%; top: 60%;'>"
+            `<p><b>THE CARD CHOOSING GAME</b></p>
+                <p>In this game you are the owner of a safe.</p>
+                <img src='imgs/safe.png' style='width:100px; height:100px;'>
+                <p>At the start of the game, your safe contains:</p>
+                <div style='display: grid'><table><tr><td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+                <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr>
+                <tr><td>52x one pound coins</td><td>52x fifty pence coins</td><td>52x one penny coins</td></tr></table></div>
+                <p>At the end of the game, you will draw one coin from your safe, and that will be your bonus payment.</p>
+                <p>Your goal is to add coins to your safe while avoid losing coins already in it.</p>`,
+            `<p>On each turn of this game, you will see two cards.
+                You have three seconds to flip one of the two cards.</p>
+                <p>This will reveal the coin you collect: either 1 pound, 50 pence, or 1 penny.</p>
+                <div style='display: grid;'><table style='width: 200px; grid-column: 2;'><tr><td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                <td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
@@ -34,9 +32,9 @@ function prepare_instructions() {
         css_classes: ['instructions'],
         pages: [
             "<p>If you see broken coins like these:</p>\
-                    <img src='1pennybroken.png' style='width:50px; height:50px; position:absolute; right: 35%; top: 60%;'>\
-                    <img src='50pencebroken.png' style='width:50px; height:50px; position:absolute; right: 50%; top: 60%;'>\
-                    <img src='1poundbroken.png' style='width:50px; height:50px; position:absolute; right: 65%; top: 60%;'>\
+                    <img src='1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 35%; top: 60%;'>\
+                    <img src='50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 50%; top: 60%;'>\
+                    <img src='1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px; position:absolute; right: 65%; top: 60%;'>\
                     <p>This means that a coin of that value in your safe was broken and removed.</p>"
         ],
         show_clickable_nav: true,
