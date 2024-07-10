@@ -137,42 +137,26 @@
         on_finish: () => {window.skipThisBlock = false}
     }
 
-    const inter_valence_msg = [
-        {
-            type: jsPsychHtmlKeyboardResponse,
-            choices: ['space'],
-            css_classes: ['instructions'],
-            stimulus: function(){
-                if ((window.rewardFirst & window.sessionNum == 1) | ((!window.rewardFirst) & window.sessionNum == 2)) {
-                    return "<p>Well done.</p><p>You will now continue playing the Card Collector's Challenge, \
-                        but this time to <b>avoid losing coins</b>. To start this part of the challenge, you receive a purse with \
-                        £x in coins. Every broken coin you discover will be deducted from your purse.</p>\
-                        <p>Your goal is to lose as few coins as possible. Your bonus payment will be based on the number of \
-                            coins you have left at the end of the challenge.</p>\
-                            <p>Press the space bar to continue.</p>"
-                } else {
-                    return "<p>Well done.</p><p>You will now continue playing the Card Collector's Challenge, \
-                        but this time to <b>win coins</b>.</p>\
-                        <p>Your goal is to win as many coins as possible. Your bonus payment will be based on the number of \
-                            coins you have at the end of the challenge.</p>\
-                            <p>Press the space bar to continue.</p>"
-                }
-            },
-            data: {
-                trialphase: "change_valence",
-            },
-            on_start: saveDataREDCap,
-            on_finish: () => {window.skipThisBlock = false}
-        },
-        {
-            type: jsPsychHtmlKeyboardResponse,
-            choice: ['rightarrow', 'leftarrow'],
-            stimulus: "<p>Place your fingers on the left and right arrow keys, and press either one to start playing again.</p>",
-            data: {
-                trialphase: "change_valence"
+    const inter_valence_msg = {
+        type: jsPsychHtmlKeyboardResponse,
+        choice: ['rightarrow', 'leftarrow'],
+        css_classes: ['instructions'],
+        stimulus: function(){
+            if ((window.rewardFirst & window.sessionNum == 1) | ((!window.rewardFirst) & window.sessionNum == 2)) {
+                return "<p>Well done.</p><p>You will now continue playing the same game, \
+                    but this time your goal is to <b>avoid losing coins</b>. Remember: every broken coin you discover will be removed from your safe.</p>\
+                        <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>"
+            } else {
+                return "<p>Well done.</p><p>You will now continue playing the same game, \
+                    but this time your goal is to <b>win coins</b>. Remember: every coin you discover will be added to your safe.</p>\
+                        <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>"
             }
+        },
+        data: {
+            trialphase: "change_valence",
         }
-    ]
+    }
+
 
     const PLT_trial =  {
         timeline: [
@@ -287,11 +271,11 @@
             
             // Add message
             if (insert_msg){
+                block.push(inter_block_msg);
+
                 if (window.valenceGrouped & (i == (totalBlockNumber / 2 - 1))) {
-                    block = block.concat(inter_valence_msg);
-                } else {
-                    block.push(inter_block_msg);
-                }
+                    block.push(inter_valence_msg);
+                } 
             }
             
             PLT_task = PLT_task.concat(block)
