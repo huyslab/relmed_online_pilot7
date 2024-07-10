@@ -291,6 +291,7 @@ function createProportionalArray(originalArray, newSize) {
     return newArray;
 }
 
+// Compute the remaining nubmer of 1 pound, 50 pence, 1 penny, when they are the best option.
 function computeBestRest(structure){
     for (let b=0; b<structure.length; b++){
 
@@ -301,20 +302,18 @@ function computeBestRest(structure){
 
         // Compute reverse cumulative sums
         for (let i=structure[b].length - 2; i>=0; i--){
+            const next_optimal_outcome = structure[b][i + 1].optimal_right === 1 ? structure[b][i + 1].feedback_right : structure[b][i + 1].feedback_left
+
             structure[b][i].rest_1pound = structure[b][i + 1].rest_1pound + 
-                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
-                    structure[b][i + 1].feedback_right
-                )) == 1);
+                (Math.abs(next_optimal_outcome) == 1);
 
             structure[b][i].rest_50pence = structure[b][i + 1].rest_50pence + 
-                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
-                    structure[b][i + 1].feedback_right
-                )) == 0.5);
+                (Math.abs(next_optimal_outcome) == 0.5);
 
             structure[b][i].rest_1penny = structure[b][i + 1].rest_1penny + 
-                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
-                    structure[b][i + 1].feedback_right
-                )) == 0.01);
+                (Math.abs(next_optimal_outcome) == 0.01);
         }
     }
 }
+
+

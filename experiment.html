@@ -144,8 +144,24 @@
                 return  txt
             
             }else{
-                return "<p>This is the end of this round.</p>\
-                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>";
+                
+                const block = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select('block').values[0];
+                const chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
+                    block: block
+                }).select('chosenOutcome').values;
+
+                if (valence == 1){
+                    
+
+                    return `<img src='imgs/safe.png' style='width:100px; height:100px;'>
+                    <div style='display: grid'><table><tr><td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                    <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+                    <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr>
+                    <tr><td>${added_1pound}</td><td>${added_50pence}</td><td>${added_1penny}</td></tr></table></div>
+                    <p>Were added to your safe.</p>
+                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
+                }
+                
             }
         },
         data: {
@@ -385,6 +401,7 @@
 
         // Compute best-rest
         computeBestRest(structure);
+        console.log(structure)
 
         // Preload images
         let procedure = [];
