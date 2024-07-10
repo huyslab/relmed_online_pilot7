@@ -290,3 +290,31 @@ function createProportionalArray(originalArray, newSize) {
 
     return newArray;
 }
+
+function computeBestRest(structure){
+    for (let b=0; b<structure.length; b++){
+
+        // Initiate counter at last trial as zero
+        structure[b][structure[b].length - 1].rest_1pound = 0;
+        structure[b][structure[b].length - 1].rest_50pence = 0;
+        structure[b][structure[b].length - 1].rest_1penny = 0;
+
+        // Compute reverse cumulative sums
+        for (let i=structure[b].length - 2; i>=0; i--){
+            structure[b][i].rest_1pound = structure[b][i + 1].rest_1pound + 
+                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
+                    structure[b][i + 1].feedback_right
+                )) == 1);
+
+            structure[b][i].rest_50pence = structure[b][i + 1].rest_50pence + 
+                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
+                    structure[b][i + 1].feedback_right
+                )) == 0.5);
+
+            structure[b][i].rest_1penny = structure[b][i + 1].rest_1penny + 
+                (Math.abs(Math.max(structure[b][i + 1].feedback_left, 
+                    structure[b][i + 1].feedback_right
+                )) == 0.01);
+        }
+    }
+}
