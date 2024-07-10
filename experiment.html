@@ -230,7 +230,7 @@
             if (window.earlyStop && 
                 Number.isInteger(jsPsych.timelineVariable('block')) && 
                 jsPsych.timelineVariable('trial') > 5 &&
-                jsPsych.timelineVariable('trial') < 13
+                (window.skipThisBlock | jsPsych.timelineVariable('trial') < 13)
             ){
 
                     // Compute number of previous optimal choices in the past 5 trials
