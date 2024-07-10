@@ -363,7 +363,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 prompt.innerHTML = msg;
 
                 // Remove flip button
-                display_element.removeChild(flipButton);
+                prompt.children[1].removeChild(flipButton);
             }
 
             // Sample from categorical distribution
