@@ -5,7 +5,7 @@ var jsPsychCoinLottery = (function(jspsych) {
         parameters: {
             num_cards: {
                 type: jspsych.ParameterType.INT,
-                default: 30,
+                default: 40,
                 description: 'Number of rectangle divs'
             },
             num_rows: {
@@ -15,12 +15,12 @@ var jsPsychCoinLottery = (function(jspsych) {
             },
             num_cols: {
                 type: jspsych.ParameterType.INT,
-                default: 6,
+                default: 8,
                 description: 'Number of columns in the grid'
             },
             n_flips: {
                 type: jspsych.ParameterType.INT,
-                default: 3,
+                default: 1,
                 description: 'Number of flips allowed'
             },
             card_width: {
