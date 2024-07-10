@@ -258,7 +258,9 @@
             // Compute data proportion
             const coins_from_data = get_coins_from_data();
 
-            const raw_props = computeCategoryProportions(coins_from_data);
+            let raw_props = computeCategoryProportions(coins_from_data);
+
+            raw_props = [raw_props[0.01], raw_props[0.5], raw_props[1]]
 
             const prior = [0.1, 0.3, 0.6];
 
