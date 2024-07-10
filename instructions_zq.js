@@ -161,7 +161,7 @@ function prepare_instructions() {
                         <p>You must answer all questions correctly to begin the challenge.</p>\
                         <p>Otherwise, you can repeat the instructions and try again.</p>`],
                 show_clickable_nav: true,
-                data: {trialphase: "instructions"}
+                data: {trialphase: "instruction"}
             }
     ]);
 
@@ -223,12 +223,25 @@ function prepare_instructions() {
         }
     );
 
-    inst_loop = {
+    const inst_loop = {
         timeline: inst,
         loop_function: check_quiz_failed
     }
 
-    return inst_loop
+
+    const inst_total = [
+        inst_loop,
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            css_classes: ['instructions'],
+            stimulus: `<p>Great! Let's start playing for real.</p>
+            <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>`,
+            choices: ['arrowright', 'arrowleft'],
+            data: {trialphase: "instruction"}
+        }
+    ]
+
+    return inst_total
 } 
 
 function check_quiz_failed() {
