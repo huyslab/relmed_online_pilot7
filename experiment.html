@@ -238,7 +238,9 @@
                         trial_type: "PLT"
                     }).last(5).select('isOptimal').sum()
 
-                    window.skipThisBlock = true;
+                    if (num_optimal >= 5) {
+                        window.skipThisBlock = true;
+                    }
 
                     return num_optimal < 5
             }
