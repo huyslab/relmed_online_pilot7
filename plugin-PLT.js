@@ -134,6 +134,8 @@ jsPsychPLT = (function(jspsych) {
             default_data.isOptimal = default_data.choice === default_data.optimalSide
             default_data.endTime = performance.now()
             default_data.duration = default_data.endTime - default_data.initTime
+            default_data.chosenImg = default_data.choice === "right" ? default_data.imageRight : default_data.imageLeft
+            default_data.chosenOutcome = default_data.choice === "right" ? default_data.outcomeRight : default_data.outcomeLeft
 
 
             const data = this.jsPsych.pluginAPI.mergeSimulationData(default_data, simulation_options);
