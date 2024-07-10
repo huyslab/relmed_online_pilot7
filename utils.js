@@ -216,18 +216,18 @@ function get_coins_from_data() {
 
     let coins_for_lottery = []
     for (i=0; i<valence.length; i++){
-        console.log(blocks[i] + "," + valence[i] + "," + outcomeRight[i] + "," + outcomeLeft[i] + "," + choice[i])
+
         if ((typeof blocks[i] !== "number") || choice[i] == "noresp"){
-            console.log('skipped')
+
             continue
         }
 
         if (valence[i] == 1){
             coins_for_lottery.push(choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]);
-            console.log("pushed" + (choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]))
+
         } else {
             coins_for_lottery.push(choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]);
-            console.log("pushed " + (choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]))
+
         }
     }
 
