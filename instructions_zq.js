@@ -114,25 +114,13 @@ function prepare_instructions() {
 
 
     inst = inst.concat([
-        {
-            type: jsPsychInstructions,
-            css_classes: ['instructions'],
-            pages: function() {
-                let earnings = Math.round(jsPsych.data.get().filter({
-                    block: "practice2", 
-                    trial_type: "PLT"
-                }).last(6).select('chosenOutcome').sum() * 1000) / 1000
-    
-                return ["<p>Well done! You would have earned £" + earnings + " in this game.</p>"]
-            },
-            show_clickable_nav: true,
-            data: {trialphase: "instructions"}
-        },
+        inter_block_msg,
         {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
-            stimulus: "<p>Now, let's practice avoiding losses. You'll start with £6 in coins. Try to lose as few as possible.</p>\
-                <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>",
+            stimulus: `<p>Now, let's practice avoiding losing coins. 
+            On the next screen, choose card to lose as little money as you can.</p>
+            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
             choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"}
         }
@@ -165,65 +153,26 @@ function prepare_instructions() {
 
     inst = inst.concat(
         [
-        {
-            type: jsPsychInstructions,
-            css_classes: ['instructions'],
-            pages: function() {
-                let losses = jsPsych.data.get().filter({
-                    block: "practice3", 
-                    trial_type: "PLT"
-                }).last(6).select('chosenOutcome').sum();
-
-                let earnings = Math.round((6 + losses) * 1000) / 1000
-
-                let pages = [
-                    "<p>Well done!</><p>You would have lost £" +  Math.round(Math.abs(losses) * 1000) / 1000 +
-                    " in coins in this game, leaving £" + earnings + " in your purse.</p>"
-                ];
-        
-                if (window.earlyStop) {
-                    pages.push("<p>To save time in the real game, if you select the better card five times in a row, \
-                the game will end, and you will get all the remaining coins as if you \
-                had chosen the better card each time.</p>");
-                }
-        
-                let penultimate_pate = "<p>You are almost ready to play for real.</p>\
-                    <p>You will play multiple rounds of The Card Collector's Challenge. ";
-                
-                if (window.valenceGrouped){
-                    if (window.rewardFirst){
-                        penultimate_pate += "At first you'll play " +  window.totalBlockNumber / 2 + 
-                            " rounds to win coins, and then another " +  window.totalBlockNumber / 2 + 
-                            " rounds to avoid losing coins.</p>";
-                    } else {
-                        penultimate_pate += "At first you'll play " +  window.totalBlockNumber / 2 + 
-                            " rounds to avoid losing coins, and then another " +  window.totalBlockNumber / 2 + 
-                            " rounds to win coins. You start the game with £114 of coins.</p>";
-                    }
-                } else {
-                    penultimate_pate += "You will play  " +  window.totalBlockNumber  + 
-                            " rounds, sometimes to win coins, and sometimes to avoid losing them.<br>\
-                            You start the game with £114 of coins. ";
-                }
-                
-                pages.push(penultimate_pate);
-
-                pages.push(
-                    `<p>Before you being the challenge, we will ask you to answer a few questions about the instructions you have just read.</p>
-                    <p>You must answer all questions correctly to begin the challenge</p>\
-                    <p>Otherwise, you can repeat the instructions and try again.</p>`
-                )
-        
-                return(pages)
-            },
-            show_clickable_nav: true,
-            data: {trialphase: "instructions"}
-        }
+            inter_block_msg,
+            {
+                type: jsPsychInstructions,
+                css_classes: ['instructions'],
+                pages: [`<p>Before you start playing, we will ask you to answer a few questions about the instructions you have just read.</p>
+                        <p>You must answer all questions correctly to begin the challenge.</p>\
+                        <p>Otherwise, you can repeat the instructions and try again.</p>`],
+                show_clickable_nav: true,
+                data: {trialphase: "instructions"}
+            }
     ]);
 
     let quiz_questions = [
         {
-            prompt: "If I find a broken coin, that means it will be removed from my purse.",
+            prompt: "Some cards are better than others, but even good cards can sometimes only give a penny or break a one pound coin.",
+            options: ["True", "False"],
+            required: true
+        },
+        {
+            prompt: "If I find a broken coin, that means it will be removed from my safe.",
             options: ["True", "False"],
             required: true
         },
@@ -233,34 +182,6 @@ function prepare_instructions() {
             required: true
         },
     ];
-
-    if (window.valenceGrouped){
-        if (window.rewardFirst){
-            quiz_questions.push(
-                {
-                    prompt: "I will first play 12 rounds to win coins, and then 12 rounds to avoid losing coins.",
-                    options: ["True", "False"],
-                    required: true
-                }
-            );
-        }else{
-            quiz_questions.push(
-                {
-                    prompt: "I will first play 12 rounds to avoid losing coins, and then 12 rounds to win coins.",
-                    options: ["True", "False"],
-                    required: true
-                }
-            );
-        }
-    }else{
-        quiz_questions.push(
-            {
-                prompt: "I will sometimes play to win coins, and sometimes to avoid losing coins.",
-                options: ["True", "False"],
-                required: true
-            }
-        );
-    }
 
     inst.push(
         {
@@ -320,11 +241,10 @@ const lottery_instructions = {
     type: jsPsychInstructions,
     css_classes: ['instructions'],
     pages: [
-        '<p>You have completed the Card Collector Challenge!</p>\
+        '<p>You have completed the card choosing game!</p>\
             <p>Next, your bonus payment will be determined.</p>\
-            <p>On the next page, you will be presented with a representative sample of the coins \
-            you have collected during the challenge. The Card Collector will hide the coins behind cards and \
-            shuffle them. You will then be able to chose one card, to reveal the coin that will be paid to you as a bonus.</p> '
+            <p>On the next page, you will be presented with a representative sample of the conents \
+            your safe. After flipping the cards and shuffling, you will get to chose one card, and reveal the coin that will be paid to you as a bonus.</p> '
     ],
     show_clickable_nav: true,
     data: {trialphase: "lottery_instructions"}

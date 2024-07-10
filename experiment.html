@@ -186,8 +186,8 @@
                     <td>${isValidNumber(chosen_outcomes[0.5]) ? chosen_outcomes[0.5] : 0}</td>
                     <td>${isValidNumber(chosen_outcomes[0.01]) ? chosen_outcomes[0.01] : 0}</td>
                     </tr></table></div>
-                    <p>Were added to your safe.</p>
-                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
+                    <p>${block.includes('practice') ? "would have been" : "were"} added to your safe.</p>
+                    <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`;
             } else {
                 return txt + `<div style='display: grid'><table>
                     <tr><td><img src='imgs/1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
@@ -199,24 +199,10 @@
                     <td>${isValidNumber(chosen_outcomes[-0.5]) ? chosen_outcomes[-0.5] : 0}</td>
                     <td>${isValidNumber(chosen_outcomes[-0.01]) ? chosen_outcomes[-0.01] : 0}</td>
                     </tr></table></div>
-                    <p>Were broken and removed from your safe.</p>
-                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
+                    <p>${block.includes('practice') ? "would have been" : "were"} broken and removed from your safe.</p>
+                    <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`;
             }
 
-
-            if (window.earlyStop & window.skipThisBlock){
-                txt = "<p>You've found the better card.</p><p>You will skip the remaining turns, and ";
-                
-                txt += valence == 1 ? ("automatically win £" + best_rest + ", the highest amount possible for the remaining turns.") : 
-                    ("lose only £" +  Math.abs(best_rest) + ", the lowest amount possible for the reamining turns.")
-
-                txt += "</p><p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>";
-
-                return  txt
-            
-            }else{
-                
-            }
         },
         data: {
             trialphase: "inter_block",
@@ -455,7 +441,7 @@
         procedure = procedure.concat(preliminary_checks);
         
         // Add instructions
-        // procedure = procedure.concat(prepare_instructions());
+        procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));
