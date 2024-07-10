@@ -144,22 +144,48 @@
                 return  txt
             
             }else{
-                
+                // Block number for filtering
                 const block = jsPsych.data.get().filter({trial_type: "PLT"}).last(1).select('block').values[0];
-                const chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
+
+                // Find chosen outcomes for block
+                let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
                     block: block
                 }).select('chosenOutcome').values;
 
+                // Summarize into counts
+                chosen_outcomes = countOccurrences(chosen_outcomes);
+
                 if (valence == 1){
-                    
 
                     return `<img src='imgs/safe.png' style='width:100px; height:100px;'>
-                    <div style='display: grid'><table><tr><td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
-                    <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
-                    <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr>
-                    <tr><td>${added_1pound}</td><td>${added_50pence}</td><td>${added_1penny}</td></tr></table></div>
-                    <p>Were added to your safe.</p>
-                    <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
+                        <p>In this round:</p>
+                        <div style='display: grid'><table><tr>
+                        <td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                        <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+                        <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                        </tr>
+                        <tr>
+                        <td>${chosen_outcomes[1] === undefined ? 0 : chosen_outcomes[1]}</td>
+                        <td>${chosen_outcomes[0.5] === undefined ? 0 : chosen_outcomes[0.5]}</td>
+                        <td>${chosen_outcomes[0.01] === undefined ? 0 : chosen_outcomes[0.01]}</td>
+                        </tr></table></div>
+                        <p>Were added to your safe.</p>
+                        <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
+                } else {
+                    return `<img src='imgs/safe.png' style='width:100px; height:100px;'>
+                        <p>In this round:</p>
+                        <div style='display: grid'><table>
+                        <tr><td><img src='imgs/1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                        <td><img src='imgs/50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
+                        <td><img src='imgs/1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
+                        </tr>
+                        <tr>
+                        <td>${chosen_outcomes[-1] === undefined ? 0 : chosen_outcomes[-1]}</td>
+                        <td>${chosen_outcomes[-0.5] === undefined ? 0 : chosen_outcomes[-0.5]}</td>
+                        <td>${chosen_outcomes[-0.01] === undefined ? 0 : chosen_outcomes[-0.01]}</td>
+                        </tr></table></div>
+                        <p>Were broken and removed from your safe.</p>
+                        <p>Place your fingers on the left and right arrow keys, and press either one to start the next round.</p>`;
                 }
                 
             }
@@ -401,7 +427,6 @@
 
         // Compute best-rest
         computeBestRest(structure);
-        console.log(structure)
 
         // Preload images
         let procedure = [];
@@ -409,7 +434,7 @@
         procedure = procedure.concat(preliminary_checks);
         
         // Add instructions
-        procedure = procedure.concat(prepare_instructions());
+        // procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));

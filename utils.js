@@ -316,4 +316,18 @@ function computeBestRest(structure){
     }
 }
 
-
+// Count occurances
+function countOccurrences(array) {
+    const counts = new Map();
+  
+    array.forEach(float => {
+      if (counts.has(float)) {
+        counts.set(float, counts.get(float) + 1);
+      } else {
+        counts.set(float, 1);
+      }
+    });
+  
+    return Object.fromEntries(counts);
+}
+  
