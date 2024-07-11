@@ -147,7 +147,7 @@ function end_experiment() {
     window.removeEventListener('beforeunload', preventRefresh);
 
     // Redirect
-    window.location.replace("https://en.wikipedia.org/wiki/Recursive_islands_and_lakes")
+    window.location.replace("https://app.prolific.com/submissions/complete?cc=CQTRGXFP")
 }
 
 // Function for formatting data from API
