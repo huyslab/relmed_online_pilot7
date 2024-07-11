@@ -175,14 +175,14 @@ jsPsychPLT = (function(jspsych) {
                     display: grid;
                     flex-direction: column;
                     height: 70vh;
-                    width: 30vw;
+                    width: 25vw;
                     max-width: 1000px;
                     position: relative;
                 }
                 
                 .optionSide img {
                     height: auto;
-                    width: 25vw;
+                    width: 20vw;
                     max-width: 500px;
                    /* flex-direction: column;*/
                     margin: auto;
@@ -198,7 +198,7 @@ jsPsychPLT = (function(jspsych) {
                     display: flex;
                     justify-content: space-around;
                     margin: auto;
-                    width: 15vw;
+                    width: 12vw;
                     max-width: 325px;
                     
                     text-wrap: normal;
@@ -209,7 +209,7 @@ jsPsychPLT = (function(jspsych) {
                 
                 .coin {
                     visibility: hidden;
-                    max-width: 15vw;
+                    max-width: 12vw;
                     margin: auto;
                 }
                 
