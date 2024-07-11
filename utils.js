@@ -84,7 +84,7 @@ function check_fullscreen(){
   
 
 // Save data to REDCap
-function saveDataREDCap(retry = 1) {
+function saveDataREDCap(retry = 1, callback = () => {}) {
 
     const auto_number = window.record_id == undefined
 
@@ -124,6 +124,7 @@ function saveDataREDCap(retry = 1) {
         if (auto_number){
             window.record_id = JSON.parse('[' + data.record_import_response[0] + ']')[0]
         }
+        callback(); // Call the callback function if submission is successful
     }
     )
     .catch(error => {
@@ -133,21 +134,26 @@ function saveDataREDCap(retry = 1) {
             saveDataREDCap(retry - 1);
         } else {
             console.error('Failed to submit data after retrying.');
+            callback(error); // Call the callback function with the error if retries are exhausted
         }
     });
 }
 
 // Function to call at the end of the experiment
-async function end_experiment() {
+function end_experiment() {
 
-    // Save data
-    await saveDataREDCap(retry = 3);
+    saveDataREDCap(3, (error) => {
+        if (error) {
+            console.error('Failed to save data:', error);
+            // Handle the error appropriately, maybe notify the user or retry
+        } else {
+            // Allow refresh
+            window.removeEventListener('beforeunload', preventRefresh);
 
-    // Allow refresh
-    window.removeEventListener('beforeunload', preventRefresh);
-
-    // Redirect
-    window.location.replace("https://app.prolific.com/submissions/complete?cc=CQTRGXFP")
+            // Redirect
+            window.location.replace("https://app.prolific.com/submissions/complete?cc=CQTRGXFP")
+        }
+    });
 }
 
 // Function for formatting data from API
