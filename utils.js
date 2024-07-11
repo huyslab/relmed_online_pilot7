@@ -138,10 +138,10 @@ function saveDataREDCap(retry = 1) {
 }
 
 // Function to call at the end of the experiment
-function end_experiment() {
+async function end_experiment() {
 
     // Save data
-    saveDataREDCap(retry = 3);
+    await saveDataREDCap(retry = 3);
 
     // Allow refresh
     window.removeEventListener('beforeunload', preventRefresh);
