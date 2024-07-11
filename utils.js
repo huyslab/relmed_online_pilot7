@@ -122,7 +122,7 @@ function saveDataREDCap(retry = 1) {
     .then(data => {
         console.log(data)
         if (auto_number){
-            window.record_id = JSON.parse('[' + data[0] + ']')[0]
+            window.record_id = JSON.parse('[' + data.record_import_response[0] + ']')[0]
         }
     }
     )
