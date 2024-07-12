@@ -14,7 +14,17 @@ function prepare_instructions() {
         {
         type: jsPsychInstructions,
         css_classes: ['instructions'],
-        pages: [
+        pages: () => {
+
+            let pages = [];
+            if (window.sessionNum > 1){
+                pages.push(`<p>Welcome back to the study!</p>\
+                    <p>Today you will be playing the card choosing game again</p>
+                    <p>Let's start with a reminder of how to play it.</p>`
+                );
+            }
+
+            pages = pages.concat([
             `<p><b>THE CARD CHOOSING GAME</b></p>
                 <p>In this game you are the owner of a safe.</p>
                 <img src='imgs/safe.png' style='width:100px; height:100px;'>
@@ -38,47 +48,51 @@ function prepare_instructions() {
                 <td><img src='imgs/50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
                 <td><img src='imgs/1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>
                 <p>This means that such a coin was broken and removed from your safe.</p>`
-        ],
+        ]);
+        return pages
+    },
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
-    },
-    {
-        type: jsPsychHtmlKeyboardResponse,
-        css_classes: ['instructions'],
-        stimulus: `<p>You choose a card by pressing the left or the right arrow keys.</p>
-                <p>Let's try it out now! Flip a card on the next screen.</p>
-                <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
-        choices: ['arrowleft', 'arrowright'],
-        data: {trialphase: "instruction"}
-    }];
+    }
+    ];
 
-    inst.push(
-        {
-            timeline: build_PLT_task(
-                [[
-                    {
-                        stimulus_left: "binoculars.png",
-                        stimulus_right: "clock.png",
-                        feedback_left: 1,
-                        feedback_right: 1,
-                        optimal_right: 1,
-                        block: "practice1",
-                        trial: 1,
-                        valence: 1,
-                        maxRespTime: -1
-                    }
-                ]],
-                false
-            )
-        }
-    );
-        
+    if (window.sessionNum == 1) {
+        inst.push(
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                css_classes: ['instructions'],
+                stimulus: `<p>You choose a card by pressing the left or the right arrow keys.</p>
+                        <p>Let's try it out now! Flip a card on the next screen.</p>
+                        <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+                choices: ['arrowleft', 'arrowright'],
+                data: {trialphase: "instruction"}
+            },
+            {
+                timeline: build_PLT_task(
+                    [[
+                        {
+                            stimulus_left: "binoculars.png",
+                            stimulus_right: "clock.png",
+                            feedback_left: 1,
+                            feedback_right: 1,
+                            optimal_right: 1,
+                            block: "practice1",
+                            trial: 1,
+                            valence: 1,
+                            maxRespTime: -1
+                        }
+                    ]],
+                    false
+                )
+            }
+        );
+    }
   
     inst = inst.concat([{
         type: jsPsychInstructions,
         css_classes: ['instructions'],
         pages: [
-            `<p>You found a one pound coin!</p>
+            `${window.sessionNum == 1 ? `<p>You found a one pound coin!</p>` : ``}
             <p>Some cards are better than others, but even good cards can sometimes only give a penny 
             or might sometimes break a one pound coin.</p>`
         ],
@@ -97,6 +111,11 @@ function prepare_instructions() {
 
     let dumbbell_on_right = [true, true, false, true, false, false];
     let reward_magnitude = [0.5, 1, 1, 0.5, 1, 0.5];
+
+    if (window.sessionNum > 1){
+        dumbbell_on_right = [1, 3, 4, 0].map(i => dumbbell_on_right[i])
+        reward_magnitude = [3, 4, 0, 1].map(i => reward_magnitude[i])
+    }
 
     inst.push(
         {
@@ -136,6 +155,12 @@ function prepare_instructions() {
 
     let hammer_on_right = [false, true, false, true, false, false];
     let punishment_magnitude = [-0.01, -0.5, -0.5, -0.01, -0.01, -0.5];
+
+    if (window.sessionNum > 1){
+        hammer_on_right = [1, 3, 4, 0].map(i => hammer_on_right[i])
+        punishment_magnitude = [3, 4, 0, 1].map(i => punishment_magnitude[i])
+    }
+
 
     inst.push(
         {
