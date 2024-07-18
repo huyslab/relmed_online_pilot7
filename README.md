@@ -20,6 +20,7 @@ Unfortunatley, the order of sequences was not shuffled, and so there are systema
 Additionally, future versions should implement condition assignment via the lambda funciton / hosting server, as Prolfic doesn't handle this well (it doesn't exclude participants from concurrently running studies).
 
 ## Files in this repository
+```
 .
 ├── consent.html - first page particiapnts land on.
 ├── experiment.html - main experiment script, participants are redirected here from consent.
@@ -29,10 +30,11 @@ Additionally, future versions should implement condition assignment via the lamb
 ├── utils.js - various functions used in the experiment.
 ├── style.css - stylesheet for consent.html
 ├── PLT_task_structure_XX.json - files containing timeline variables for the stimuli and feedback sequences in each block and trial.
-├── jspsych/ - jsPsych library and plugins used in the experiment./
+├── jspsych/ - jsPsych library and plugins used in the experiment.
 │   └── ...
-├── imgs/ - imgs displayed/
+├── imgs/ - imgs displayed
 │   └── ...
 └── labda/ - AWS lambda files. Only backup - changes won't get pushed to AWS/
     ├── lamda_function.py - script of AWS lambda function.
     └── ... the rest is python packages needed for function.
+```
