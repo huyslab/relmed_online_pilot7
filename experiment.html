@@ -200,9 +200,9 @@
 
     // Configuration object
     const experimentConfig = {
-      ratios: [16],
+      ratios: [1],
       magnitudes: [1, 2, 5, 10, 20, 50, 100, 200],
-      trialDuration: 6000, // in milliseconds
+      trialDuration: 600, // in milliseconds
       minITI: 1400,
       maxITI: 1600
     };
@@ -357,6 +357,10 @@
           minimum_valid_rt: 50
         });
       },
+      on_load: function () {
+        const magnitude_index = experimentConfig.magnitudes.indexOf(jsPsych.evaluateTimelineVariable('magnitude'));
+        document.getElementById('piggy-bank').style.filter = `hue-rotate(${magnitude_index * 45}deg)`;
+      },
       on_finish: function (data) {
         // Clean up listener
         jsPsych.pluginAPI.cancelAllKeyboardResponses();
@@ -437,7 +441,7 @@
     // Combine all parts into the full timeline
     const fullTimeline = [
       instructions,
-      ...experimentTimeline.slice(0, 2),
+      ...experimentTimeline.slice(0, 8),
       debriefing
     ];
 
