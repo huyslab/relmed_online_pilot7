@@ -125,7 +125,7 @@
     }
 
     // Box shaking trial
-    const boxShakingTrial = {
+    const piggyBankTrial = {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function () {
         return generateTrialStimulus(jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio'));
@@ -258,7 +258,7 @@
     const experimentTimeline = [];
     trials.forEach(trial => {
       experimentTimeline.push({
-        timeline: [boxShakingTrial, interTrialInterval],
+        timeline: [piggyBankTrial, interTrialInterval],
         timeline_variables: [trial]
       });
     });
