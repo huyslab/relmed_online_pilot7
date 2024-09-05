@@ -6,7 +6,7 @@ const instructionPage = {
   stimulus: function () {
     return `
       <div class="experiment-wrapper">
-        <div id="info-container">
+        <div id="instruction-container">
           <div id="instruction-text">Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...</div>
         </div>
         <div id="experiment-container">

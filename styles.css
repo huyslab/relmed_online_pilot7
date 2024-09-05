@@ -43,6 +43,7 @@
   opacity: 0;
 }
 
+#instruction-container,
 #info-container {
   height: 5vmin;
   display: flex;
