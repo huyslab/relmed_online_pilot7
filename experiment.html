@@ -7,6 +7,7 @@
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
   <script src="jspsych/plugin-html-button-response.js"></script>
   <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+  <script src="instructions.js"></script>
   <style>
     .experiment-wrapper {
       display: flex;
@@ -21,7 +22,7 @@
       position: relative;
       width: 50vmin;
       /* Use vmin for better scaling across devices */
-      height: 80vmin;
+      height: 75vmin;
       display: flex;
       justify-content: center;
     }
@@ -89,7 +90,7 @@
     #reward-counter,
     #trial-info {
       font-size: 3vmin;
-      margin: 1vmin 0;
+      margin: 1.5vmin 0;
       display: block;
     }
 
@@ -173,7 +174,7 @@
       width: 0%;
       background-color: #90a4ae;
       /* Soft blue-gray */
-      transition: width 0.2s ease-in-out;
+      transition: width 0.1s ease-in-out;
     }
 
     #progress-text {
@@ -198,11 +199,14 @@
       }
     });
 
+    // Add instruction styles
+    addInstructionStyles();
+
     // Configuration object
     const experimentConfig = {
-      ratios: [1],
+      ratios: [2],
       magnitudes: [1, 2, 5, 10, 20, 50, 100, 200],
-      trialDuration: 600, // in milliseconds
+      trialDuration: 6000, // in milliseconds
       minITI: 1400,
       maxITI: 1600
     };
@@ -227,6 +231,9 @@
       const ratio_text = ratio === 1 ? 'time' : 'times';
       return `
     <div class="experiment-wrapper">
+      <div id="info-container" style="visibility: hidden;">
+          <div id="instruction-text">Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...</div>
+      </div>
       <div id="experiment-container">
         <div id="coin-container"></div>
         <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
@@ -237,6 +244,10 @@
       <div id="progress-container">
         <div id="progress-bar"></div>
         <div id="progress-text">0/${ratio}</div>
+      </div>
+      <div id="button-container" style="visibility: hidden;">
+        <button id="restart-button" class="jspsych-btn">Restart</button>
+        <button id="continue-button" class="jspsych-btn">Continue</button>
       </div>
     </div>
   `;
@@ -268,7 +279,7 @@
       const coinContainer = document.getElementById('coin-container');
       const coin = document.createElement('img');
       coin.className = 'coin';
-      coin.src = `img/${magnitude}p.png`;
+      coin.src = magnitude === 0 ? 'img/ooc_2p.png' : `img/${magnitude}p.png`;
       coin.alt = `Coin of value ${magnitude}`;
 
       // Random horizontal position
@@ -373,6 +384,9 @@
       stimulus: function () {
         return `
       <div class="experiment-wrapper">
+        <div id="info-container" style="visibility: hidden;">
+          <div id="instruction-text">Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...</div>
+        </div>
         <div id="experiment-container">
           <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
         </div>
@@ -382,6 +396,10 @@
         <div id="progress-container" style="visibility: hidden;">
           <div id="progress-bar"></div>
           <div id="progress-text"></div>
+        </div>
+        <div id="button-container" style="visibility: hidden;">
+          <button id="restart-button" class="jspsych-btn">Restart</button>
+          <button id="continue-button" class="jspsych-btn">Continue</button>
         </div>
       </div>
         `;
@@ -395,19 +413,16 @@
 
     // Create timeline
     // Instructions
-    const instructions = {
-      type: jsPsychHtmlButtonResponse,
+    const startFirstTrial = {
+      type: jsPsychHtmlKeyboardResponse,
+      choices: [' '],
       stimulus: `
-        <p>Welcome to the Box Shaking Experiment!</p>
-        <p>In this experiment, you will see a box on the screen.</p>
-        <p>Your task is to press the spacebar to shake the box.</p>
-        <p>Sometimes, shaking the box will result in a coin dropping.</p>
-        <p>The number of shakes needed for a coin to drop and the value of the coin will change throughout the experiment.</p>
-        <p>Try to earn as many points as possible!</p>
-        <p>Each trial will last for 6 seconds, followed by a short break.</p>
-        <p>Press the button below when you're ready to begin.</p>
-    `,
-      choices: ['Start Experiment']
+      <div id="info-container">
+        <div id="iti-text">
+          <p>Preparing the first trial...</p>
+          <p>Press <span class="spacebar-icon">Spacebar</span> to start</p>
+        </div>
+      </div>`
     };
 
     // Generate trials
@@ -429,10 +444,7 @@
         return `
             <p>Thank you for participating in the experiment!</p>
             <p>You earned a total of ${(totalReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} in the game.</p>
-            <p>In this experiment, we were studying how different reward schedules and magnitudes affect behavior.</p>
-            <p>Sometimes you needed more shakes to get a reward, and sometimes the rewards were larger.</p>
-            <p>Your data will help us understand how people respond to different patterns of reinforcement.</p>
-            <p>If you have any questions about the experiment, please ask the experimenter now.</p>
+            <p>If you have any questions about the experiment, please message the experimenter.</p>
         `;
       },
       choices: ['Finish']
@@ -440,7 +452,8 @@
 
     // Combine all parts into the full timeline
     const fullTimeline = [
-      instructions,
+      instructionPage,
+      startFirstTrial,
       ...experimentTimeline.slice(0, 8),
       debriefing
     ];
