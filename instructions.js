@@ -41,9 +41,10 @@ const instructionPage = {
       const messages = [
         'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...',
         'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake...',
-        'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake... and shake again!'
+        'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake... and shake again!',
+        'Well done! You just got a coin out of the piggy bank! Press the Continue button to proceed.'
       ];
-      instructionText.innerHTML = messages[shakeCount] || messages[0];
+      instructionText.innerHTML = messages[shakeCount];
     }
 
     function handleSpacebar(info) {
@@ -85,31 +86,3 @@ const instructionPage = {
     });
   }
 };
-
-// Function to add styles to the document
-function addInstructionStyles() {
-  // Additional styles
-  const instructionStyles = `
-    #instruction-text {
-      font-size: 3vmin;
-      text-align: center;
-    }
-    .spacebar-icon {
-      display: inline-block;
-      padding: 10px 15px;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      font-weight: bold;
-    }
-    #button-container {
-      display: flex;
-      justify-content: center;
-      visibility: hidden;
-    }
-    #button-container button {
-      margin: 0 10px;
-    }
-  `;
-  document.head.insertAdjacentHTML('beforeend', `<style>${instructionStyles}</style>`);
-}
