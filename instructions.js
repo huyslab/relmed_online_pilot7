@@ -35,33 +35,33 @@ const instructionPage = {
     const buttonContainer = document.getElementById('button-container');
     const restartButton = document.getElementById('restart-button');
     const continueButton = document.getElementById('continue-button');
-  
+
+    // Modularize the update of instruction text
     function updateInstructionText() {
-      if (shakeCount === 1) {
-        instructionText.innerHTML = 'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake...';
-      } else if (shakeCount === 2) {
-        instructionText.innerHTML = 'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake... and shake again!';
-      }
+      const messages = [
+        'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...',
+        'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake...',
+        'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake... and shake again!'
+      ];
+      instructionText.innerHTML = messages[shakeCount] || messages[0];
     }
-  
+
     function handleSpacebar(info) {
       shakeCount++;
       shakePiggy();
       updateInstructionText();
-  
+
       if (shakeCount === 3) {
         dropCoin(0);  // Out-of-circulation coin for instruction
         buttonContainer.style.visibility = 'visible';
         jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       }
     }
-  
+
     function restart() {
       shakeCount = 0;
       instructionText.innerHTML = 'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...';
       buttonContainer.style.visibility = 'hidden';
-      // const coinContainer = document.getElementById('coin-container');
-      // coinContainer.innerHTML = '';
       keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
         callback_function: handleSpacebar,
         valid_responses: [' '],
@@ -70,7 +70,7 @@ const instructionPage = {
         allow_held_key: false
       });
     }
-  
+
     let keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
       callback_function: handleSpacebar,
       valid_responses: [' '],
@@ -78,7 +78,7 @@ const instructionPage = {
       persist: true,
       allow_held_key: false
     });
-  
+
     restartButton.addEventListener('click', restart);
     continueButton.addEventListener('click', () => {
       jsPsych.finishTrial();
@@ -86,31 +86,30 @@ const instructionPage = {
   }
 };
 
-// Additional styles
-const instructionStyles = `
-  #instruction-text {
-    font-size: 3vmin;
-    text-align: center;
-  }
-  .spacebar-icon {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-weight: bold;
-  }
-  #button-container {
-    display: flex;
-    justify-content: center;
-    visibility: hidden;
-  }
-  #button-container button {
-    margin: 0 10px;
-  }
-`;
-
 // Function to add styles to the document
 function addInstructionStyles() {
+  // Additional styles
+  const instructionStyles = `
+    #instruction-text {
+      font-size: 3vmin;
+      text-align: center;
+    }
+    .spacebar-icon {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    #button-container {
+      display: flex;
+      justify-content: center;
+      visibility: hidden;
+    }
+    #button-container button {
+      margin: 0 10px;
+    }
+  `;
   document.head.insertAdjacentHTML('beforeend', `<style>${instructionStyles}</style>`);
 }
