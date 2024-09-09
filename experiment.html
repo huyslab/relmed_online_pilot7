@@ -40,13 +40,8 @@
     <div id='display_element' class='jsPsychDE'></div>
 </body>
 <script>
-    window.code_version = 0.1
+    window.code_version = 0.2
     window.maxWarnings = 10
-
-    // Conditions:
-    // First digit - early stopping. 0 - no early stopping, 1 - early stopping
-    // Second digit - valence grouped / interleaved. 0 - interleaved, 1 - grouped.
-    // Third digit - reward first. 0 - punishment first, 1 - reward first, undefined - NA
 
     // Initialize jsPysch object
     let jsPsych = initJsPsych({
@@ -54,17 +49,11 @@
     });
 
     // Get condition from URL, all caps are prolific, lowercase are ours
-    window.condition = jsPsych.data.getURLVariable('cond');
     window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
     window.debug = prolificPID.includes("debug");
     window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
     window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
     window.sessionNum = jsPsych.data.getURLVariable('session_num');
-
-    // Parse condition
-    window.earlyStop = window.condition[0] == "1"
-    window.valenceGrouped = window.condition[1] == "1"
-    window.rewardFirst = window.condition[2] == "1"
 
     // Save participant variables to data
     jsPsych.data.addProperties({
@@ -73,10 +62,6 @@
         study_id: window.studyId,
         session_id: window.sessionId,
         session: window.sessionNum,
-        condition: window.condition,
-        early_stop: window.earlyStop,
-        valence_grouped: window.valenceGrouped,
-        reward_first: window.rewardFirst,
         n_warnings: 0
     })
 
@@ -138,27 +123,6 @@
         on_finish: () => {window.skipThisBlock = false}
     }
 
-    const inter_valence_msg = {
-        type: jsPsychHtmlKeyboardResponse,
-        choice: ['rightarrow', 'leftarrow'],
-        css_classes: ['instructions'],
-        stimulus: function(){
-            if ((window.rewardFirst & window.sessionNum == 1) | ((!window.rewardFirst) & window.sessionNum == 2)) {
-                return "<p>Well done.</p><p>You will now continue playing the same game, \
-                    but this time your goal is to <b>avoid losing coins</b>. Remember: every broken coin you discover will be removed from your safe.</p>\
-                        <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>"
-            } else {
-                return "<p>Well done.</p><p>You will now continue playing the same game, \
-                    but this time your goal is to <b>win coins</b>. Remember: every coin you discover will be added to your safe.</p>\
-                        <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>"
-            }
-        },
-        data: {
-            trialphase: "change_valence",
-        }
-    }
-
-
     const PLT_trial =  {
         timeline: [
             kick_out,
@@ -198,8 +162,7 @@
         conditional_function: function(){
 
             // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
-            if (window.earlyStop && 
-                Number.isInteger(jsPsych.timelineVariable('block')) && 
+            if (Number.isInteger(jsPsych.timelineVariable('block')) && 
                 jsPsych.timelineVariable('trial') > 5 &&
                 (window.skipThisBlock | jsPsych.timelineVariable('trial') < 13)
             ){
@@ -273,10 +236,6 @@
             // Add message
             if (insert_msg){
                 block.push(inter_block_msg);
-
-                if (window.valenceGrouped & (i == (totalBlockNumber / 2 - 1))) {
-                    block.push(inter_valence_msg);
-                } 
             }
             
             PLT_task = PLT_task.concat(block)
@@ -285,9 +244,9 @@
         return PLT_task
     }
 
-    async function load_squences(condition, session) {
+    async function load_squences(session) {
         try {
-            const response = await fetch('PLT_task_structure_' + condition + '.json');
+            const response = await fetch('PLT_task_structure.json');
             
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -394,7 +353,7 @@
     // Load sequences and start
     var procedure = [];
 
-    load_squences(window.condition, window.sessionNum);
+    load_squences(window.sessionNum);
         
 </script>
 </html>
