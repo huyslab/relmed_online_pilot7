@@ -140,6 +140,7 @@
                 trialphase: "task",
                 block: jsPsych.timelineVariable('block'),
                 trial: jsPsych.timelineVariable('trial'),
+                stimulus_pair: jsPsych.timelineVariable('stimulus_pair'),
                 valence: jsPsych.timelineVariable('valence'),
                 rest_1pound: jsPsych.timelineVariable('rest_1pound'),
                 rest_50pence: jsPsych.timelineVariable('rest_50pence'),
@@ -167,16 +168,33 @@
                 (window.skipThisBlock)
             ){
 
-                    // Compute number of previous optimal choices in the past 5 trials
-                    let num_optimal = jsPsych.data.get().filter({
+                    // Find all sitmulus-pairs in block
+                    let unique_stimulus_pairs =  [...new Set(jsPyshc.data.get().filter({
                         trial_type: "PLT"
-                    }).last(5).select('isOptimal').sum()
+                    }).select('stimulus_pairs').values())]
 
-                    if (num_optimal >= 5) {
+                    // Initialize a variable to store the result
+                    let all_optimal = true;
+
+                    // Iterate over each unique stimulus_pair and check the last 5 choices
+                    unique_stimulus_pairs.forEach(pair => {
+                        // Filter data for the current stimulus_pair
+                        let num_optimal = jsPsych.data.get().filter({
+                            trial_type: "PLT",
+                            stimulus_pairs: pair
+                        }).last(5).select('isOptimal').sum();
+
+                        // Check if all last 5 choices for this pair are correct
+                        if (num_optimal < 5) {
+                            all_optimal = false;
+                        }
+                    });
+
+                    if (all_optimal) {
                         window.skipThisBlock = true;
                     }
 
-                    return num_optimal < 5
+                    return !all_optimal
             }
             
         }
