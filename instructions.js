@@ -205,12 +205,12 @@ function prepare_instructions() {
             required: true
         },
         {
-            prompt: "If I find a broken coin, that means it will be removed from my safe.",
+            prompt: "If I find a broken coin, that means a coin was broken in my safe.",
             options: ["True", "False"],
             required: true
         },
         {
-            prompt: "My goal is to collect as many high-value coins as I can.",
+            prompt: "My goal is to collect and keep from breaking as many high-value coins as I can.",
             options: ["True", "False"],
             required: true
         },
@@ -290,7 +290,8 @@ const lottery_instructions = {
         '<p>You have completed the card choosing game!</p>\
             <p>Next, your bonus payment will be determined.</p>\
             <p>On the next page, you will be presented with a representative sample of the conents \
-            your safe. After flipping the cards and shuffling, you will get to chose one card, and reveal the coin that will be paid to you as a bonus.</p> '
+            your safe. After flipping the cards and shuffling, you will get to chose one card, and reveal the coin that will be paid to you as a bonus.</p>\
+            <p>If you select a broken coin, no bonus payment will be paid to you today.</p>'
     ],
     show_clickable_nav: true,
     data: {trialphase: "lottery_instructions"}
