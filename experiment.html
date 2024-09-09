@@ -6,8 +6,8 @@
   <script src="jspsych/jspsych.js"></script>
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
   <script src="jspsych/plugin-html-button-response.js"></script>
-  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css"/>
-  <link href="styles.css" rel="stylesheet" type="text/css"/>
+  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+  <link href="styles.css" rel="stylesheet" type="text/css" />
   <script src="instructions.js"></script>
 </head>
 
@@ -22,12 +22,15 @@
 
     // Configuration object
     const experimentConfig = {
-      ratios: [2],
+      ratios: [1, ...Array.from({ length: 18 }, (_, i) => 2 + i * 2)],
+      // ratios: [1, 4, 16, 32],
       magnitudes: [1, 2, 5, 10, 20, 50, 100, 200],
       trialDuration: 6000, // in milliseconds
       minITI: 1400,
       maxITI: 1600
     };
+
+    // console.log(experimentConfig)
 
     window.totalReward = 0;
     window.totalPresses = 0;
@@ -48,26 +51,23 @@
       const magnitude_text = (magnitude / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
       const ratio_text = ratio === 1 ? 'time' : 'times';
       return `
-    <div class="experiment-wrapper">
-      <div id="info-container" style="visibility: hidden;">
-          <div id="instruction-text">Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...</div>
+        <div class="experiment-wrapper">
+          <!-- Middle Row (Piggy Bank & Coins) -->
+          <div id="experiment-container">
+            <div id="coin-container"></div>
+            <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
+          </div>
+          <!-- Bottom Row (Trial Info) -->
+          <div id="bottom-container">
+            <div id="info-container">
+              <div id="trial-info">Press ${ratio + ' ' + ratio_text} for ${magnitude_text}</div>
+            </div>
+            <div id="progress-container">
+              <div id="progress-bar"></div>
+              <div id="progress-text">0/0</div>
+            </div>
+          </div>
       </div>
-      <div id="experiment-container">
-        <div id="coin-container"></div>
-        <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
-      </div>
-      <div id="info-container">
-        <div id="trial-info">Press ${ratio + ' ' + ratio_text} for ${magnitude_text}</div>
-      </div>
-      <div id="progress-container">
-        <div id="progress-bar"></div>
-        <div id="progress-text">0/${ratio}</div>
-      </div>
-      <div id="button-container" style="visibility: hidden;">
-        <button id="restart-button" class="jspsych-btn">Restart</button>
-        <button id="continue-button" class="jspsych-btn">Continue</button>
-      </div>
-    </div>
   `;
     }
 
@@ -210,22 +210,11 @@
       stimulus: function () {
         return `
       <div class="experiment-wrapper">
-        <div id="info-container" style="visibility: hidden;">
-          <div id="instruction-text">Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...</div>
-        </div>
         <div id="experiment-container">
           <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
         </div>
         <div id="info-container">
           <div id="iti-text">Preparing next trial...</div>
-        </div>
-        <div id="progress-container" style="visibility: hidden;">
-          <div id="progress-bar"></div>
-          <div id="progress-text"></div>
-        </div>
-        <div id="button-container" style="visibility: hidden;">
-          <button id="restart-button" class="jspsych-btn">Restart</button>
-          <button id="continue-button" class="jspsych-btn">Continue</button>
         </div>
       </div>
         `;
