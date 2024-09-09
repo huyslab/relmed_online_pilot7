@@ -164,7 +164,7 @@
             // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
             if (Number.isInteger(jsPsych.timelineVariable('block')) && 
                 jsPsych.timelineVariable('trial') > 5 &&
-                (window.skipThisBlock | jsPsych.timelineVariable('trial') < 13)
+                (window.skipThisBlock)
             ){
 
                     // Compute number of previous optimal choices in the past 5 trials
