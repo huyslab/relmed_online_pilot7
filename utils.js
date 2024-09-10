@@ -84,7 +84,7 @@ function check_fullscreen(){
   
 
 // Save data to REDCap
-function saveDataREDCap(retry = 1, callback = () => {}) {
+function saveDataREDCap(retry = 1, callback = () => {}, task) {
 
     const auto_number = window.record_id == undefined
 
@@ -98,9 +98,8 @@ function saveDataREDCap(retry = 1, callback = () => {}) {
         study_id: window.studyId,
         session_id: window.sessionId,
         start_time: window.startTime,
-        exp_code_version: window.code_version,
-        group: window.condition,
         jspsych_data: jspsych_data,
+        task: task,
         auto_number: auto_number ? 'true' : 'false'
     }])
 
@@ -354,7 +353,7 @@ function inter_block_stimulus(){
     const block = last_trial.select('block').values[0];
 
     // Number of pairs in block
-    const n_paris = last_trial.selec("n_pairs").values[0]
+    const n_paris = last_trial.select("n_pairs").values[0]
 
     // Find chosen outcomes for block
     let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",

@@ -3,7 +3,7 @@ import requests
 from os import environ
 import io
 
-def upload_file_to_redcap(record, file_content):
+def upload_file_to_redcap(record, file_content, field):
     token = environ.get('REDCAP_API_TOKEN')
     
     # Create an in-memory file object
@@ -19,7 +19,7 @@ def upload_file_to_redcap(record, file_content):
         'content': 'file',
         'action': 'import',
         'record': record,
-        'field': 'other_data'
+        'field': field
     }
     
     r = requests.post('https://redcap.slms.ucl.ac.uk/api/', data=data, files=files)
@@ -59,8 +59,9 @@ def lambda_handler(event, context):
     jspsych_data = body_data["jspsych_data"]  
     
     # Upload the long text as a file
+    task = json.loads(event['body'])[0]['task']
     file_upload_response = upload_file_to_redcap(record_id, 
-        jspsych_data)
+        jspsych_data, task.lower() + "_data")
     print(file_upload_response)
 
     return {
