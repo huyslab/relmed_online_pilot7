@@ -140,7 +140,8 @@
                 trialphase: "task",
                 block: jsPsych.timelineVariable('block'),
                 trial: jsPsych.timelineVariable('trial'),
-                stimulus_pair: jsPsych.timelineVariable('stimulus_pair'),
+                stimulus_pair: jsPsych.timelineVariable('pair'),
+                stimulus_pair_id: jsPsych.timelineVariable('cpair'),
                 valence: jsPsych.timelineVariable('valence'),
                 n_pairs: jsPsych.timelineVariable('n_pairs'),
                 rest_1pound: jsPsych.timelineVariable('rest_1pound'),
@@ -165,25 +166,34 @@
 
             // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
             if (Number.isInteger(jsPsych.timelineVariable('block')) && 
-                jsPsych.timelineVariable('trial') > 5 &&
-                (window.skipThisBlock)
+                jsPsych.timelineVariable('trial') > 5
             ){
 
+                    // Block number
+                    const block = jsPsych.data.get().last(1).select('block').values[0];
+
                     // Find all sitmulus-pairs in block
-                    let unique_stimulus_pairs =  [...new Set(jsPyshc.data.get().filter({
-                        trial_type: "PLT"
-                    }).select('stimulus_pairs').values())]
+                    let unique_stimulus_pairs =  [...new Set(jsPsych.data.get().filter({
+                        trial_type: "PLT",
+                        block: block
+                    }).select('stimulus_pair').values)]
+
+                    console.log(unique_stimulus_pairs)
 
                     // Initialize a variable to store the result
                     let all_optimal = true;
 
                     // Iterate over each unique stimulus_pair and check the last 5 choices
                     unique_stimulus_pairs.forEach(pair => {
+                        console.log(pair)
                         // Filter data for the current stimulus_pair
                         let num_optimal = jsPsych.data.get().filter({
                             trial_type: "PLT",
-                            stimulus_pairs: pair
+                            block: block,
+                            stimulus_pair: pair
                         }).last(5).select('isOptimal').sum();
+
+                        console.log(num_optimal)
 
                         // Check if all last 5 choices for this pair are correct
                         if (num_optimal < 5) {
@@ -265,7 +275,7 @@
 
     async function load_squences(session) {
         try {
-            const response = await fetch('PLT_task_structure.json');
+            const response = await fetch('pilot2.json');
             
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -330,7 +340,7 @@
         procedure = procedure.concat(preliminary_checks);
         
         // Add instructions
-        procedure = procedure.concat(prepare_instructions());
+        // procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));
