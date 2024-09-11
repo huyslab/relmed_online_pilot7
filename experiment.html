@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>PLT</title>
     <script src="jspsych/jspsych.js"></script>
+    <script>
+        // Initialize jsPysch object
+        let jsPsych = initJsPsych({
+            display_element: 'display_element',
+        });
+    </script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-browser-check.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
@@ -14,6 +20,7 @@
     <script src="plugin-PLT.js"></script>
     <script src="plugin-coin-lottery.js"></script>
     <script src="utils.js"></script>
+    <script src="PILT.js"></script>
     <script src="PILT_instructions.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
 </head>
@@ -40,11 +47,6 @@
     <div id='display_element' class='jsPsychDE'></div>
 </body>
 <script>
-    // Initialize jsPysch object
-    let jsPsych = initJsPsych({
-        display_element: 'display_element',
-    });
-
     // Get condition from URL, all caps are prolific, lowercase are ours
     window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
     window.debug = prolificPID.includes("debug");

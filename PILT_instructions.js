@@ -1,7 +1,7 @@
 // Instructions for the PLT
 const small_coin_size = 70;
 
-function prepare_instructions() {
+function prepare_PILT_instructions() {
     const inter_block_instruct = {
         type: jsPsychInstructions,
         css_classes: ['instructions'],
