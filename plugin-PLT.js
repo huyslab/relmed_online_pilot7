@@ -232,7 +232,6 @@ jsPsychPLT = (function(jspsych) {
         }
 
         keyResponse = (e) => {
-            console.log(this)
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.data.keyPressOnset = performance.now()
