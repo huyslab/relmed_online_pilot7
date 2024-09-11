@@ -79,7 +79,13 @@ function prepare_instructions() {
                             block: "practice1",
                             trial: 1,
                             valence: 1,
-                            maxRespTime: -1
+                            maxRespTime: -1,
+                            pair: 1,
+                            cpair: 1,
+                            n_pairs: 1,
+                            rest_1pound: 0,
+                            rest_50pence: 0,
+                            rest_1penny: 0
                         }
                     ]],
                     false
@@ -130,7 +136,13 @@ function prepare_instructions() {
                             optimal_right: e,
                             block: "practice2",
                             trial: i,
-                            valence: 1
+                            valence: 1,
+                            pair: 1,
+                            cpair: 1,
+                            n_pairs: 1,
+                            rest_1pound: 0,
+                            rest_50pence: 0,
+                            rest_1penny: 0
                         })
                     )
                 ],
@@ -175,7 +187,13 @@ function prepare_instructions() {
                             optimal_right: e,
                             block: "practice3",
                             trial: i,
-                            valence: -1
+                            valence: -1,
+                            pair: 1,
+                            cpair: 1,
+                            n_pairs: 1,
+                            rest_1pound: 0,
+                            rest_50pence: 0,
+                            rest_1penny: 0
                         })
                     )
                 ],
