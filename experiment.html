@@ -196,6 +196,11 @@
       on_load: function () {
         const magnitude_index = experimentConfig.magnitudes.indexOf(jsPsych.evaluateTimelineVariable('magnitude'));
         document.getElementById('piggy-bank').style.filter = `hue-rotate(${magnitude_index * 45}deg)`;
+
+        // Initialize progress bar
+        const ratio = jsPsych.evaluateTimelineVariable('ratio');
+        const progressText = document.getElementById('progress-text');
+        progressText.textContent = `0/${ratio}`;
       },
       on_finish: function (data) {
         // Clean up listener
