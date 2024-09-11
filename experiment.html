@@ -352,7 +352,7 @@
         procedure = procedure.concat(preliminary_checks);
         
         // Add instructions
-        // procedure = procedure.concat(prepare_instructions());
+        procedure = procedure.concat(prepare_instructions());
 
         // Add PLT
         procedure = procedure.concat(build_PLT_task(structure));
