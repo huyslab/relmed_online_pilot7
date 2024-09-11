@@ -231,7 +231,8 @@ jsPsychPLT = (function(jspsych) {
             return html
         }
 
-        keyResponse(e) {
+        keyResponse = (e) => {
+            console.log(this)
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.data.keyPressOnset = performance.now()
@@ -309,7 +310,7 @@ jsPsychPLT = (function(jspsych) {
             }
         }
 
-        endTrial() {
+        endTrial = () => {
             // clear the display
             let optionBox = document.getElementById("optionBox");
             optionBox.style.display = 'none';

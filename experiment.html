@@ -42,6 +42,7 @@
 <script>
     window.code_version = 0.2
     window.maxWarnings = 10
+    window.defaultMaxRespTime = 3000
 
     // Initialize jsPysch object
     let jsPsych = initJsPsych({
@@ -134,12 +135,12 @@
             outcomeLeft: jsPsych.timelineVariable('feedback_left'),
             outcomeRight: jsPsych.timelineVariable('feedback_right'),
             optimalRight: jsPsych.timelineVariable('optimal_right'),
-            maxRespTime: () => jsPsych.evaluateTimelineVariable('maxRespTime') == undefined ? 
-                3000 : jsPsych.evaluateTimelineVariable('maxRespTime'),
+            maxRespTime: jsPsych.timelineVariable('maxRespTime'),
             data: {
                 trialphase: "task",
                 stimulus_pair: jsPsych.timelineVariable('pair'),
                 stimulus_pair_id: jsPsych.timelineVariable('cpair'),
+                optimalRight: jsPsych.timelineVariable('optimal_right')
             },
             save_timeline_variables: true,
             on_finish: function(data) {
@@ -200,6 +201,9 @@
                     }
 
                     return !all_optimal
+            }else{
+                console.log('here')
+                return true
             }
             
         }
@@ -239,6 +243,15 @@
     function build_PLT_task(structure, insert_msg = true){
         let PLT_task = [];
         for (let i=0; i < structure.length; i++){
+
+            // Set default value of maxRespTime
+            structure[i].forEach(trial => {
+                if (!trial.hasOwnProperty('maxRespTime')) {
+                    trial.maxRespTime = window.defaultMaxRespTime; // Add the default value if missing
+                }
+            });
+
+            // Build block
             block = [
                 {
                     type: jsPsychPreload,
