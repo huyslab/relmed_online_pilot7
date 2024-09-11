@@ -353,7 +353,7 @@ function inter_block_stimulus(){
     const block = last_trial.select('block').values[0];
 
     // Number of pairs in block
-    const n_paris = last_trial.select("n_pairs").values[0]
+    const n_pairs = last_trial.select("n_pairs").values[0]
 
     // Find chosen outcomes for block
     let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",

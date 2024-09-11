@@ -129,25 +129,19 @@
             fullscreen_prompt,
         {
             type: jsPsychPLT,
-            imgLeft: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_left'),
-            imgRight: () => 'imgs/'+ jsPsych.timelineVariable('stimulus_right'),
+            imgLeft: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+            imgRight: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
             outcomeLeft: jsPsych.timelineVariable('feedback_left'),
             outcomeRight: jsPsych.timelineVariable('feedback_right'),
             optimalRight: jsPsych.timelineVariable('optimal_right'),
-            maxRespTime: () => jsPsych.timelineVariable('maxRespTime') == undefined ? 
-                3000 : jsPsych.timelineVariable('maxRespTime'),
+            maxRespTime: () => jsPsych.evaluateTimelineVariable('maxRespTime') == undefined ? 
+                3000 : jsPsych.evaluateTimelineVariable('maxRespTime'),
             data: {
                 trialphase: "task",
-                block: jsPsych.timelineVariable('block'),
-                trial: jsPsych.timelineVariable('trial'),
                 stimulus_pair: jsPsych.timelineVariable('pair'),
                 stimulus_pair_id: jsPsych.timelineVariable('cpair'),
-                valence: jsPsych.timelineVariable('valence'),
-                n_pairs: jsPsych.timelineVariable('n_pairs'),
-                rest_1pound: jsPsych.timelineVariable('rest_1pound'),
-                rest_50pence: jsPsych.timelineVariable('rest_50pence'),
-                rest_1penny: jsPsych.timelineVariable('rest_1penny')
             },
+            save_timeline_variables: true,
             on_finish: function(data) {
                 if (data.choice === "noresp") {
                     var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
@@ -165,8 +159,8 @@
         conditional_function: function(){
 
             // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
-            if (Number.isInteger(jsPsych.timelineVariable('block')) && 
-                jsPsych.timelineVariable('trial') > 5
+            if (Number.isInteger(jsPsych.evaluateTimelineVariable('block')) && 
+                jsPsych.evaluateTimelineVariable('trial') > 5
             ){
 
                     // Block number
