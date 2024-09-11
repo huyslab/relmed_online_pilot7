@@ -16,13 +16,10 @@ function prepare_PILT_instructions() {
         css_classes: ['instructions'],
         pages: () => {
 
-            let pages = [];
-            if (window.sessionNum > 1){
-                pages.push(`<p>Welcome back to the study!</p>\
-                    <p>Today you will be playing the card choosing game again</p>
-                    <p>Let's start with a reminder of how to play it.</p>`
-                );
-            }
+            let pages = [
+                `<p>You have completed the first task of this study.</p>
+                <p>You are now ready to start on the second task.</p>`
+            ];
 
             pages = pages.concat([
             `<p><b>THE CARD CHOOSING GAME</b></p>
