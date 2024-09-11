@@ -2,6 +2,7 @@ var jsPsychCoinLottery = (function(jspsych) {
 
     const info = {
         name: 'coin-lottery',
+        version: '0.1',
         parameters: {
             num_cards: {
                 type: jspsych.ParameterType.INT,
@@ -53,7 +54,34 @@ var jsPsychCoinLottery = (function(jspsych) {
                 default: [0.01, 0.5, 1],
                 description: "Unique coin values, match props in indices"
             }
-        }
+        },
+        data: {
+            choices: {
+                type: jspsych.ParameterType.INT,
+                default: [],
+                description: 'Array of the card indices the participant selected.'
+            },
+            rts: {
+                type: jspsych.ParameterType.INT,
+                default: [],
+                description: 'Array of reaction times corresponding to each selection.'
+            },
+            outcomes: {
+                type: jspsych.ParameterType.FLOAT,
+                default: [],
+                description: 'Array of coin values revealed after each card flip.'
+            },
+            start_time: {
+                type: jspsych.ParameterType.INT,
+                default: null,
+                description: 'The timestamp of when the participant starts the trial.'
+            },
+            end_rt: {
+                type: jspsych.ParameterType.INT,
+                default: null,
+                description: 'The reaction time for the entire trial (time between trial start and last selection).'
+            }
+        }        
     };
 
     class CoinLotteryPlugin {

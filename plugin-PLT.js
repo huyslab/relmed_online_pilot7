@@ -10,6 +10,7 @@ jsPsychPLT = (function(jspsych) {
     const info = {
         name: 'PLT',
         description: '',
+        version: "0.2",
         parameters: {
             imgLeft: {
                 type: jspsych.ParameterType.STRING,
@@ -39,6 +40,68 @@ jsPsychPLT = (function(jspsych) {
             maxRespTime: {
                 type: jspsych.ParameterType.INT,
                 default: 3000,
+            }
+        },
+        data: {
+            choice: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'Chosen side (left or right)'
+            },
+            key: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'Key pressed (left or right arrow key)'
+            },
+            imageLeft: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'Image shown on the left'
+            },
+            imageRight: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'Image shown on the right'
+            },
+            outcomeLeft: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Outcome associated with the left image'
+            },
+            outcomeRight: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Outcome associated with the right image'
+            },
+            optimalRight: {
+              type: jspsych.ParameterType.INT,
+              pretty_name: 'Whether the right image is optimal (1 for yes, 0 for no)'
+            },
+            chosenImg: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'The chosen image (left or right)'
+            },
+            chosenOutcome: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'The outcome associated with the chosen image'
+            },
+            rt: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Reaction time'
+            },
+            isOptimal: {
+              type: jspsych.ParameterType.BOOL,
+              pretty_name: 'Whether the choice was optimal'
+            },
+            trialphase: {
+              type: jspsych.ParameterType.STRING,
+              pretty_name: 'Phase of the trial (task or other)'
+            },
+            initTime: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Initial time when trial starts'
+            },
+            endTime: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Time when the trial ends'
+            },
+            duration: {
+              type: jspsych.ParameterType.FLOAT,
+              pretty_name: 'Duration of the trial'
             }
         }
     }
