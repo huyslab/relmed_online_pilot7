@@ -10,7 +10,6 @@ const experimentConfig = {
 // Global variables
 window.totalReward = 0;
 window.totalPresses = 0;
-window.responseTime = [];
 window.sampledVigourReward = 0;
 
 // Functions for animation
@@ -121,6 +120,7 @@ function generateTrialStimulus(magnitude, ratio) {
 }
 
 // Box shaking trial
+let vigourTrialCounter = 0;
 const piggyBankTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
@@ -202,6 +202,8 @@ const piggyBankTrial = {
   on_finish: function (data) {
     // Clean up listener
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
+    vigourTrialCounter += 1;
+    data.trial_number = vigourTrialCounter;
   }
 };
 
@@ -256,7 +258,7 @@ const debriefing = {
     // console.log(selected_trial);
     trial.stimulus = `
             <p>Congratulations! You've finished this game!</p>
-            <p>Round ${selected_trial.trial_number + 1} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
+            <p>Round ${selected_trial.trial_number} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
             <p>If you have any questions about the experiment, please message the experimenter.</p>
         `;
   }
@@ -277,8 +279,8 @@ function getSelectedTrial() {
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
   const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards);
-  // Save the reward for the bonus round
+  // Side effect: Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
-  return { trial_index: selected_trial[0].trial_index, trial_number: raw_data.select('trial_index').values.indexOf(selected_trial[0].trial_index) };
+  return { trial_index: selected_trial[0].trial_index, trial_number: selected_trial[0].trial_number };
 }
