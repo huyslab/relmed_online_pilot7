@@ -237,10 +237,11 @@ const debriefing = {
   stimulus: "Congratulations! You've finished this game!",
   choices: ['Finish'],
   on_start: function (trial) {
-    const trial_index = getSelectedTrial();
+    const selected_trial = getSelectedTrial();
+    // console.log(selected_trial);
     trial.stimulus = `
             <p>Congratulations! You've finished this game!</p>
-            <p>Round ${Math.floor(trial_index / 2)} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
+            <p>Round ${selected_trial.trial_number + 1} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
             <p>If you have any questions about the experiment, please message the experimenter.</p>
         `;
   }
@@ -263,6 +264,6 @@ function getSelectedTrial() {
   const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards);
   // Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
-  // Return the trial index for referencing
-  return selected_trial[0].trial_index;
+  // Return the trial index for referencing and the trial number for display
+  return { trial_index: selected_trial[0].trial_index, trial_number: raw_data.select('trial_index').values.indexOf(selected_trial[0].trial_index) };
 }
