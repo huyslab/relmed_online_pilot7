@@ -122,6 +122,9 @@ const piggyBankTrial = {
     trial_presses: () => { return window.trialPresses },
     trial_reward: () => { return window.trialReward },
     response_time: () => { return window.responseTime },
+    // Record global data
+    total_presses: () => { return window.totalPresses },
+    total_reward: () => { return window.totalReward }
   },
   on_start: function (trial) {
     // Create a shared state object
