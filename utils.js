@@ -84,7 +84,7 @@ function check_fullscreen(){
   
 
 // Save data to REDCap
-function saveDataREDCap(retry = 1, callback = () => {}, task) {
+function saveDataREDCap(retry = 1, callback = () => {}) {
 
     const auto_number = window.record_id == undefined
 
@@ -99,7 +99,6 @@ function saveDataREDCap(retry = 1, callback = () => {}, task) {
         session_id: window.sessionId,
         start_time: window.startTime,
         jspsych_data: jspsych_data,
-        task: task,
         auto_number: auto_number ? 'true' : 'false'
     }])
 
