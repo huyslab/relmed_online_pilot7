@@ -67,15 +67,15 @@ function dropCoin(magnitude) {
       easing: 'ease-in-out'
     }).onfinish = () => coin.remove();
   } else {
-  coin.animate([
+    coin.animate([
       { top: '-15%', opacity: 0.8, offset: 0 },
       { top: '70%', opacity: 1, offset: 0.5 },
       { top: '70%', opacity: 0, offset: 1 }
-  ], {
-    duration: 1000,
-    easing: 'ease-in-out'
-  }).onfinish = () => coin.remove();
-}
+    ], {
+      duration: 1000,
+      easing: 'ease-in-out'
+    }).onfinish = () => coin.remove();
+  }
 }
 
 // Generate trials
@@ -120,6 +120,9 @@ const piggyBankTrial = {
     trial_presses: () => { return window.trialPresses },
     trial_reward: () => { return window.trialReward },
     response_time: () => { return window.responseTime },
+    // Record global data
+    total_presses: () => { return window.totalPresses },
+    total_reward: () => { return window.totalReward }
   },
   on_start: function (trial) {
     // Create a shared state object
