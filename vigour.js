@@ -218,8 +218,6 @@ const startFirstTrial = {
 };
 
 // Debriefing
-// TODO: Since a fullscreen check trial will be added, then the trial index will be off by 1, but it doesn't seem to affect anything?
-// TODO: Use other function to find the index based on 'trial_index' variable
 const debriefing = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
