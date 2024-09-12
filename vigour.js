@@ -1,7 +1,5 @@
 // Configuration object
 const experimentConfig = {
-  ratios: [1, ...Array.from({ length: 18 }, (_, i) => 2 + i * 2)],
-  magnitudes: [1, 2, 5, 10],
   trialDuration: 6000, // in milliseconds
   minITI: 1400,
   maxITI: 1600
@@ -68,19 +66,7 @@ function dropCoin(magnitude) {
   }).onfinish = () => coin.remove();
 }
 
-// Generate trials (deprecated)
-function generateTrials() {
-  let trials = [];
-  for (let magnitude of experimentConfig.magnitudes) {
-    for (let ratio of experimentConfig.ratios) {
-      trials.push({ magnitude, ratio });
-    }
-  }
-  return jsPsych.randomization.shuffle(trials);
-}
-
 // Generate trials
-// const trials = generateTrials();
 const trials = [{ "magnitude": 10, "ratio": 22 }, { "magnitude": 10, "ratio": 34 }, { "magnitude": 1, "ratio": 18 }, { "magnitude": 1, "ratio": 2 }, { "magnitude": 2, "ratio": 16 }, { "magnitude": 1, "ratio": 16 }, { "magnitude": 5, "ratio": 10 }, { "magnitude": 5, "ratio": 16 }, { "magnitude": 1, "ratio": 12 }, { "magnitude": 2, "ratio": 10 }, { "magnitude": 5, "ratio": 24 }, { "magnitude": 5, "ratio": 26 }, { "magnitude": 10, "ratio": 8 }, { "magnitude": 5, "ratio": 6 }, { "magnitude": 10, "ratio": 10 }, { "magnitude": 5, "ratio": 30 }, { "magnitude": 1, "ratio": 14 }, { "magnitude": 1, "ratio": 10 }, { "magnitude": 10, "ratio": 24 }, { "magnitude": 1, "ratio": 24 }, { "magnitude": 2, "ratio": 12 }, { "magnitude": 5, "ratio": 28 }, { "magnitude": 2, "ratio": 4 }, { "magnitude": 2, "ratio": 22 }, { "magnitude": 2, "ratio": 26 }, { "magnitude": 1, "ratio": 1 }, { "magnitude": 1, "ratio": 20 }, { "magnitude": 2, "ratio": 34 }, { "magnitude": 2, "ratio": 28 }, { "magnitude": 5, "ratio": 36 }, { "magnitude": 10, "ratio": 28 }, { "magnitude": 5, "ratio": 2 }, { "magnitude": 2, "ratio": 1 }, { "magnitude": 10, "ratio": 6 }, { "magnitude": 10, "ratio": 4 }, { "magnitude": 2, "ratio": 2 }, { "magnitude": 5, "ratio": 8 }, { "magnitude": 10, "ratio": 30 }, { "magnitude": 2, "ratio": 32 }, { "magnitude": 5, "ratio": 12 }, { "magnitude": 10, "ratio": 20 }, { "magnitude": 2, "ratio": 18 }, { "magnitude": 5, "ratio": 18 }, { "magnitude": 5, "ratio": 20 }, { "magnitude": 1, "ratio": 36 }, { "magnitude": 1, "ratio": 26 }, { "magnitude": 1, "ratio": 22 }, { "magnitude": 2, "ratio": 24 }, { "magnitude": 10, "ratio": 14 }, { "magnitude": 10, "ratio": 32 }, { "magnitude": 2, "ratio": 20 }, { "magnitude": 5, "ratio": 34 }, { "magnitude": 10, "ratio": 18 }, { "magnitude": 2, "ratio": 36 }, { "magnitude": 1, "ratio": 8 }, { "magnitude": 5, "ratio": 22 }, { "magnitude": 1, "ratio": 6 }, { "magnitude": 1, "ratio": 30 }, { "magnitude": 5, "ratio": 32 }, { "magnitude": 5, "ratio": 14 }, { "magnitude": 1, "ratio": 28 }, { "magnitude": 1, "ratio": 32 }, { "magnitude": 10, "ratio": 26 }, { "magnitude": 10, "ratio": 16 }, { "magnitude": 10, "ratio": 12 }, { "magnitude": 1, "ratio": 4 }, { "magnitude": 2, "ratio": 30 }, { "magnitude": 1, "ratio": 34 }, { "magnitude": 2, "ratio": 14 }, { "magnitude": 10, "ratio": 36 }, { "magnitude": 5, "ratio": 4 }, { "magnitude": 2, "ratio": 6 }, { "magnitude": 2, "ratio": 8 }];
 
 // Trial stimulus function
@@ -232,6 +218,8 @@ const startFirstTrial = {
 };
 
 // Debriefing
+// TODO: Since a fullscreen check trial will be added, then the trial index will be off by 1, but it doesn't seem to affect anything?
+// TODO: Use other function to find the index based on 'trial_index' variable
 const debriefing = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
@@ -247,6 +235,7 @@ const debriefing = {
 };
 
 // Create main experiment timeline
+// TODO: Add fullscreen check before each trial
 const experimentTimeline = [];
 trials.forEach(trial => {
   experimentTimeline.push({
