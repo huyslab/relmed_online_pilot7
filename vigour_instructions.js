@@ -73,7 +73,7 @@ function updateInstructionText(shakeCount) {
     'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank...',
     'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake...',
     'Press <span class="spacebar-icon">Spacebar</span> to shake the piggy bank... shake... and shake again!',
-    'Well done! You just got a coin out of the piggy bank!<br /> Press the Continue button to proceed.'
+    'Well done! You just got a coin out of the piggy bank!<br /> Press <span style="font-weight: bold;">Continue</span> to proceed, or <span style="font-weight: bold;">Restart</span> to try again.'
   ];
   document.getElementById('instruction-text').innerHTML = messages[shakeCount];
 }
