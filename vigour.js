@@ -58,14 +58,26 @@ function dropCoin(magnitude) {
 
   coinContainer.appendChild(coin);
 
-  coin.animate([
-    { top: '-15%', opacity: 0.8 },
-    { top: '70%', opacity: 1 },
-    { top: '70%', opacity: 0 }
-  ], {
-    duration: 1000,
-    easing: 'ease-in-out'
-  }).onfinish = () => coin.remove();
+  if (magnitude === 0) {
+    coin.animate([
+      { top: '-15%', opacity: 0.8, offset: 0 },
+      { top: '70%', opacity: 1, offset: 0.2 },
+      { top: '70%', opacity: 1, offset: 0.9 },
+      { top: '70%', opacity: 0, offset: 1 }
+    ], {
+      duration: 2500,
+      easing: 'ease-in-out'
+    }).onfinish = () => coin.remove();
+  } else {
+    coin.animate([
+      { top: '-15%', opacity: 0.8, offset: 0 },
+      { top: '70%', opacity: 1, offset: 0.5 },
+      { top: '70%', opacity: 0, offset: 1 }
+    ], {
+      duration: 1000,
+      easing: 'ease-in-out'
+    }).onfinish = () => coin.remove();
+  }
 }
 
 // Generate trials (deprecated)
