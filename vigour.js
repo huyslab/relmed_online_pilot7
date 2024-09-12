@@ -83,7 +83,7 @@ const trials = [{ "magnitude": 10, "ratio": 22 }, { "magnitude": 10, "ratio": 34
 
 // Trial stimulus function
 function generateTrialStimulus(magnitude, ratio) {
-  const magnitude_text = (magnitude / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+  const magnitude_text = magnitude === 1 ? '1 penny' : `${magnitude} pence`;
   const ratio_text = ratio === 1 ? 'time' : 'times';
   return `
         <div class="experiment-wrapper">
