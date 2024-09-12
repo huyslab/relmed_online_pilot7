@@ -11,6 +11,7 @@
         });
     </script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
     <script src="jspsych/plugin-browser-check.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
     <script src="jspsych/plugin-survey-multi-choice.js"></script>
@@ -22,7 +23,10 @@
     <script src="utils.js"></script>
     <script src="PILT.js"></script>
     <script src="PILT_instructions.js"></script>
+    <script src="vigour.js"></script>
+    <script src="vigour_instructions.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
 </head>
 <style>
     .jsPsychDE {
@@ -95,7 +99,8 @@
                 "1penny.png", "1pennybroken.png",
                 "1pound.png", "1poundbroken.png",
                 "50pence.png", "50pencebroken.png",
-                "safe.png"
+                "safe.png",
+                "1p.png", "2p.png", "5p.png", "10p.png", "piggy-bank.png", "ooc_2p.png"
             ].map(s => "imgs/" + s),
             post_trial_gap: 800
         },
@@ -141,6 +146,14 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add vigour task timeline
+        // TODO: Delete debriefing (which is a short summary of bonus)?
+        const vigourTimeline = [
+            instructionPage,
+            startFirstTrial,
+            ...experimentTimeline,
+            debriefing
+        ];
+        procedure = procedure.concat(vigourTimeline);
 
         // Add PILT timeline
         procedure = procedure.concat(return_PILT_full_sequence(PILT_structure))
