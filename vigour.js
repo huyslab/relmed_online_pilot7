@@ -235,11 +235,10 @@ const debriefing = {
 };
 
 // Create main experiment timeline
-// TODO: Add fullscreen check before each trial
 const experimentTimeline = [];
 trials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [piggyBankTrial, interTrialInterval],
+    timeline: [fullscreen_prompt, piggyBankTrial, interTrialInterval],
     timeline_variables: [trial]
   });
 });
