@@ -21,6 +21,27 @@
       }
     });
 
+    // Get condition from URL, all caps are prolific, lowercase are ours
+    try {
+      window.prolificPID = data.getURLVariable('PROLIFIC_PID');
+    } catch (error) {
+      window.prolificPID = "debug";
+    }
+    window.simulate = prolificPID.includes("simulate");
+    // window.debug = prolificPID.includes("debug");
+    // window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
+    // window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
+    // window.sessionNum = jsPsych.data.getURLVariable('session_num');
+
+    // Save participant variables to data
+    jsPsych.data.addProperties({
+      prolific_pid: window.prolificPID,
+      // study_id: window.studyId,
+      // session_id: window.sessionId,
+      // session: window.sessionNum,
+      n_warnings: 0
+    })
+
     // Combine all parts into the full timeline
     const fullTimeline = [
       instructionPage,
@@ -30,7 +51,11 @@
     ];
 
     // Run the experiment
+    if (window.simulate) {
+      jsPsych.simulate(fullTimeline, "visual");
+    } else {
     jsPsych.run(fullTimeline);
+    }
   </script>
 </body>
 

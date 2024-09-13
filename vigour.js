@@ -138,7 +138,24 @@ const piggyBankTrial = {
     total_presses: () => { return window.totalPresses },
     total_reward: () => { return window.totalReward }
   },
+  simulation_options: {
+    data: {
+      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(20, 30) },
+      trial_reward: () => { window.trialReward = Math.floor(window.trialPresses/jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
+      response_time: () => {
+        window.responseTime = [];
+        for (let i = 0; i < window.trialPresses; i++) {
+          window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
+        }
+      },
+      total_presses: () => { window.totalPresses += window.trialPresses },
+      total_reward: () => { window.totalReward += window.trialReward }
+    }
+  },
   on_start: function (trial) {
+    if (window.simulate) {
+      trial.trial_duration = 100;
+    }
     // Create a shared state object
     window.trialPresses = 0;
     window.trialReward = 0;
@@ -224,7 +241,11 @@ const interTrialInterval = {
   },
   choices: "NO_KEYS",
   on_start: function (trial) {
-    trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
+    if (window.simulate) {
+      trial.trial_duration = 100;
+    } else {
+      trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
+    }
   },
   save_trial_parameters: { trial_duration: true }
 };
