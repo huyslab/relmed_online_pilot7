@@ -1,6 +1,5 @@
 // Configuration object
 const experimentConfig = {
-  ratios: [1, ...Array.from({ length: 18 }, (_, i) => 2 + i * 2)],
   magnitudes: [1, 2, 5, 10],
   trialDuration: 6000, // in milliseconds
   minITI: 1400,
@@ -52,7 +51,7 @@ function dropCoin(magnitude) {
   const coinContainer = document.getElementById('coin-container');
   const coin = document.createElement('img');
   coin.className = 'coin';
-  coin.src = magnitude === 0 ? 'img/ooc_2p.png' : `img/${magnitude}p.png`;
+  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p.png`;
   coin.alt = `Coin of value ${magnitude}`;
 
   coinContainer.appendChild(coin);
@@ -79,20 +78,8 @@ function dropCoin(magnitude) {
   }
 }
 
-// Generate trials (deprecated)
-function generateTrials() {
-  let trials = [];
-  for (let magnitude of experimentConfig.magnitudes) {
-    for (let ratio of experimentConfig.ratios) {
-      trials.push({ magnitude, ratio });
-    }
-  }
-  return jsPsych.randomization.shuffle(trials);
-}
-
-// Generate trials
-// const trials = generateTrials();
-const trials = [{ "magnitude": 10, "ratio": 22 }, { "magnitude": 10, "ratio": 34 }, { "magnitude": 1, "ratio": 18 }, { "magnitude": 1, "ratio": 2 }, { "magnitude": 2, "ratio": 16 }, { "magnitude": 1, "ratio": 16 }, { "magnitude": 5, "ratio": 10 }, { "magnitude": 5, "ratio": 16 }, { "magnitude": 1, "ratio": 12 }, { "magnitude": 2, "ratio": 10 }, { "magnitude": 5, "ratio": 24 }, { "magnitude": 5, "ratio": 26 }, { "magnitude": 10, "ratio": 8 }, { "magnitude": 5, "ratio": 6 }, { "magnitude": 10, "ratio": 10 }, { "magnitude": 5, "ratio": 30 }, { "magnitude": 1, "ratio": 14 }, { "magnitude": 1, "ratio": 10 }, { "magnitude": 10, "ratio": 24 }, { "magnitude": 1, "ratio": 24 }, { "magnitude": 2, "ratio": 12 }, { "magnitude": 5, "ratio": 28 }, { "magnitude": 2, "ratio": 4 }, { "magnitude": 2, "ratio": 22 }, { "magnitude": 2, "ratio": 26 }, { "magnitude": 1, "ratio": 1 }, { "magnitude": 1, "ratio": 20 }, { "magnitude": 2, "ratio": 34 }, { "magnitude": 2, "ratio": 28 }, { "magnitude": 5, "ratio": 36 }, { "magnitude": 10, "ratio": 28 }, { "magnitude": 5, "ratio": 2 }, { "magnitude": 2, "ratio": 1 }, { "magnitude": 10, "ratio": 6 }, { "magnitude": 10, "ratio": 4 }, { "magnitude": 2, "ratio": 2 }, { "magnitude": 5, "ratio": 8 }, { "magnitude": 10, "ratio": 30 }, { "magnitude": 2, "ratio": 32 }, { "magnitude": 5, "ratio": 12 }, { "magnitude": 10, "ratio": 20 }, { "magnitude": 2, "ratio": 18 }, { "magnitude": 5, "ratio": 18 }, { "magnitude": 5, "ratio": 20 }, { "magnitude": 1, "ratio": 36 }, { "magnitude": 1, "ratio": 26 }, { "magnitude": 1, "ratio": 22 }, { "magnitude": 2, "ratio": 24 }, { "magnitude": 10, "ratio": 14 }, { "magnitude": 10, "ratio": 32 }, { "magnitude": 2, "ratio": 20 }, { "magnitude": 5, "ratio": 34 }, { "magnitude": 10, "ratio": 18 }, { "magnitude": 2, "ratio": 36 }, { "magnitude": 1, "ratio": 8 }, { "magnitude": 5, "ratio": 22 }, { "magnitude": 1, "ratio": 6 }, { "magnitude": 1, "ratio": 30 }, { "magnitude": 5, "ratio": 32 }, { "magnitude": 5, "ratio": 14 }, { "magnitude": 1, "ratio": 28 }, { "magnitude": 1, "ratio": 32 }, { "magnitude": 10, "ratio": 26 }, { "magnitude": 10, "ratio": 16 }, { "magnitude": 10, "ratio": 12 }, { "magnitude": 1, "ratio": 4 }, { "magnitude": 2, "ratio": 30 }, { "magnitude": 1, "ratio": 34 }, { "magnitude": 2, "ratio": 14 }, { "magnitude": 10, "ratio": 36 }, { "magnitude": 5, "ratio": 4 }, { "magnitude": 2, "ratio": 6 }, { "magnitude": 2, "ratio": 8 }];
+// Generate trials for Vigour task
+const vigourTrials = [{ "magnitude": 10, "ratio": 22 }, { "magnitude": 10, "ratio": 34 }, { "magnitude": 1, "ratio": 18 }, { "magnitude": 1, "ratio": 2 }, { "magnitude": 2, "ratio": 16 }, { "magnitude": 1, "ratio": 16 }, { "magnitude": 5, "ratio": 10 }, { "magnitude": 5, "ratio": 16 }, { "magnitude": 1, "ratio": 12 }, { "magnitude": 2, "ratio": 10 }, { "magnitude": 5, "ratio": 24 }, { "magnitude": 5, "ratio": 26 }, { "magnitude": 10, "ratio": 8 }, { "magnitude": 5, "ratio": 6 }, { "magnitude": 10, "ratio": 10 }, { "magnitude": 5, "ratio": 30 }, { "magnitude": 1, "ratio": 14 }, { "magnitude": 1, "ratio": 10 }, { "magnitude": 10, "ratio": 24 }, { "magnitude": 1, "ratio": 24 }, { "magnitude": 2, "ratio": 12 }, { "magnitude": 5, "ratio": 28 }, { "magnitude": 2, "ratio": 4 }, { "magnitude": 2, "ratio": 22 }, { "magnitude": 2, "ratio": 26 }, { "magnitude": 1, "ratio": 1 }, { "magnitude": 1, "ratio": 20 }, { "magnitude": 2, "ratio": 34 }, { "magnitude": 2, "ratio": 28 }, { "magnitude": 5, "ratio": 36 }, { "magnitude": 10, "ratio": 28 }, { "magnitude": 5, "ratio": 2 }, { "magnitude": 2, "ratio": 1 }, { "magnitude": 10, "ratio": 6 }, { "magnitude": 10, "ratio": 4 }, { "magnitude": 2, "ratio": 2 }, { "magnitude": 5, "ratio": 8 }, { "magnitude": 10, "ratio": 30 }, { "magnitude": 2, "ratio": 32 }, { "magnitude": 5, "ratio": 12 }, { "magnitude": 10, "ratio": 20 }, { "magnitude": 2, "ratio": 18 }, { "magnitude": 5, "ratio": 18 }, { "magnitude": 5, "ratio": 20 }, { "magnitude": 1, "ratio": 36 }, { "magnitude": 1, "ratio": 26 }, { "magnitude": 1, "ratio": 22 }, { "magnitude": 2, "ratio": 24 }, { "magnitude": 10, "ratio": 14 }, { "magnitude": 10, "ratio": 32 }, { "magnitude": 2, "ratio": 20 }, { "magnitude": 5, "ratio": 34 }, { "magnitude": 10, "ratio": 18 }, { "magnitude": 2, "ratio": 36 }, { "magnitude": 1, "ratio": 8 }, { "magnitude": 5, "ratio": 22 }, { "magnitude": 1, "ratio": 6 }, { "magnitude": 1, "ratio": 30 }, { "magnitude": 5, "ratio": 32 }, { "magnitude": 5, "ratio": 14 }, { "magnitude": 1, "ratio": 28 }, { "magnitude": 1, "ratio": 32 }, { "magnitude": 10, "ratio": 26 }, { "magnitude": 10, "ratio": 16 }, { "magnitude": 10, "ratio": 12 }, { "magnitude": 1, "ratio": 4 }, { "magnitude": 2, "ratio": 30 }, { "magnitude": 1, "ratio": 34 }, { "magnitude": 2, "ratio": 14 }, { "magnitude": 10, "ratio": 36 }, { "magnitude": 5, "ratio": 4 }, { "magnitude": 2, "ratio": 6 }, { "magnitude": 2, "ratio": 8 }];
 
 // Trial stimulus function
 function generateTrialStimulus(magnitude, ratio) {
@@ -103,7 +90,7 @@ function generateTrialStimulus(magnitude, ratio) {
           <!-- Middle Row (Piggy Bank & Coins) -->
           <div id="experiment-container">
             <div id="coin-container"></div>
-            <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
+            <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank">
           </div>
           <!-- Bottom Row (Trial Info) -->
           <div id="bottom-container">
@@ -155,7 +142,7 @@ const piggyBankTrial = {
     }
   },
   on_start: function (trial) {
-    if (window.simulate) {
+    if (window.prolificPID.includes("simulate")) {
       trial.trial_duration = 1000 / 60;
     }
     // Create a shared state object
@@ -233,7 +220,7 @@ const interTrialInterval = {
     return `
       <div class="experiment-wrapper">
         <div id="experiment-container">
-          <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
+          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
         </div>
         <div id="info-container">
           <div id="iti-text">Preparing next round...</div>
@@ -243,7 +230,7 @@ const interTrialInterval = {
   },
   choices: "NO_KEYS",
   on_start: function (trial) {
-    if (window.simulate) {
+    if (window.prolificPID.includes("simulate")) {
       trial.trial_duration = 1000 / 60;
     } else {
       trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
@@ -281,7 +268,6 @@ const debriefing = {
   choices: ['Finish'],
   on_start: function (trial) {
     const selected_trial = getSelectedTrial();
-    // console.log(selected_trial);
     trial.stimulus = `
             <p>Congratulations! You've finished this game!</p>
             <p>Round ${selected_trial.trial_number} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
@@ -295,7 +281,7 @@ const debriefing = {
 
 // Create main experiment timeline
 const experimentTimeline = [];
-trials.forEach(trial => {
+vigourTrials.forEach(trial => {
   experimentTimeline.push({
     timeline: [piggyBankTrial, interTrialInterval],
     timeline_variables: [trial]

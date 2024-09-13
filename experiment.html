@@ -28,8 +28,7 @@
     } catch (error) {
       window.prolificPID = "debug";
     }
-    window.simulate = prolificPID.includes("simulate");
-    // window.debug = prolificPID.includes("debug");
+    // window.debug = window.prolificPID.includes("debug");
     // window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
     // window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
     // window.sessionNum = jsPsych.data.getURLVariable('session_num');
@@ -46,7 +45,7 @@
     // Preload images
     var preload = {
       type: jsPsychPreload,
-      images: ["1p.png", "2p.png", "5p.png", "10p.png", "20p.png", "50p.png", "100p.png", "200p.png", "piggy-bank.png", "ooc_2p.png"].map(s => "img/" + s)
+      images: ["1p.png", "2p.png", "5p.png", "10p.png", "20p.png", "50p.png", "100p.png", "200p.png", "piggy-bank.png", "ooc_2p.png"].map(s => "imgs/" + s)
     };
 
     // Combine all parts into the full timeline
@@ -59,7 +58,7 @@
     ];
 
     // Run the experiment
-    if (window.simulate) {
+    if (window.prolificPID.includes("simulate")) {
       jsPsych.simulate(fullTimeline, "visual");
     } else {
       jsPsych.run(fullTimeline);
