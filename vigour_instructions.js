@@ -55,7 +55,7 @@ function generateInstructStimulus() {
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="coin-container"></div>
-        <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
+        <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank">
       </div>
 
       <!-- Lower Information (Buttons) -->
