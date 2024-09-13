@@ -125,7 +125,26 @@ const piggyBankTrial = {
     total_presses: () => { return window.totalPresses },
     total_reward: () => { return window.totalReward }
   },
+  simulation_options: {
+    data: {
+      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(20, 30) },
+      trial_reward: () => { window.trialReward = Math.floor(window.trialPresses / jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
+      response_time: () => {
+        do {
+        window.responseTime = [];
+        for (let i = 0; i < window.trialPresses; i++) {
+          window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
+        }
+        } while (window.responseTime.reduce((acc, curr) => acc + curr, 0) > experimentConfig.trialDuration);
+      },
+      total_presses: () => { window.totalPresses += window.trialPresses },
+      total_reward: () => { window.totalReward += window.trialReward }
+    }
+  },
   on_start: function (trial) {
+    if (window.prolificPID.includes("simulate")) {
+      trial.trial_duration = 1000 / 60;
+    }
     // Create a shared state object
     window.trialPresses = 0;
     window.trialReward = 0;
@@ -214,7 +233,11 @@ const interTrialInterval = {
   },
   choices: "NO_KEYS",
   on_start: function (trial) {
+    if (window.prolificPID.includes("simulate")) {
+      trial.trial_duration = 1000 / 60;
+    } else {
     trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
+    }
   },
   save_trial_parameters: { trial_duration: true }
 };
@@ -235,6 +258,9 @@ const startFirstTrial = {
     jsPsych.data.addProperties({
       rng_seed: seed
     });
+  },
+  simulation_options: {
+    simulate: false
   }
 };
 
@@ -250,6 +276,9 @@ const debriefing = {
             <p>Round ${selected_trial.trial_number} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
             <p>If you have any questions about the experiment, please message the experimenter.</p>
         `;
+  },
+  simulation_options: {
+    simulate: false
   }
 };
 
