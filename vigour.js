@@ -79,7 +79,7 @@ function dropCoin(magnitude) {
 }
 
 // Generate trials for Vigour task
-const vigourTrials = [{ "magnitude": 10, "ratio": 22 }, { "magnitude": 10, "ratio": 34 }, { "magnitude": 1, "ratio": 18 }, { "magnitude": 1, "ratio": 2 }, { "magnitude": 2, "ratio": 16 }, { "magnitude": 1, "ratio": 16 }, { "magnitude": 5, "ratio": 10 }, { "magnitude": 5, "ratio": 16 }, { "magnitude": 1, "ratio": 12 }, { "magnitude": 2, "ratio": 10 }, { "magnitude": 5, "ratio": 24 }, { "magnitude": 5, "ratio": 26 }, { "magnitude": 10, "ratio": 8 }, { "magnitude": 5, "ratio": 6 }, { "magnitude": 10, "ratio": 10 }, { "magnitude": 5, "ratio": 30 }, { "magnitude": 1, "ratio": 14 }, { "magnitude": 1, "ratio": 10 }, { "magnitude": 10, "ratio": 24 }, { "magnitude": 1, "ratio": 24 }, { "magnitude": 2, "ratio": 12 }, { "magnitude": 5, "ratio": 28 }, { "magnitude": 2, "ratio": 4 }, { "magnitude": 2, "ratio": 22 }, { "magnitude": 2, "ratio": 26 }, { "magnitude": 1, "ratio": 1 }, { "magnitude": 1, "ratio": 20 }, { "magnitude": 2, "ratio": 34 }, { "magnitude": 2, "ratio": 28 }, { "magnitude": 5, "ratio": 36 }, { "magnitude": 10, "ratio": 28 }, { "magnitude": 5, "ratio": 2 }, { "magnitude": 2, "ratio": 1 }, { "magnitude": 10, "ratio": 6 }, { "magnitude": 10, "ratio": 4 }, { "magnitude": 2, "ratio": 2 }, { "magnitude": 5, "ratio": 8 }, { "magnitude": 10, "ratio": 30 }, { "magnitude": 2, "ratio": 32 }, { "magnitude": 5, "ratio": 12 }, { "magnitude": 10, "ratio": 20 }, { "magnitude": 2, "ratio": 18 }, { "magnitude": 5, "ratio": 18 }, { "magnitude": 5, "ratio": 20 }, { "magnitude": 1, "ratio": 36 }, { "magnitude": 1, "ratio": 26 }, { "magnitude": 1, "ratio": 22 }, { "magnitude": 2, "ratio": 24 }, { "magnitude": 10, "ratio": 14 }, { "magnitude": 10, "ratio": 32 }, { "magnitude": 2, "ratio": 20 }, { "magnitude": 5, "ratio": 34 }, { "magnitude": 10, "ratio": 18 }, { "magnitude": 2, "ratio": 36 }, { "magnitude": 1, "ratio": 8 }, { "magnitude": 5, "ratio": 22 }, { "magnitude": 1, "ratio": 6 }, { "magnitude": 1, "ratio": 30 }, { "magnitude": 5, "ratio": 32 }, { "magnitude": 5, "ratio": 14 }, { "magnitude": 1, "ratio": 28 }, { "magnitude": 1, "ratio": 32 }, { "magnitude": 10, "ratio": 26 }, { "magnitude": 10, "ratio": 16 }, { "magnitude": 10, "ratio": 12 }, { "magnitude": 1, "ratio": 4 }, { "magnitude": 2, "ratio": 30 }, { "magnitude": 1, "ratio": 34 }, { "magnitude": 2, "ratio": 14 }, { "magnitude": 10, "ratio": 36 }, { "magnitude": 5, "ratio": 4 }, { "magnitude": 2, "ratio": 6 }, { "magnitude": 2, "ratio": 8 }];
+const vigourTrials = [{ "magnitude": 1, "ratio": 12 }, { "magnitude": 1, "ratio": 36 }, { "magnitude": 1, "ratio": 2 }, { "magnitude": 10, "ratio": 4 }, { "magnitude": 5, "ratio": 2 }, { "magnitude": 2, "ratio": 1 }, { "magnitude": 5, "ratio": 10 }, { "magnitude": 2, "ratio": 16 }, { "magnitude": 2, "ratio": 10 }, { "magnitude": 1, "ratio": 20 }, { "magnitude": 2, "ratio": 2 }, { "magnitude": 10, "ratio": 30 }, { "magnitude": 1, "ratio": 28 }, { "magnitude": 2, "ratio": 24 }, { "magnitude": 5, "ratio": 30 }, { "magnitude": 5, "ratio": 24 }, { "magnitude": 5, "ratio": 18 }, { "magnitude": 1, "ratio": 4 }, { "magnitude": 1, "ratio": 18 }, { "magnitude": 10, "ratio": 20 }, { "magnitude": 5, "ratio": 14 }, { "magnitude": 2, "ratio": 34 }, { "magnitude": 5, "ratio": 28 }, { "magnitude": 5, "ratio": 16 }, { "magnitude": 5, "ratio": 32 }, { "magnitude": 1, "ratio": 30 }, { "magnitude": 10, "ratio": 28 }, { "magnitude": 10, "ratio": 14 }, { "magnitude": 2, "ratio": 30 }, { "magnitude": 10, "ratio": 6 }, { "magnitude": 5, "ratio": 4 }, { "magnitude": 10, "ratio": 18 }, { "magnitude": 1, "ratio": 16 }, { "magnitude": 2, "ratio": 36 }, { "magnitude": 10, "ratio": 12 }, { "magnitude": 5, "ratio": 34 }, { "magnitude": 5, "ratio": 22 }, { "magnitude": 5, "ratio": 20 }, { "magnitude": 10, "ratio": 32 }, { "magnitude": 1, "ratio": 22 }, { "magnitude": 2, "ratio": 28 }, { "magnitude": 10, "ratio": 22 }, { "magnitude": 1, "ratio": 14 }, { "magnitude": 5, "ratio": 26 }, { "magnitude": 5, "ratio": 36 }, { "magnitude": 1, "ratio": 34 }, { "magnitude": 2, "ratio": 32 }, { "magnitude": 10, "ratio": 24 }, { "magnitude": 2, "ratio": 26 }, { "magnitude": 2, "ratio": 18 }, { "magnitude": 10, "ratio": 10 }, { "magnitude": 1, "ratio": 1 }, { "magnitude": 10, "ratio": 8 }, { "magnitude": 1, "ratio": 8 }, { "magnitude": 2, "ratio": 4 }, { "magnitude": 1, "ratio": 26 }, { "magnitude": 2, "ratio": 20 }, { "magnitude": 1, "ratio": 6 }, { "magnitude": 1, "ratio": 24 }, { "magnitude": 5, "ratio": 12 }, { "magnitude": 10, "ratio": 16 }, { "magnitude": 2, "ratio": 8 }, { "magnitude": 2, "ratio": 14 }, { "magnitude": 10, "ratio": 26 }, { "magnitude": 5, "ratio": 6 }, { "magnitude": 2, "ratio": 12 }, { "magnitude": 1, "ratio": 32 }, { "magnitude": 10, "ratio": 34 }, { "magnitude": 10, "ratio": 36 }, { "magnitude": 1, "ratio": 10 }, { "magnitude": 2, "ratio": 22 }, { "magnitude": 5, "ratio": 8 }, { "magnitude": 2, "ratio": 6 }];
 
 // Trial stimulus function
 function generateTrialStimulus(magnitude, ratio) {
@@ -131,10 +131,10 @@ const piggyBankTrial = {
       trial_reward: () => { window.trialReward = Math.floor(window.trialPresses / jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
       response_time: () => {
         do {
-        window.responseTime = [];
-        for (let i = 0; i < window.trialPresses; i++) {
-          window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
-        }
+          window.responseTime = [];
+          for (let i = 0; i < window.trialPresses; i++) {
+            window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
+          }
         } while (window.responseTime.reduce((acc, curr) => acc + curr, 0) > experimentConfig.trialDuration);
       },
       total_presses: () => { window.totalPresses += window.trialPresses },
@@ -236,7 +236,7 @@ const interTrialInterval = {
     if (window.prolificPID.includes("simulate")) {
       trial.trial_duration = 1000 / 60;
     } else {
-    trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
+      trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
     }
   },
   save_trial_parameters: { trial_duration: true }
