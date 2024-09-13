@@ -6,6 +6,7 @@
   <script src="jspsych/jspsych.js"></script>
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
   <script src="jspsych/plugin-html-button-response.js"></script>
+  <script src="jspsych/plugin-preload.js"></script>
   <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
   <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
   <script src="vigour_instructions.js"></script>
@@ -23,7 +24,7 @@
 
     // Get condition from URL, all caps are prolific, lowercase are ours
     try {
-      window.prolificPID = data.getURLVariable('PROLIFIC_PID');
+      window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
     } catch (error) {
       window.prolificPID = "debug";
     }
@@ -42,8 +43,15 @@
       n_warnings: 0
     })
 
+    // Preload images
+    var preload = {
+      type: jsPsychPreload,
+      images: ["1p.png", "2p.png", "5p.png", "10p.png", "20p.png", "50p.png", "100p.png", "200p.png", "piggy-bank.png", "ooc_2p.png"].map(s => "img/" + s)
+    };
+
     // Combine all parts into the full timeline
     const fullTimeline = [
+      preload,
       instructionPage,
       startFirstTrial,
       ...experimentTimeline,
@@ -54,7 +62,7 @@
     if (window.simulate) {
       jsPsych.simulate(fullTimeline, "visual");
     } else {
-    jsPsych.run(fullTimeline);
+      jsPsych.run(fullTimeline);
     }
   </script>
 </body>
