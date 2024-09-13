@@ -29,7 +29,7 @@ function prepare_PILT_instructions() {
                 <div style='display: grid'><table><tr><td><img src='imgs/1pound.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
                 <td><img src='imgs/50pence.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'</td>
                 <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr>
-                <tr><td>52x one pound coins</td><td>52x fifty pence coins</td><td>52x one penny coins</td></tr></table></div>
+                <tr><td>60x one pound coins</td><td>60x fifty pence coins</td><td>60x one penny coins</td></tr></table></div>
                 <p>At the end of the game, you will draw one coin from your safe, and that will be your bonus payment.</p>
                 <p>Your goal is to add coins to your safe while avoid losing coins already in it.</p>`,
             `<p>On each turn of this game, you will see two cards.
