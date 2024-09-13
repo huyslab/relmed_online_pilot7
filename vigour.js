@@ -1,5 +1,6 @@
 // Configuration object
 const experimentConfig = {
+  magnitudes: [1, 2, 5, 10],
   trialDuration: 6000, // in milliseconds
   minITI: 1400,
   maxITI: 1600
