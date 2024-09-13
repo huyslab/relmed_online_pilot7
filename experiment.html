@@ -146,12 +146,10 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add vigour task timeline
-        // TODO: Delete debriefing (which is a short summary of bonus)?
         const vigourTimeline = [
             instructionPage,
             startFirstTrial,
             ...experimentTimeline,
-            debriefing
         ];
         procedure = procedure.concat(vigourTimeline);
 
