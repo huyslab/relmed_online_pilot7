@@ -23,11 +23,11 @@
     });
 
     // Get condition from URL, all caps are prolific, lowercase are ours
-    try {
-      window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
-    } catch (error) {
+    window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    if (window.prolificPID === undefined) {
       window.prolificPID = "debug";
     }
+    console.log("Prolific PID: " + window.prolificPID);
     // window.debug = window.prolificPID.includes("debug");
     // window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
     // window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
