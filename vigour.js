@@ -50,7 +50,7 @@ function dropCoin(magnitude) {
   const coinContainer = document.getElementById('coin-container');
   const coin = document.createElement('img');
   coin.className = 'coin';
-  coin.src = magnitude === 0 ? 'img/ooc_2p.png' : `img/${magnitude}p.png`;
+  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p.png`;
   coin.alt = `Coin of value ${magnitude}`;
 
   coinContainer.appendChild(coin);
@@ -89,7 +89,7 @@ function generateTrialStimulus(magnitude, ratio) {
           <!-- Middle Row (Piggy Bank & Coins) -->
           <div id="experiment-container">
             <div id="coin-container"></div>
-            <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank">
+            <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank">
           </div>
           <!-- Bottom Row (Trial Info) -->
           <div id="bottom-container">
@@ -203,7 +203,7 @@ const interTrialInterval = {
     return `
       <div class="experiment-wrapper">
         <div id="experiment-container">
-          <img id="piggy-bank" src="img/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
+          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
         </div>
         <div id="info-container">
           <div id="iti-text">Preparing next round...</div>
