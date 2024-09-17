@@ -217,12 +217,12 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add vigour task timeline
-        // const vigourTimeline = [
-        //     instructionPage,
-        //     startFirstTrial,
-        //     ...experimentTimeline,
-        // ];
-        // procedure = procedure.concat(vigourTimeline);
+        const vigourTimeline = [
+            instructionPage,
+            startFirstTrial,
+            ...experimentTimeline,
+        ];
+        procedure = procedure.concat(vigourTimeline);
 
         // Add PILT timeline
         procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
