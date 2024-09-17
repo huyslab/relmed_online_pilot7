@@ -44,7 +44,7 @@ function prepare_PILT_instructions() {
                 <td><img src='imgs/1poundbroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
                 <td><img src='imgs/50pencebroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td>
                 <td><img src='imgs/1pennybroken.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr></table></div>
-                <p>This means that such a coin was broken and removed from your safe.</p>`
+                <p>This means that such a coin was broken from your safe.</p>`
         ]);
         return pages
     },
