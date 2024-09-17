@@ -265,20 +265,19 @@ const startFirstTrial = {
 };
 
 // Debriefing
-const debriefing = {
+const vigour_bonus = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
   choices: ['Finish'],
   on_start: function (trial) {
     const selected_trial = getSelectedTrial();
     trial.stimulus = `
-            <p>Congratulations! You've finished this game!</p>
-            <p>Round ${selected_trial.trial_number} was picked and you earned a ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
-            <p>If you have any questions about the experiment, please message the experimenter.</p>
+            <p>Finally, it is time to reveal your bonus payment for the piggy-bank game.</p>
+            <p>The computer picked round number ${selected_trial.trial_number}, which means you will earn ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
         `;
   },
-  simulation_options: {
-    simulate: false
+  on_finish: (data) => {
+    data.vigour_bonus = window.sampledVigourReward / 100
   }
 };
 
