@@ -472,9 +472,5 @@ function return_PILT_full_sequence(structure, test_structure){
     procedure.push(test_instructions);
     procedure = procedure.concat(build_post_PILT_test(test_structure));
 
-    // Add coin lottery
-    procedure.push(lottery_instructions);
-    procedure.push(coin_lottery);
-
     return procedure
 }

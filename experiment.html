@@ -17,6 +17,8 @@
     <script src="jspsych/plugin-survey-multi-choice.js"></script>
     <script src="jspsych/plugin-call-function.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-survey-likert.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
     <script src="jspsych/plugin-fullscreen.js"></script>
     <script src="plugin-PLT.js"></script>
     <script src="plugin-coin-lottery.js"></script>
@@ -111,6 +113,75 @@
             message: "<p>This study runs in full screen mode.</p><p>Press the button below to continue.</p>"
         }
     ]
+
+    // Debrief questions
+    const debrief_questions = [
+        {
+            type: jsPsychInstructions,
+            css_classes: ['instructions'],
+            pages: [
+                `<p>Please answer the following short questions.</p>`
+            ],
+            show_clickable_nav: true,
+            data: {trialphase: "pre_debrief_instructions"}
+        },
+        {
+            type: jsPsychSurveyLikert,
+            questions: [
+                {
+                    prompt: "How difficult was the piggy-bank game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
+                    required: true,
+                    name: "vigour_difficulty"
+                },
+                {
+                    prompt: "How enjoyable was the piggy-bank game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
+                    required: true,
+                    name: "vigour_enjoy"
+                },
+                {
+                    prompt: "How difficult was the card choosing game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
+                    required: true,
+                    name: "PILT_difficulty"
+                },
+                {
+                    prompt: "How enjoyable was the card choosing game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
+                    required: true,
+                    name: "PILT_enjoy"
+                }
+            ],
+            data: {
+                trialphase: "debrief_likert"
+            }
+        },
+        {
+            type: jsPsychSurveyText,
+            questions: [
+            {
+                prompt: "Was there anything unclear in the instructions?",
+                columns: 35,
+                rows: 2,
+                value: '',
+                name: "instructions",
+                required: true
+            },
+            {
+                prompt: "Was there anything you did that helped you complete the tasks more easily?",
+                columns: 35,
+                rows: 2,
+                value: '',
+                name: "strategy",
+                required: true
+            }
+            ],
+            data: {
+                trialphase: 'debrief_text'
+            }
+    }
+]
     
     // End of experiment message
     const end_experiment_msgs = [
@@ -156,8 +227,15 @@
         // Add PILT timeline
         procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
 
+        // Debrief questions
+        procedure = procedure.concat(debrief_questions);
+
+        // Add coin lottery
+        procedure.push(lottery_instructions);
+        procedure.push(coin_lottery);
+
         // Add vigour bonus message
-        procedure
+        procedure.push(vigour_bonus);
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);
