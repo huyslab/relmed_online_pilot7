@@ -22,6 +22,7 @@ const test_trial = {
     timeline: [
         kick_out,
         fullscreen_prompt,
+    // Test trial
     {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: () => {
@@ -91,9 +92,17 @@ const test_trial = {
         choices: ["ArrowRight", "ArrowLeft"],
         trial_duration: defaultMaxRespTime,
         data: {
-            trialphase: "PILT_test"
+            trialphase: "PILT_test",
+            block: jsPsych.timelineVariable("block"),
+            cpair: jsPsych.timelineVariable("cpair"),
+            stimulus_left: jsPsych.timelineVariable("stimulus_left"),
+            stimulus_right: jsPsych.timelineVariable("stimulus_right"),
+            same_valence: jsPsych.timelineVariable("same_valence"),
+            same_block: jsPsych.timelineVariable("same_block"),
+            EV_diff: jsPsych.timelineVariable("EV_diff"),
         }
     },
+    // Timeout message
     {
         timeline: [
             {
