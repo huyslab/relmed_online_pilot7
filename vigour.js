@@ -286,7 +286,7 @@ const debriefing = {
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [fullscreen_prompt, piggyBankTrial, interTrialInterval],
+    timeline: [kick_out, fullscreen_prompt, piggyBankTrial, interTrialInterval],
     timeline_variables: [trial]
   });
 });
