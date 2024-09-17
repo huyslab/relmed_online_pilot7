@@ -83,7 +83,7 @@
   transition: transform 0.1s ease-in-out;
 }
 
-.coin {
+.vigour_coin {
   position: absolute;
   height: 30%;
   object-fit: contain;

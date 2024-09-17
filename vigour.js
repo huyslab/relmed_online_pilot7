@@ -50,7 +50,7 @@ function wigglePiggy() {
 function dropCoin(magnitude) {
   const coinContainer = document.getElementById('coin-container');
   const coin = document.createElement('img');
-  coin.className = 'coin';
+  coin.className = 'vigour_coin';
   coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p.png`;
   coin.alt = `Coin of value ${magnitude}`;
 
@@ -249,7 +249,7 @@ const startFirstTrial = {
   stimulus: `
       <div id="info-container">
         <div id="iti-text">
-          <p style="line-height:1.5"> When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
+          <p style="line-height:1.5"> You will now play several rounds of this game, winning coins. When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
           <p> When you are ready, Press <span class="spacebar-icon">Spacebar</span> to start!</p>
         </div>
       </div>`,
