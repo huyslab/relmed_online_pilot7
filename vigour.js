@@ -278,6 +278,9 @@ const vigour_bonus = {
   },
   on_finish: (data) => {
     data.vigour_bonus = window.sampledVigourReward / 100
+  },
+  simulation_options:{
+    simulate: false
   }
 };
 
