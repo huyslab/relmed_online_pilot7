@@ -154,10 +154,7 @@
         // procedure = procedure.concat(vigourTimeline);
 
         // Add PILT timeline
-        // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure));
-
-        // Add test timeline
-        procedure = procedure.concat(build_post_PILT_test(test_structure));
+        procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);

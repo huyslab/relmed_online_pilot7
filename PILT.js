@@ -443,7 +443,7 @@ async function load_squences(session) {
     }
 }
 
-function return_PILT_full_sequence(structure){
+function return_PILT_full_sequence(structure, test_structure){
     // Compute best-rest
     computeBestRest(structure);
 
@@ -454,6 +454,9 @@ function return_PILT_full_sequence(structure){
 
     // Add PLT
     procedure = procedure.concat(build_PLT_task(structure));
+
+    // Add test
+    precedure = precedure.concat(build_post_PILT_test(test_structure))
 
     // Add coin lottery
     procedure.push(lottery_instructions);
