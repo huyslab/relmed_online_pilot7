@@ -383,14 +383,15 @@ function build_PLT_task(structure, insert_msg = true){
             }
         });
 
+        // Get list of unique images in block to preload
+        let preload_images = structure[i].flatMap(item => [item.stimulus_right, item.stimulus_left]);
+        preload_images = [...new Set(preload_images)].map(value => `imgs/${value}`);
+
         // Build block
         block = [
             {
                 type: jsPsychPreload,
-                images: [
-                    "imgs/" + structure[i][0]["stimulus_right"],
-                    "imgs/" + structure[i][0]["stimulus_left"]
-                ],
+                images: preload_images,
                 post_trial_gap: 800
             },
             {
