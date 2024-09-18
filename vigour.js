@@ -127,7 +127,7 @@ const piggyBankTrial = {
   },
   simulation_options: {
     data: {
-      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(20, 30) },
+      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(8, 20) },
       trial_reward: () => { window.trialReward = Math.floor(window.trialPresses / jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
       response_time: () => {
         do {
