@@ -245,8 +245,9 @@ const startFirstTrial = {
   choices: [' '],
   stimulus: `
       <div id="info-container">
-        <div id="iti-text">
-          <p style="line-height:1.5"> When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
+        <div id="iti-text" style="line-height:1.5">
+          <p> You will now play several rounds of this game, winning coins!</p>
+          <p> When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
           <p> When you are ready, Press <span class="spacebar-icon">Spacebar</span> to start!</p>
         </div>
       </div>`,
