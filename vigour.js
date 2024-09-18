@@ -259,9 +259,6 @@ const startFirstTrial = {
     jsPsych.data.addProperties({
       rng_seed: seed
     });
-  },
-  simulation_options: {
-    simulate: false
   }
 };
 
