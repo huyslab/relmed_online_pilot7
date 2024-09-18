@@ -210,7 +210,7 @@ const piggyBankTrial = {
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     vigourTrialCounter += 1;
     data.trial_number = vigourTrialCounter;
-    if (vigourTrialCounter % 20 == 0 || vigourTrialCounter == vigourTrials.length) {
+    if (vigourTrialCounter % (vigourTrials.length/3) == 0 || vigourTrialCounter == vigourTrials.length) {
       saveDataREDCap(retry = 3);
     }
   }
