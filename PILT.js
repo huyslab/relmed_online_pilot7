@@ -90,7 +90,7 @@ const test_trial = {
             </div>`
         },
         choices: ["ArrowRight", "ArrowLeft"],
-        trial_duration: defaultMaxRespTime,
+        trial_duration: 4000,
         data: {
             trialphase: "PILT_test",
             block: jsPsych.timelineVariable("block"),
