@@ -254,11 +254,9 @@ const startFirstTrial = {
           <p> When you are ready, Press <span class="spacebar-icon">Spacebar</span> to start!</p>
         </div>
       </div>`,
-  on_finish: function () {
+  on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
-    jsPsych.data.addProperties({
-      rng_seed: seed
-    });
+    data.rng_seed = seed;
   }
 };
 

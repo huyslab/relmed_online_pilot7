@@ -90,7 +90,7 @@ function saveDataREDCap(retry = 1, callback = () => {}) {
 
     console.log(auto_number)
 
-    var jspsych_data = jsPsych.data.get().json();
+    var jspsych_data = jsPsych.data.get().ignore('stimulus').json();
 
     var redcap_record = JSON.stringify([{
         record_id: auto_number ? 1 : window.record_id, // Mandatory, but if auto_number then ignored by REDcap
