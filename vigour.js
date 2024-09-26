@@ -141,7 +141,7 @@ function updatePiggyTails(magnitude, ratio) {
           tail.className = 'piggy-tail';
           
           // Position each tail
-          tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px)`;
+          tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
           tail.style.width = `${tailWidth}px`;
           tail.style.filter = `saturate(${50 + 250 * ratio_factor}%)`;
 
