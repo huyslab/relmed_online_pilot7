@@ -1,10 +1,14 @@
 // Configuration object
 const experimentConfig = {
   magnitudes: [1, 2, 5, 10],
-  trialDuration: 4000, // in milliseconds
-  minITI: 900,
-  maxITI: 1100
+  ratios: [1, 4, 8, 12, 16],
+  trialDuration: 10000 // in milliseconds on average, U[9500, 10500]
 };
+experimentConfig.ratios.reverse();
+
+// Generate trials for Vigour task
+const vigourTrials = [{"magnitude":1,"ratio":16,"trialDuration":9862},{"magnitude":1,"ratio":1,"trialDuration":9506},{"magnitude":2,"ratio":12,"trialDuration":9652},{"magnitude":10,"ratio":4,"trialDuration":10221},{"magnitude":5,"ratio":8,"trialDuration":10207},{"magnitude":5,"ratio":16,"trialDuration":9890},{"magnitude":1,"ratio":4,"trialDuration":9688},{"magnitude":5,"ratio":12,"trialDuration":10145},{"magnitude":2,"ratio":1,"trialDuration":10228},{"magnitude":10,"ratio":16,"trialDuration":10386},{"magnitude":1,"ratio":8,"trialDuration":9962},{"magnitude":2,"ratio":12,"trialDuration":9985},{"magnitude":1,"ratio":4,"trialDuration":9891},{"magnitude":5,"ratio":4,"trialDuration":9956},{"magnitude":2,"ratio":8,"trialDuration":9726},{"magnitude":2,"ratio":16,"trialDuration":10236},{"magnitude":1,"ratio":8,"trialDuration":10182},{"magnitude":1,"ratio":1,"trialDuration":9501},{"magnitude":5,"ratio":12,"trialDuration":9825},{"magnitude":1,"ratio":16,"trialDuration":9902},{"magnitude":10,"ratio":8,"trialDuration":10452},{"magnitude":10,"ratio":12,"trialDuration":9954},{"magnitude":5,"ratio":16,"trialDuration":10009},{"magnitude":10,"ratio":16,"trialDuration":9827},{"magnitude":2,"ratio":16,"trialDuration":10293},{"magnitude":10,"ratio":8,"trialDuration":10376},{"magnitude":10,"ratio":12,"trialDuration":10261},{"magnitude":2,"ratio":4,"trialDuration":10490},{"magnitude":1,"ratio":12,"trialDuration":9870},{"magnitude":2,"ratio":8,"trialDuration":9535},{"magnitude":1,"ratio":12,"trialDuration":9888},{"magnitude":10,"ratio":4,"trialDuration":9679},{"magnitude":2,"ratio":1,"trialDuration":10199},{"magnitude":2,"ratio":4,"trialDuration":10044},{"magnitude":5,"ratio":4,"trialDuration":10465},{"magnitude":5,"ratio":8,"trialDuration":9666}] ;
+
 
 // Global variables
 window.totalReward = 0;
@@ -83,23 +87,18 @@ const vigourTrials = [{"magnitude":10,"ratio":4},{"magnitude":2,"ratio":12},{"ma
 
 // Trial stimulus function
 function generateTrialStimulus(magnitude, ratio) {
-  const magnitude_text = magnitude === 1 ? '1 penny' : `${magnitude} pence`;
-  const ratio_text = ratio === 1 ? 'time' : 'times';
+  const ratio_index = experimentConfig.ratios.indexOf(ratio);
+  // Calculate saturation based on ratio
+  const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
+  const piggy_style = `filter: saturate(${50 + 250 * ratio_factor}%);`;
   return `
         <div class="experiment-wrapper">
           <!-- Middle Row (Piggy Bank & Coins) -->
           <div id="experiment-container">
             <div id="coin-container"></div>
-            <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank">
-          </div>
-          <!-- Bottom Row (Trial Info) -->
-          <div id="bottom-container">
-            <div id="info-container">
-              <div id="trial-info">Press ${ratio + ' ' + ratio_text} for ${magnitude_text}</div>
-            </div>
-            <div id="progress-container">
-              <div id="progress-bar"></div>
-              <div id="progress-text">0/0</div>
+        <div id="piggy-container">
+          <!-- Piggy Bank Image -->
+          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" style="${piggy_style}">
             </div>
           </div>
       </div>
@@ -115,7 +114,9 @@ const piggyBankTrial = {
   },
   choices: 'NO_KEYS',
   // response_ends_trial: false,
-  trial_duration: experimentConfig.trialDuration,
+  trial_duration: function() {
+    return jsPsych.evaluateTimelineVariable('trialDuration')
+  },
   save_timeline_variables: true,
   data: {
     trial_presses: () => { return window.trialPresses },
@@ -166,34 +167,18 @@ const piggyBankTrial = {
         window.trialPresses++;
         window.totalPresses++;
 
-        // Update progress bar
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
-        const progress = (pressCount / ratio) * 100;
-        progressBar.style.width = `${progress}%`;
-        progressText.textContent = `${pressCount}/${ratio}`;
-
         if (pressCount === ratio) {
           window.trialReward += magnitude;
           window.totalReward += magnitude;
           pressCount = 0;
-          dropCoin(magnitude);
-
-          // Show full progress bar briefly before resetting
-          progressBar.style.backgroundColor = '#78909c'; // Slightly darker shade for completion
-          setTimeout(() => {
-            pressCount = 0;
-            progressBar.style.width = '0%';
-            progressBar.style.backgroundColor = '#90a4ae'; // Reset to original color
-            progressText.textContent = `0/${ratio}`;
-          }, 200);
+          dropCoin(magnitude, true);
         }
       },
       valid_responses: [' '],
       rt_method: 'performance',
       persist: true,
       allow_held_key: false,
-      minimum_valid_rt: 50
+      minimum_valid_rt: 0
     });
   },
   on_load: function () {
@@ -210,50 +195,7 @@ const piggyBankTrial = {
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     vigourTrialCounter += 1;
     data.trial_number = vigourTrialCounter;
-  }
-};
-
-// Inter-trial interval
-const interTrialInterval = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: function () {
-    return `
-      <div class="experiment-wrapper">
-        <div id="experiment-container">
-          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
-        </div>
-        <div id="info-container">
-          <div id="iti-text">Preparing next round...</div>
-        </div>
-      </div>
-        `;
-  },
-  choices: "NO_KEYS",
-  on_start: function (trial) {
-    if (window.prolificPID.includes("simulate")) {
-      trial.trial_duration = 1000 / 60;
-    } else {
-      trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
-    }
-  },
-  save_trial_parameters: { trial_duration: true }
-};
-
-// Before starting the first trial
-const startFirstTrial = {
-  type: jsPsychHtmlKeyboardResponse,
-  choices: [' '],
-  stimulus: `
-      <div id="info-container">
-        <div id="iti-text" style="line-height:1.5">
-          <p> You will now play several rounds of this game, winning coins!</p>
-          <p> When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
-          <p> When you are ready, Press <span class="spacebar-icon">Spacebar</span> to start!</p>
-        </div>
-      </div>`,
-  on_finish: function (data) {
-    const seed = jsPsych.randomization.setSeed();
-    data.rng_seed = seed;
+    // console.log(data);
   }
 };
 
@@ -272,7 +214,7 @@ const vigour_bonus = {
   on_finish: (data) => {
     data.vigour_bonus = window.sampledVigourReward / 100
   },
-  simulation_options:{
+  simulation_options: {
     simulate: false
   }
 };
@@ -281,7 +223,7 @@ const vigour_bonus = {
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [piggyBankTrial, interTrialInterval],
+    timeline: [piggyBankTrial],
     timeline_variables: [trial]
   });
 });
