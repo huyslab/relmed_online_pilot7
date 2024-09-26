@@ -48,11 +48,24 @@
       images: ["1p.png", "2p.png", "5p.png", "10p.png", "piggy-bank.png", "ooc_2p.png", "piggy-tail2.png", "saturate-icon.png", "tail-icon.png"].map(s => "imgs/" + s)
     };
 
+    const instructions = {
+      timeline: [instructionPage, startFirstTrial],
+      loop_function: function (data) {
+        console.log(data);
+        const last_iter = data.last(1).values()[0];
+        console.log(last_iter);
+        if (jsPsych.pluginAPI.compareKeys(last_iter.response, 'r')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
     // Combine all parts into the full timeline
     const fullTimeline = [
       preload,
-      instructionPage,
-      startFirstTrial,
+      instructions,
       ...experimentTimeline,
       vigour_bonus
     ];

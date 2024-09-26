@@ -47,7 +47,7 @@ const instructionPage = {
 // Before starting the first trial
 const startFirstTrial = {
   type: jsPsychHtmlKeyboardResponse,
-  choices: [' '],
+  choices: [' ', 'r'],
   stimulus: `
   <div id="instruction-text" style="text-align: left">
     <p><strong>You will now play a few minutes of this game, collecting coins!</strong></p>
@@ -81,12 +81,14 @@ const startFirstTrial = {
     <p><span class="highlight">Your bonus</span>: You will keep all the coins from a randomly selected piggy bank at the end of the game.</p>
     
     <p><strong>When you're ready, press the <span class="spacebar-icon">Spacebar</span> to start!</strong></p>
+    <p>If you want to revisit the previous example, press <span class="spacebar-icon">R</span>.</p>
     </div>
       `,
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
-  }
+  },
+  post_trial_gap: 250
 };
 
 // Function to generate stimulus HTML
