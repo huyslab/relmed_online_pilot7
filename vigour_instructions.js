@@ -11,6 +11,7 @@ const instructionPage = {
     observeResizing('coin-container', updatePersistentCoinContainer);
 
     let shakeCount = 0;
+    let FR = 5;
     let timerStarted = false;
     let timer;
     updateInstructionText(shakeCount);
@@ -24,8 +25,11 @@ const instructionPage = {
       shakePiggy();
       updateInstructionText(shakeCount);
 
-      if (shakeCount % 5 === 0) {
+      if (shakeCount % FR === 0) {
         dropCoin(0);
+      }
+
+      if (shakeCount === FR + 1) {
         bottomContainer.style.visibility = 'visible';
 
         if (!timerStarted) {
@@ -38,7 +42,7 @@ const instructionPage = {
     function startTimer() {
       timer = setTimeout(() => {
         experimentContainer.style.visibility = 'hidden';
-        buttonInstruction.style.fontSize = '1.5em';
+        // buttonInstruction.style.fontSize = '1.5em';
         buttonInstruction.style.color = '#0066cc';
       }, 10000); // 10 seconds
     }
@@ -109,9 +113,12 @@ const ruleInstruction = {
 
 const startConfirmation = {
   type: jsPsychHtmlKeyboardResponse,
+  choices: [' ', 'r'],
   stimulus: `
+  <div id="instruction-text">
       <p><strong>When you're ready, press the <span class="spacebar-icon">Spacebar</span> to start!</strong></p>
     <p>If you want to start over from the beginning, press <span class="spacebar-icon">R</span>.</p>
+  </div>
     `,
   post_trial_gap: 250,
   on_finish: function (data) {
@@ -140,7 +147,7 @@ function generateInstructStimulus() {
 
       <!-- Lower Information (Buttons) -->
       <div id="bottom-container" style="visibility: hidden">
-        <p id="button-instruction" style="margin: 24px">Press <span style="font-weight: bold;">Restart</span> to retry from the beginning, or <span style="font-weight: bold;">Continue</span> to proceed.</p>
+        <p id="button-instruction" style="margin: 24px">Press <span style="font-weight: bold;">Restart</span> to try again, or <span style="font-weight: bold;">Continue</span> to proceed.</p>
         <div id="button-container">
           <button id="restart-button" class="jspsych-btn">Restart</button>
           <button id="continue-button" class="jspsych-btn">Continue</button>
