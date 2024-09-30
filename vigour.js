@@ -262,6 +262,9 @@ const piggyBankTrial = {
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     vigourTrialCounter += 1;
     data.trial_number = vigourTrialCounter;
+    if (vigourTrialCounter % (vigourTrials.length / 3) == 0 || vigourTrialCounter == vigourTrials.length) {
+      saveDataREDCap(retry = 3);
+    }
   }
 };
 
@@ -289,7 +292,7 @@ const vigour_bonus = {
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [piggyBankTrial],
+    timeline: [kick_out, fullscreen_prompt, piggyBankTrial],
     timeline_variables: [trial]
   });
 });
