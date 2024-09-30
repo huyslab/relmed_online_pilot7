@@ -1,6 +1,6 @@
 .experiment-wrapper {
   display: grid;
-  grid-template-rows: 1.5fr 6.5fr 2fr;
+  grid-template-rows: 2fr 6fr 2fr;
   justify-items: center;
   align-items: center;
   height: 100vh;
