@@ -127,7 +127,7 @@ const startConfirmation = {
   }
 }
 
-const instructions = {
+const vigourInstructions = {
   timeline: [instructionPage, ruleInstruction, startConfirmation],
   loop_function: function (data) {
     const last_iter = data.last(1).values()[0];
