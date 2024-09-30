@@ -274,7 +274,7 @@ const vigour_bonus = {
     const selected_trial = getSelectedTrial();
     trial.stimulus = `
             <p>Finally, it is time to reveal your bonus payment for the piggy-bank game.</p>
-            <p>The computer picked round number ${selected_trial.trial_number}, which means you will earn ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
+            <p>The computer selected piggy bank number ${selected_trial.trial_number}, which means you will earn ${(window.sampledVigourReward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
         `;
   },
   on_finish: (data) => {
@@ -299,7 +299,7 @@ function getSelectedTrial() {
   const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trial_reward !== undefined);
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
-  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => (reward) ** 2));
+  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => (reward)));
   // Side effect: Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
