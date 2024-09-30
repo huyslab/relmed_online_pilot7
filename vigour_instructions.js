@@ -9,10 +9,14 @@ const instructionPage = {
   on_load: function () {
     updatePersistentCoinContainer();
     observeResizing('coin-container', updatePersistentCoinContainer);
-    
+
     let shakeCount = 0;
+    let timerStarted = false;
+    let timer;
     updateInstructionText(shakeCount);
     const bottomContainer = document.getElementById('bottom-container');
+    const experimentContainer = document.getElementById('experiment-container');
+    const buttonInstruction = document.getElementById('button-instruction');
     let keyboardListener = setupKeyboardListener(handleSpacebar);
 
     function handleSpacebar() {
@@ -23,13 +27,31 @@ const instructionPage = {
       if (shakeCount % 5 === 0) {
         dropCoin(0);
         bottomContainer.style.visibility = 'visible';
+
+        if (!timerStarted) {
+          timerStarted = true;
+          startTimer();
+        }
       }
+    }
+
+    function startTimer() {
+      timer = setTimeout(() => {
+        experimentContainer.style.visibility = 'hidden';
+        buttonInstruction.style.fontSize = '1.5em';
+        buttonInstruction.style.color = '#0066cc';
+      }, 10000); // 10 seconds
     }
 
     function restart() {
       shakeCount = 0;
+      timerStarted = false;
+      clearTimeout(timer);
       updateInstructionText(shakeCount);
+      experimentContainer.style.visibility = 'visible';
       bottomContainer.style.visibility = 'hidden';
+      buttonInstruction.style.fontSize = '';
+      buttonInstruction.style.color = '';
       jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
       keyboardListener = setupKeyboardListener(handleSpacebar);
       const coinContainer = document.getElementById('coin-container');
@@ -45,10 +67,10 @@ const instructionPage = {
 };
 
 // Before starting the first trial
-const startFirstTrial = {
-  type: jsPsychHtmlKeyboardResponse,
-  choices: [' ', 'r'],
-  stimulus: `
+const ruleInstruction = {
+  type: jsPsychInstructions,
+  show_clickable_nav: true,
+  pages: [`
   <div id="instruction-text" style="text-align: left">
     <p><strong>You will now play a few minutes of this game, collecting coins!</strong></p>
     
@@ -57,39 +79,46 @@ const startFirstTrial = {
         <li><img src="imgs/saturate-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <span class="highlight">Vividness</span> of piggy colors: Indicates how hard you need to shake it.</li>
         <li><img src="imgs/tail-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <span class="highlight">Tail length</span>: Longer piggy tails = more valuable coins.</li>
     </ul>
-    
+    </div>
+    `,
+    `<div id="instruction-text" style="text-align: left">
     <p>Types of coins you can win:</p>
     <div class="instruct-coin-container">
         <div class="instruct-coin">
-            <img src="imgs/1p.png" alt="1 Penny">
+            <img src="imgs/1p-num.png" alt="1 Penny">
             <p>1 Penny</p>
         </div>
         <div class="instruct-coin">
-            <img src="imgs/2p.png" alt="2 Pence">
+            <img src="imgs/2p-num.png" alt="2 Pence">
             <p>2 Pence</p>
         </div>
         <div class="instruct-coin">
-            <img src="imgs/5p.png" alt="5 Pence">
+            <img src="imgs/5p-num.png" alt="5 Pence">
             <p>5 Pence</p>
         </div>
         <div class="instruct-coin">
-            <img src="imgs/10p.png" alt="10 Pence">
+            <img src="imgs/10p-num.png" alt="10 Pence">
             <p>10 Pence</p>
         </div>
     </div>
     
-    <p><span class="highlight">Your bonus</span>: You will keep all the coins from a randomly selected piggy bank at the end of the game.</p>
-    
-    <p><strong>When you're ready, press the <span class="spacebar-icon">Spacebar</span> to start!</strong></p>
-    <p>If you want to revisit the previous example, press <span class="spacebar-icon">R</span>.</p>
+    <p><span class="highlight">Your bonus</span>: We will pay you the total amount of coins from a randomly selected piggy bank at the end of the game.</p>
     </div>
-      `,
+      `]
+};
+
+const startConfirmation = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: `
+      <p><strong>When you're ready, press the <span class="spacebar-icon">Spacebar</span> to start!</strong></p>
+    <p>If you want to start over from the beginning, press <span class="spacebar-icon">R</span>.</p>
+    `,
+  post_trial_gap: 250,
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
-  },
-  post_trial_gap: 250
-};
+  }
+}
 
 // Function to generate stimulus HTML
 function generateInstructStimulus() {
@@ -111,7 +140,7 @@ function generateInstructStimulus() {
 
       <!-- Lower Information (Buttons) -->
       <div id="bottom-container" style="visibility: hidden">
-        <p>Press <span style="font-weight: bold;">Restart</span> to retry from the beginning, or <span style="font-weight: bold;">Continue</span> to proceed.</p>
+        <p id="button-instruction" style="margin: 24px">Press <span style="font-weight: bold;">Restart</span> to retry from the beginning, or <span style="font-weight: bold;">Continue</span> to proceed.</p>
         <div id="button-container">
           <button id="restart-button" class="jspsych-btn">Restart</button>
           <button id="continue-button" class="jspsych-btn">Continue</button>

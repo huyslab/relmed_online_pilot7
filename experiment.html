@@ -7,6 +7,7 @@
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
   <script src="jspsych/plugin-html-button-response.js"></script>
   <script src="jspsych/plugin-preload.js"></script>
+  <script src="jspsych/plugin-instructions.js"></script>
   <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
   <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
   <script src="vigour_instructions.js"></script>
@@ -49,11 +50,9 @@
     };
 
     const instructions = {
-      timeline: [instructionPage, startFirstTrial],
+      timeline: [instructionPage, ruleInstruction, startConfirmation],
       loop_function: function (data) {
-        console.log(data);
         const last_iter = data.last(1).values()[0];
-        console.log(last_iter);
         if (jsPsych.pluginAPI.compareKeys(last_iter.response, 'r')) {
           return true;
         } else {
