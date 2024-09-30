@@ -124,6 +124,9 @@ const startConfirmation = {
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
+  },
+  simulation_options: {
+    simulate: false
   }
 }
 

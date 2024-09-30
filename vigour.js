@@ -187,11 +187,12 @@ const piggyBankTrial = {
   trial_duration: function() {
     return jsPsych.evaluateTimelineVariable('trialDuration')
   },
-  save_timeline_variables: true,
+  save_timeline_variables: ["magnitude", "ratio"],
   data: {
+    trial_duration: () => { return jsPsych.evaluateTimelineVariable('trialDuration') },
+    response_time: () => { return window.responseTime },
     trial_presses: () => { return window.trialPresses },
     trial_reward: () => { return window.trialReward },
-    response_time: () => { return window.responseTime },
     // Record global data
     total_presses: () => { return window.totalPresses },
     total_reward: () => { return window.totalReward }
@@ -261,7 +262,6 @@ const piggyBankTrial = {
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     vigourTrialCounter += 1;
     data.trial_number = vigourTrialCounter;
-    // console.log(data);
   }
 };
 
