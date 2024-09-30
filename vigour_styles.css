@@ -1,16 +1,14 @@
-/* Wrapper */
 .experiment-wrapper {
   display: grid;
-  grid-template-rows: 1.5fr 6.5fr 2fr; /* Four rows: instruction, main, button, progress */
+  grid-template-rows: 2fr 6fr 2fr;
   justify-items: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
 }
 
-/* Containers */
 #experiment-container {
-  grid-row: 2; /* Places the piggy bank and coins in the center row */
+  grid-row: 2;
   align-self: center;
   position: relative;
   width: 100%;
@@ -19,25 +17,33 @@
   justify-content: center;
 }
 
+#coin-container, #persist-coin-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
 #coin-container {
   position: absolute;
   display: flex;
   justify-content: center;
   height: 60%;
-  width: 100%;
+  width: 90%;
   top: 40%;
 }
 
-#instruction-container, #info-container {
+#piggy-container {
+  position: absolute;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 5vmin;
+  height: 40%;
+  width: 90%;
+  top: 0%;
 }
 
 #instruction-container {
-  grid-row: 1; /* Places instructions in the top row */
+  grid-row: 1;
 }
 
 #bottom-container {
@@ -47,103 +53,71 @@
   justify-items: center;
   align-self: start;
   align-items: center;
-  width: 100%; /* Make sure the container takes up the available width */
 }
 
 #button-container {
-  grid-row: 3;
+  grid-row: 2;
   display: flex;
   justify-content: center;
   align-self: start;
-  visibility: hidden;
 }
-
-#info-container {
-  grid-row: 1; /* Places trial info and buttons in the third row */
-}
-
-#progress-container {
-  grid-row: 2;
-  width: 50vmin;
-  height: 3vmin;
-  background-color: #e0e0e0; /* Light gray background */
-  border-radius: 1.5vmin;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
-}
-
-/* For experiment container */
 
 #piggy-bank {
   position: absolute;
-  height: 40%;
-  top: 0;
-  object-fit: contain;
-  transition: transform 0.1s ease-in-out;
+  height: 100%;
+  width: auto;
+}
+
+.piggy-tail {
+  position: absolute;
+  max-height: 30%;
+  bottom: 50%;
 }
 
 .vigour_coin {
   position: absolute;
-  height: 30%;
-  object-fit: contain;
+  max-height: 30%;
+  width: auto;
   top: 0;
   opacity: 0;
 }
 
-.grayscale-blur {
-  filter: grayscale(100%) blur(5px);
-  opacity: 0.9;
-}
-
-#trial-info, #instruction-text {
-  font-size: 3vmin;
-  margin: 1.5vmin;
+#instruction-text {
+  font-size: 1.3em;
+  margin: 1em;
   text-align: center;
   line-height: normal;
 }
 
-#progress-bar {
-  height: 100%;
-  width: 0;
-  background-color: #90a4ae; /* Soft blue-gray */
-  transition: width 0.1s ease-in-out;
-}
-
-#progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #546e7a; /* Dark blue-gray */
-  font-size: 2vmin;
-  font-weight: bold;
-}
-
 .spacebar-icon {
   display: inline-block;
-  padding: 10px 10px;
-  background-color: #f6f6f6;
+  padding: 0.4vmin 0.6vmin;
+  background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-weight: bold;
   font-family: monospace;
 }
 
-#button-container button {
+.jspsych-btn {
   font-size: 20px;
   border-radius: 6px;
+  margin: 0em 0.75em;
 }
 
-/* Inter-trial interval text */
-
-#iti-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3vmin;
-  color: #333;
+.instruct-coin-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 40px;
+}
+.instruct-coin {
   text-align: center;
-  z-index: 10;
+}
+.instruct-coin img {
+  width: 150px;
+  height: 150px;
+}
+.highlight {
+  font-weight: bold;
+  color: #0066cc;
 }

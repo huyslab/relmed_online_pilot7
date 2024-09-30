@@ -1,10 +1,14 @@
 // Configuration object
 const experimentConfig = {
   magnitudes: [1, 2, 5, 10],
-  trialDuration: 4000, // in milliseconds
-  minITI: 900,
-  maxITI: 1100
+  ratios: [1, 4, 8, 12, 16],
+  trialDuration: 10000 // in milliseconds on average, U[9500, 10500]
 };
+experimentConfig.ratios.reverse();
+
+// Generate trials for Vigour task
+const vigourTrials = [{"magnitude":1,"ratio":16,"trialDuration":9862},{"magnitude":1,"ratio":1,"trialDuration":9506},{"magnitude":2,"ratio":12,"trialDuration":9652},{"magnitude":10,"ratio":4,"trialDuration":10221},{"magnitude":5,"ratio":8,"trialDuration":10207},{"magnitude":5,"ratio":16,"trialDuration":9890},{"magnitude":1,"ratio":4,"trialDuration":9688},{"magnitude":5,"ratio":12,"trialDuration":10145},{"magnitude":2,"ratio":1,"trialDuration":10228},{"magnitude":10,"ratio":16,"trialDuration":10386},{"magnitude":1,"ratio":8,"trialDuration":9962},{"magnitude":2,"ratio":12,"trialDuration":9985},{"magnitude":1,"ratio":4,"trialDuration":9891},{"magnitude":5,"ratio":4,"trialDuration":9956},{"magnitude":2,"ratio":8,"trialDuration":9726},{"magnitude":2,"ratio":16,"trialDuration":10236},{"magnitude":1,"ratio":8,"trialDuration":10182},{"magnitude":1,"ratio":1,"trialDuration":9501},{"magnitude":5,"ratio":12,"trialDuration":9825},{"magnitude":1,"ratio":16,"trialDuration":9902},{"magnitude":10,"ratio":8,"trialDuration":10452},{"magnitude":10,"ratio":12,"trialDuration":9954},{"magnitude":5,"ratio":16,"trialDuration":10009},{"magnitude":10,"ratio":16,"trialDuration":9827},{"magnitude":2,"ratio":16,"trialDuration":10293},{"magnitude":10,"ratio":8,"trialDuration":10376},{"magnitude":10,"ratio":12,"trialDuration":10261},{"magnitude":2,"ratio":4,"trialDuration":10490},{"magnitude":1,"ratio":12,"trialDuration":9870},{"magnitude":2,"ratio":8,"trialDuration":9535},{"magnitude":1,"ratio":12,"trialDuration":9888},{"magnitude":10,"ratio":4,"trialDuration":9679},{"magnitude":2,"ratio":1,"trialDuration":10199},{"magnitude":2,"ratio":4,"trialDuration":10044},{"magnitude":5,"ratio":4,"trialDuration":10465},{"magnitude":5,"ratio":8,"trialDuration":9666}] ;
+
 
 // Global variables
 window.totalReward = 0;
@@ -12,97 +16,162 @@ window.totalPresses = 0;
 window.sampledVigourReward = 0;
 
 // Functions for animation
+function animatePiggy(keyframes, options) {
+  const piggyBank = document.getElementById('piggy-container');
+  if (piggyBank) {
+    let currentTransform = getComputedStyle(piggyBank).transform;
+    currentTransform = currentTransform === 'none' ? '' : currentTransform;
+    const animationKeyframes = keyframes.map(frame => ({
+      transform: `${currentTransform} ${frame}`
+    }));
+    piggyBank.animate(animationKeyframes, options);
+  }
+}
+
 // Shake piggy bank animation
 function shakePiggy() {
-  const piggyBank = document.getElementById('piggy-bank');
-  piggyBank.animate([
-    { transform: `translateX(-2%)` },
-    { transform: `translateX(2%)` },
-    { transform: 'translateX(0)' }
-  ], {
-    duration: 100,
-    easing: 'ease-in-out'
-  });
+  animatePiggy([
+    'translateX(-1%)',
+    'translateX(1%)',
+    'translateX(0)'
+  ], { duration: 100, easing: 'linear' });
 }
 
 // Wiggle piggy bank animation
 function wigglePiggy() {
-  const piggyBank = document.getElementById('piggy-bank');
-  piggyBank.animate([
-    { transform: 'translate(1%, 1%) rotate(0deg)' },
-    { transform: 'translate(-1%, -1.5%) rotate(-2deg)' },
-    { transform: 'translate(-2%, 0%) rotate(2deg)' },
-    { transform: 'translate(2%, 1.5%) rotate(0deg)' },
-    { transform: 'translate(1%, -1%) rotate(2deg)' },
-    { transform: 'translate(-1%, 1.5%) rotate(-2deg)' },
-    { transform: 'translate(-2%, 1%) rotate(0deg)' },
-    { transform: 'translate(2%, 1%) rotate(-2deg)' },
-    { transform: 'translate(-1%, -1%) rotate(2deg)' },
-    { transform: 'translate(1%, 1.5%) rotate(0deg)' },
-    { transform: 'translate(1%, -1.5%) rotate(-2deg)' }
-  ], {
-    duration: 100,
-    easing: 'linear'
-  });
+  animatePiggy([
+    `translate(0.5%, 0.5%) rotate(0deg)`,
+    `translate(-0.5%, -1%) rotate(-2deg)`,
+    `translate(-1.5%, 0%) rotate(2deg)`,
+    `translate(1.5%, 1%) rotate(0deg)`,
+    `translate(0.5%, -0.5%) rotate(2deg)`,
+    `translate(-0.5%, 1%) rotate(-2deg)`,
+    `translate(-1.5%, 0.5%) rotate(0deg)`,
+    `translate(1.5%, 0.5%) rotate(-2deg)`,
+    `translate(-0.5%, -0.5%) rotate(2deg)`,
+    `translate(0.5%, 1%) rotate(0deg)` ,
+    `translate(0.5%, -1%) rotate(-2deg)` 
+  ], { duration: 100, easing: 'linear' });
 }
 
 // Drop coin animation
-function dropCoin(magnitude) {
-  const coinContainer = document.getElementById('coin-container');
-  const coin = document.createElement('img');
-  coin.className = 'vigour_coin';
-  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p.png`;
-  coin.alt = `Coin of value ${magnitude}`;
-
+function dropCoin(magnitude, persist = false) {
+  const containerType = persist ? 'persist-coin-container' : 'coin-container';
+  const coinContainer = document.getElementById(containerType);
+  const coin = createCoin(magnitude);
   coinContainer.appendChild(coin);
 
-  if (magnitude === 0) {
-    coin.animate([
-      { top: '-15%', opacity: 0.8, offset: 0 },
-      { top: '70%', opacity: 1, offset: 0.2 },
+  const animationOptions = getCoinAnimationOptions(magnitude);
+  coin.animate(animationOptions.keyframes, animationOptions.config)
+    .onfinish = () => coin.remove();
+}
+
+function createCoin(magnitude) {
+  const coin = document.createElement('img');
+  coin.className = 'vigour_coin';
+  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p-num.png`;
+  coin.alt = `Coin of value ${magnitude}`;
+  return coin;
+}
+
+function getCoinAnimationOptions(magnitude) {
+  const duration = magnitude === 0 ? 2500 : 1000;
+  const topStart = '-15%';
+  const opacityStart = 0.8;
+  
+  return {
+    keyframes: [
+      { top: topStart, opacity: opacityStart, offset: 0 },
+      { top: '70%', opacity: 1, offset: 0.1 },
       { top: '70%', opacity: 1, offset: 0.9 },
       { top: '70%', opacity: 0, offset: 1 }
-    ], {
-      duration: 2500,
+    ],
+    config: {
+      duration: duration,
       easing: 'ease-in-out'
-    }).onfinish = () => coin.remove();
-  } else {
-    coin.animate([
-      { top: '-15%', opacity: 0.8, offset: 0 },
-      { top: '70%', opacity: 1, offset: 0.5 },
-      { top: '70%', opacity: 0, offset: 1 }
-    ], {
-      duration: 1000,
-      easing: 'ease-in-out'
-    }).onfinish = () => coin.remove();
+    }
+  };
+}
+
+// Set up an observer to handle dynamic resizing
+function observeResizing(elementId, callback) {
+  const resizeObserver = new ResizeObserver(callback);
+  const element = document.getElementById(elementId);
+  if (element) {
+    resizeObserver.observe(element);
   }
 }
 
-// Generate trials for Vigour task
-const vigourTrials = [{"magnitude":10,"ratio":4},{"magnitude":2,"ratio":12},{"magnitude":2,"ratio":2},{"magnitude":1,"ratio":16},{"magnitude":1,"ratio":16},{"magnitude":1,"ratio":12},{"magnitude":10,"ratio":6},{"magnitude":5,"ratio":12},{"magnitude":10,"ratio":12},{"magnitude":10,"ratio":16},{"magnitude":1,"ratio":12},{"magnitude":2,"ratio":14},{"magnitude":5,"ratio":6},{"magnitude":5,"ratio":4},{"magnitude":1,"ratio":2},{"magnitude":10,"ratio":10},{"magnitude":5,"ratio":8},{"magnitude":2,"ratio":12},{"magnitude":1,"ratio":4},{"magnitude":2,"ratio":2},{"magnitude":10,"ratio":8},{"magnitude":1,"ratio":10},{"magnitude":5,"ratio":2},{"magnitude":1,"ratio":6},{"magnitude":1,"ratio":2},{"magnitude":2,"ratio":4},{"magnitude":2,"ratio":1},{"magnitude":10,"ratio":8},{"magnitude":2,"ratio":14},{"magnitude":2,"ratio":8},{"magnitude":1,"ratio":6},{"magnitude":10,"ratio":10},{"magnitude":5,"ratio":16},{"magnitude":5,"ratio":14},{"magnitude":1,"ratio":1},{"magnitude":2,"ratio":16},{"magnitude":5,"ratio":14},{"magnitude":1,"ratio":1},{"magnitude":1,"ratio":14},{"magnitude":1,"ratio":10},{"magnitude":5,"ratio":6},{"magnitude":5,"ratio":4},{"magnitude":5,"ratio":12},{"magnitude":1,"ratio":8},{"magnitude":10,"ratio":12},{"magnitude":5,"ratio":10},{"magnitude":5,"ratio":10},{"magnitude":10,"ratio":16},{"magnitude":10,"ratio":14},{"magnitude":10,"ratio":4},{"magnitude":2,"ratio":1},{"magnitude":2,"ratio":8},{"magnitude":2,"ratio":4},{"magnitude":10,"ratio":6},{"magnitude":1,"ratio":4},{"magnitude":10,"ratio":14},{"magnitude":5,"ratio":16},{"magnitude":1,"ratio":14},{"magnitude":2,"ratio":6},{"magnitude":2,"ratio":10},{"magnitude":1,"ratio":8},{"magnitude":2,"ratio":6},{"magnitude":2,"ratio":16},{"magnitude":2,"ratio":10},{"magnitude":5,"ratio":8},{"magnitude":5,"ratio":2}];
+// Update persistent coin container position based on coin container
+function updatePersistentCoinContainer() {
+  const coinContainer = document.getElementById('coin-container');
+  const persistCoinContainer = document.getElementById('persist-coin-container');
+  
+  if (coinContainer && persistCoinContainer) {
+    const rect = coinContainer.getBoundingClientRect();
+    // console.log(rect);
+    persistCoinContainer.style.top = `${rect.top}px`;
+    persistCoinContainer.style.left = `${rect.left}px`;
+    persistCoinContainer.style.width = `${rect.width}px`;
+    persistCoinContainer.style.height = `${rect.height}px`;
+  }
+}
+
+function updatePiggyTails(magnitude, ratio) {
+  const piggyContainer = document.getElementById('piggy-container');
+  const piggyBank = document.getElementById('piggy-bank');
+
+  const magnitude_index = experimentConfig.magnitudes.indexOf(magnitude);
+  const ratio_index = experimentConfig.ratios.indexOf(ratio);
+  // Calculate saturation based on ratio
+  const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
+
+  // Remove existing tails
+  document.querySelectorAll('.piggy-tail').forEach(tail => tail.remove());
+
+  // Wait for the piggy bank image to load
+  piggyBank.onload = () => {
+      const piggyBankWidth = piggyBank.offsetWidth;
+      const tailWidth = piggyBankWidth * 0.1; // Adjust this factor as needed
+      const spacing = tailWidth * 0; // Adjust spacing between tails
+      for (let i = 0; i < magnitude_index + 1; i++) {
+          const tail = document.createElement('img');
+          tail.src = 'imgs/piggy-tail2.png';
+          tail.alt = 'Piggy Tail';
+          tail.className = 'piggy-tail';
+          
+          // Position each tail
+          tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
+          tail.style.width = `${tailWidth}px`;
+          tail.style.filter = `saturate(${50 + 250 * ratio_factor}%)`;
+
+          piggyContainer.appendChild(tail);
+      }
+  };
+
+  // Trigger onload if the image is already cached
+  if (piggyBank.complete) {
+      piggyBank.onload();
+  }
+}
 
 // Trial stimulus function
 function generateTrialStimulus(magnitude, ratio) {
-  const magnitude_text = magnitude === 1 ? '1 penny' : `${magnitude} pence`;
-  const ratio_text = ratio === 1 ? 'time' : 'times';
+  const ratio_index = experimentConfig.ratios.indexOf(ratio);
+  // Calculate saturation based on ratio
+  const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
+  const piggy_style = `filter: saturate(${50 + 250 * ratio_factor}%);`;
   return `
-        <div class="experiment-wrapper">
-          <!-- Middle Row (Piggy Bank & Coins) -->
-          <div id="experiment-container">
-            <div id="coin-container"></div>
-            <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank">
-          </div>
-          <!-- Bottom Row (Trial Info) -->
-          <div id="bottom-container">
-            <div id="info-container">
-              <div id="trial-info">Press ${ratio + ' ' + ratio_text} for ${magnitude_text}</div>
-            </div>
-            <div id="progress-container">
-              <div id="progress-bar"></div>
-              <div id="progress-text">0/0</div>
-            </div>
-          </div>
+    <div class="experiment-wrapper">
+      <!-- Middle Row (Piggy Bank & Coins) -->
+      <div id="experiment-container">
+        <div id="coin-container"></div>
+        <div id="piggy-container">
+          <!-- Piggy Bank Image -->
+          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" style="${piggy_style}">
+        </div>
       </div>
+    </div>
   `;
 }
 
@@ -115,7 +184,9 @@ const piggyBankTrial = {
   },
   choices: 'NO_KEYS',
   // response_ends_trial: false,
-  trial_duration: experimentConfig.trialDuration,
+  trial_duration: function() {
+    return jsPsych.evaluateTimelineVariable('trialDuration')
+  },
   save_timeline_variables: true,
   data: {
     trial_presses: () => { return window.trialPresses },
@@ -166,97 +237,31 @@ const piggyBankTrial = {
         window.trialPresses++;
         window.totalPresses++;
 
-        // Update progress bar
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
-        const progress = (pressCount / ratio) * 100;
-        progressBar.style.width = `${progress}%`;
-        progressText.textContent = `${pressCount}/${ratio}`;
-
         if (pressCount === ratio) {
           window.trialReward += magnitude;
           window.totalReward += magnitude;
           pressCount = 0;
-          dropCoin(magnitude);
-
-          // Show full progress bar briefly before resetting
-          progressBar.style.backgroundColor = '#78909c'; // Slightly darker shade for completion
-          setTimeout(() => {
-            pressCount = 0;
-            progressBar.style.width = '0%';
-            progressBar.style.backgroundColor = '#90a4ae'; // Reset to original color
-            progressText.textContent = `0/${ratio}`;
-          }, 200);
+          dropCoin(magnitude, true);
         }
       },
       valid_responses: [' '],
       rt_method: 'performance',
       persist: true,
       allow_held_key: false,
-      minimum_valid_rt: 50
+      minimum_valid_rt: 0
     });
   },
   on_load: function () {
-    const magnitude_index = experimentConfig.magnitudes.indexOf(jsPsych.evaluateTimelineVariable('magnitude'));
-    document.getElementById('piggy-bank').style.filter = `hue-rotate(${magnitude_index * 45}deg)`;
-
-    // Initialize progress bar
-    const ratio = jsPsych.evaluateTimelineVariable('ratio');
-    const progressText = document.getElementById('progress-text');
-    progressText.textContent = `0/${ratio}`;
+    updatePiggyTails(jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio'));
+    updatePersistentCoinContainer(); // Update the persistent coin container
+    observeResizing('coin-container', updatePersistentCoinContainer);
   },
   on_finish: function (data) {
     // Clean up listener
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     vigourTrialCounter += 1;
     data.trial_number = vigourTrialCounter;
-    if (vigourTrialCounter % (vigourTrials.length/3) == 0 || vigourTrialCounter == vigourTrials.length) {
-      saveDataREDCap(retry = 3);
-    }
-  }
-};
-
-// Inter-trial interval
-const interTrialInterval = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: function () {
-    return `
-      <div class="experiment-wrapper">
-        <div id="experiment-container">
-          <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" class="grayscale-blur">
-        </div>
-        <div id="info-container">
-          <div id="iti-text">Preparing next round...</div>
-        </div>
-      </div>
-        `;
-  },
-  choices: "NO_KEYS",
-  on_start: function (trial) {
-    if (window.prolificPID.includes("simulate")) {
-      trial.trial_duration = 1000 / 60;
-    } else {
-      trial.trial_duration = Math.floor(Math.random() * (experimentConfig.maxITI - experimentConfig.minITI) + experimentConfig.minITI);
-    }
-  },
-  save_trial_parameters: { trial_duration: true }
-};
-
-// Before starting the first trial
-const startFirstTrial = {
-  type: jsPsychHtmlKeyboardResponse,
-  choices: [' '],
-  stimulus: `
-      <div id="info-container">
-        <div id="iti-text" style="line-height:1.5">
-          <p> You will now play several rounds of this game, winning coins!</p>
-          <p> When you finish the game, a random round will be picked and you will earn what you get from that round as your bonus.</p>
-          <p> When you are ready, Press <span class="spacebar-icon">Spacebar</span> to start!</p>
-        </div>
-      </div>`,
-  on_finish: function (data) {
-    const seed = jsPsych.randomization.setSeed();
-    data.rng_seed = seed;
+    // console.log(data);
   }
 };
 
@@ -275,7 +280,7 @@ const vigour_bonus = {
   on_finish: (data) => {
     data.vigour_bonus = window.sampledVigourReward / 100
   },
-  simulation_options:{
+  simulation_options: {
     simulate: false
   }
 };
@@ -284,7 +289,7 @@ const vigour_bonus = {
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [kick_out, fullscreen_prompt, piggyBankTrial, interTrialInterval],
+    timeline: [piggyBankTrial],
     timeline_variables: [trial]
   });
 });
