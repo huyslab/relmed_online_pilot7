@@ -69,7 +69,7 @@ function dropCoin(magnitude, persist = false) {
 function createCoin(magnitude) {
   const coin = document.createElement('img');
   coin.className = 'vigour_coin';
-  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p.png`;
+  coin.src = magnitude === 0 ? 'imgs/ooc_2p.png' : `imgs/${magnitude}p-num.png`;
   coin.alt = `Coin of value ${magnitude}`;
   return coin;
 }
