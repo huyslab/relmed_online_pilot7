@@ -50,8 +50,8 @@ const kick_out = {
     choices: ["NO_KEYS"],
     on_start: function(trial) {
         // Save data
-        saveDataREDCap(retry = 3);
         trial.trialphase = 'kick-out';
+        saveDataREDCap(retry = 3);
         // Allow refresh
         window.removeEventListener('beforeunload', preventRefresh);
     },
