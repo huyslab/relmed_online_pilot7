@@ -1,5 +1,5 @@
 // Function setting up PILT blocks
-window.maxWarnings = 10
+window.maxWarnings = 4;
 window.defaultMaxRespTime = 3000
 
 window.skipThisBlock = false;
