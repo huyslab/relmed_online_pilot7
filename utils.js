@@ -42,7 +42,7 @@ const kick_out = {
     timeline: [{
       stimulus: `<p>It seems that you are not following the study instructions.</p>
         <p>Unfortunately, you cannot continue with this study.</p>
-        <p>If you believe this is a mistake, please email y.abir@ucl.ac.uk, explaining the circumstances.</p>
+        <p>If you believe this is a mistake, please email haoyang.lu@ucl.ac.uk, explaining the circumstances.</p>
         <p>Please return this study on Prolific.</p>
         <p>You may now close this tab.</p>
       `
