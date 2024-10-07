@@ -167,6 +167,6 @@ const comparisonInstructions = {
       <p>Press <span class="spacebar-icon">Spacebar</span> to begin the task.</p>
     </div>
   `,
-  choices: ' ',
+  choices: [' '],
   post_trial_gap: 300
 };
