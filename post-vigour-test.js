@@ -5,25 +5,6 @@ const comparisonConfig = {
 };
 comparisonConfig.ratios.reverse();
 
-// Function to generate all possible pair combinations
-// TODO: Use predefined pairs for official testing
-function generatePairCombinations() {
-  const pairs = [];
-  for (let i = 0; i < comparisonConfig.magnitudes.length; i++) {
-    for (let j = 0; j < comparisonConfig.ratios.length; j++) {
-      for (let k = i; k < comparisonConfig.magnitudes.length; k++) {
-        for (let l = (k === i ? j + 1 : 0); l < comparisonConfig.ratios.length; l++) {
-          pairs.push({
-            left: { magnitude: comparisonConfig.magnitudes[i], ratio: comparisonConfig.ratios[j] },
-            right: { magnitude: comparisonConfig.magnitudes[k], ratio: comparisonConfig.ratios[l] }
-          });
-        }
-      }
-    }
-  }
-  return jsPsych.randomization.shuffle(pairs);
-}
-
 // Function to generate stimulus HTML for comparison task
 function generateComparisonStimulus(left, right) {
   return `
@@ -97,7 +78,7 @@ const comparisonTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function() {
     const pair = jsPsych.evaluateTimelineVariable('pair');
-    console.log(pair);
+    // console.log(pair);
     return generateComparisonStimulus(pair.left, pair.right);
   },
   choices: ['ArrowLeft', 'ArrowRight'],
@@ -113,7 +94,6 @@ const comparisonTrial = {
   },
   on_load: function () {
     const pair = jsPsych.evaluateTimelineVariable('pair');
-    console.log(pair);
     updateDualPiggyTails(pair.left.magnitude, pair.left.ratio, "left");
     updateDualPiggyTails(pair.right.magnitude, pair.right.ratio, "right");
   },
@@ -131,7 +111,43 @@ const comparisonTrial = {
 };
 
 // Generate all pair combinations
-const pairCombinations = generatePairCombinations();
+const pairCombinations = 
+[{"left":{"magnitude":1,"ratio":16},"right":{"magnitude":2,"ratio":8}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":5,"ratio":1}},
+  {"left":{"magnitude":5,"ratio":1},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":5,"ratio":8}},
+  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":5,"ratio":16}},
+  {"left":{"magnitude":1,"ratio":16},"right":{"magnitude":5,"ratio":1}},
+  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":2,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":5,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":1,"ratio":16},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":1,"ratio":8},"right":{"magnitude":2,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":2,"ratio":1}},
+  {"left":{"magnitude":1,"ratio":1},"right":{"magnitude":5,"ratio":16}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":2,"ratio":16}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":1,"ratio":8}},
+  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":5,"ratio":1}},
+  {"left":{"magnitude":5,"ratio":1},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":2,"ratio":16}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":1,"ratio":16}},
+  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":1,"ratio":16}},
+  {"left":{"magnitude":1,"ratio":16},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":1,"ratio":8},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":5,"ratio":1}},
+  {"left":{"magnitude":5,"ratio":1},"right":{"magnitude":5,"ratio":8}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":2,"ratio":8}},
+  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":2,"ratio":16}},
+  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":1,"ratio":16}},
+  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":2,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":1,"ratio":1}},
+  {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":1,"ratio":16}},
+  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":5,"ratio":8}},
+  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":1,"ratio":1}}];
 
 // Create timeline for comparison task
 const comparisonTimeline = {
