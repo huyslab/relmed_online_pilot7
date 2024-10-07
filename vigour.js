@@ -297,12 +297,17 @@ vigourTrials.forEach(trial => {
   });
 });
 
+// Log-normal probability density function
+function logNormalPDF(x, mu, sigma) {
+  return Math.exp(-0.5 * Math.pow((Math.log(x) - mu) / sigma, 2)) / (x * sigma * Math.sqrt(2 * Math.PI));
+}
+
 // Get trial reward data
 function getSelectedTrial() {
   const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trial_reward !== undefined);
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
-  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => (reward)));
+  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward, Math.log(90), 0.3)));
   // Side effect: Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
