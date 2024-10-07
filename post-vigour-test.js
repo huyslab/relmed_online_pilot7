@@ -107,7 +107,7 @@ const postVigourTrial = {
       data.chosen_ratio = pair.right.ratio;
     }
   },
-  post_trial_gap: 500
+  post_trial_gap: 400
 };
 
 // Generate all pair combinations
@@ -153,11 +153,11 @@ const postVigourPairs =
 const postVigourTrials = [];
 postVigourPairs.forEach(pair => {
   postVigourTrials.push({
-    timeline: [postVigourTrial],
+    timeline: [kick_out, fullscreen_prompt, postVigourTrial],
     timeline_variables: [{ pair: pair }]
   });
 });
-console.log(postVigourTrials);
+// console.log(postVigourTrials);
 
 // Instructions for comparison task
 const postVigourInstructions = {

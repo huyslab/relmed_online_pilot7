@@ -116,7 +116,7 @@ const startConfirmation = {
     <p>If you want to start over from the beginning, press <span class="spacebar-icon">R</span>.</p>
   </div>
     `,
-  post_trial_gap: 250,
+  post_trial_gap: 300,
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
