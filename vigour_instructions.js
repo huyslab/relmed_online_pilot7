@@ -171,8 +171,8 @@ function generateInstructStimulus() {
 // Function to update instruction text based on shake count
 function updateInstructionText(shakeCount) {
   const messages = [
-    'Press <span class="spacebar-icon">Spacebar</span> to shake this piggy bank!',
-    '<p>Press <span class="spacebar-icon">Spacebar</span> to shake this piggy bank!</p><p>You can keep pressing <span class="spacebar-icon">Spacebar</span> to keep on shaking...</p>',
+    'Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!',
+    '<p>Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!</p><p>You can keep pressing <span class="spacebar-icon">B</span> to keep on shaking...</p>',
     '<p>Well done! You just got a coin out of the piggy bank!</p><p><span class="highlight">You can always keep pressing for more coins.</span> Try getting some more!</p>'
   ];
   let messageIndex = 0;
@@ -190,7 +190,7 @@ function updateInstructionText(shakeCount) {
 function setupKeyboardListener(callback) {
   return jsPsych.pluginAPI.getKeyboardResponse({
     callback_function: callback,
-    valid_responses: [' '],
+    valid_responses: ['b'],
     rt_method: 'performance',
     persist: true,
     allow_held_key: false

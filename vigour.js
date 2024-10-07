@@ -245,7 +245,7 @@ const piggyBankTrial = {
           dropCoin(magnitude, true);
         }
       },
-      valid_responses: [' '],
+      valid_responses: ['b'],
       rt_method: 'performance',
       persist: true,
       allow_held_key: false,
