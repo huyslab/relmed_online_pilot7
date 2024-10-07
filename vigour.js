@@ -143,7 +143,7 @@ function updatePiggyTails(magnitude, ratio) {
           // Position each tail
           tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
           tail.style.width = `${tailWidth}px`;
-          tail.style.filter = `saturate(${50 + 250 * ratio_factor}%)`;
+          tail.style.filter = `saturate(${50 + 350 * ratio_factor}%)`;
 
           piggyContainer.appendChild(tail);
       }
@@ -160,7 +160,7 @@ function generateTrialStimulus(magnitude, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 + 250 * ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 + 350 * ratio_factor}%);`;
   return `
     <div class="experiment-wrapper">
       <!-- Middle Row (Piggy Bank & Coins) -->
