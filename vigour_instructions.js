@@ -100,10 +100,6 @@ const ruleInstruction = {
             <img src="imgs/5p-num.png" alt="5 Pence">
             <p>5 Pence</p>
         </div>
-        <div class="instruct-coin">
-            <img src="imgs/10p-num.png" alt="10 Pence">
-            <p>10 Pence</p>
-        </div>
     </div>
     
     <p><span class="highlight">Your bonus</span>: We will pay you the total amount of coins from a randomly selected piggy bank at the end of the game.</p>
