@@ -258,6 +258,9 @@
         // procedure.push(lottery_instructions);
         // procedure.push(coin_lottery);
 
+        // Add post-vigour test
+        procedure = procedure.concat([comparisonInstructions, comparisonTimeline]);
+
         // Add vigour bonus message
         procedure.push(vigour_bonus);
 
