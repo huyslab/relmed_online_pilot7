@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PLT</title>
+  <script src="jspsych/jspsych.js"></script>
+  <script>
+    // Initialize jsPysch object
+    let jsPsych = initJsPsych({
+      display_element: 'display_element',
+      on_finish: function () {
+      jsPsych.data.displayData('json');
+    }
+    });
+  </script>
+  <script src="jspsych/plugin-html-keyboard-response.js"></script>
+  <script src="post-vigour-test.js"></script>
+  <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
+  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+  .jsPsychDE {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
+
+<body>
+  <div id='display_element' class='jsPsychDE'></div>
+</body>
+<script>
+  // Add the comparison task to the main experiment timeline
+  const postVigourTimeline = [
+    // ... (previous timeline components)
+    comparisonInstructions,
+    comparisonTimeline
+    // ... (subsequent timeline components)
+  ];
+
+  // Run the experiment
+  jsPsych.run(postVigourTimeline);
+</script>
+
+</html>
