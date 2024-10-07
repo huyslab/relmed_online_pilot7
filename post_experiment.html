@@ -36,14 +36,14 @@
   // Add the comparison task to the main experiment timeline
   const postVigourTimeline = [
     // ... (previous timeline components)
-    comparisonInstructions,
-    comparisonTimeline
+    postVigourInstructions,
+    ...postVigourTrials
     // ... (subsequent timeline components)
   ];
 
   // Run or simulate the experiment
-  // jsPsych.simulate(postVigourTimeline, "visual");
-  jsPsych.run(postVigourTimeline);
+  jsPsych.simulate(postVigourTimeline, "visual");
+  // jsPsych.run(postVigourTimeline);
 </script>
 
 </html>

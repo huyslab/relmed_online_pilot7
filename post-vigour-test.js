@@ -74,7 +74,7 @@ function updateDualPiggyTails(magnitude, ratio, side) {
 
 
 // Comparison trial
-const comparisonTrial = {
+const postVigourTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function() {
     const pair = jsPsych.evaluateTimelineVariable('pair');
@@ -85,7 +85,7 @@ const comparisonTrial = {
   data: function() {
     const pair = jsPsych.evaluateTimelineVariable('pair');
     return {
-      task: 'comparison',
+      trialphase: 'vigour_test',
       left_magnitude: pair.left.magnitude,
       left_ratio: pair.left.ratio,
       right_magnitude: pair.right.magnitude,
@@ -111,7 +111,7 @@ const comparisonTrial = {
 };
 
 // Generate all pair combinations
-const pairCombinations = 
+const postVigourPairs = 
 [{"left":{"magnitude":1,"ratio":16},"right":{"magnitude":2,"ratio":8}},
   {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":5,"ratio":1}},
   {"left":{"magnitude":5,"ratio":1},"right":{"magnitude":1,"ratio":8}},
@@ -149,14 +149,18 @@ const pairCombinations =
   {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":5,"ratio":8}},
   {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":1,"ratio":1}}];
 
-// Create timeline for comparison task
-const comparisonTimeline = {
-  timeline: [comparisonTrial],
-  timeline_variables: pairCombinations.map(pair => ({ pair: pair })),
-};
+// Create timeline for post-vigour task
+const postVigourTrials = [];
+postVigourPairs.forEach(pair => {
+  postVigourTrials.push({
+    timeline: [postVigourTrial],
+    timeline_variables: [{ pair: pair }]
+  });
+});
+console.log(postVigourTrials);
 
 // Instructions for comparison task
-const comparisonInstructions = {
+const postVigourInstructions = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: `
     <div id="instruction-text" style="text-align: left">

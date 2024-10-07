@@ -189,6 +189,7 @@ const piggyBankTrial = {
   },
   save_timeline_variables: ["magnitude", "ratio"],
   data: {
+    trialphase: 'vigour_trial',
     trial_duration: () => { return jsPsych.evaluateTimelineVariable('trialDuration') },
     response_time: () => { return window.responseTime },
     trial_presses: () => { return window.trialPresses },
@@ -273,6 +274,7 @@ const vigour_bonus = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
   choices: ['Finish'],
+  data: {trialphase: 'vigour_bonus'},
   on_start: function (trial) {
     const selected_trial = getSelectedTrial();
     trial.stimulus = `
