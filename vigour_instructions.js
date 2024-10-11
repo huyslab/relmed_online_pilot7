@@ -100,10 +100,6 @@ const ruleInstruction = {
             <img src="imgs/5p-num.png" alt="5 Pence">
             <p>5 Pence</p>
         </div>
-        <div class="instruct-coin">
-            <img src="imgs/10p-num.png" alt="10 Pence">
-            <p>10 Pence</p>
-        </div>
     </div>
     
     <p><span class="highlight">Your bonus</span>: We will pay you the total amount of coins from a randomly selected piggy bank at the end of the game.</p>
@@ -120,7 +116,7 @@ const startConfirmation = {
     <p>If you want to start over from the beginning, press <span class="spacebar-icon">R</span>.</p>
   </div>
     `,
-  post_trial_gap: 250,
+  post_trial_gap: 300,
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
@@ -175,8 +171,8 @@ function generateInstructStimulus() {
 // Function to update instruction text based on shake count
 function updateInstructionText(shakeCount) {
   const messages = [
-    'Press <span class="spacebar-icon">Spacebar</span> to shake this piggy bank!',
-    '<p>Press <span class="spacebar-icon">Spacebar</span> to shake this piggy bank!</p><p>You can keep pressing <span class="spacebar-icon">Spacebar</span> to keep on shaking...</p>',
+    'Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!',
+    '<p>Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!</p><p>You can keep pressing <span class="spacebar-icon">B</span> to keep on shaking...</p>',
     '<p>Well done! You just got a coin out of the piggy bank!</p><p><span class="highlight">You can always keep pressing for more coins.</span> Try getting some more!</p>'
   ];
   let messageIndex = 0;
@@ -194,7 +190,7 @@ function updateInstructionText(shakeCount) {
 function setupKeyboardListener(callback) {
   return jsPsych.pluginAPI.getKeyboardResponse({
     callback_function: callback,
-    valid_responses: [' '],
+    valid_responses: ['b'],
     rt_method: 'performance',
     persist: true,
     allow_held_key: false

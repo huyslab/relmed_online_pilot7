@@ -42,6 +42,15 @@
   top: 0%;
 }
 
+#piggy-container-left, #piggy-container-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 40%;
+  width: 40%;
+  top: 0%
+}
+
 #instruction-container {
   grid-row: 1;
 }
@@ -62,7 +71,7 @@
   align-self: start;
 }
 
-#piggy-bank {
+#piggy-bank-left, #piggy-bank-right, #piggy-bank {
   position: absolute;
   height: 100%;
   width: auto;

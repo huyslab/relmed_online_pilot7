@@ -1,13 +1,13 @@
 // Configuration object
 const experimentConfig = {
-  magnitudes: [1, 2, 5, 10],
-  ratios: [1, 4, 8, 12, 16],
+  magnitudes: [1, 2, 5],
+  ratios: [1, 8, 16],
   trialDuration: 10000 // in milliseconds on average, U[9500, 10500]
 };
 experimentConfig.ratios.reverse();
 
 // Generate trials for Vigour task
-const vigourTrials = [{"magnitude":1,"ratio":16,"trialDuration":9862},{"magnitude":1,"ratio":1,"trialDuration":9506},{"magnitude":2,"ratio":12,"trialDuration":9652},{"magnitude":10,"ratio":4,"trialDuration":10221},{"magnitude":5,"ratio":8,"trialDuration":10207},{"magnitude":5,"ratio":16,"trialDuration":9890},{"magnitude":1,"ratio":4,"trialDuration":9688},{"magnitude":5,"ratio":12,"trialDuration":10145},{"magnitude":2,"ratio":1,"trialDuration":10228},{"magnitude":10,"ratio":16,"trialDuration":10386},{"magnitude":1,"ratio":8,"trialDuration":9962},{"magnitude":2,"ratio":12,"trialDuration":9985},{"magnitude":1,"ratio":4,"trialDuration":9891},{"magnitude":5,"ratio":4,"trialDuration":9956},{"magnitude":2,"ratio":8,"trialDuration":9726},{"magnitude":2,"ratio":16,"trialDuration":10236},{"magnitude":1,"ratio":8,"trialDuration":10182},{"magnitude":1,"ratio":1,"trialDuration":9501},{"magnitude":5,"ratio":12,"trialDuration":9825},{"magnitude":1,"ratio":16,"trialDuration":9902},{"magnitude":10,"ratio":8,"trialDuration":10452},{"magnitude":10,"ratio":12,"trialDuration":9954},{"magnitude":5,"ratio":16,"trialDuration":10009},{"magnitude":10,"ratio":16,"trialDuration":9827},{"magnitude":2,"ratio":16,"trialDuration":10293},{"magnitude":10,"ratio":8,"trialDuration":10376},{"magnitude":10,"ratio":12,"trialDuration":10261},{"magnitude":2,"ratio":4,"trialDuration":10490},{"magnitude":1,"ratio":12,"trialDuration":9870},{"magnitude":2,"ratio":8,"trialDuration":9535},{"magnitude":1,"ratio":12,"trialDuration":9888},{"magnitude":10,"ratio":4,"trialDuration":9679},{"magnitude":2,"ratio":1,"trialDuration":10199},{"magnitude":2,"ratio":4,"trialDuration":10044},{"magnitude":5,"ratio":4,"trialDuration":10465},{"magnitude":5,"ratio":8,"trialDuration":9666}] ;
+const vigourTrials = [{"magnitude":1,"ratio":1,"trialDuration":9825},{"magnitude":2,"ratio":8,"trialDuration":9956},{"magnitude":1,"ratio":16,"trialDuration":10228},{"magnitude":5,"ratio":1,"trialDuration":10221},{"magnitude":5,"ratio":16,"trialDuration":10261},{"magnitude":2,"ratio":1,"trialDuration":10386},{"magnitude":1,"ratio":8,"trialDuration":10009},{"magnitude":5,"ratio":8,"trialDuration":10376},{"magnitude":2,"ratio":16,"trialDuration":9666},{"magnitude":1,"ratio":1,"trialDuration":9962},{"magnitude":2,"ratio":8,"trialDuration":9501},{"magnitude":2,"ratio":1,"trialDuration":10236},{"magnitude":5,"ratio":1,"trialDuration":10490},{"magnitude":1,"ratio":16,"trialDuration":9902},{"magnitude":1,"ratio":8,"trialDuration":9888},{"magnitude":2,"ratio":16,"trialDuration":9891},{"magnitude":5,"ratio":8,"trialDuration":9535},{"magnitude":5,"ratio":16,"trialDuration":9652},{"magnitude":1,"ratio":8,"trialDuration":9890},{"magnitude":5,"ratio":8,"trialDuration":10452},{"magnitude":5,"ratio":16,"trialDuration":9954},{"magnitude":2,"ratio":1,"trialDuration":9827},{"magnitude":5,"ratio":1,"trialDuration":9679},{"magnitude":1,"ratio":16,"trialDuration":10199},{"magnitude":2,"ratio":16,"trialDuration":10207},{"magnitude":1,"ratio":1,"trialDuration":10145},{"magnitude":2,"ratio":8,"trialDuration":10465},{"magnitude":1,"ratio":8,"trialDuration":9870},{"magnitude":5,"ratio":8,"trialDuration":9726},{"magnitude":2,"ratio":16,"trialDuration":9688},{"magnitude":2,"ratio":8,"trialDuration":9506},{"magnitude":5,"ratio":1,"trialDuration":10044},{"magnitude":2,"ratio":1,"trialDuration":10293},{"magnitude":1,"ratio":1,"trialDuration":10182},{"magnitude":1,"ratio":16,"trialDuration":9862},{"magnitude":5,"ratio":16,"trialDuration":9985}] ;
 
 
 // Global variables
@@ -143,7 +143,7 @@ function updatePiggyTails(magnitude, ratio) {
           // Position each tail
           tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
           tail.style.width = `${tailWidth}px`;
-          tail.style.filter = `saturate(${50 + 250 * ratio_factor}%)`;
+          tail.style.filter = `saturate(${50 + 350 * ratio_factor}%)`;
 
           piggyContainer.appendChild(tail);
       }
@@ -160,7 +160,7 @@ function generateTrialStimulus(magnitude, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 + 250 * ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 + 350 * ratio_factor}%);`;
   return `
     <div class="experiment-wrapper">
       <!-- Middle Row (Piggy Bank & Coins) -->
@@ -189,6 +189,7 @@ const piggyBankTrial = {
   },
   save_timeline_variables: ["magnitude", "ratio"],
   data: {
+    trialphase: 'vigour_trial',
     trial_duration: () => { return jsPsych.evaluateTimelineVariable('trialDuration') },
     response_time: () => { return window.responseTime },
     trial_presses: () => { return window.trialPresses },
@@ -245,7 +246,7 @@ const piggyBankTrial = {
           dropCoin(magnitude, true);
         }
       },
-      valid_responses: [' '],
+      valid_responses: ['b'],
       rt_method: 'performance',
       persist: true,
       allow_held_key: false,
@@ -273,6 +274,7 @@ const vigour_bonus = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
   choices: ['Finish'],
+  data: {trialphase: 'vigour_bonus'},
   on_start: function (trial) {
     const selected_trial = getSelectedTrial();
     trial.stimulus = `
@@ -297,12 +299,17 @@ vigourTrials.forEach(trial => {
   });
 });
 
+// Log-normal probability density function
+function logNormalPDF(x, mu, sigma) {
+  return Math.exp(-0.5 * Math.pow((Math.log(x) - mu) / sigma, 2)) / (x * sigma * Math.sqrt(2 * Math.PI));
+}
+
 // Get trial reward data
 function getSelectedTrial() {
   const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trial_reward !== undefined);
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
-  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => (reward)));
+  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward, Math.log(90), 0.3)));
   // Side effect: Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
