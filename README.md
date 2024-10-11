@@ -1,5 +1,5 @@
 # RELMED probabilistic learning task pilot #3
-This reposistory hosts the experiment website for the second pilot of the vigour task for RELMED. The task is coded with jsPsych.
+This reposistory hosts the experiment website for the second pilot of the vigour task for RELMED （Internal name Pilot 3, 3.1, and 3.2). The task is coded with jsPsych.
 
 Data is written to REDCap via a call to an AWS lamda function.
 
