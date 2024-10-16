@@ -15,6 +15,11 @@ var jsPsychReversal = (function (jspsych) {
                 type: jspsych.ParameterType.FLOAT,
                 default: undefined,
             },
+            /** Whether right-hand side squirrel is optimal */
+            optimal_right: {
+                type: jspsych.ParameterType.BOOL,
+                default: undefined
+            },
             choices: {
                 type: jspsych.ParameterType.KEYS,
                 default: ['arrowleft', 'arrowright'],
@@ -102,9 +107,18 @@ var jsPsychReversal = (function (jspsych) {
                 var trial_data = {
                     feedback_left: trial.feedback_left, 
                     feedback_right: trial.feedback_right,
+                    optimal_right: trial.optimal_right,
                     rt: response.rt,
                     response: this.keys[response.key.toLowerCase()]
                 };
+
+                // Add potimality to trial data
+                if (trial_data.response == null){
+                    trial_data.response_optimal = null;
+                }else{
+                    trial_data.response_optimal = trial.optimal_right ? trial_data.response == "right" : trial_data.response == "left"
+                }
+                
 
                 // Tell jsPsych to finish trial and pass data
                 this.jsPsych.finishTrial(trial_data);
