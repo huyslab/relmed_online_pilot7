@@ -132,7 +132,7 @@ var jsPsychReversal = (function (jspsych) {
 
             let stimulus = `
                 <div class="rev-squirrel-bg">
-                    <img id="rev-squirrel-bg" src="imgs/squirrel_bg.png"></img>
+                    <img id="rev-squirrel-bg" src="imgs/squirrels_bg.png"></img>
                 </div>
                 <div class="rev-coins">
                     <div id='rev-coin-left' class="rev-coin-side">
@@ -143,11 +143,11 @@ var jsPsychReversal = (function (jspsych) {
                     </div>
                 </div>
                 <div class="rev-squirrel-fg">
-                    <img id="rev-squirrel-fg" src="imgs/squirrel_fg.png"></img>
+                    <img id="rev-squirrel-fg" src="imgs/squirrels_fg.png"></img>
                 </div>
             `
             
-            return '<div id="reversal-stimulus">' + stimulus + "</div>";
+            return '<div class="reversal-stimuli">' + stimulus + "</div>";
         }
     }
     ReversalPlugin.info = info;
