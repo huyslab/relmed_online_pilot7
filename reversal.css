@@ -1,0 +1,36 @@
+.reversal-stimuli {
+    position: relative;
+    width: 80vw; /* 80% of the viewport width */
+    height: auto;
+    max-width: 800px; /* Maximum size */
+    margin: 0 auto; /* Center horizontally */
+}
+
+.rev-squirrel-bg, .rev-coins, .rev-squirrel-fg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 100%;
+}
+
+.rev-squirrel-bg img, .rev-coins img, .rev-squirrel-fg img {
+    width: 100%;
+    height: auto;
+}
+
+/* Layering using z-index */
+.rev-squirrel-bg {
+    z-index: 1;
+}
+
+.rev-coins {
+    z-index: 2; /* On top of background */
+    display: flex;
+    justify-content: space-between;
+}
+
+.rev-squirrel-fg {
+    z-index: 3; /* On top of coins */
+}
