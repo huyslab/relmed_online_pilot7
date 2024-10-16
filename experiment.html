@@ -57,21 +57,31 @@
     <div id="persist-coin-container"></div>
 </body>
 <script>
-    procedure = [{
-        type: jsPsychReversal,
-        feedback_right: 1.,
-        feedback_left: 0.01,
-        optimal_right: true,
-        post_trial_gap: 200
-    },
-    {
-        type: jsPsychReversal,
-        feedback_right: 1.,
-        feedback_left: 1.,
-        optimal_right: false,
-        post_trial_gap: 200
+
+    var block = [];
+
+    for (i=0; i < 25; i++){
+        block.push(
+            {
+                feedback_right: [0.01, 1.][Math.floor(Math.random() * 2)],
+                feedback_left: [0.01, 1.][Math.floor(Math.random() * 2)],
+                optimal_right: [true, false][Math.floor(Math.random() * 2)]
+            }
+        )
     }
-]
+
+    var procedure = [
+        {
+            timeline: [{
+                type: jsPsychReversal,
+                feedback_right: jsPsych.timelineVariable('feedback_right'),
+                feedback_left: jsPsych.timelineVariable('feedback_left'),
+                optimal_right: jsPsych.timelineVariable('optimal_right'),
+                post_trial_gap: 200
+            }],
+            timeline_variables: block
+        }
+    ]
 
     jsPsych.run(procedure);
         
