@@ -123,8 +123,6 @@ var jsPsychReversal = (function (jspsych) {
                 allow_held_key: false
             });
             
-            // end trial
-            this.jsPsych.finishTrial(trial_data);
         }
 
         // Create stimuli
