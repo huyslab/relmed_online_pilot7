@@ -35,7 +35,7 @@ var jsPsychReversal = (function (jspsych) {
             /** Duration of coin toss animation in ms */
             animation_duration: {
                 type: jspsych.ParameterType.INT,
-                default: 1700
+                default: 1350
             },
             /** Duration of coin toss animation in ms */
             response_deadline: {
@@ -187,8 +187,6 @@ var jsPsychReversal = (function (jspsych) {
             
             // Add the class to start the animation
             coinElement.classList.add(`rev-coin-${side}-animate`);
-
-            console.log(coinElement)
         }
     }
     ReversalPlugin.info = info;
