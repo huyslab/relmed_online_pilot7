@@ -72,7 +72,13 @@ var jsPsychReversal = (function (jspsych) {
     class ReversalPlugin {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
+            this.keys = {
+                'arrowleft':'left',
+                'arrowright': 'right',
+            }
         }
+
+
 
         // Trial procedure
         trial(display_element, trial) {
@@ -97,7 +103,7 @@ var jsPsychReversal = (function (jspsych) {
                     feedback_left: trial.feedback_left, 
                     feedback_right: trial.feedback_right,
                     rt: response.rt,
-                    response: response.key
+                    response: this.keys[response.key.toLowerCase()]
                 };
 
                 // Tell jsPsych to finish trial and pass data
