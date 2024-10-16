@@ -42,6 +42,11 @@ var jsPsychReversal = (function (jspsych) {
                 type: jspsych.ParameterType.INT,
                 default: 3000
             },
+            /** ITI */
+            ITI: {
+                type: jspsych.ParameterType.INT,
+                default: 300
+            },
         },
         data: {
             /** Value of left-hand side feedback. */
@@ -82,8 +87,6 @@ var jsPsychReversal = (function (jspsych) {
                 'arrowright': 'right',
             }
         }
-
-
 
         // Trial procedure
         trial(display_element, trial) {
@@ -126,6 +129,30 @@ var jsPsychReversal = (function (jspsych) {
                 this.jsPsych.finishTrial(trial_data);
             };
 
+            // ITI blur
+            var ITI = () => {
+                const bg = document.getElementById(`rev-squirrel-bg`);
+
+                const fg = document.getElementById(`rev-squirrel-fg`);
+
+                bg.animate([
+                    { filter: "blur(0)", opacity: "1" },
+                    { filter: "blur(2px)", opacity: "0"},
+                ],{duration:50,iterations:1,fill:'forwards'});
+
+                fg.style.opacity = '0';
+
+                const coin_right = document.getElementById("rev-coin-right");
+
+                const coin_left = document.getElementById("rev-coin-left");
+
+                coin_right.style.opacity = '0';
+
+                coin_left.style.opacity = '0';
+
+                this.jsPsych.pluginAPI.setTimeout(end_trial, trial.ITI);
+            }
+
             // Post response procedure
             var after_response = (resp) => {
 
@@ -138,7 +165,7 @@ var jsPsychReversal = (function (jspsych) {
                 
                 this.triggerCoinAnimation(chosen_side);
                 
-                this.jsPsych.pluginAPI.setTimeout(end_trial, trial.animation_duration);
+                this.jsPsych.pluginAPI.setTimeout(ITI, trial.animation_duration);
 
             };
 
@@ -157,6 +184,9 @@ var jsPsychReversal = (function (jspsych) {
         create_stimuli(trial) {
 
             let stimulus = `
+                <div class="rev-squirrel-empty">
+                    <img id="rev-squirrel-empty" src="imgs/squirrels_empty.png"></img>
+                </div>
                 <div class="rev-squirrel-bg">
                     <img id="rev-squirrel-bg" src="imgs/squirrels_bg.png"></img>
                 </div>

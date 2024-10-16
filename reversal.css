@@ -6,7 +6,7 @@
     margin: 0 auto; /* Center horizontally */
 }
 
-.rev-squirrel-bg, .rev-squirrel-fg {
+.rev-squirrel-bg, .rev-squirrel-fg, .rev-squirrel-empty {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -15,12 +15,16 @@
     max-width: 100%;
 }
 
-.rev-squirrel-bg img, .rev-coins img, .rev-squirrel-fg img {
+.rev-squirrel-bg img, .rev-coins img, .rev-squirrel-empty img, .rev-squirrel-fg img {
     width: 100%;
     height: auto;
 }
 
 /* Layering using z-index */
+.rev-squirrel-empty {
+    z-index: 0;
+}
+
 .rev-squirrel-bg {
     z-index: 1;
 }
@@ -52,6 +56,10 @@
 
 .rev-coin-left-animate {
     animation: coin-fall var(--animation-duration) ease-in 1 forwards, coin-rightward var(--animation-duration) linear 1 forwards, coin-rotate var(--animation-duration) linear 1 forwards;
+}
+
+.iti {
+    filter: blur(5px);
 }
 
 
