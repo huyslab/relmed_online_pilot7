@@ -61,8 +61,17 @@
         type: jsPsychReversal,
         feedback_right: 1.,
         feedback_left: 0.01,
-        optimal_right: true
-    }]
+        optimal_right: true,
+        post_trial_gap: 200
+    },
+    {
+        type: jsPsychReversal,
+        feedback_right: 1.,
+        feedback_left: 1.,
+        optimal_right: false,
+        post_trial_gap: 200
+    }
+]
 
     jsPsych.run(procedure);
         
