@@ -32,10 +32,13 @@
 .rev-coin-side {
     position: absolute;
     top: 60%;
-    transform: translate(-50%, -50%);
     z-index: 2; /* On top of background */
     width: 8vw;
     max-width: 80px;
+}
+
+.rev-coin-side img {
+    transform: translate(-50%, 0%);
 }
 
 #rev-coin-right {
@@ -79,7 +82,7 @@
       left: 10%;
     }
     100% {
-      left: 47%;
+      left: 50%;
     }
   }
 
@@ -88,7 +91,7 @@
       left: 85%;
     }
     100% {
-      left: 47%;
+      left: 50%;
     }
   }
   
