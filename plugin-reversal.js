@@ -154,13 +154,11 @@ var jsPsychReversal = (function (jspsych) {
                 <div class="rev-squirrel-bg">
                     <img id="rev-squirrel-bg" src="imgs/squirrels_bg.png"></img>
                 </div>
-                <div class="rev-coins">
-                    <div id='rev-coin-left' class="rev-coin-side">
-                        <img id="rev-coin-left" src="imgs/${trial.coin_images[trial.feedback_left]}.png"></img>
-                    </div>
-                    <div id='rev-coin-right' class="rev-coin-side">
-                        <img id="rev-coin-right" src="imgs/${trial.coin_images[trial.feedback_right]}.png"></img>
-                    </div>
+                <div id='rev-coin-left' class="rev-coin-side">
+                    <img id="rev-coin-left" src="imgs/${trial.coin_images[trial.feedback_left]}"></img>
+                </div>
+                <div id='rev-coin-right' class="rev-coin-side">
+                    <img id="rev-coin-right" src="imgs/${trial.coin_images[trial.feedback_right]}"></img>
                 </div>
                 <div class="rev-squirrel-fg">
                     <img id="rev-squirrel-fg" src="imgs/squirrels_fg.png"></img>
