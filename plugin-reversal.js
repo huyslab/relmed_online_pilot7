@@ -35,7 +35,7 @@ var jsPsychReversal = (function (jspsych) {
             /** Duration of coin toss animation in ms */
             animation_duration: {
                 type: jspsych.ParameterType.INT,
-                default: 900
+                default: 1700
             },
             /** Duration of coin toss animation in ms */
             response_deadline: {
@@ -133,7 +133,13 @@ var jsPsychReversal = (function (jspsych) {
                 if (response.key == null) {
                     response = resp;
                 }
-                end_trial();
+
+                var chosen_side = this.keys[response.key.toLowerCase()];
+                
+                this.triggerCoinAnimation(chosen_side);
+                
+                this.jsPsych.pluginAPI.setTimeout(end_trial, trial.animation_duration);
+
             };
 
             // Set up keyboard response listener
@@ -166,6 +172,23 @@ var jsPsychReversal = (function (jspsych) {
             `
             
             return '<div class="reversal-stimuli">' + stimulus + "</div>";
+        }
+
+        // Trigger animation
+        // Function to trigger the animation
+        triggerCoinAnimation(side) {
+            const coinElement = document.getElementById(`rev-coin-${side}`);
+            
+            // Remove the class to reset the animation
+            coinElement.classList.remove(`rev-coin-${side}-animate`);
+
+            // Trigger reflow (essential for restarting CSS animations)
+            void coinElement.offsetWidth; 
+            
+            // Add the class to start the animation
+            coinElement.classList.add(`rev-coin-${side}-animate`);
+
+            console.log(coinElement)
         }
     }
     ReversalPlugin.info = info;
