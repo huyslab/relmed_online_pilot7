@@ -60,8 +60,8 @@ var jsPsychReversal = (function (jspsych) {
             rt: {
                 type: jspsych.ParameterType.INT
             },
-            /** Presented outcome */
-            chosen_outcome: {
+            /** Presented feedback */
+            chosen_feedback: {
                 type: jspsych.ParameterType.FLOAT
             }
         },
@@ -112,11 +112,13 @@ var jsPsychReversal = (function (jspsych) {
                     response: this.keys[response.key.toLowerCase()]
                 };
 
-                // Add potimality to trial data
+                // Add optimality and presented feedback to trial data
                 if (trial_data.response == null){
                     trial_data.response_optimal = null;
+                    trial_data.chosen_feedback = null;
                 }else{
-                    trial_data.response_optimal = trial.optimal_right ? trial_data.response == "right" : trial_data.response == "left"
+                    trial_data.response_optimal = trial.optimal_right ? trial_data.response == "right" : trial_data.response == "left";
+                    trial_data.chosen_feedback = trial_data.response == "right" ? trial.feedback_right : trial.feedback_left;
                 }
                 
 
