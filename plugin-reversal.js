@@ -131,19 +131,19 @@ var jsPsychReversal = (function (jspsych) {
         create_stimuli(trial) {
 
             let stimulus = `
-                <div class="squirrel_bg">
-                    <img id="squirrel_bg" src="imgs/squirrel_bg.png"></img>
+                <div class="rev-squirrel-bg">
+                    <img id="rev-squirrel-bg" src="imgs/squirrel_bg.png"></img>
                 </div>
-                <div class="coins">
-                    <div id='coin_left' class="coin_side">
-                        <img id="coin_left" src="imgs/${trial.coin_images[trial.feedback_left]}.png"></img>
+                <div class="rev-coins">
+                    <div id='rev-coin-left' class="rev-coin-side">
+                        <img id="rev-coin-left" src="imgs/${trial.coin_images[trial.feedback_left]}.png"></img>
                     </div>
-                    <div id='coin_right' class="coin_side">
-                        <img id="coin_right" src="imgs/${trial.coin_images[trial.feedback_right]}.png"></img>
+                    <div id='rev-coin-right' class="rev-coin-side">
+                        <img id="rev-coin-right" src="imgs/${trial.coin_images[trial.feedback_right]}.png"></img>
                     </div>
                 </div>
-                <div class="squirrel_fg">
-                    <img id="squirrel_fg" src="imgs/squirrel_fg.png"></img>
+                <div class="rev-squirrel-fg">
+                    <img id="rev-squirrel-fg" src="imgs/squirrel_fg.png"></img>
                 </div>
             `
             
