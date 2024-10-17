@@ -241,6 +241,7 @@ jsPsychPLT = (function(jspsych) {
                     width: 25vw;
                     max-width: 1000px;
                     position: relative;
+                    justify-content: center;
                 }
                 
                 .optionSide img {
@@ -274,6 +275,26 @@ jsPsychPLT = (function(jspsych) {
                     visibility: hidden;
                     max-width: 12vw;
                     margin: auto;
+                    z-index: 3;
+                }
+
+                .optionSide .coinCircle {
+                    visibility: hidden;
+                    height: 21vw;
+                    width: 21vw;
+                    max-width: 500px;
+                    margin: auto;
+                    grid-column: 1;
+                    grid-row: 1;
+                    background-color: white;
+                    border-radius: 50%;
+                    z-index: 2;
+                }
+
+                .optionSide img.coinBackground {
+                    visibility: hidden;
+                    width: 30vw;
+                    z-index: 1;
                 }
                 
             </style>
@@ -323,20 +344,37 @@ jsPsychPLT = (function(jspsych) {
                 const coin = document.createElement('img')
                 coin.id = 'coin'
                 coin.className = 'coin'
+
+                const coinCircle = document.createElement('div')
+                coinCircle.id = 'coinCircle'
+                coinCircle.className = 'coinCircle'
+
+                const coinBackground = document.createElement('img')
+                coinBackground.id = 'coinBackground'
+                coinBackground.className = 'coinBackground'
+
                 if (this.data.chosenOutcome === 1) {
                     coin.src = 'imgs/1pound.png'
+                    coinBackground.src = "imgs/cielab_1.png"
                 } else if (this.data.chosenOutcome === 0.5) {
                     coin.src = 'imgs/50pence.png'
+                    coinBackground.src = "imgs/cielab_2.png"
                 } else if (this.data.chosenOutcome === 0.01) {
                     coin.src = 'imgs/1penny.png'
+                    coinBackground.src = "imgs/cielab_3.png"
                 } else if (this.data.chosenOutcome === -1) {
                     coin.src = 'imgs/1poundbroken.png'
+                    coinBackground.src = "imgs/cielab_4.png"
                 } else if (this.data.chosenOutcome === -0.5) {
                     coin.src = 'imgs/50pencebroken.png'
+                    coinBackground.src = "imgs/cielab_5.png"
                 } else if (this.data.chosenOutcome === -0.01) {
                     coin.src = 'imgs/1pennybroken.png'
+                    coinBackground.src = "imgs/cielab_6.png"
                 }
 
+                document.getElementById(this.data.choice).appendChild(coinBackground)
+                document.getElementById(this.data.choice).appendChild(coinCircle)
                 document.getElementById(this.data.choice).appendChild(coin)
 
                 this.jsPsych.pluginAPI.setTimeout(()=> {
@@ -352,9 +390,20 @@ jsPsychPLT = (function(jspsych) {
                             { transform: "rotateY(90deg)", visibility: "hidden"},
                             { transform: "rotateY(0deg)", visibility: "visible" },
                         ],{duration:250,iterations:1,fill:'forwards'})
-                        ani2.finished.then(()=> {
-                            this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.fbDur))
-                        })
+
+                        const ani3 = coinBackground.animate([
+                            { transform: "rotateY(90deg)", visibility: "hidden" },
+                            { transform: "rotateY(0deg)", visibility: "visible" },
+                        ], { duration: 250, iterations: 1, fill: 'forwards' });
+
+                        const ani4 = coinCircle.animate([
+                            { transform: "rotateY(90deg)", visibility: "hidden" },
+                            { transform: "rotateY(0deg)", visibility: "visible" },
+                        ], { duration: 250, iterations: 1, fill: 'forwards' })
+
+                        Promise.all([ani2.finished, ani3.finished, ani4.finished]).then(() => {
+                            this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.timing.fbDur);
+                        });
                     })
                 },this.timing.flipFb)
             } else {
