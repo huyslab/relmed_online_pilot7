@@ -59,6 +59,8 @@
 </body>
 <script>
 
+    const rev_n_trials = 200;
+
     const reversal_timeline = JSON.parse(reversal_json);
 
     var reversal_blocks = [];
@@ -74,15 +76,22 @@
                             optimal_right: jsPsych.timelineVariable('optimal_right')
                         }],
                         conditional_function: () => {
+
+                            // Check whether participants are up to crtierion
                             const criterion = jsPsych.evaluateTimelineVariable('criterion');
 
                             let num_correct = jsPsych.data.get()
                                 .filter({block: jsPsych.evaluateTimelineVariable('block'), trial_type: 'reversal'})
                                 .select('response_optimal').sum()
 
-                            return num_correct < criterion
-                        }
+                            // Check whether trial limit reached
+                            let n_trials = jsPsych.data.get()
+                            .filter({trial_type: 'reversal'})
+                            .count()
+
+                            return (n_trials < rev_n_trials) && (num_correct < criterion)
                     }
+                }
                 ],
                 timeline_variables: reversal_timeline[i],
                 data: {
