@@ -6,19 +6,35 @@ const rev_n_trials = 200; // N trials
 // Parse json sequence
 const reversal_timeline = JSON.parse(reversal_json);
 
-// Assemble list of blocks
-var reversal_blocks = [];
+// Assemble list of blocks - first load images
+var reversal_blocks = [
+    {
+        type: jsPsychPreload,
+        images: [
+            "imgs/squirrels_empty.png",
+            "imgs/squirrels_bg.png",
+            "imgs/squirrels_fg.png",
+            "imgs/1penny.png",
+            "imgs/1pound.png"
+        ],
+        post_trial_gap: 400
+    }
+];
 for (i=0; i<reversal_timeline.length; i++){
     reversal_blocks.push([
         {
             timeline: [
                 {
-                    timeline: [{
-                        type: jsPsychReversal,
-                        feedback_right: jsPsych.timelineVariable('feedback_right'),
-                        feedback_left: jsPsych.timelineVariable('feedback_left'),
-                        optimal_right: jsPsych.timelineVariable('optimal_right')
-                    }],
+                    timeline: [
+                        kick_out,
+                        fullscreen_prompt,
+                        {
+                            type: jsPsychReversal,
+                            feedback_right: jsPsych.timelineVariable('feedback_right'),
+                            feedback_left: jsPsych.timelineVariable('feedback_left'),
+                            optimal_right: jsPsych.timelineVariable('optimal_right')
+                        }
+                    ],
                     conditional_function: () => {
 
                         // Check whether participants are up to crtierion
