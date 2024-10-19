@@ -222,6 +222,54 @@ var jsPsychReversal = (function (jspsych) {
             // Add the class to start the animation
             coinElement.classList.add(`rev-coin-${side}-animate`);
         }
+
+        create_simulation_data(trial, simulation_options) {
+
+            // Define default simulated values
+            let default_data = {
+                feedback_right: trial.feedback_right,
+                feedback_left: trial.feedback_left,
+                rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
+                key: this.jsPsych.pluginAPI.getValidKey(trial.choices).toLowerCase()
+            };
+
+            // Compute chosen_feedback and response_optimal
+            default_data.response = this.keys[default_data.key];
+
+            default_data.chosen_feedback = default_data.response == "right" ? trial.feedback_right : trial.feedback_left;
+
+            default_data.response_optimal = trial.optimal_right ? default_data.response == "right" : default_data.response == "left";
+
+            const data = this.jsPsych.pluginAPI.mergeSimulationData(default_data, simulation_options);
+            this.jsPsych.pluginAPI.ensureSimulationDataConsistency(trial, data);
+            return data;
+        }
+
+        simulate(trial, simulation_mode, simulation_options, load_callback) {
+            if (simulation_mode == "data-only") {
+                load_callback();
+                this.simulate_data_only(trial, simulation_options);
+            }
+            if (simulation_mode == "visual") {
+                this.simulate_visual(trial, simulation_options, load_callback);
+            }
+        }      
+
+        simulate_data_only(trial, simulation_options) {
+            const data = this.create_simulation_data(trial, simulation_options);
+            this.jsPsych.finishTrial(data);
+        }
+
+        simulate_visual(trial, simulation_options, load_callback) {
+            const data = this.create_simulation_data(trial, simulation_options);
+            console.log(data)
+            const display_element = this.jsPsych.getDisplayElement();
+            this.trial(display_element, trial);
+            load_callback();
+            if (data.rt !== null) {
+                this.jsPsych.pluginAPI.pressKey(data.key, data.rt);
+            }
+        }
     }
     ReversalPlugin.info = info;
 
