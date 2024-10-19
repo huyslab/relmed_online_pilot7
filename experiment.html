@@ -263,6 +263,9 @@
         // Add PILT timeline
         // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
 
+        // Add reversal timeline
+        procedure = procedure.concat(reversal_blocks);
+
         // Debrief questions
         procedure = procedure.concat(debrief_questions);
 
