@@ -50,7 +50,15 @@ for (i=0; i<reversal_timeline.length; i++){
                         .count()
 
                         return (n_trials < rev_n_trials) && (num_correct < criterion)
-                }
+                },
+                on_finish: function(data) {
+                    if (data.response === null) {
+                        var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+                        jsPsych.data.addProperties({
+                            n_warnings: up_to_now + 1
+                        });
+                    }
+                 },
             }
             ],
             timeline_variables: reversal_timeline[i],

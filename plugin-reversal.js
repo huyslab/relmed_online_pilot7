@@ -37,10 +37,15 @@ var jsPsychReversal = (function (jspsych) {
                 type: jspsych.ParameterType.INT,
                 default: 1350
             },
-            /** Duration of coin toss animation in ms */
+            /** Response deadline */
             response_deadline: {
                 type: jspsych.ParameterType.INT,
                 default: 3000
+            },
+            /** Duration of warning message */
+            warning_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 1500
             },
             /** ITI */
             ITI: {
@@ -116,13 +121,13 @@ var jsPsychReversal = (function (jspsych) {
                     feedback_right: trial.feedback_right,
                     optimal_right: trial.optimal_right,
                     rt: response.rt,
-                    response: this.keys[response.key.toLowerCase()]
+                    response: response.key == null ? null : this.keys[response.key.toLowerCase()]
                 };
 
                 // Add optimality and presented feedback to trial data
                 if (trial_data.response == null){
                     trial_data.response_optimal = null;
-                    trial_data.chosen_feedback = null;
+                    trial_data.chosen_feedback = Math.min(trial.feedback_right, trial.feedback_left); // If response was missed, set feedback to minimal for bonus computation
                 }else{
                     trial_data.response_optimal = trial.optimal_right ? trial_data.response == "right" : trial_data.response == "left";
                     trial_data.chosen_feedback = trial_data.response == "right" ? trial.feedback_right : trial.feedback_left;
@@ -173,6 +178,22 @@ var jsPsychReversal = (function (jspsych) {
 
             };
 
+            // Warn that responses need to be quicker
+            const deadline_warning = () => {
+                
+                // Display messge
+                document.getElementById('rev-deadline-warning').innerText = 'Please respond more quickly!'
+
+                // End trial
+                this.jsPsych.pluginAPI.setTimeout(() => {
+                    // Remove message
+                    document.getElementById('rev-deadline-warning').innerText = ""; 
+
+                    // Call ITI and then end of trial
+                    ITI();
+                }, trial.warning_duration);
+            }
+
             // Set up keyboard response listener
             var keyboardListener = this.jsPsych.pluginAPI.getKeyboardResponse({
                 callback_function: after_response,
@@ -181,6 +202,11 @@ var jsPsychReversal = (function (jspsych) {
                 persist: false,
                 allow_held_key: false
             });
+
+            // Set up response deadline timer
+            if (trial.response_deadline > 0) {
+                this.jsPsych.pluginAPI.setTimeout(deadline_warning, trial.response_deadline);
+            }
             
         }
 
@@ -202,6 +228,8 @@ var jsPsychReversal = (function (jspsych) {
                 </div>
                 <div class="rev-squirrel-fg">
                     <img id="rev-squirrel-fg" src="imgs/squirrels_fg.png"></img>
+                </div>
+                <div id="rev-deadline-warning">
                 </div>
             `
             

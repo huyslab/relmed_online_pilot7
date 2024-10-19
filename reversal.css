@@ -111,3 +111,14 @@
 .rev-squirrel-fg {
     z-index: 3; /* On top of coins */
 }
+
+#rev-deadline-warning {
+  top: 50%;
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  font-size: larger;
+  font-weight: bold;
+}
