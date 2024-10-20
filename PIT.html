@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>PLT</title>
+  <title>PIT</title>
   <script src="jspsych/jspsych.js"></script>
   <script>
     // Initialize jsPysch object
@@ -16,6 +16,7 @@
   </script>
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
   <script src="jspsych/plugin-html-button-response.js"></script>
+  <script src="jspsych/plugin-instructions.js"></script>
   <script src="jspsych/plugin-fullscreen.js"></script>
   <script src="utils.js"></script>
   <script src="vigour.js"></script>
@@ -44,13 +45,14 @@
   const PITtimeline = [
     // ... (previous timeline components)
     PITinstructions,
-    PITtrials
+    PITtrials,
+    PIT_bonus
     // ... (subsequent timeline components)
   ];
 
   // Run or simulate the experiment
-  // jsPsych.simulate(postVigourTimeline, "visual");
-  jsPsych.run(PITtimeline);
+  jsPsych.simulate(PITtimeline, "visual");
+  // jsPsych.run(PITtimeline);
 </script>
 
 </html>
