@@ -58,8 +58,8 @@ const PITtrial = {
   save_timeline_variables: ["magnitude", "ratio"],
   data: {
     trialphase: 'pit_trial',
-    pit_coin: () => { return jsPsych.evaluateTimelineVariable('coin') },
-    trial_duration: () => { return jsPsych.evaluateTimelineVariable('trialDuration') },
+    pit_coin: jsPsych.timelineVariable('coin'),
+    trial_duration: jsPsych.timelineVariable('trialDuration'),
     response_time: () => { return window.responseTime },
     trial_presses: () => { return window.trialPresses },
     trial_reward: () => { return window.trialReward },
@@ -163,7 +163,7 @@ const PIT_bonus = {
   on_start: function (trial) {
     const selected_trial = getSelectedPITtrial();
     trial.stimulus = `
-            <p>It is time to reveal your bonus payment for this round of piggy-bank game.</p>
+            <p>It is time to reveal your bonus payment for this round of cloudy piggy-bank game.</p>
             <p>The computer selected piggy bank number ${selected_trial.pit_trial_number}, which means you will earn ${(window.sampledPITreward / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
         `;
   },
@@ -176,16 +176,95 @@ const PIT_bonus = {
 };
 
 // Instructions for comparison task
-const PITinstructions = {
+const PITruleInstruction = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: `
     <div id="instruction-text" style="text-align: left">
-      <p><strong>You are in a different room now.</strong></p>
-      <p><span class="highlight">Your job is to choose which one you would prefer to play with in the future.</span></p>
-      <p>Press <span class="spacebar-icon">Spacebar</span> to begin the task.</p>
+      <p><strong>You will now play the same game again for the next few minutes. The rules remain the same:</strong></p>
+      <ul>
+        <li><img src="imgs/saturate-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <strong>Vividness</strong> of piggy colors: Indicates how hard you need to shake it.</li>
+        <li><img src="imgs/tail-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <strong>Tail length</strong>: Longer piggy tails = more valuable coins.</li>
+        <li>You can win coins of <strong>1 Penny, 2 Pence, and 5 Pence.</strong></li>
+      </ul>
+      <p><span class="highlight">But this time, you'll play in a cloudy place.<br>Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
+      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this round.</p>
+      <p>When you're ready, press <span class="spacebar-icon">Spacebar</span> to start!</p>
     </div>
   `,
   data: { trialphase: 'pit_instructions' },
   choices: [' '],
-  post_trial_gap: 300
+  post_trial_gap: 300,
+  simulation_options: {
+    simulate: false
+  }
 };
+
+const PITruleInstruction_2 = {
+  type: jsPsychInstructions,
+  data: {trialphase: 'vigour_instructions'},
+  show_clickable_nav: true,
+  pages: [`
+  <div id="instruction-text" style="text-align: left">
+    <p><strong>You will now play the same game again for the next few minutes. The rules remain the same:</strong></p>
+
+    <ul>
+        <li><img src="imgs/saturate-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <span class="highlight">Vividness</span> of piggy colors: Indicates how hard you need to shake it.</li>
+        <li><img src="imgs/tail-icon.png" style="height:1.3em; transform: translateY(0.2em)"> <span class="highlight">Tail length</span>: Longer piggy tails = more valuable coins.</li>
+    </ul>
+
+    <p>Types of coins you can win:</p>
+    <div class="instruct-coin-container">
+        <div class="instruct-coin">
+            <img src="imgs/1p-num.png" alt="1 Penny">
+            <p>1 Penny</p>
+        </div>
+        <div class="instruct-coin">
+            <img src="imgs/2p-num.png" alt="2 Pence">
+            <p>2 Pence</p>
+        </div>
+        <div class="instruct-coin">
+            <img src="imgs/5p-num.png" alt="5 Pence">
+            <p>5 Pence</p>
+        </div>
+    </div>
+    </div>
+    `,
+    `<div id="instruction-text" style="text-align: left">
+      <p><strong>But this time, you'll play in a cloudy place.</strong></p>
+      <img src="imgs/occluding_clouds.png" style="height:13em">
+      <p><span class="highlight">Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
+      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this round.</p>
+    </div>
+      `],
+  simulation_options: {
+    simulate: false
+  }
+};
+
+const startPITconfirmation = {
+  type: jsPsychHtmlKeyboardResponse,
+  choices: [' ', 'r'],
+  stimulus: `
+  <div id="instruction-text">
+      <p>When you're ready, press <span class="spacebar-icon">Spacebar</span> to start!</p>
+      <p>If you want to read the rules again, press <span class="spacebar-icon">R</span>.</p>
+  </div>
+    `,
+  post_trial_gap: 300,
+  data: {trialphase: 'pit_instructions'},
+  simulation_options: {
+    simulate: false
+  }
+}
+
+const PITinstructions = {
+  timeline: [PITruleInstruction_2, startPITconfirmation],
+  loop_function: function (data) {
+    const last_iter = data.last(1).values()[0];
+    if (jsPsych.pluginAPI.compareKeys(last_iter.response, 'r')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
