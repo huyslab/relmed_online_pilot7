@@ -1,6 +1,7 @@
 // Function setting up PILT blocks
 window.maxWarnings = 4;
-window.defaultMaxRespTime = 3000
+window.defaultMaxRespTime = 3000;
+window.pilt_test_confidence_every = 4;
 
 window.skipThisBlock = false;
 
@@ -203,9 +204,37 @@ const test_trial = {
         },
         trial_duration: 0,
         post_trial_gap: 600
+    },
+    {
+        timeline: [
+            {
+                type: jsPsychHtmlButtonResponse,
+                stimulus: '<p>How confident are you that your last choice was correct?</p>',
+                choices: ["1<br>Not at all", "2", "3", "4", "5<br>Very confident"],
+                data: {
+                    trialphase: "pilt_confidence"
+                }
+            }
+        ],
+        conditional_function: () => {
+            let missed = jsPsych.data.get().filter({
+                trialphase: "PILT_test"
+            }).last(1).select("response").values[0] == null
+
+            let n_trials = jsPsych.data.get().filter({
+                trialphase: "PILT_test"
+            }).count()
+
+            console.log(((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1)))
+    
+            return !missed && ((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1))
+        },
+        post_trial_gap: 800
     }
 ]
 };
+
+// Post-PILT test confidence trial
 
 // Build post_PILT test block
 function build_post_PILT_test(structure){
@@ -230,7 +259,7 @@ function build_post_PILT_test(structure){
                 test_trial
             ],
             timeline_variables: structure[i]
-        })
+        });
     }
 
     return test
@@ -464,10 +493,10 @@ function return_PILT_full_sequence(structure, test_structure){
     let procedure = [];
 
     // Add instructions
-    procedure = procedure.concat(prepare_PILT_instructions());
+    // procedure = procedure.concat(prepare_PILT_instructions());
 
     // Add PLT
-    procedure = procedure.concat(build_PLT_task(structure));
+    // procedure = procedure.concat(build_PLT_task(structure));
 
     // Add test
     procedure.push(test_instructions);
