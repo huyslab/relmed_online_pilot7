@@ -254,16 +254,17 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add vigour task timeline
-        const vigourTimeline = [
-            vigourInstructions,
-            ...experimentTimeline,
-        ];
-        procedure = procedure.concat(vigourTimeline);
+        // const vigourTimeline = [
+        //     vigourInstructions,
+        //     ...experimentTimeline,
+        // ];
+        // procedure = procedure.concat(vigourTimeline);
 
         // Add PILT timeline
         // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
 
         // Add reversal timeline
+        procedure = procedure.concat(reversal_instructions);
         procedure = procedure.concat(reversal_blocks);
 
         // Debrief questions

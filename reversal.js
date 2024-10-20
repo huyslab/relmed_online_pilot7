@@ -17,7 +17,10 @@ var reversal_blocks = [
             "imgs/1penny.png",
             "imgs/1pound.png"
         ],
-        post_trial_gap: 400
+        post_trial_gap: 400,
+        data: {
+            trialphase: "reversal_preload"
+        }
     }
 ];
 for (i=0; i<reversal_timeline.length; i++){
@@ -64,8 +67,34 @@ for (i=0; i<reversal_timeline.length; i++){
             timeline_variables: reversal_timeline[i],
             data: {
                 block: jsPsych.timelineVariable('block'),
-                trial: jsPsych.timelineVariable('trial')
+                trial: jsPsych.timelineVariable('trial'),
+                trialphase: "reversal"
             }
         }
     ]);
 }
+
+// Reversal instructions
+const reversal_instructions = [
+    {
+        type: jsPsychInstructions,
+        css_classes: ['instructions'],
+        pages: [
+            `<p>Next, you will meet two friendly squirrels, each with a bag of coins to share. 
+            Use the arrow keys to choose either the left or right squirrel. 
+            The squirrel you pick will give you a coin to add to your safe.</p>`,
+            `<p>One squirrel has higher-value coins, and the other has lower-value coins. 
+            But sometimes, they secretly switch bags.</p>
+            <p>Your goal is to figure out which squirrel has the better coins and collect as many high-value ones as possible.<p>`
+        ],
+        show_clickable_nav: true,
+        data: {trialphase: "reversal_instruction"}
+    },
+    {
+        type: jsPsychHtmlKeyboardResponse,
+        css_classes: ['instructions'],
+        stimulus: `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+        choices: ['arrowleft', 'arrowright'],
+        data: {trialphase: "reversal_instruction"}
+    },
+]
