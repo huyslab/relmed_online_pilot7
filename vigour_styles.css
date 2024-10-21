@@ -120,11 +120,11 @@
   font-family: monospace;
 }
 
-.jspsych-btn {
+/* .jspsych-btn {
   font-size: 20px;
   border-radius: 6px;
   margin: 0em 0.75em;
-}
+} */
 
 .instruct-coin-container {
   display: flex;
