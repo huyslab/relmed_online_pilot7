@@ -355,22 +355,22 @@ jsPsychPLT = (function(jspsych) {
 
                 if (this.data.chosenOutcome === 1) {
                     coin.src = 'imgs/1pound.png'
-                    coinBackground.src = "imgs/cielab_1.png"
+                    coinBackground.src = "imgs/marble1.png"
                 } else if (this.data.chosenOutcome === 0.5) {
                     coin.src = 'imgs/50pence.png'
-                    coinBackground.src = "imgs/cielab_2.png"
+                    coinBackground.src = "imgs/marble2.png"
                 } else if (this.data.chosenOutcome === 0.01) {
                     coin.src = 'imgs/1penny.png'
-                    coinBackground.src = "imgs/cielab_3.png"
+                    coinBackground.src = "imgs/marble3.png"
                 } else if (this.data.chosenOutcome === -1) {
                     coin.src = 'imgs/1poundbroken.png'
-                    coinBackground.src = "imgs/cielab_4.png"
+                    coinBackground.src = "imgs/marble4.png"
                 } else if (this.data.chosenOutcome === -0.5) {
                     coin.src = 'imgs/50pencebroken.png'
-                    coinBackground.src = "imgs/cielab_5.png"
+                    coinBackground.src = "imgs/marble5.png"
                 } else if (this.data.chosenOutcome === -0.01) {
                     coin.src = 'imgs/1pennybroken.png'
-                    coinBackground.src = "imgs/cielab_6.png"
+                    coinBackground.src = "imgs/marble6.png"
                 }
 
                 document.getElementById(this.data.choice).appendChild(coinBackground)

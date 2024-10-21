@@ -16,17 +16,17 @@ function generatePITstimulus(coin, ratio) {
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
   const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
   if (coin === 1) {
-    piggyBgImg = 'imgs/cielab_1.png'
+    piggyBgImg = 'imgs/marble1.png'
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/cielab_2.png'
+    piggyBgImg = 'imgs/marble2.png'
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/cielab_3.png'
+    piggyBgImg = 'imgs/marble3.png'
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/cielab_4.png'
+    piggyBgImg = 'imgs/marble4.png'
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/cielab_5.png'
+    piggyBgImg = 'imgs/marble5.png'
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/cielab_6.png'
+    piggyBgImg = 'imgs/marble6.png'
   }
   return `
     <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat-x; background-size: 24vh; background-position-y: 20vh;">
