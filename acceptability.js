@@ -59,10 +59,16 @@ const acceptability = [
                 name: "vigour_enjoy"
             },
             {
-                prompt: "Was it clear to you what you needed to do in the piggy-bank game?",
+                prompt: "Was it clear to you what you needed to do in the piggy-bank game (no-cloud version)?",
                 labels: ["1<br>Not clear at all", "2", "3", "4", "5<br>Extremely clear"],
                 required: true,
                 name: "vigour_clear"
+            },
+            {
+                prompt: "Was it clear to you what you needed to do in the piggy-bank game (cloudy version)?",
+                labels: ["1<br>Not clear at all", "2", "3", "4", "5<br>Extremely clear"],
+                required: true,
+                name: "pit_clear"
             }
         ],
         data: {
@@ -73,13 +79,21 @@ const acceptability = [
         type: jsPsychSurveyText,
         questions: [
             {
-                prompt: "Was there anything you did that helped you complete the piggy-bank task more easily?",
+                prompt: "Was there anything you did that helped you complete the piggy-bank task (no-cloud version) more easily?",
                 columns: 35,
                 rows: 2,
                 value: '',
                 name: "vigour_strategy",
                 required: true
             },
+            {
+                prompt: "Was there anything you did that helped you complete the piggy-bank task (cloudy version) more easily?",
+                columns: 35,
+                rows: 2,
+                value: '',
+                name: "pit_strategy",
+                required: true
+            }
         ],
         data: {
             trialphase: 'debrief_vigour'
