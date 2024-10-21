@@ -17,8 +17,8 @@ function prepare_PILT_instructions() {
         pages: () => {
 
             let pages = [
-                `<p>You have completed the first task of this study.</p>
-                <p>You are now ready to start on the second task.</p>`
+                `<p>Welcome!</p>
+                <p>In this study you will complete a few tasks. Let's start with the first game.</p>`
             ];
 
             pages = pages.concat([
