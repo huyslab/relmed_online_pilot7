@@ -109,7 +109,8 @@
                 "1pound.png", "1poundbroken.png",
                 "50pence.png", "50pencebroken.png",
                 "safe.png",
-                "1p-num.png", "2p-num.png", "5p-num.png", "10p-num.png", "piggy-bank.png", "ooc_2p.png", "piggy-tail2.png", "saturate-icon.png", "tail-icon.png"
+                "1p-num.png", "2p-num.png", "5p-num.png", "10p-num.png", "piggy-bank.png", "ooc_2p.png", "piggy-tail2.png", "saturate-icon.png", "tail-icon.png",
+                "cielab_1.png", "cielab_2.png", "cielab_3.png", "cielab_4.png", "cielab_5.png", "cielab_6.png", "occluding_clouds.png"
             ].map(s => "imgs/" + s),
             post_trial_gap: 800
         },
@@ -155,19 +156,19 @@
                     labels: ["1<br>Not at all", "2", "3", "4", "5<br>Extremely confused"],
                     required: true,
                     name: "vigour_enjoy"
+                },
+                {
+                    prompt: "How difficult was the card choosing game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
+                    required: true,
+                    name: "PILT_difficulty"
+                },
+                {
+                    prompt: "How enjoyable was the card choosing game?",
+                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
+                    required: true,
+                    name: "PILT_enjoy"
                 }
-                // {
-                //     prompt: "How difficult was the card choosing game?",
-                //     labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
-                //     required: true,
-                //     name: "PILT_difficulty"
-                // },
-                // {
-                //     prompt: "How enjoyable was the card choosing game?",
-                //     labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
-                //     required: true,
-                //     name: "PILT_enjoy"
-                // }
             ],
             data: {
                 trialphase: "debrief_likert"
@@ -268,18 +269,17 @@
         procedure = procedure.concat(reversal_blocks);
 
         // Debrief questions
-        procedure = procedure.concat(debrief_questions);
+        // procedure = procedure.concat(debrief_questions);
 
         // Add coin lottery
         // procedure.push(lottery_instructions);
         // procedure.push(coin_lottery);
 
         // Add post-vigour test
-        procedure = procedure.concat([postVigourInstructions,
-        postVigourTrials]);
+        // procedure = procedure.concat([postVigourInstructions, postVigourTrials]);
 
         // Add vigour bonus message
-        procedure.push(vigour_bonus);
+        // procedure.push(vigour_bonus);
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);

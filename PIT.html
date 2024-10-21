@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Post test</title>
+  <title>PIT</title>
   <script src="jspsych/jspsych.js"></script>
   <script>
     // Initialize jsPysch object
@@ -15,10 +15,14 @@
     });
   </script>
   <script src="jspsych/plugin-html-keyboard-response.js"></script>
+  <script src="jspsych/plugin-html-button-response.js"></script>
+  <script src="jspsych/plugin-instructions.js"></script>
   <script src="jspsych/plugin-fullscreen.js"></script>
   <script src="utils.js"></script>
-  <script src="post-vigour-test.js"></script>
+  <script src="vigour.js"></script>
+  <script src="PIT.js"></script>
   <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
+  <link href="PIT_styles.css" rel="stylesheet" type="text/css" />
   <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
 </head>
 <style>
@@ -35,17 +39,20 @@
   <div id='display_element' class='jsPsychDE'></div>
 </body>
 <script>
+    window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    window.debug = prolificPID.includes("debug");
   // Add the comparison task to the main experiment timeline
-  const postVigourTimeline = [
+  const PITtimeline = [
     // ... (previous timeline components)
-    postVigourInstructions,
-    postVigourTrials
+    PITinstructions,
+    PITtrials,
+    PIT_bonus
     // ... (subsequent timeline components)
   ];
 
   // Run or simulate the experiment
-  // jsPsych.simulate(postVigourTimeline, "visual");
-  jsPsych.run(postVigourTimeline);
+  jsPsych.simulate(PITtimeline, "visual");
+  // jsPsych.run(PITtimeline);
 </script>
 
 </html>

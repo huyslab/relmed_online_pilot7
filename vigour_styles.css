@@ -33,6 +33,16 @@
   top: 40%;
 }
 
+#obstructor-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 82%;
+  width: 90%;
+  top: 28%;
+  z-index: 3;
+}
+
 #piggy-container {
   position: absolute;
   display: flex;
@@ -75,12 +85,14 @@
   position: absolute;
   height: 100%;
   width: auto;
+  z-index: 2;
 }
 
 .piggy-tail {
   position: absolute;
   max-height: 30%;
   bottom: 50%;
+  z-index: 2;
 }
 
 .vigour_coin {
@@ -108,11 +120,11 @@
   font-family: monospace;
 }
 
-.jspsych-btn {
+/* .jspsych-btn {
   font-size: 20px;
   border-radius: 6px;
   margin: 0em 0.75em;
-}
+} */
 
 .instruct-coin-container {
   display: flex;

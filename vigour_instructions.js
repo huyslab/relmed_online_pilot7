@@ -6,6 +6,7 @@ const instructionPage = {
   stimulus: generateInstructStimulus,
   choices: "NO_KEYS",
   trial_duration: null,
+  data: {trialphase: 'vigour_instructions'},
   on_load: function () {
     updatePersistentCoinContainer();
     observeResizing('coin-container', updatePersistentCoinContainer);
@@ -73,6 +74,7 @@ const instructionPage = {
 // Before starting the first trial
 const ruleInstruction = {
   type: jsPsychInstructions,
+  data: {trialphase: 'vigour_instructions'},
   show_clickable_nav: true,
   pages: [`
   <div id="instruction-text" style="text-align: left">
@@ -117,6 +119,7 @@ const startConfirmation = {
   </div>
     `,
   post_trial_gap: 300,
+  data: {trialphase: 'vigour_instructions'},
   on_finish: function (data) {
     const seed = jsPsych.randomization.setSeed();
     data.rng_seed = seed;
