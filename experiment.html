@@ -31,6 +31,8 @@
     <script src="vigour.js"></script>
     <script src="vigour_instructions.js"></script>
     <script src="post-vigour-test.js"></script>
+    <script src="PIT.js"></script>
+    <script src="PIT_instructions.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
     <link href="reversal.css" rel="stylesheet" type="text/css" />
@@ -73,7 +75,7 @@
         session_id: window.sessionId,
         session: window.sessionNum,
         n_warnings: 0,
-        version: "3.2"
+        version: "4.0"
     })
 
     // Preliminary checks
@@ -251,35 +253,44 @@
 
         // let procedure = [];
 
-        // Preliminary screen checks and load images
+        // 0.0 Preliminary screen checks and load images
         procedure = procedure.concat(preliminary_checks);
 
-        // Add vigour task timeline
+        // 1.0 Add PILT timeline
+        // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
+
+        // 1.1 Add coin lottery
+        // procedure.push(lottery_instructions);
+        // procedure.push(coin_lottery);
+
+        // 2.0 Add vigour task timeline
         // const vigourTimeline = [
         //     vigourInstructions,
         //     ...experimentTimeline,
         // ];
         // procedure = procedure.concat(vigourTimeline);
 
-        // Add PILT timeline
-        // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
+        // 2.1 Add vigour bonus message
+        // procedure.push(vigour_bonus);
 
-        // Add reversal timeline
+        // 3.0 Add PIT timeline: instructions, trials, bonus
+        // const PITtimeline = [
+        //     PITinstructions,
+        //     PITtrials,
+        //     PIT_bonus
+        // ];
+        // procedure = procedure.concat(PITtimeline);
+
+         // 4.0 Add post-vigour test
+        // procedure = procedure.concat(postVigourInstructions);
+        // procedure = procedure.concat(postVigourTrials);
+
+        // 5.0 Add reversal timeline
         procedure = procedure.concat(reversal_instructions);
         procedure = procedure.concat(reversal_blocks);
 
-        // Debrief questions
+        // 6.0 Debrief questions
         // procedure = procedure.concat(debrief_questions);
-
-        // Add coin lottery
-        // procedure.push(lottery_instructions);
-        // procedure.push(coin_lottery);
-
-        // Add post-vigour test
-        // procedure = procedure.concat([postVigourInstructions, postVigourTrials]);
-
-        // Add vigour bonus message
-        // procedure.push(vigour_bonus);
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);
