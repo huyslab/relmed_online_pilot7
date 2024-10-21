@@ -39,7 +39,7 @@ const acceptability = [
             }
         ],
         data: {
-            trialphase: "debrief_pilt"
+            trialphase: "acceptability_pilt"
         }
     },
     {
@@ -66,7 +66,23 @@ const acceptability = [
             }
         ],
         data: {
-            trialphase: "debrief_vigour"
+            trialphase: "acceptability_vigour"
+        }
+    },
+    {
+        type: jsPsychSurveyText,
+        questions: [
+            {
+                prompt: "Was there anything you did that helped you complete the piggy-bank task more easily?",
+                columns: 35,
+                rows: 2,
+                value: '',
+                name: "vigour_strategy",
+                required: true
+            },
+        ],
+        data: {
+            trialphase: 'debrief_vigour'
         }
     },
     {
@@ -93,7 +109,39 @@ const acceptability = [
             }
         ],
         data: {
-            trialphase: "debrief_reversal"
+            trialphase: "acceptability_reversal"
+        }
+    },
+    {
+        type: jsPsychSurveyText,
+        questions: [
+            {
+                prompt: "Was there anything you did that helped you complete the squirrel task more easily?",
+                columns: 35,
+                rows: 2,
+                value: '',
+                name: "reversal_strategy",
+                required: true
+            },
+        ],
+        data: {
+            trialphase: 'debrief_reversal'
+        }
+    },
+    {
+        type: jsPsychSurveyText,
+        questions: [
+        {
+            prompt: "Was there anything unclear in the instructions?",
+            columns: 35,
+            rows: 2,
+            value: '',
+            name: "instructions",
+            required: true
+        }
+        ],
+        data: {
+            trialphase: 'debrief_instructions'
         }
     }
 ]
