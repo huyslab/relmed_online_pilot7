@@ -33,6 +33,7 @@
     <script src="post-vigour-test.js"></script>
     <script src="PIT.js"></script>
     <script src="PIT_instructions.js"></script>
+    <script src="acceptability.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
     <link href="reversal.css" rel="stylesheet" type="text/css" />
@@ -123,105 +124,6 @@
             message: "<p>This study runs in full screen mode.</p><p>Press the button below to continue.</p>"
         }
     ]
-
-    // Debrief questions
-    const debrief_questions = [
-        {
-            type: jsPsychInstructions,
-            css_classes: ['instructions'],
-            pages: [
-                `<p>Please answer the following short questions.</p>`
-            ],
-            show_clickable_nav: true,
-            data: {trialphase: "pre_debrief_instructions"},
-            simulation_options:{
-                simulate: false
-            }
-        },
-        {
-            type: jsPsychSurveyLikert,
-            questions: [
-                {
-                    prompt: "How difficult was the piggy-bank game?",
-                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
-                    required: true,
-                    name: "vigour_difficulty"
-                },
-                {
-                    prompt: "How enjoyable was the piggy-bank game?",
-                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
-                    required: true,
-                    name: "vigour_enjoy"
-                },
-                {
-                    prompt: "Did you feel confused during the task?",
-                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Extremely confused"],
-                    required: true,
-                    name: "vigour_enjoy"
-                },
-                {
-                    prompt: "How difficult was the card choosing game?",
-                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
-                    required: true,
-                    name: "PILT_difficulty"
-                },
-                {
-                    prompt: "How enjoyable was the card choosing game?",
-                    labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
-                    required: true,
-                    name: "PILT_enjoy"
-                }
-            ],
-            data: {
-                trialphase: "debrief_likert"
-            },
-            simulation_options:{
-                simulate: false
-            }
-        },
-        {
-            type: jsPsychSurveyText,
-            questions: [
-            {
-                prompt: "Was there anything unclear in the instructions?",
-                columns: 35,
-                rows: 2,
-                value: '',
-                name: "instructions",
-                required: true
-            },
-            {
-                prompt: "Was there anything you did that helped you complete the tasks more easily?",
-                columns: 35,
-                rows: 2,
-                value: '',
-                name: "strategy",
-                required: true
-            },
-            {
-                prompt: "What do you think the vividness of each pig meant in the piggy bank task?",
-                columns: 35,
-                rows: 2,
-                value: '',
-                name: "vividness",
-                required: true
-            },{
-                prompt: "What do you think the number of swirls in each pig’s tail meant in the piggy bank task?",
-                columns: 35,
-                rows: 2,
-                value: '',
-                name: "swirls",
-                required: true
-            }
-            ],
-            data: {
-                trialphase: 'debrief_text'
-            },
-            simulation_options:{
-                simulate: false
-            }
-    }
-]
     
     // End of experiment message
     const end_experiment_msgs = [
@@ -254,7 +156,7 @@
         // let procedure = [];
 
         // 0.0 Preliminary screen checks and load images
-        procedure = procedure.concat(preliminary_checks);
+        // procedure = procedure.concat(preliminary_checks);
 
         // 1.0 Add PILT timeline
         // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
@@ -286,11 +188,11 @@
         // procedure = procedure.concat(postVigourTrials);
 
         // 5.0 Add reversal timeline
-        procedure = procedure.concat(reversal_instructions);
-        procedure = procedure.concat(reversal_blocks);
+        // procedure = procedure.concat(reversal_instructions);
+        // procedure = procedure.concat(reversal_blocks);
 
         // 6.0 Debrief questions
-        // procedure = procedure.concat(debrief_questions);
+        procedure = procedure.concat(acceptability);
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);
