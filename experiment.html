@@ -20,9 +20,12 @@
     <script src="jspsych/plugin-survey-likert.js"></script>
     <script src="jspsych/plugin-survey-text.js"></script>
     <script src="jspsych/plugin-fullscreen.js"></script>
-    <script src="plugin-PLT.js"></script>
-    <script src="plugin-coin-lottery.js"></script>
     <script src="utils.js"></script>
+    <script src="plugin-PLT.js"></script>
+    <script src="plugin-reversal.js"></script>
+    <script src="pilot4_reversal_sequence.js"></script>
+    <script src="reversal.js"></script>
+    <script src="plugin-coin-lottery.js"></script>
     <script src="PILT.js"></script>
     <script src="PILT_instructions.js"></script>
     <script src="vigour.js"></script>
@@ -30,6 +33,7 @@
     <script src="post-vigour-test.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
+    <link href="reversal.css" rel="stylesheet" type="text/css" />
 </head>
 <style>
     .jsPsychDE {
@@ -55,7 +59,7 @@
     <div id="persist-coin-container"></div>
 </body>
 <script>
-    // Get condition from URL, all caps are prolific, lowercase are ours
+// Get condition from URL, all caps are prolific, lowercase are ours
     window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
     window.debug = prolificPID.includes("debug");
     window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
@@ -251,14 +255,18 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add vigour task timeline
-        const vigourTimeline = [
-            vigourInstructions,
-            ...experimentTimeline,
-        ];
+        // const vigourTimeline = [
+        //     vigourInstructions,
+        //     ...experimentTimeline,
+        // ];
         // procedure = procedure.concat(vigourTimeline);
 
         // Add PILT timeline
-        procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
+        // procedure = procedure.concat(return_PILT_full_sequence(PILT_structure, test_structure));
+
+        // Add reversal timeline
+        procedure = procedure.concat(reversal_instructions);
+        procedure = procedure.concat(reversal_blocks);
 
         // Debrief questions
         // procedure = procedure.concat(debrief_questions);
@@ -307,6 +315,5 @@
     var procedure = [];
 
     load_squences(window.sessionNum);
-        
 </script>
 </html>
