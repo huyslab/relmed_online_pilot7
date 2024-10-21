@@ -96,8 +96,7 @@ function prepare_PILT_instructions() {
         css_classes: ['instructions'],
         pages: [
             `${window.sessionNum == 1 ? `<p>You found a one pound coin!</p>` : ``}
-            <p>Some cards are better than others, but even good cards can sometimes only give a penny 
-            or might sometimes break a one pound coin.</p>`
+            <p>In the game, some cards will be better than others.</p>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
@@ -215,7 +214,7 @@ function prepare_PILT_instructions() {
 
     let quiz_questions = [
         {
-            prompt: "Some cards are better than others, but even good cards can sometimes only give a penny or break a one pound coin.",
+            prompt: "In this game, some cards are better than others.",
             options: ["True", "False"],
             required: true
         },
