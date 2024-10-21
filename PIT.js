@@ -138,7 +138,7 @@ const PITtrial = {
 const PITtrials = [];
 PITtrialList.forEach(trial => {
   PITtrials.push({
-    timeline: [PITtrial],
+    timeline: [kick_out, fullscreen_prompt, PITtrial],
     timeline_variables: [trial]
   });
 });
