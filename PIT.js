@@ -10,7 +10,6 @@ const PITconfig = {
 const PITtrialList = [{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902},{"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},{"magnitude":2,"ratio":1,"coin":0.01,"trialDuration":7228},{"magnitude":1,"ratio":1,"coin":-1,"trialDuration":7044},{"magnitude":1,"ratio":8,"coin":0.5,"trialDuration":6506},{"magnitude":2,"ratio":16,"coin":-1,"trialDuration":6827},{"magnitude":1,"ratio":1,"coin":0.5,"trialDuration":6890},{"magnitude":2,"ratio":8,"coin":1,"trialDuration":7236},{"magnitude":2,"ratio":16,"coin":-0.5,"trialDuration":7465},{"magnitude":2,"ratio":16,"coin":-0.01,"trialDuration":7207},{"magnitude":2,"ratio":1,"coin":-0.5,"trialDuration":6535},{"magnitude":5,"ratio":8,"coin":0.5,"trialDuration":7376},{"magnitude":2,"ratio":1,"coin":-0.01,"trialDuration":6652},{"magnitude":1,"ratio":1,"coin":0.01,"trialDuration":7199},{"magnitude":1,"ratio":8,"coin":1,"trialDuration":7293},{"magnitude":1,"ratio":8,"coin":-0.5,"trialDuration":6870},{"magnitude":2,"ratio":8,"coin":-1,"trialDuration":6962},{"magnitude":2,"ratio":1,"coin":-1,"trialDuration":7490},{"magnitude":1,"ratio":8,"coin":0.01,"trialDuration":6688},{"magnitude":1,"ratio":1,"coin":1,"trialDuration":7145},{"magnitude":5,"ratio":8,"coin":0.01,"trialDuration":7261},{"magnitude":2,"ratio":8,"coin":0.01,"trialDuration":6891},{"magnitude":5,"ratio":8,"coin":-1,"trialDuration":7386},{"magnitude":2,"ratio":8,"coin":-0.5,"trialDuration":6888},{"magnitude":1,"ratio":1,"coin":-0.01,"trialDuration":6985},{"magnitude":5,"ratio":8,"coin":-0.5,"trialDuration":6956},{"magnitude":1,"ratio":8,"coin":-0.01,"trialDuration":6862},{"magnitude":1,"ratio":8,"coin":-1,"trialDuration":7182},{"magnitude":2,"ratio":16,"coin":0.5,"trialDuration":7452},{"magnitude":2,"ratio":1,"coin":0.5,"trialDuration":7009},{"magnitude":1,"ratio":1,"coin":-0.5,"trialDuration":6726},{"magnitude":2,"ratio":16,"coin":1,"trialDuration":6679},{"magnitude":5,"ratio":8,"coin":-0.01,"trialDuration":6666},{"magnitude":2,"ratio":16,"coin":0.01,"trialDuration":6954},{"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":6501},{"magnitude":2,"ratio":1,"coin":1,"trialDuration":6825}];
 
 // Trial stimulus function
-//TODO: add tiled background
 function generatePITstimulus(coin, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
@@ -130,7 +129,7 @@ const PITtrial = {
     PITtrialCounter += 1;
     data.pit_trial_number = PITtrialCounter;
     if (PITtrialCounter % (PITtrials.length / 3) == 0 || PITtrialCounter == PITtrials.length) {
-      saveDataREDCap(retry = 0); // TODO: Change to 3
+      saveDataREDCap(retry = 3);
     }
   }
 };
