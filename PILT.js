@@ -493,10 +493,10 @@ function return_PILT_full_sequence(structure, test_structure){
     let procedure = [];
 
     // Add instructions
-    // procedure = procedure.concat(prepare_PILT_instructions());
+    procedure = procedure.concat(prepare_PILT_instructions());
 
     // Add PLT
-    // procedure = procedure.concat(build_PLT_task(structure));
+    procedure = procedure.concat(build_PLT_task(structure));
 
     // Add test
     procedure.push(test_instructions);
