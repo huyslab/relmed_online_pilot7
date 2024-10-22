@@ -39,22 +39,27 @@ const kick_out = {
       }
     },
     css_classes: ['instructions'],
-    timeline: [{
-      stimulus: `<p>It seems that you are not following the study instructions.</p>
-        <p>Unfortunately, you cannot continue with this study.</p>
-        <p>If you believe this is a mistake, please email haoyang.lu@ucl.ac.uk, explaining the circumstances.</p>
-        <p>Please return this study on Prolific.</p>
-        <p>You may now close this tab.</p>
-      `
-    }],
+    timeline: [
+        {   
+            stimulus: '...',
+            trial_duration: 200,
+            on_finish: function(trial) {
+                // Save data
+                saveDataREDCap(retry = 3);
+                // Allow refresh
+                window.removeEventListener('beforeunload', preventRefresh);
+            }
+        },
+        {
+        stimulus: `<p>It seems that you are not following the study instructions.</p>
+            <p>Unfortunately, you cannot continue with this study.</p>
+            <p>If you believe this is a mistake, please email haoyang.lu@ucl.ac.uk, explaining the circumstances.</p>
+            <p>Please return this study on Prolific.</p>
+            <p>You may now close this tab.</p>
+        `
+        }
+    ],
     choices: ["NO_KEYS"],
-    on_start: function(trial) {
-        // Save data
-        trial.trialphase = 'kick-out';
-        saveDataREDCap(retry = 3);
-        // Allow refresh
-        window.removeEventListener('beforeunload', preventRefresh);
-    },
     data: {
       trialphase: 'kick-out'
     }
