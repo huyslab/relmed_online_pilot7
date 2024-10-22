@@ -293,7 +293,7 @@ var jsPsychReversal = (function (jspsych) {
 
         simulate_visual(trial, simulation_options, load_callback) {
             const data = this.create_simulation_data(trial, simulation_options);
-            console.log(data)
+
             const display_element = this.jsPsych.getDisplayElement();
             this.trial(display_element, trial);
             load_callback();

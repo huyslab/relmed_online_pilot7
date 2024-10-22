@@ -293,7 +293,7 @@ function prepare_PILT_instructions() {
 
 function check_quiz_failed() {
     const data = jsPsych.data.get().filter({trialphase: "instruction_quiz"}).last(1).select('response').values[0];
-    console.log(data)
+
     return !Object.values(data).every(value => value === "True");
 }
 
