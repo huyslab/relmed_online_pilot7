@@ -105,6 +105,9 @@ var jsPsychReversal = (function (jspsych) {
                 rt: null,
                 key: null
             };
+
+            // Check whether in simulation mode
+            var simulating = window.prolificPID.includes("simulate");
         
             // Create stimuli
             display_element.innerHTML = this.create_stimuli(trial);
@@ -159,7 +162,7 @@ var jsPsychReversal = (function (jspsych) {
 
                 coin_left.style.opacity = '0';
 
-                this.jsPsych.pluginAPI.setTimeout(end_trial, trial.ITI);
+                this.jsPsych.pluginAPI.setTimeout(end_trial, simulating ? 2 : trial.ITI);
             }
 
             // Post response procedure
@@ -174,7 +177,7 @@ var jsPsychReversal = (function (jspsych) {
                 
                 this.triggerCoinAnimation(chosen_side);
                 
-                this.jsPsych.pluginAPI.setTimeout(ITI, trial.animation_duration);
+                this.jsPsych.pluginAPI.setTimeout(ITI, simulating ? 2 : trial.animation_duration);
 
             };
 
