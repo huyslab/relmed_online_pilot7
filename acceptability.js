@@ -40,6 +40,9 @@ const acceptability = [
         ],
         data: {
             trialphase: "acceptability_pilt"
+        },
+        simulation_options: {
+            simulate: false
         }
     },
     {
@@ -73,6 +76,9 @@ const acceptability = [
         ],
         data: {
             trialphase: "acceptability_vigour"
+        },
+        simulation_options: {
+            simulate: false
         }
     },
     {
@@ -97,6 +103,9 @@ const acceptability = [
         ],
         data: {
             trialphase: 'debrief_vigour'
+        },
+        simulation_options: {
+            simulate: false
         }
     },
     {
@@ -124,6 +133,9 @@ const acceptability = [
         ],
         data: {
             trialphase: "acceptability_reversal"
+        },
+        simulation_options: {
+            simulate: false
         }
     },
     {
@@ -140,6 +152,9 @@ const acceptability = [
         ],
         data: {
             trialphase: 'debrief_reversal'
+        },
+        simulation_options: {
+            simulate: false
         }
     },
     {
@@ -156,6 +171,9 @@ const acceptability = [
         ],
         data: {
             trialphase: 'debrief_instructions'
+        },
+        simulation_options: {
+            simulate: false
         }
     }
 ]
