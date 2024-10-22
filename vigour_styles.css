@@ -52,6 +52,16 @@
   top: 0%;
 }
 
+#bg-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  width: 90%;
+  top: 0%;
+}
+
 #piggy-container-left, #piggy-container-right {
   position: relative;
   display: flex;

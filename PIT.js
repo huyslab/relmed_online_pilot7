@@ -29,9 +29,13 @@ function generatePITstimulus(coin, ratio) {
     piggyBgImg = 'imgs/marble6.png'
   }
   return `
-    <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat-x; background-size: 24vh; background-position-y: 20vh;">
+    <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat; background-size: 30vw;">
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
+        <div id="bg-container">
+          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
+          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
+        </div>
         <div id="piggy-container">
           <!-- Piggy Bank Image -->
           <img id="piggy-bank" src="imgs/piggy-bank.png" alt="Piggy Bank" style="${piggy_style}">
@@ -65,22 +69,6 @@ const PITtrial = {
     // Record global data
     total_presses: () => { return window.totalPresses },
     total_reward: () => { return window.totalReward }
-  },
-  simulation_options: {
-    data: {
-      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(8, 20) },
-      trial_reward: () => { window.trialReward = Math.floor(window.trialPresses / jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
-      response_time: () => {
-        do {
-          window.responseTime = [];
-          for (let i = 0; i < window.trialPresses; i++) {
-            window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
-          }
-        } while (window.responseTime.reduce((acc, curr) => acc + curr, 0) > experimentConfig.trialDuration);
-      },
-      total_presses: () => { window.totalPresses += window.trialPresses },
-      total_reward: () => { window.totalReward += window.trialReward }
-    }
   },
   on_start: function (trial) {
     if (window.prolificPID.includes("simulate")) {
@@ -124,12 +112,29 @@ const PITtrial = {
     updatePiggyTails(jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio'));
   },
   on_finish: function (data) {
+    console.log(data);
     // Clean up listener
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     PITtrialCounter += 1;
     data.pit_trial_number = PITtrialCounter;
     if (PITtrialCounter % (PITtrials.length / 3) == 0 || PITtrialCounter == PITtrials.length) {
       saveDataREDCap(retry = 3);
+    }
+  },
+  simulation_options: {
+    data: {
+      trial_presses: () => { window.trialPresses = jsPsych.randomization.randomInt(8, 20) },
+      trial_reward: () => { window.trialReward = Math.floor(window.trialPresses / jsPsych.evaluateTimelineVariable('ratio')) * jsPsych.evaluateTimelineVariable('magnitude') },
+      response_time: () => {
+        do {
+          window.responseTime = [];
+          for (let i = 0; i < window.trialPresses; i++) {
+            window.responseTime.push(Math.floor(jsPsych.randomization.sampleExGaussian(150, 15, 0.01, true)));
+          }
+        } while (window.responseTime.reduce((acc, curr) => acc + curr, 0) > experimentConfig.trialDuration);
+      },
+      total_presses: () => { window.totalPresses += window.trialPresses },
+      total_reward: () => { window.totalReward += window.trialReward }
     }
   }
 };
