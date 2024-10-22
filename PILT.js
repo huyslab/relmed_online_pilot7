@@ -100,7 +100,8 @@ const test_trial = {
             stimulus_right: jsPsych.timelineVariable("stimulus_right"),
             same_valence: jsPsych.timelineVariable("same_valence"),
             same_block: jsPsych.timelineVariable("same_block"),
-            EV_diff: jsPsych.timelineVariable("EV_diff"),
+            magnitude_left: jsPsych.timelineVariable("magnitude_left"),
+            magnitude_right: jsPsych.timelineVariable("magnitude_right"),
         }
     },
     // Timeout message
