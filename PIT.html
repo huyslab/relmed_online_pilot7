@@ -51,8 +51,11 @@
   ];
 
   // Run or simulate the experiment
-  jsPsych.simulate(PITtimeline, "visual");
-  // jsPsych.run(PITtimeline);
+  if (window.prolificPID.includes("simulate")) {
+    jsPsych.simulate(PITtimeline, "visual");
+  } else {
+    jsPsych.run(PITtimeline);
+  }
 </script>
 
 </html>
