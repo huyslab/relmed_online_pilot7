@@ -95,13 +95,16 @@ const test_trial = {
         data: {
             trialphase: "PILT_test",
             block: jsPsych.timelineVariable("block"),
-            cpair: jsPsych.timelineVariable("cpair"),
+            trial: jsPsych.timelineVariable("trial"),
             stimulus_left: jsPsych.timelineVariable("stimulus_left"),
             stimulus_right: jsPsych.timelineVariable("stimulus_right"),
             same_valence: jsPsych.timelineVariable("same_valence"),
             same_block: jsPsych.timelineVariable("same_block"),
             magnitude_left: jsPsych.timelineVariable("magnitude_left"),
             magnitude_right: jsPsych.timelineVariable("magnitude_right"),
+            original_block_left: jsPsych.timelineVariable("original_block_left"),
+            original_block_right: jsPsych.timelineVariable("original_block_right"),
+
         }
     },
     // Timeout message
