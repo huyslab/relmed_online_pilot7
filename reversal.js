@@ -35,7 +35,14 @@ for (i=0; i<reversal_timeline.length; i++){
                             type: jsPsychReversal,
                             feedback_right: jsPsych.timelineVariable('feedback_right'),
                             feedback_left: jsPsych.timelineVariable('feedback_left'),
-                            optimal_right: jsPsych.timelineVariable('optimal_right')
+                            optimal_right: jsPsych.timelineVariable('optimal_right'),
+                            on_finish: () => {
+                                n_trials = jsPsych.data.get().filter({trial_type: "reversal"}).count()
+                                
+                                if (n_trials % 40 == 0) {
+                                    saveDataREDCap(retry = 3);
+                                  }
+                            }
                         }
                     ],
                     conditional_function: () => {
