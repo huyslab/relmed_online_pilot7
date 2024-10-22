@@ -224,8 +224,6 @@ const test_trial = {
             let n_trials = jsPsych.data.get().filter({
                 trialphase: "PILT_test"
             }).count()
-
-            console.log(((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1)))
     
             return !missed && ((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1))
         },
@@ -333,22 +331,18 @@ const PLT_trial =  {
                     block: block
                 }).select('stimulus_pair').values)]
 
-                console.log(unique_stimulus_pairs)
-
                 // Initialize a variable to store the result
                 let all_optimal = true;
 
                 // Iterate over each unique stimulus_pair and check the last 5 choices
                 unique_stimulus_pairs.forEach(pair => {
-                    console.log(pair)
+
                     // Filter data for the current stimulus_pair
                     let num_optimal = jsPsych.data.get().filter({
                         trial_type: "PLT",
                         block: block,
                         stimulus_pair: pair
                     }).last(5).select('isOptimal').sum();
-
-                    console.log(num_optimal)
 
                     // Check if all last 5 choices for this pair are correct
                     if (num_optimal < 5) {
