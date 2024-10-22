@@ -78,7 +78,6 @@ const postVigourTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function() {
     const pair = jsPsych.evaluateTimelineVariable('pair');
-    // console.log(pair);
     return generateComparisonStimulus(pair.left, pair.right);
   },
   choices: ['ArrowLeft', 'ArrowRight'],
@@ -130,7 +129,6 @@ postVigourPairs.forEach(pair => {
     timeline_variables: [{ pair: pair }]
   });
 });
-// console.log(postVigourTrials);
 
 // Instructions for comparison task
 const postVigourInstructions = {

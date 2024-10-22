@@ -112,7 +112,6 @@ const PITtrial = {
     updatePiggyTails(jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio'));
   },
   on_finish: function (data) {
-    console.log(data);
     // Clean up listener
     jsPsych.pluginAPI.cancelAllKeyboardResponses();
     PITtrialCounter += 1;

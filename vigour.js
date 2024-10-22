@@ -109,7 +109,6 @@ function updatePersistentCoinContainer() {
   
   if (coinContainer && persistCoinContainer) {
     const rect = coinContainer.getBoundingClientRect();
-    // console.log(rect);
     persistCoinContainer.style.top = `${rect.top}px`;
     persistCoinContainer.style.left = `${rect.left}px`;
     persistCoinContainer.style.width = `${rect.width}px`;
