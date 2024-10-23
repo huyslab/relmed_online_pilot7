@@ -3,24 +3,28 @@ This reposistory hosts the experiment website for the fourth pilot for RELMED (I
 
 Data is written to REDCap via a call to an AWS lamda function.
 
-Additionally, future versions should implement condition assignment via the lambda funciton / hosting server, as Prolfic doesn't handle this well (it doesn't exclude participants from concurrently running studies).
-
 ## Files in this repository
 ```
 .
-├── consent.html - first page particiapnts land on.
-├── experiment.html - main experiment script, participants are redirected here from consent.
-├── instructions.js - PLT instruction-generation functions.
-├── plugin-coin-lottery.js - jsPsych plugin for lottery to determine bonus.
-├── plugin-PLT.js - jsPsych plugin for PLT trial.
-├── utils.js - various functions used in the experiment.
-├── style.css - stylesheet for consent.html
-├── PLT_task_structure_XX.json - files containing timeline variables for the stimuli and feedback sequences in each block and trial.
-├── jspsych/ - jsPsych library and plugins used in the experiment.
-│   └── ...
-├── imgs/ - imgs displayed
-│   └── ...
-└── labda/ - AWS lambda files. Only backup - changes won't get pushed to AWS/
-    ├── lamda_function.py - script of AWS lambda function.
-    └── ... the rest is python packages needed for function.
+├── consent.html - landing page, consent form.
+├── experiment.html - main experiment script, participants are redirected here from conset.html
+├── PILT.js - main script for PILT
+├── PILT_instructions.js - instructions for PILT
+├── plugin-PLT.js - plugin for PILT trial
+├── pilot4_pilt.json - trial sequence for PILT
+├── pilot4_pilt_test.json - trial sequence for PILT test phase
+├── vigour.js - main vigour task script
+├── vigour_instructions.js - vigour task 
+├── visgour_styles.css - stylesheet for vigour task
+├── post-vigour-test.js - script for post vigour task test
+├── vigour.json - trial sequence for vigour task
+├── reversal.js - main script for reversal task
+├── PIT.js - main script for PIT transfer phase
+├── plugin-reversal.js - plugin for reversal trial
+├── pilot4_reversal_sequence.js - trial sequence for reversal task
+├── utils.js - functions and trial objects shared across tasks
+├── jspsych - jsPsych library/
+│   └── .
+└── lambda - AWS lambda function scripts/
+    └── .
 ```
