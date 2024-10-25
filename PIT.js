@@ -7,7 +7,7 @@ const PITconfig = {
   trialDuration: 7000 // in milliseconds on average, U[9500, 10500]
 };
 
-const PITtrialList = [{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902},
+var PITtrialList = [{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902},
   {"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},
   {"magnitude":2,"ratio":1,"coin":0.01,"trialDuration":7228},
   {"magnitude":1,"ratio":1,"coin":-1,"trialDuration":7044},
@@ -79,6 +79,8 @@ const PITtrialList = [{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902
   {"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":6501},
   {"magnitude":2,"ratio":1,"coin":0.5,"trialDuration":7009},
   {"magnitude":2,"ratio":1,"coin":-1,"trialDuration":7490}];
+
+  // var PITtrialList = jsPsych.randomization.shuffle(PITtrialList);
 
 // Trial stimulus function
 function generatePITstimulus(coin, ratio) {
