@@ -114,6 +114,7 @@ jsPsychPLT = (function(jspsych) {
                 fbDur: 1000,
                 deadlineDur: 1500,
                 flipFb: 500,
+                pavCoinInterval: 300
             }
             this.data = {
                 choice:'',
@@ -382,27 +383,20 @@ jsPsychPLT = (function(jspsych) {
                     const ani1 = selImg.animate([
                         { transform: "rotateY(0)", visibility: "visible" },
                         { transform: "rotateY(90deg)", visibility: "hidden"},
-                    ],{duration:250,iterations:1,fill:'forwards'})
+                    ],{duration:100,iterations:1,fill:'forwards'})
 
                     ani1.finished.then(()=> {
 
-                        const ani2 = coin.animate([
-                            { transform: "rotateY(90deg)", visibility: "hidden"},
-                            { transform: "rotateY(0deg)", visibility: "visible" },
-                        ],{duration:250,iterations:1,fill:'forwards'})
-
-                        const ani3 = coinBackground.animate([
+                        const ani2 = coinBackground.animate([
                             { transform: "rotateY(90deg)", visibility: "hidden" },
                             { transform: "rotateY(0deg)", visibility: "visible" },
-                        ], { duration: 250, iterations: 1, fill: 'forwards' });
+                        ], { duration: 100, iterations: 1, fill: 'forwards' });
 
-                        const ani4 = coinCircle.animate([
-                            { transform: "rotateY(90deg)", visibility: "hidden" },
-                            { transform: "rotateY(0deg)", visibility: "visible" },
-                        ], { duration: 250, iterations: 1, fill: 'forwards' })
-
-                        Promise.all([ani2.finished, ani3.finished, ani4.finished]).then(() => {
-                            this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.timing.fbDur);
+                        ani2.finished.then(() => {
+                            this.jsPsych.pluginAPI.setTimeout(()=> {
+                                coin.style.visibility = 'visible'
+                                this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.timing.fbDur);
+                            },this.timing.pavCoinInterval)
                         });
                     })
                 },this.timing.flipFb)
