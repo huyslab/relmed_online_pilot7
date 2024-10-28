@@ -25,8 +25,8 @@ function generateComparisonStimulus(left, right) {
 function generatePiggyHTML(magnitude, ratio, side) {
   const ratio_index = comparisonConfig.ratios.indexOf(ratio);
   const ratio_factor = ratio_index / (comparisonConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400/50) ** ratio_factor}%);`;
-  
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+
   return `
       <img id="piggy-bank-${side}" src="imgs/piggy-bank.png" alt="Piggy Bank" style="${piggy_style}">
   `;
@@ -48,27 +48,27 @@ function updateDualPiggyTails(magnitude, ratio, side) {
 
   // Wait for the piggy bank image to load
   piggyBank.onload = () => {
-      const piggyBankWidth = piggyBank.offsetWidth;
-      const tailWidth = piggyBankWidth * 0.1; // Adjust this factor as needed
-      const spacing = tailWidth * 0; // Adjust spacing between tails
-      for (let i = 0; i < magnitude_index + 1; i++) {
-          const tail = document.createElement('img');
-          tail.src = 'imgs/piggy-tail2.png';
-          tail.alt = 'Piggy Tail';
-          tail.className = 'piggy-tail';
-          
-          // Position each tail
-          tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
-          tail.style.width = `${tailWidth}px`;
-          tail.style.filter = `saturate(${50 * (400/50) ** ratio_factor}%)`;
+    const piggyBankWidth = piggyBank.offsetWidth;
+    const tailWidth = piggyBankWidth * 0.1; // Adjust this factor as needed
+    const spacing = tailWidth * 0; // Adjust spacing between tails
+    for (let i = 0; i < magnitude_index + 1; i++) {
+      const tail = document.createElement('img');
+      tail.src = 'imgs/piggy-tail2.png';
+      tail.alt = 'Piggy Tail';
+      tail.className = 'piggy-tail';
 
-          piggyContainer.appendChild(tail);
-      }
+      // Position each tail
+      tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
+      tail.style.width = `${tailWidth}px`;
+      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%)`;
+
+      piggyContainer.appendChild(tail);
+    }
   };
 
   // Trigger onload if the image is already cached
   if (piggyBank.complete) {
-      piggyBank.onload();
+    piggyBank.onload();
   }
 }
 
@@ -76,12 +76,12 @@ function updateDualPiggyTails(magnitude, ratio, side) {
 // Comparison trial
 const postVigourTrial = {
   type: jsPsychHtmlKeyboardResponse,
-  stimulus: function() {
+  stimulus: function () {
     const pair = jsPsych.evaluateTimelineVariable('pair');
     return generateComparisonStimulus(pair.left, pair.right);
   },
   choices: ['ArrowLeft', 'ArrowRight'],
-  data: function() {
+  data: function () {
     const pair = jsPsych.evaluateTimelineVariable('pair');
     return {
       trialphase: 'vigour_test',
@@ -96,7 +96,7 @@ const postVigourTrial = {
     updateDualPiggyTails(pair.left.magnitude, pair.left.ratio, "left");
     updateDualPiggyTails(pair.right.magnitude, pair.right.ratio, "right");
   },
-  on_finish: function(data) {
+  on_finish: function (data) {
     const pair = jsPsych.evaluateTimelineVariable('pair');
     if (data.response === 'ArrowLeft') {
       data.chosen_magnitude = pair.left.magnitude;
@@ -105,21 +105,25 @@ const postVigourTrial = {
       data.chosen_magnitude = pair.right.magnitude;
       data.chosen_ratio = pair.right.ratio;
     }
+    const n_trials = jsPsych.data.get().filter({ trialphase: "vigour_test" }).count()
+    if (n_trials % 9 == 0) {
+      saveDataREDCap(retry = 3);
+    }
   },
   post_trial_gap: 400
 };
 
 // Generate all pair combinations
-const postVigourPairs = 
-[{"left":{"magnitude":5,"ratio":1},"right":{"magnitude":2,"ratio":8}},
-  {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":2,"ratio":16}},
-  {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":2,"ratio":1}},
-  {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":1,"ratio":1}},
-  {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":5,"ratio":8}},
-  {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":5,"ratio":16}},
-  {"left":{"magnitude":1,"ratio":1},"right":{"magnitude":1,"ratio":8}},
-  {"left":{"magnitude":1,"ratio":8},"right":{"magnitude":1,"ratio":16}},
-  {"left":{"magnitude":1,"ratio":16},"right":{"magnitude":5,"ratio":1}}];
+const postVigourPairs =
+  [{ "left": { "magnitude": 5, "ratio": 1 }, "right": { "magnitude": 2, "ratio": 8 } },
+  { "left": { "magnitude": 5, "ratio": 8 }, "right": { "magnitude": 2, "ratio": 16 } },
+  { "left": { "magnitude": 5, "ratio": 16 }, "right": { "magnitude": 2, "ratio": 1 } },
+  { "left": { "magnitude": 2, "ratio": 1 }, "right": { "magnitude": 1, "ratio": 1 } },
+  { "left": { "magnitude": 2, "ratio": 8 }, "right": { "magnitude": 5, "ratio": 8 } },
+  { "left": { "magnitude": 2, "ratio": 16 }, "right": { "magnitude": 5, "ratio": 16 } },
+  { "left": { "magnitude": 1, "ratio": 1 }, "right": { "magnitude": 1, "ratio": 8 } },
+  { "left": { "magnitude": 1, "ratio": 8 }, "right": { "magnitude": 1, "ratio": 16 } },
+  { "left": { "magnitude": 1, "ratio": 16 }, "right": { "magnitude": 5, "ratio": 1 } }];
 
 // Create timeline for post-vigour task
 const postVigourTrials = [];
