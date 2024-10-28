@@ -381,7 +381,7 @@ function inter_block_stimulus(){
         txt +=  n_pairs > 1 ? "these cards." : "this card."
         
         txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
-        <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken and removed from your safe"} on this round:<p>`
+        <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken in your safe"} on this round:<p>`
         
         // Add rest to outcomes
         chosen_outcomes[valence * 1] += last_trial.select('rest_1pound').values[0];
@@ -391,7 +391,7 @@ function inter_block_stimulus(){
     } else {
         txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
         <p>These coins ${isValidNumber(block) ? "were" : "would have been"} 
-        ${valence == 1 ? "added to your safe" : "broken and removed from your safe"} on this round:</p>`
+        ${valence == 1 ? "added to your safe" : "broken in your safe"} on this round:</p>`
     }
 
     if (valence == 1){
