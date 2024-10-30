@@ -17,18 +17,21 @@ function generatePITstimulus(coin, ratio) {
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
   const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  let piggyBgImg = '';
   if (coin === 1) {
-    piggyBgImg = 'imgs/marble1.png'
+    piggyBgImg = 'imgs/marble1.png';
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/marble2.png'
+    piggyBgImg = 'imgs/marble2.png';
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/marble3.png'
+    piggyBgImg = 'imgs/marble3.png';
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/marble4.png'
+    piggyBgImg = 'imgs/marble4.png';
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/marble5.png'
+    piggyBgImg = 'imgs/marble5.png';
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/marble6.png'
+    piggyBgImg = 'imgs/marble6.png';
+  } else if (coin === 0) {
+    piggyBgImg = '';
   }
   return `
     <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat; background-size: 30vw;">
