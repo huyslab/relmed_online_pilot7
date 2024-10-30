@@ -1,5 +1,5 @@
 # RELMED probabilistic learning task pilot #5
-This reposistory hosts the experiment website for the fourth pilot for RELMED (Internal name Pilot 4), which includes PILT, Vigour, PIT, and Reversal. The task is coded with jsPsych.
+This reposistory hosts the experiment website for the fourth pilot for RELMED (Internal name Pilot 5), which includes PILT, Vigour, PIT. The task is coded with jsPsych.
 
 Data is written to REDCap via a call to an AWS lamda function.
 
