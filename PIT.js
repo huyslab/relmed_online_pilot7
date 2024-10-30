@@ -17,6 +17,7 @@ function generatePITstimulus(coin, ratio) {
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
   const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
   let piggyBgImg = '';
   if (coin === 1) {
     piggyBgImg = 'imgs/marble1.png';
@@ -38,8 +39,8 @@ function generatePITstimulus(coin, ratio) {
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="bg-container">
-          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
-          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
+          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; ${cloud_style}">
+          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute;">
         </div>
         <div id="piggy-container">
           <!-- Piggy Bank Image -->
