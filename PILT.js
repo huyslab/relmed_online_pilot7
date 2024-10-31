@@ -473,8 +473,6 @@ async function load_squences(session) {
             test_sess_structure[1] = pav_test_structure;
         }
 
-        console.log(test_sess_structure);
-
         run_full_experiment(sess_structure, test_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
