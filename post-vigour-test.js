@@ -95,6 +95,7 @@ const postVigourTrial = {
     const pair = jsPsych.evaluateTimelineVariable('pair');
     updateDualPiggyTails(pair.left.magnitude, pair.left.ratio, "left");
     updateDualPiggyTails(pair.right.magnitude, pair.right.ratio, "right");
+    console.log([pair.left.magnitude, pair.left.ratio, pair.right.magnitude, pair.right.ratio]);
   },
   on_finish: function (data) {
     const pair = jsPsych.evaluateTimelineVariable('pair');

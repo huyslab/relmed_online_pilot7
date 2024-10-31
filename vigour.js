@@ -254,6 +254,7 @@ const piggyBankTrial = {
   },
   on_load: function () {
     updatePiggyTails(jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio'));
+    console.log([jsPsych.evaluateTimelineVariable('magnitude'), jsPsych.evaluateTimelineVariable('ratio')]);
     updatePersistentCoinContainer(); // Update the persistent coin container
     observeResizing('coin-container', updatePersistentCoinContainer);
   },
