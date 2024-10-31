@@ -115,15 +115,15 @@ const postVigourTrial = {
 
 // Generate all pair combinations
 const postVigourPairs =
-  [{ "left": { "magnitude": 5, "ratio": 1 }, "right": { "magnitude": 2, "ratio": 8 } },
-  { "left": { "magnitude": 5, "ratio": 8 }, "right": { "magnitude": 2, "ratio": 16 } },
-  { "left": { "magnitude": 5, "ratio": 16 }, "right": { "magnitude": 2, "ratio": 1 } },
-  { "left": { "magnitude": 2, "ratio": 1 }, "right": { "magnitude": 1, "ratio": 1 } },
-  { "left": { "magnitude": 2, "ratio": 8 }, "right": { "magnitude": 5, "ratio": 8 } },
-  { "left": { "magnitude": 2, "ratio": 16 }, "right": { "magnitude": 5, "ratio": 16 } },
-  { "left": { "magnitude": 1, "ratio": 1 }, "right": { "magnitude": 1, "ratio": 8 } },
-  { "left": { "magnitude": 1, "ratio": 8 }, "right": { "magnitude": 1, "ratio": 16 } },
-  { "left": { "magnitude": 1, "ratio": 16 }, "right": { "magnitude": 5, "ratio": 1 } }];
+  [{"left":{"magnitude":5,"ratio":1},"right":{"magnitude":1,"ratio":16}},
+    {"left":{"magnitude":2,"ratio":1},"right":{"magnitude":1,"ratio":8}},
+    {"left":{"magnitude":2,"ratio":16},"right":{"magnitude":5,"ratio":8}},
+    {"left":{"magnitude":1,"ratio":16},"right":{"magnitude":5,"ratio":1}},
+    {"left":{"magnitude":1,"ratio":1},"right":{"magnitude":5,"ratio":8}},
+    {"left":{"magnitude":1,"ratio":8},"right":{"magnitude":2,"ratio":1}},
+    {"left":{"magnitude":5,"ratio":16},"right":{"magnitude":2,"ratio":1}},
+    {"left":{"magnitude":2,"ratio":8},"right":{"magnitude":1,"ratio":16}},
+    {"left":{"magnitude":5,"ratio":8},"right":{"magnitude":2,"ratio":16}}];
 
 // Create timeline for post-vigour task
 const postVigourTrials = [];
