@@ -108,55 +108,55 @@ const acceptability = [
             simulate: false
         }
     },
-    {
-        type: jsPsychSurveyLikert,
-        preamble: `<img src="imgs/squirrels_bg.png" height="80"></img><p>Please answer these questions regarding the squirrel game:<p>`,
-        questions: [
-            {
-                prompt: "How difficult was the squirrel game?",
-                labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
-                required: true,
-                name: "reversal_difficulty"
-            },
-            {
-                prompt: "How enjoyable was the squirrel game?",
-                labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
-                required: true,
-                name: "reversal_enjoy"
-            },
-            {
-                prompt: "Was it clear to you what you needed to do in the squirrel game?",
-                labels: ["1<br>Not clear at all", "2", "3", "4", "5<br>Extremely clear"],
-                required: true,
-                name: "reversal_clear"
-            }
-        ],
-        data: {
-            trialphase: "acceptability_reversal"
-        },
-        simulation_options: {
-            simulate: false
-        }
-    },
-    {
-        type: jsPsychSurveyText,
-        questions: [
-            {
-                prompt: "Was there anything you did that helped you complete the squirrel task more easily?",
-                columns: 35,
-                rows: 2,
-                value: '',
-                name: "reversal_strategy",
-                required: true
-            },
-        ],
-        data: {
-            trialphase: 'debrief_reversal'
-        },
-        simulation_options: {
-            simulate: false
-        }
-    },
+    // {
+    //     type: jsPsychSurveyLikert,
+    //     preamble: `<img src="imgs/squirrels_bg.png" height="80"></img><p>Please answer these questions regarding the squirrel game:<p>`,
+    //     questions: [
+    //         {
+    //             prompt: "How difficult was the squirrel game?",
+    //             labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very difficult"],
+    //             required: true,
+    //             name: "reversal_difficulty"
+    //         },
+    //         {
+    //             prompt: "How enjoyable was the squirrel game?",
+    //             labels: ["1<br>Not at all", "2", "3", "4", "5<br>Very enjoyable"],
+    //             required: true,
+    //             name: "reversal_enjoy"
+    //         },
+    //         {
+    //             prompt: "Was it clear to you what you needed to do in the squirrel game?",
+    //             labels: ["1<br>Not clear at all", "2", "3", "4", "5<br>Extremely clear"],
+    //             required: true,
+    //             name: "reversal_clear"
+    //         }
+    //     ],
+    //     data: {
+    //         trialphase: "acceptability_reversal"
+    //     },
+    //     simulation_options: {
+    //         simulate: false
+    //     }
+    // },
+    // {
+    //     type: jsPsychSurveyText,
+    //     questions: [
+    //         {
+    //             prompt: "Was there anything you did that helped you complete the squirrel task more easily?",
+    //             columns: 35,
+    //             rows: 2,
+    //             value: '',
+    //             name: "reversal_strategy",
+    //             required: true
+    //         },
+    //     ],
+    //     data: {
+    //         trialphase: 'debrief_reversal'
+    //     },
+    //     simulation_options: {
+    //         simulate: false
+    //     }
+    // },
     {
         type: jsPsychSurveyText,
         questions: [

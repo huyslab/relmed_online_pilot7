@@ -462,7 +462,18 @@ async function load_squences(session) {
         }
 
         const test_structure = await test_response.json();
-        const test_sess_structure = test_structure[session - 1];    
+        const test_sess_structure = test_structure[session - 1];
+
+        // Fetch pavlovian test sequences
+        const pavlovian_response = await fetch('pavlovian_test.json');
+        const pav_test_structure = await pavlovian_response.json();
+        
+        // Replace the second array in test_sess_structure with pav_test_structure
+        if (test_sess_structure.length > 1) {
+            test_sess_structure[1] = pav_test_structure;
+        }
+
+        console.log(test_sess_structure);
 
         run_full_experiment(sess_structure, test_sess_structure);
     } catch (error) {
@@ -474,17 +485,21 @@ function return_PILT_full_sequence(structure, test_structure){
     // Compute best-rest
     computeBestRest(structure);
 
-    let procedure = [];
+    let PILT_procedure = [];
 
     // Add instructions
-    procedure = procedure.concat(prepare_PILT_instructions());
+    PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
     // Add PLT
-    procedure = procedure.concat(build_PLT_task(structure));
+    PILT_procedure = PILT_procedure.concat(build_PLT_task(structure));
 
     // Add test
-    procedure.push(test_instructions);
-    procedure = procedure.concat(build_post_PILT_test(test_structure));
+    let PILT_test_procedure = [];
+    PILT_test_procedure.push(test_instructions);
+    PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
-    return procedure
+    return {
+        PILT_procedure: PILT_procedure,
+        PILT_test_procedure: PILT_test_procedure
+    }
 }

@@ -7,78 +7,7 @@ const PITconfig = {
   trialDuration: 7000 // in milliseconds on average, U[9500, 10500]
 };
 
-var PITtrialList = [{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902},
-  {"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},
-  {"magnitude":2,"ratio":1,"coin":0.01,"trialDuration":7228},
-  {"magnitude":1,"ratio":1,"coin":-1,"trialDuration":7044},
-  {"magnitude":1,"ratio":8,"coin":0.5,"trialDuration":6506},
-  {"magnitude":2,"ratio":16,"coin":-1,"trialDuration":6827},
-  {"magnitude":1,"ratio":1,"coin":0.5,"trialDuration":6890},
-  {"magnitude":2,"ratio":8,"coin":1,"trialDuration":7236},
-  {"magnitude":2,"ratio":16,"coin":-0.5,"trialDuration":7465},
-  {"magnitude":2,"ratio":16,"coin":-0.01,"trialDuration":7207},
-  {"magnitude":2,"ratio":1,"coin":-0.5,"trialDuration":6535},
-  {"magnitude":5,"ratio":8,"coin":0.5,"trialDuration":7376},
-  {"magnitude":2,"ratio":1,"coin":-0.01,"trialDuration":6652},
-  {"magnitude":1,"ratio":1,"coin":0.01,"trialDuration":7199},
-  {"magnitude":1,"ratio":8,"coin":1,"trialDuration":7293},
-  {"magnitude":1,"ratio":8,"coin":-0.5,"trialDuration":6870},
-  {"magnitude":2,"ratio":8,"coin":-1,"trialDuration":6962},
-  {"magnitude":2,"ratio":1,"coin":-1,"trialDuration":7490},
-  {"magnitude":1,"ratio":8,"coin":0.01,"trialDuration":6688},
-  {"magnitude":1,"ratio":1,"coin":1,"trialDuration":7145},
-  {"magnitude":5,"ratio":8,"coin":0.01,"trialDuration":7261},
-  {"magnitude":2,"ratio":8,"coin":0.01,"trialDuration":6891},
-  {"magnitude":5,"ratio":8,"coin":-1,"trialDuration":7386},
-  {"magnitude":2,"ratio":8,"coin":-0.5,"trialDuration":6888},
-  {"magnitude":1,"ratio":1,"coin":-0.01,"trialDuration":6985},
-  {"magnitude":5,"ratio":8,"coin":-0.5,"trialDuration":6956},
-  {"magnitude":1,"ratio":8,"coin":-0.01,"trialDuration":6862},
-  {"magnitude":1,"ratio":8,"coin":-1,"trialDuration":7182},
-  {"magnitude":2,"ratio":16,"coin":0.5,"trialDuration":7452},
-  {"magnitude":2,"ratio":1,"coin":0.5,"trialDuration":7009},
-  {"magnitude":1,"ratio":1,"coin":-0.5,"trialDuration":6726},
-  {"magnitude":2,"ratio":16,"coin":1,"trialDuration":6679},
-  {"magnitude":5,"ratio":8,"coin":-0.01,"trialDuration":6666},
-  {"magnitude":2,"ratio":16,"coin":0.01,"trialDuration":6954},
-  {"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":6501},
-  {"magnitude":2,"ratio":1,"coin":1,"trialDuration":6825},
-  {"magnitude":1,"ratio":1,"coin":1,"trialDuration":7145},
-  {"magnitude":2,"ratio":16,"coin":-0.01,"trialDuration":7207},
-  {"magnitude":5,"ratio":8,"coin":-0.01,"trialDuration":6666},
-  {"magnitude":2,"ratio":16,"coin":0.5,"trialDuration":7452},
-  {"magnitude":2,"ratio":1,"coin":-0.01,"trialDuration":6652},
-  {"magnitude":2,"ratio":8,"coin":0.01,"trialDuration":6891},
-  {"magnitude":2,"ratio":16,"coin":0.01,"trialDuration":6954},
-  {"magnitude":5,"ratio":8,"coin":-0.5,"trialDuration":6956},
-  {"magnitude":1,"ratio":1,"coin":-1,"trialDuration":7044},
-  {"magnitude":1,"ratio":8,"coin":-0.01,"trialDuration":6862},
-  {"magnitude":1,"ratio":8,"coin":0.5,"trialDuration":6506},
-  {"magnitude":2,"ratio":8,"coin":-1,"trialDuration":6962},
-  {"magnitude":2,"ratio":16,"coin":-1,"trialDuration":6827},
-  {"magnitude":1,"ratio":1,"coin":-0.01,"trialDuration":6985},
-  {"magnitude":1,"ratio":8,"coin":-0.5,"trialDuration":6870},
-  {"magnitude":2,"ratio":1,"coin":0.01,"trialDuration":7228},
-  {"magnitude":2,"ratio":1,"coin":1,"trialDuration":6825},
-  {"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6902},
-  {"magnitude":1,"ratio":1,"coin":0.01,"trialDuration":7199},
-  {"magnitude":5,"ratio":8,"coin":-1,"trialDuration":7386},
-  {"magnitude":1,"ratio":1,"coin":-0.5,"trialDuration":6726},
-  {"magnitude":2,"ratio":16,"coin":1,"trialDuration":6679},
-  {"magnitude":5,"ratio":8,"coin":0.5,"trialDuration":7376},
-  {"magnitude":5,"ratio":8,"coin":0.01,"trialDuration":7261},
-  {"magnitude":1,"ratio":1,"coin":0.5,"trialDuration":6890},
-  {"magnitude":1,"ratio":8,"coin":0.01,"trialDuration":6688},
-  {"magnitude":2,"ratio":16,"coin":-0.5,"trialDuration":7465},
-  {"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},
-  {"magnitude":2,"ratio":8,"coin":1,"trialDuration":7236},
-  {"magnitude":2,"ratio":8,"coin":-0.5,"trialDuration":6888},
-  {"magnitude":1,"ratio":8,"coin":-1,"trialDuration":7182},
-  {"magnitude":1,"ratio":8,"coin":1,"trialDuration":7293},
-  {"magnitude":2,"ratio":1,"coin":-0.5,"trialDuration":6535},
-  {"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":6501},
-  {"magnitude":2,"ratio":1,"coin":0.5,"trialDuration":7009},
-  {"magnitude":2,"ratio":1,"coin":-1,"trialDuration":7490}];
+var PITtrialList = [{"magnitude":5,"ratio":8,"coin":0,"trialDuration":4110},{"magnitude":5,"ratio":8,"coin":-0.01,"trialDuration":6666},{"magnitude":5,"ratio":8,"coin":0.01,"trialDuration":7261},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4188},{"magnitude":2,"ratio":8,"coin":-1,"trialDuration":7490},{"magnitude":2,"ratio":8,"coin":1,"trialDuration":6825},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":4130},{"magnitude":1,"ratio":1,"coin":0.01,"trialDuration":6891},{"magnitude":1,"ratio":1,"coin":-0.01,"trialDuration":6902},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4193},{"magnitude":2,"ratio":8,"coin":-0.5,"trialDuration":6535},{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6652},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":3978},{"magnitude":1,"ratio":1,"coin":-0.5,"trialDuration":6888},{"magnitude":1,"ratio":1,"coin":-1,"trialDuration":6962},{"magnitude":1,"ratio":8,"coin":0,"trialDuration":3833},{"magnitude":1,"ratio":8,"coin":0.5,"trialDuration":7452},{"magnitude":1,"ratio":8,"coin":0.01,"trialDuration":6954},{"magnitude":5,"ratio":8,"coin":0,"trialDuration":3913},{"magnitude":5,"ratio":8,"coin":-0.5,"trialDuration":6956},{"magnitude":5,"ratio":8,"coin":0.5,"trialDuration":7376},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4005},{"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":7009},{"magnitude":2,"ratio":8,"coin":0.01,"trialDuration":7228},{"magnitude":5,"ratio":8,"coin":0,"trialDuration":4114},{"magnitude":5,"ratio":8,"coin":-1,"trialDuration":7386},{"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},{"magnitude":1,"ratio":8,"coin":0,"trialDuration":4245},{"magnitude":1,"ratio":8,"coin":1,"trialDuration":6679},{"magnitude":1,"ratio":8,"coin":-0.01,"trialDuration":7207},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":3767},{"magnitude":1,"ratio":1,"coin":1,"trialDuration":7236},{"magnitude":1,"ratio":1,"coin":0.5,"trialDuration":6501},{"magnitude":1,"ratio":8,"coin":0,"trialDuration":3826},{"magnitude":1,"ratio":8,"coin":-0.5,"trialDuration":7465},{"magnitude":1,"ratio":8,"coin":-1,"trialDuration":6827}];
 
   // var PITtrialList = jsPsych.randomization.shuffleNoRepeats(PITtrialList, function(trial1, trial2) {trial1.coin == trial2.coin && trial1.ratio == trial2.ratio && trial1.magnitude == trial2.magnitude});
 
@@ -88,26 +17,30 @@ function generatePITstimulus(coin, ratio) {
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
   const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
+  let piggyBgImg = '';
   if (coin === 1) {
-    piggyBgImg = 'imgs/marble1.png'
+    piggyBgImg = 'imgs/marble1.png';
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/marble2.png'
+    piggyBgImg = 'imgs/marble2.png';
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/marble3.png'
+    piggyBgImg = 'imgs/marble3.png';
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/marble4.png'
+    piggyBgImg = 'imgs/marble4.png';
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/marble5.png'
+    piggyBgImg = 'imgs/marble5.png';
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/marble6.png'
+    piggyBgImg = 'imgs/marble6.png';
+  } else if (coin === 0) {
+    piggyBgImg = '';
   }
   return `
     <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat; background-size: 30vw;">
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="bg-container">
-          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
-          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute">
+          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; ${cloud_style}">
+          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute;">
         </div>
         <div id="piggy-container">
           <!-- Piggy Bank Image -->
