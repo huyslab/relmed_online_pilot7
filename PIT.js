@@ -197,11 +197,11 @@ const PITruleInstruction = {
       </ul>
       <p><span class="highlight">But this time, you'll play in a cloudy place.<br>Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
       <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this round.</p>
-      <p>When you're ready, press <span class="spacebar-icon">Spacebar</span> to start!</p>
+      <p>When you're ready, press <span class="spacebar-icon">B</span> to start!</p>
     </div>
   `,
   data: { trialphase: 'pit_instructions' },
-  choices: [' '],
+  choices: ['b'],
   post_trial_gap: 300,
   simulation_options: {
     simulate: false
@@ -252,10 +252,10 @@ const PITruleInstruction_2 = {
 
 const startPITconfirmation = {
   type: jsPsychHtmlKeyboardResponse,
-  choices: [' ', 'r'],
+  choices: ['b', 'r'],
   stimulus: `
   <div id="instruction-text">
-      <p>When you're ready, press <span class="spacebar-icon">Spacebar</span> to start!</p>
+      <p>When you're ready, press <span class="spacebar-icon">B</span> to start!</p>
       <p>If you want to read the rules again, press <span class="spacebar-icon">R</span>.</p>
   </div>
     `,
