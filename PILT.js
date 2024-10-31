@@ -464,6 +464,17 @@ async function load_squences(session) {
         const test_structure = await test_response.json();
         const test_sess_structure = test_structure[session - 1];    
 
+        // Fetch pavlovian test sequences
+        const pavlovian_response = await fetch('pavlovian_test.json');
+        const pav_test_structure = await pavlovian_response.json();
+        
+        // Replace the second array in test_sess_structure with pav_test_structure
+        if (test_sess_structure.length > 1) {
+            test_sess_structure[1] = pav_test_structure;
+        }
+
+        console.log(test_sess_structure);
+
         run_full_experiment(sess_structure, test_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
