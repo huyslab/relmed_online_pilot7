@@ -159,7 +159,7 @@
 
         // 1.0 Add PILT timeline
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure);
-        procedure = procedure.concat([PILT_tasks.PILT_procedure, PILT_tasks.PILT_test_procedure]);
+        procedure = procedure.concat(PILT_tasks.PILT_procedure);
 
         // 1.1 Add coin lottery
         procedure.push(lottery_instructions);
@@ -190,6 +190,9 @@
         // 5.0 Add reversal timeline
         // procedure = procedure.concat(reversal_instructions);
         // procedure = procedure.concat(reversal_blocks);
+
+        // Extra: PILT & Pavlovian test
+        procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
 
         // 6.0 Debrief questions
         procedure = procedure.concat(acceptability);
