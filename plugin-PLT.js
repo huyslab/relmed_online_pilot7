@@ -295,6 +295,8 @@ jsPsychPLT = (function(jspsych) {
                 .optionSide img.coinBackground {
                     visibility: hidden;
                     width: 30vw;
+                    overflow: hidden;
+                    object-fit: none;
                     z-index: 1;
                 }
                 
