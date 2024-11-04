@@ -20,17 +20,17 @@ function generatePITstimulus(coin, ratio) {
   const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
   let piggyBgImg = '';
   if (coin === 1) {
-    piggyBgImg = 'imgs/marble1.png';
+    piggyBgImg = 'imgs/PIT1.png';
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/marble2.png';
+    piggyBgImg = 'imgs/PIT2.png';
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/marble3.png';
+    piggyBgImg = 'imgs/PIT3.png';
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/marble4.png';
+    piggyBgImg = 'imgs/PIT4.png';
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/marble5.png';
+    piggyBgImg = 'imgs/PIT5.png';
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/marble6.png';
+    piggyBgImg = 'imgs/PIT6.png';
   } else if (coin === 0) {
     piggyBgImg = '';
   }
