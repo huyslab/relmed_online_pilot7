@@ -3,6 +3,7 @@
  *
  * Modified and used by zeguo.qiu@ucl.ac.uk
  *
+ * Version 1.0 - modified by Yaniv
  */
 
 jsPsychPLT = (function(jspsych) {
@@ -10,7 +11,7 @@ jsPsychPLT = (function(jspsych) {
     const info = {
         name: 'PLT',
         description: '',
-        version: "0.2",
+        version: "1.0",
         parameters: {
             imgLeft: {
                 type: jspsych.ParameterType.STRING,
