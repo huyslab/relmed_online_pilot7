@@ -1,16 +1,13 @@
 /* CSS styles for PILT plugin */
-div {
-    border: 0px solid #73AD21;
-}
 
-.optionBox {
+.PILTOptionBox {
     margin: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.optionSide {
+.PILTOptionSide {
     display: grid;
     flex-direction: column;
     height: 70vh;
@@ -20,7 +17,7 @@ div {
     justify-content: center;
 }
 
-.optionSide img {
+.PILTOptionSide img {
     height: auto;
     width: 20vw;
     max-width: 500px;
@@ -30,11 +27,11 @@ div {
     grid-row: 1;
 }
 
-#rightImg, #leftImg {
+#PILTRightImg, #PILTLeftImg {
     border: 1px solid darkgrey;
 }
 
-.helperTxt {
+.PILTHelperTxt {
     display: flex;
     justify-content: space-around;
     margin: auto;
@@ -47,14 +44,14 @@ div {
     line-height: 3rem;
 }
 
-.coin {
+.PILTCoin {
     visibility: hidden;
     max-width: 12vw;
     margin: auto;
     z-index: 3;
 }
 
-.optionSide .coinCircle {
+.PILTOptionSide .PILTCoinCircle {
     visibility: hidden;
     height: 21vw;
     width: 21vw;
@@ -67,7 +64,7 @@ div {
     z-index: 2;
 }
 
-.optionSide img.coinBackground {
+.PILTOptionSide img.PILTCoinBackground {
     visibility: hidden;
     width: 30vw;
     z-index: 1;

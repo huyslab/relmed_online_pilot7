@@ -229,15 +229,15 @@ jsPsychPILT = (function(jspsych) {
             let html = ''
             html += `
             <body>
-                    <div id="optionBox" class="optionBox">
-                        <div id='left' class="optionSide">
-                            <img id='leftImg' src=${this.contingency.img[0]}></img> 
+                    <div id="PILTOptionBox" class="PILTOptionBox">
+                        <div id='left' class="PILTOptionSide">
+                            <img id='PILTLeftImg' src=${this.contingency.img[0]}></img> 
                         </div>
-                        <div class="helperTxt">
+                        <div class="PILTHelperTxt">
                             <h2 id="centerTxt">?</h2>
                         </div>
-                        <div id='right' class="optionSide">
-                            <img id='rightImg' src=${this.contingency.img[1]}></img>
+                        <div id='right' class="PILTOptionSide">
+                            <img id='PILTRightImg' src=${this.contingency.img[1]}></img>
                         </div>
                     </div>
             </body>
@@ -272,16 +272,16 @@ jsPsychPILT = (function(jspsych) {
                 document.getElementById('centerTxt').innerText = ''
 
                 const coin = document.createElement('img')
-                coin.id = 'coin'
-                coin.className = 'coin'
+                coin.id = 'PILTCoin'
+                coin.className = 'PILTCoin'
 
                 const coinCircle = document.createElement('div')
-                coinCircle.id = 'coinCircle'
-                coinCircle.className = 'coinCircle'
+                coinCircle.id = 'PILTCoinCircle'
+                coinCircle.className = 'PILTCoinCircle'
 
                 const coinBackground = document.createElement('img')
-                coinBackground.id = 'coinBackground'
-                coinBackground.className = 'coinBackground'
+                coinBackground.id = '"PILTCoinBackground"'
+                coinBackground.className = '"PILTCoinBackground"'
 
                 if (this.data.chosen_feedback === 1) {
                     coin.src = 'imgs/1pound.png'
@@ -346,7 +346,7 @@ jsPsychPILT = (function(jspsych) {
 
         endTrial = () => {
             // clear the display
-            let optionBox = document.getElementById("optionBox");
+            let optionBox = document.getElementById("PILTOptionBox");
             optionBox.style.display = 'none';
 
             const optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
