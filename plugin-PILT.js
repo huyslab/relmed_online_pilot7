@@ -292,8 +292,15 @@ jsPsychPILT = (function(jspsych) {
                     this.data.chosen_feedback = this.contingency.outcome[1]
                 }
 
+                // Helper function
+                function capitalizeWord(word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }
+
                 // Draw selection box:
-                const selImg = document.getElementById(this.data.response + 'Img')
+                const selImg = document.getElementById("PILT" + capitalizeWord(this.data.response) + 'Img')
+                console.log(this.data.response)
+                console.log(selImg)
                 selImg.style.border = '20px solid darkgrey'
                 document.getElementById('centerTxt').innerText = ''
 
