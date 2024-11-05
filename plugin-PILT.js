@@ -115,6 +115,8 @@ jsPsychPILT = (function(jspsych) {
     class PILTPlugin {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
+
+            // Data placeholder
             this.data = {
                 response:'',
                 key: '',
@@ -126,23 +128,24 @@ jsPsychPILT = (function(jspsych) {
                 chosen_feedback: '',
                 rt: ''
             }
+
+            // Key dictionary
             this.keys = {
-                'arrowleft':'left',
+                'arrowleft': 'left',
                 'arrowright': 'right',
             }
         }
 
+        // Trial function
         trial(display_element, trial) {
-            this.jsPsych.pluginAPI.clearAllTimeouts()
-            this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
-            window.onbeforeunload = function () {
-                window.scrollTo(0, 0);
-            }
 
+            // Convenience variable
             this.contingency = {
                 img: [trial.stimulus_left, trial.stimulus_right],
-                outcome: [trial.feedback_left,trial.feedback_right],
+                outcome: [trial.feedback_left, trial.feedback_right],
             }
+
+            // Set data values
             this.data.stimulus_left = this.contingency.img[0]
             this.data.stimulus_right = this.contingency.img[1]
             this.data.feedback_left = this.contingency.outcome[0]
