@@ -39,8 +39,8 @@ function generatePITstimulus(coin, ratio) {
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="bg-container">
-          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; ${cloud_style}">
-          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute;">
+          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; height: 120%; width: auto; ${cloud_style}">
+          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; height: 120%; width: auto;">
         </div>
         <div id="piggy-container">
           <!-- Piggy Bank Image -->
