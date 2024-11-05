@@ -152,7 +152,7 @@ jsPsychPILT = (function(jspsych) {
             this.data.feedback_right = this.contingency.outcome[1]
             this.data.optimal_right = trial.optimal_right
 
-            display_element.innerHTML = this.initGamPage()
+            display_element.innerHTML = this.create_stimuli()
 
             this.jsPsych.pluginAPI.getKeyboardResponse({
                 callback_function: this.keyResponse,
@@ -214,7 +214,7 @@ jsPsychPILT = (function(jspsych) {
             }
         }
 
-        initGamPage() {
+        create_stimuli() {
             let html = ''
             html += `
             <style>
