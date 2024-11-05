@@ -122,7 +122,6 @@ jsPsychPILT = (function(jspsych) {
                 stimulus_right: '',
                 feedback_left: '',
                 feedback_right: '',
-                optimalSide: '',
                 chosen_stimulus: '',
                 chosen_feedback: '',
                 rt: ''
@@ -187,9 +186,9 @@ jsPsychPILT = (function(jspsych) {
                 rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
             };
 
-            default_data.optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
+            const optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
             default_data.response = this.keys[default_data.key]
-            default_data.response_optimal = default_data.response === default_data.optimalSide
+            default_data.response_optimal = default_data.response === optimalSide
             default_data.chosen_stimulus = default_data.response === "right" ? default_data.stimulus_right : default_data.stimulus_left
             default_data.chosen_feedback = default_data.response === "right" ? default_data.feedback_right : default_data.feedback_left
 
@@ -412,8 +411,8 @@ jsPsychPILT = (function(jspsych) {
             let optionBox = document.getElementById("optionBox");
             optionBox.style.display = 'none';
 
-            this.data.optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
-            this.data.response_optimal = this.data.response === this.data.optimalSide
+            const optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
+            this.data.response_optimal = this.data.response === optimalSide
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.jsPsych.finishTrial(this.data)
