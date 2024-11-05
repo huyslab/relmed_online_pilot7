@@ -87,18 +87,6 @@ jsPsychPILT = (function(jspsych) {
             response_optimal: {
               type: jspsych.ParameterType.BOOL,
               pretty_name: 'Whether the response was optimal'
-            },
-            initTime: {
-              type: jspsych.ParameterType.FLOAT,
-              pretty_name: 'Initial time when trial starts'
-            },
-            endTime: {
-              type: jspsych.ParameterType.FLOAT,
-              pretty_name: 'Time when the trial ends'
-            },
-            duration: {
-              type: jspsych.ParameterType.FLOAT,
-              pretty_name: 'Duration of the trial'
             }
         }
     }
@@ -138,8 +126,6 @@ jsPsychPILT = (function(jspsych) {
                 window.scrollTo(0, 0);
             }
 
-            this.data.initTime = performance.now()
-
             this.contingency = {
                 img: [trial.stimulus_left, trial.stimulus_right],
                 outcome: [trial.feedback_left,trial.feedback_right],
@@ -178,7 +164,6 @@ jsPsychPILT = (function(jspsych) {
         }
         create_simulation_data(trial, simulation_options) {
             let default_data = {
-                initTime: performance.now(),
                 key: this.jsPsych.pluginAPI.getValidKey(Object.keys(this.keys)),
                 stimulus_left: trial.stimulus_left,
                 stimulus_right: trial.stimulus_right,
@@ -191,8 +176,6 @@ jsPsychPILT = (function(jspsych) {
             default_data.optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
             default_data.response = this.keys[default_data.key]
             default_data.response_optimal = default_data.response === default_data.optimalSide
-            default_data.endTime = performance.now()
-            default_data.duration = default_data.endTime - default_data.initTime
             default_data.chosen_stimulus = default_data.response === "right" ? default_data.stimulus_right : default_data.stimulus_left
             default_data.chosen_feedback = default_data.response === "right" ? default_data.feedback_right : default_data.feedback_left
 
@@ -417,8 +400,6 @@ jsPsychPILT = (function(jspsych) {
 
             this.data.optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
             this.data.response_optimal = this.data.response === this.data.optimalSide
-            this.data.endTime = performance.now()
-            this.data.duration = this.data.endTime - this.data.initTime
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
             this.jsPsych.pluginAPI.clearAllTimeouts()
             this.jsPsych.finishTrial(this.data)
