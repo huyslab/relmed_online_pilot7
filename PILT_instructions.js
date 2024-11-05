@@ -76,7 +76,7 @@ function prepare_PILT_instructions() {
                             block: "practice1",
                             trial: 1,
                             valence: 1,
-                            maxRespTime: -1,
+                            response_deadline: -1,
                             pair: 1,
                             cpair: 1,
                             n_pairs: 1,
