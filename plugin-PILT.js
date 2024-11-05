@@ -38,9 +38,28 @@ jsPsychPILT = (function(jspsych) {
                 pretty_name: 'Is the optimal stimulus on the right?',
                 default: '',
             },
-            response_deadline: {
+            response_optimalline: {
                 type: jspsych.ParameterType.INT,
                 default: 3000,
+            },
+            feedback_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 1000
+            },
+            /** Duration of warning message */
+            warning_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 1500
+            },
+            /** Duration of choice feedback before flip */
+            choice_feedback_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 500
+            },
+            /** Duration of Pavlovian stimulus presentation before flip */
+            pavlovian_stimulus_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 300
             }
         },
         data: {
@@ -94,13 +113,6 @@ jsPsychPILT = (function(jspsych) {
     class PILTPlugin {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
-            this.timing = {
-                response_deadline: this.trial.response_deadline,
-                fbDur: 1000,
-                deadlineDur: 1500,
-                flipFb: 500,
-                pavCoinInterval: 300
-            }
             this.data = {
                 response:'',
                 key: '',
@@ -373,11 +385,11 @@ jsPsychPILT = (function(jspsych) {
                         ani2.finished.then(() => {
                             this.jsPsych.pluginAPI.setTimeout(()=> {
                                 coin.style.visibility = 'visible'
-                                this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.timing.fbDur);
-                            },this.timing.pavCoinInterval)
+                                this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.trial.feedback_duration);
+                            },this.trial.pavlovian_stimulus_duration)
                         });
                     })
-                },this.timing.flipFb)
+                },this.trial.choice_feedback_duration)
             } else {
                 // no response
                 this.data.response = 'noresp'
@@ -389,7 +401,7 @@ jsPsychPILT = (function(jspsych) {
                 document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
 
 
-                this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.timing.deadlineDur))
+                this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
             }
         }
 
