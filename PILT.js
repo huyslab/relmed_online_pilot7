@@ -1,6 +1,6 @@
 // Function setting up PILT blocks
 window.maxWarnings = 10;
-window.defaultMaxRespTime = 3000;
+window.defaul_response_deadline = 3000;
 window.pilt_test_confidence_every = 4;
 
 window.skipThisBlock = false;
@@ -281,18 +281,18 @@ const test_instructions = {
 }
 
 // PILT trial
-const PLT_trial =  {
+const PILT_trial =  {
     timeline: [
         kick_out,
         fullscreen_prompt,
     {
-        type: jsPsychPLT,
-        imgLeft: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
-        imgRight: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
-        outcomeLeft: jsPsych.timelineVariable('feedback_left'),
-        outcomeRight: jsPsych.timelineVariable('feedback_right'),
-        optimalRight: jsPsych.timelineVariable('optimal_right'),
-        maxRespTime: jsPsych.timelineVariable('maxRespTime'),
+        type: jsPsychPILT,
+        stimulus_right: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+        stimulus_left: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        feedback_left: jsPsych.timelineVariable('feedback_left'),
+        feedback_right: jsPsych.timelineVariable('feedback_right'),
+        optimal_right: jsPsych.timelineVariable('optimal_right'),
+        response_deadline: jsPsych.timelineVariable('response_deadline'),
         data: {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),
@@ -306,7 +306,7 @@ const PLT_trial =  {
             rest_1penny: jsPsych.timelineVariable('rest_1penny')
         },
         on_finish: function(data) {
-            if (data.choice === "noresp") {
+            if (data.response === "noresp") {
                 var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
                 jsPsych.data.addProperties({
                     n_warnings: up_to_now + 1
@@ -331,7 +331,7 @@ const PLT_trial =  {
 
                 // Find all sitmulus-pairs in block
                 let unique_stimulus_pairs =  [...new Set(jsPsych.data.get().filter({
-                    trial_type: "PLT",
+                    trial_type: "PILT",
                     block: block
                 }).select('stimulus_pair').values)]
 
@@ -343,10 +343,10 @@ const PLT_trial =  {
 
                     // Filter data for the current stimulus_pair
                     let num_optimal = jsPsych.data.get().filter({
-                        trial_type: "PLT",
+                        trial_type: "PILT",
                         block: block,
                         stimulus_pair: pair
-                    }).last(5).select('isOptimal').sum();
+                    }).last(5).select('response_optimal').sum();
 
                     // Check if all last 5 choices for this pair are correct
                     if (num_optimal < 5) {
@@ -399,14 +399,14 @@ const coin_lottery = {
 }
 
 // Build PILT task block
-function build_PLT_task(structure, insert_msg = true){
-    let PLT_task = [];
+function build_PILT_task(structure, insert_msg = true){
+    let PILT_task = [];
     for (let i=0; i < structure.length; i++){
 
-        // Set default value of maxRespTime
+        // Set default value of response_deadline
         structure[i].forEach(trial => {
-            if (!trial.hasOwnProperty('maxRespTime')) {
-                trial.maxRespTime = window.defaultMaxRespTime; // Add the default value if missing
+            if (!trial.hasOwnProperty('response_deadline')) {
+                trial.response_deadline = window.default_response_deadline; // Add the default value if missing
             }
         });
 
@@ -423,7 +423,7 @@ function build_PLT_task(structure, insert_msg = true){
             },
             {
                 timeline: [
-                    PLT_trial
+                    PILT_trial
                 ],
                 timeline_variables: structure[i]
             }
@@ -434,10 +434,10 @@ function build_PLT_task(structure, insert_msg = true){
             block.push(inter_block_msg);
         }
         
-        PLT_task = PLT_task.concat(block)
+        PILT_task = PILT_task.concat(block)
     }
 
-    return PLT_task
+    return PILT_task
 }
 
 // Load PILT sequences from json file
@@ -488,8 +488,8 @@ function return_PILT_full_sequence(structure, test_structure){
     // Add instructions
     PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
-    // Add PLT
-    PILT_procedure = PILT_procedure.concat(build_PLT_task(structure));
+    // Add PILT
+    PILT_procedure = PILT_procedure.concat(build_PILT_task(structure));
 
     // Add test
     let PILT_test_procedure = [];
