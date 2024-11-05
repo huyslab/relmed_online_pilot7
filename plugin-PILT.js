@@ -40,10 +40,12 @@ jsPsychPILT = (function(jspsych) {
                 pretty_name: 'Is the optimal stimulus on the right?',
                 default: '',
             },
-            response_optimalline: {
+            // Response deadline
+            response_deadline: {
                 type: jspsych.ParameterType.INT,
                 default: 3000,
             },
+            // Duration of coin presentation
             feedback_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 1000
