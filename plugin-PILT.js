@@ -152,8 +152,10 @@ jsPsychPILT = (function(jspsych) {
             this.data.feedback_right = this.contingency.outcome[1]
             this.data.optimal_right = trial.optimal_right
 
+            // Create stimuli
             display_element.innerHTML = this.create_stimuli()
 
+            // Keyboard listener
             this.jsPsych.pluginAPI.getKeyboardResponse({
                 callback_function: this.keyResponse,
                 valid_responses: Object.keys(this.keys),
@@ -162,6 +164,7 @@ jsPsychPILT = (function(jspsych) {
                 allow_held_key: false
             });
 
+            // Set listener for response_deadline
             if (trial.response_deadline > 0) {
                 this.jsPsych.pluginAPI.setTimeout(() => {
                     this.keyResponse('')
@@ -169,6 +172,7 @@ jsPsychPILT = (function(jspsych) {
             }
         }
 
+        // Simulation method
         simulate(trial, simulation_mode, simulation_options, load_callback) {
             if (simulation_mode == "data-only") {
                 load_callback();
@@ -178,6 +182,8 @@ jsPsychPILT = (function(jspsych) {
                 this.simulate_visual(trial, simulation_options, load_callback);
             }
         }
+
+        // Create simulated data
         create_simulation_data(trial, simulation_options) {
             let default_data = {
                 key: this.jsPsych.pluginAPI.getValidKey(Object.keys(this.keys)),
@@ -200,10 +206,14 @@ jsPsychPILT = (function(jspsych) {
             this.jsPsych.pluginAPI.ensureSimulationDataConsistency(trial, data);
             return data;
         }
+
+        // Data only simulation function
         simulate_data_only(trial, simulation_options) {
             const data = this.create_simulation_data(trial, simulation_options);
             this.jsPsych.finishTrial(data);
         }
+
+        // Visual simulation function
         simulate_visual(trial, simulation_options, load_callback) {
             const data = this.create_simulation_data(trial, simulation_options);
             const display_element = this.jsPsych.getDisplayElement();
@@ -214,6 +224,7 @@ jsPsychPILT = (function(jspsych) {
             }
         }
 
+        // Stimuli creation
         create_stimuli() {
             let html = ''
             html += `
