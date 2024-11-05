@@ -206,6 +206,13 @@
             // Prevent right-click
             document.addEventListener('contextmenu', event => event.preventDefault());
 
+            document.addEventListener("keydown", (e) => {
+                console.log(e)
+                if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.metaKey && e.code === "KeyI")) {
+                    e.preventDefault();
+                }
+            });
+
             // Prompt before refresh
             // Prompt before refresh
             window.addEventListener('beforeunload', preventRefresh);
