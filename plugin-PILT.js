@@ -25,9 +25,19 @@ jsPsychPILT = (function(jspsych) {
                 pretty_name: 'Right Image',
                 default: '',
             },
+            stimulus_middle: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Middle Image',
+                default: '',
+            },
             feedback_left: {
                 type: jspsych.ParameterType.STRING,
                 pretty_name: 'Left Outcome',
+                default: '',
+            },
+            feedback_middle: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Middle Outcome',
                 default: '',
             },
             feedback_right: {
@@ -39,6 +49,21 @@ jsPsychPILT = (function(jspsych) {
                 type: jspsych.ParameterType.INT,
                 pretty_name: 'Is the optimal stimulus on the right?',
                 default: '',
+            },
+            // How many stimuli to present, supported values are 2 and 3
+            n_stimuli: {
+                type: jspsych.ParameterType.INT,
+                default: 2
+            },
+            // Whether to present Pavlovian stimulus
+            present_pavlovian: {
+                type: jspsych.ParameterType.BOOL,
+                default: true
+            },
+            // Whether to present Pavlovian stimulus
+            circle_around_coin: {
+                type: jspsych.ParameterType.BOOL,
+                default: true
             },
             // Response deadline
             response_deadline: {
@@ -119,6 +144,10 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.INT,
               pretty_name: 'Whether the right image is optimal (1 for yes, 0 for no)'
             },
+            n_stimuli: {
+                type: jspsych.ParameterType.INT,
+                pretty_name: 'How many stimuli presented'
+            },
             chosen_stimulus: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'The chosen image (left or right)'
@@ -134,6 +163,10 @@ jsPsychPILT = (function(jspsych) {
             response_optimal: {
               type: jspsych.ParameterType.BOOL,
               pretty_name: 'Whether the response was optimal'
+            },
+            pavlovian_stimulus: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Which Pavlovian stimulus was presented'
             }
         }
     }
@@ -142,23 +175,15 @@ jsPsychPILT = (function(jspsych) {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
 
-            // Data placeholder
             this.data = {
-                response:'',
-                key: '',
-                stimulus_left: '',
-                stimulus_right: '',
-                feedback_left: '',
-                feedback_right: '',
-                chosen_stimulus: '',
-                chosen_feedback: '',
-                rt: ''
-            }
+
+            };
 
             // Key dictionary
             this.keys = {
                 'arrowleft': 'left',
                 'arrowright': 'right',
+                'arrowup': 'middle'
             }
         }
 
@@ -167,19 +192,25 @@ jsPsychPILT = (function(jspsych) {
 
             // Convenience variable
             this.contingency = {
-                img: [trial.stimulus_left, trial.stimulus_right],
-                outcome: [trial.feedback_left, trial.feedback_right],
+                img: [trial.stimulus_left, trial.stimulus_right, trial.stimulus_middle],
+                outcome: [trial.feedback_left, trial.feedback_right, trial.feedback_middle],
             }
 
             // Set data values
-            this.data.stimulus_left = this.contingency.img[0]
-            this.data.stimulus_right = this.contingency.img[1]
-            this.data.feedback_left = this.contingency.outcome[0]
-            this.data.feedback_right = this.contingency.outcome[1]
-            this.data.optimal_right = trial.optimal_right
+            this.data.stimulus_left = this.contingency.img[0];
+            this.data.stimulus_right = this.contingency.img[1];
+            this.data.feedback_left = this.contingency.outcome[0];
+            this.data.feedback_right = this.contingency.outcome[1];
+            this.data.optimal_right = trial.optimal_right;
+            this.data.n_stimuli = trial.n_stimuli;
+
+            if (trial.n_stimuli === 3){
+                this.data.stimulus_middle = trial.stimulus_middle;
+                this.data.feedback_middle = trial.feedback_middle;
+            }
 
             // Create stimuli
-            display_element.innerHTML = this.create_stimuli()
+            display_element.innerHTML = this.create_stimuli(trial.n_stimuli);
 
             // Response function
             const keyResponse = (e) => {
@@ -191,7 +222,7 @@ jsPsychPILT = (function(jspsych) {
                     // if there is a response:
                     this.data.key = e.key.toLowerCase()
                     this.data.response = this.keys[e.key.toLowerCase()]
-                    const inverse_response = this.data.response==='left'?'right':'left'
+                    const inverse_response = Object.values(this.keys).filter(element => element !== this.data.response)
                     this.data.rt = e.rt
     
                     if (this.data.response === 'left') {
@@ -201,7 +232,12 @@ jsPsychPILT = (function(jspsych) {
                     } else if (this.data.response === 'right') {
                         this.data.chosen_stimulus = this.contingency.img[1]
                         this.data.chosen_feedback = this.contingency.outcome[1]
+                    } else if (this.data.response === 'middle') {
+                        this.data.chosen_stimulus = this.contingency.img[2]
+                        this.data.chosen_feedback = this.contingency.outcome[2]
                     }
+
+                    this.data.pavlovian_stimulus = trial.present_pavlovian ? trial.pavlovian_images[this.data.chosen_feedback] : '';
     
                     // Helper function
                     function capitalizeWord(word) {
@@ -211,7 +247,10 @@ jsPsychPILT = (function(jspsych) {
                     // Draw selection box:
                     const selImg = document.getElementById("PILT" + capitalizeWord(this.data.response) + 'Img')
                     selImg.style.border = '20px solid darkgrey'
-                    document.getElementById('centerTxt').innerText = ''
+
+                    if (trial.n_stimuli === 2) {
+                        document.getElementById('centerTxt').innerText = '';
+                    }
     
                     // Draw coin, circle around it and pavlovian background
                     const coin = document.createElement('img')
@@ -228,32 +267,52 @@ jsPsychPILT = (function(jspsych) {
     
                     coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
                     coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
-    
-                    document.getElementById(this.data.response).appendChild(coinBackground)
-                    document.getElementById(this.data.response).appendChild(coinCircle)
+                    
+                    if (trial.present_pavlovian){
+                        document.getElementById(this.data.response).appendChild(coinBackground)
+                        document.getElementById(this.data.response).appendChild(coinCircle)    
+                    }
                     document.getElementById(this.data.response).appendChild(coin)
     
                     // Animation
                     this.jsPsych.pluginAPI.setTimeout(()=> {
-                        document.getElementById("PILT" + capitalizeWord(inverse_response) + 'Img').style.opacity = '0'
+
+                        inverse_response.forEach(response => {
+                            document.getElementById("PILT" + capitalizeWord(response) + 'Img').style.opacity = '0';
+                          });
                         const ani1 = selImg.animate([
                             { transform: "rotateY(0)", visibility: "visible" },
                             { transform: "rotateY(90deg)", visibility: "hidden"},
                         ],{duration:100,iterations:1,fill:'forwards'})
     
                         ani1.finished.then(()=> {
-    
-                            const ani2 = coinBackground.animate([
-                                { transform: "rotateY(90deg)", visibility: "hidden" },
-                                { transform: "rotateY(0deg)", visibility: "visible" },
-                            ], { duration: 100, iterations: 1, fill: 'forwards' });
-    
-                            ani2.finished.then(() => {
-                                this.jsPsych.pluginAPI.setTimeout(()=> {
-                                    coin.style.visibility = 'visible'
-                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
-                                },trial.pavlovian_stimulus_duration)
-                            });
+                            
+                            if (trial.present_pavlovian) {
+                                // Pavlovian stimulus flips and coin appears 
+                                const ani2 = coinBackground.animate([
+                                    { transform: "rotateY(90deg)", visibility: "hidden" },
+                                    { transform: "rotateY(0deg)", visibility: "visible" },
+                                ], { duration: 100, iterations: 1, fill: 'forwards' });
+        
+                                ani2.finished.then(() => {
+                                    this.jsPsych.pluginAPI.setTimeout(()=> {
+                                        coin.style.visibility = 'visible';
+                                        if (trial.circle_around_coin){
+                                            coinCircle.style.visibility = 'visible';
+                                        }
+                                        this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
+                                    },trial.pavlovian_stimulus_duration)
+                                });
+                            } else {
+                                // Coin flips
+                                const ani2 = coin.animate([
+                                    { transform: "rotateY(90deg)", visibility: "hidden"},
+                                    { transform: "rotateY(0deg)", visibility: "visible" },
+                                ],{duration:250,iterations:1,fill:'forwards'})
+                                ani2.finished.then(()=> {
+                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration)
+                                });
+                            }
                         })
                     },trial.choice_feedback_duration)
                
@@ -311,7 +370,13 @@ jsPsychPILT = (function(jspsych) {
                 feedback_right: trial.feedback_right,
                 optimal_right: trial.optimal_right,
                 rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
+                n_stimuli: trial.n_stimuli
             };
+
+            if (trial.n_stimuli === 3){
+                default_data.stimulus_middle = trial.stimulus_middle;
+                default_data.feedback_middle = trial.feedback_middle;
+            }
 
             const optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
             default_data.response = this.keys[default_data.key]
@@ -343,23 +408,50 @@ jsPsychPILT = (function(jspsych) {
         }
 
         // Stimuli creation
-        create_stimuli() {
+        create_stimuli(num_stim) {
             let html = ''
+
+            if (num_stim === 3){
+                html += `<div class="PILTHelperTxt3">
+                            <p id="centerTxt">&zwnj;</p>
+                </div>
+                `
+            }
+
             html += `
-            <body>
                     <div id="PILTOptionBox" class="PILTOptionBox">
                         <div id='left' class="PILTOptionSide">
                             <img id='PILTLeftImg' src=${this.contingency.img[0]}></img> 
                         </div>
-                        <div class="PILTHelperTxt">
+
+                        `;
+
+            if (num_stim === 2){
+                html += `<div class="PILTHelperTxt2">
                             <p id="centerTxt">?</p>
                         </div>
+                        `;
+            } else if (num_stim == 3) {
+                console.log(this.contingency.img[2])
+                html += `<div id='middle' class="PILTOptionSide">
+                            <img id='PILTMiddleImg' src=${this.contingency.img[2]}></img>
+                        </div>
+                        `;
+            }
+            
+            html += `
                         <div id='right' class="PILTOptionSide">
                             <img id='PILTRightImg' src=${this.contingency.img[1]}></img>
                         </div>
                     </div>
-            </body>
-            `
+            `;
+
+            if (num_stim === 3){
+                html += `<div class="PILTHelperTxt3">
+                            <p id="empty">&zwnj;</p>
+                </div>
+                `
+            }
             return html
         }
 

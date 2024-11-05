@@ -267,18 +267,6 @@ function build_post_PILT_test(structure){
     return test
 }
 
-// Post-PILT test instructions
-const test_instructions = {
-    type: jsPsychInstructions,
-    css_classes: ['instructions'],
-    pages: [
-        '<p>You will now continue to another round of the card choosing game.</p>\
-            <p>The game proceeds the same as before, except you won\'t be able to see the coins you discover and collect.</p>\
-            <p>You will be presented with cards you already know. Do you best to choose the best card possible on each turn.</p>'
-    ],
-    show_clickable_nav: true,
-    data: {trialphase: "post-PILT_test_instructions"}
-}
 
 // PILT trial
 const PILT_trial =  {
@@ -444,7 +432,7 @@ function build_PILT_task(structure, insert_msg = true){
 async function load_squences(session) {
     try {
         // Fetch PILT sequences
-        const response = await fetch('pilot4_pilt.json');
+        const response = await fetch('pilot6_pilt.json');
         
         if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -455,7 +443,7 @@ async function load_squences(session) {
         window.totalBlockNumber = sess_structure.length
 
         // Fetch post-PILT test sequences
-        const test_response = await fetch('pilot4_pilt_test.json');
+        const test_response = await fetch('pilot6_pilt_test.json');
 
         if (!test_response.ok) {
             throw new Error('Network response was not ok');
@@ -468,18 +456,21 @@ async function load_squences(session) {
         const pavlovian_response = await fetch('pavlovian_test.json');
         const pav_test_structure = await pavlovian_response.json();
         
-        // Replace the second array in test_sess_structure with pav_test_structure
-        if (test_sess_structure.length > 1) {
-            test_sess_structure[1] = pav_test_structure;
-        }
+        // Add Pavlovaian test to the end of test strucutre
+        test_sess_structure = test_sess_structure.concat(pav_test_structure);
 
-        run_full_experiment(sess_structure, test_sess_structure);
+        // Fetch WM structure
+        const WM_response = await fetch('pilot6_WM.json');
+        const WM_structure = await WM_response.json();
+        const WM_sess_structure = WM_structure[session - 1];
+
+        run_full_experiment(sess_structure, test_sess_structure, WM_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
 
-function return_PILT_full_sequence(structure, test_structure){
+function return_PILT_full_sequence(structure, test_structure, WM_structure){
     // Compute best-rest
     computeBestRest(structure);
 
@@ -496,8 +487,15 @@ function return_PILT_full_sequence(structure, test_structure){
     PILT_test_procedure.push(test_instructions);
     PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
+    // WM block
+    let WM_procedure = WM_instructions;
+
+    WM_procedure = WM_procedure.concat(build_PILT_task(WM_structure));
+
+
     return {
         PILT_procedure: PILT_procedure,
-        PILT_test_procedure: PILT_test_procedure
+        PILT_test_procedure: PILT_test_procedure,
+        WM_procedure: WM_procedure
     }
 }

@@ -17,7 +17,7 @@ function prepare_PILT_instructions() {
         pages: () => {
 
             let pages = [
-                `<p>Welcome!</p>
+                ` <p>Welcome!</p>
                 <p>In this study you will complete a few tasks. Let's start with the first game.</p>`
             ];
 
@@ -96,7 +96,8 @@ function prepare_PILT_instructions() {
         css_classes: ['instructions'],
         pages: [
             `${window.sessionNum == 1 ? `<p>You found a one pound coin!</p>` : ``}
-            <p>In the game, some cards will be better than others.</p>`
+            <p>Some cards are better than others, but even good cards can sometimes only give a penny 
+            or might sometimes break a one pound coin.</p>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
@@ -214,7 +215,7 @@ function prepare_PILT_instructions() {
 
     let quiz_questions = [
         {
-            prompt: "In this game, some cards are better than others.",
+            prompt: "Some cards are better than others, but even good cards can sometimes only give a penny or break a one pound coin.",
             options: ["True", "False"],
             required: true
         },
@@ -310,3 +311,43 @@ const lottery_instructions = {
     show_clickable_nav: true,
     data: {trialphase: "lottery_instructions"}
 }
+
+// Post-PILT test instructions
+const test_instructions = {
+    type: jsPsychInstructions,
+    css_classes: ['instructions'],
+    pages: [
+        '<p>You will now continue to another round of the card choosing game.</p>\
+            <p>The game proceeds the same as before, except you won\'t be able to see the coins you discover and collect.</p>\
+            <p>You will be presented with cards you already know. Do you best to choose the best card possible on each turn.</p>'
+    ],
+    show_clickable_nav: true,
+    data: {trialphase: "post-PILT_test_instructions"}
+}
+
+// WM instructions
+const WM_instructions = [
+    {
+        type: jsPsychInstructions,
+        css_classes: ['instructions'],
+        pages: [
+            '<p>Next, you will return to the card choosing game.</p>\
+                <p>Your goal remains to collect and keep from breaking as many high-value coins as you can.</p>',
+            `<p>This time, you will choose between three cards on every turn.<p>
+            <p>Use the right arrow key to choose the card on the right, the left arrow key to choose the card on the left, 
+            and <b>use the upwards arrow key to choose the card in the middle.</b>
+            `
+        ],
+        show_clickable_nav: true,
+        data: {trialphase: "WM_instructions"}
+    },
+    {
+        type: jsPsychHtmlKeyboardResponse,
+        css_classes: ['instructions'],
+        stimulus: `<p>Let's start playing!</p>
+        <p>Place your fingers on the left, right, and up arrow keys, and press the up arrow key to start playing.</p>`,
+        choices: ['arrowup'],
+        data: {trialphase: "WM_instructions"}
+    }
+]
+
