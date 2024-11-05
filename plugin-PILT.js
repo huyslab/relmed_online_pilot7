@@ -3,6 +3,8 @@
  *
  * Modified and used by zeguo.qiu@ucl.ac.uk
  *
+ * Version 0.2 - adding Pavlovian stimuli learning - Haoyang
+ * 
  * Version 1.0 - modified by Yaniv
  */
 
