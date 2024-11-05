@@ -44,7 +44,7 @@ jsPsychPILT = (function(jspsych) {
             }
         },
         data: {
-            choice: {
+            response: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'Chosen side (left or right)'
             },
@@ -52,11 +52,11 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'Key pressed (left or right arrow key)'
             },
-            imageLeft: {
+            stimulus_left: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'Image shown on the left'
             },
-            imageRight: {
+            stimulus_right: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'Image shown on the right'
             },
@@ -72,11 +72,11 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.INT,
               pretty_name: 'Whether the right image is optimal (1 for yes, 0 for no)'
             },
-            chosenImg: {
+            chosen_stimulus: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'The chosen image (left or right)'
             },
-            chosenOutcome: {
+            chosen_feedback: {
               type: jspsych.ParameterType.FLOAT,
               pretty_name: 'The outcome associated with the chosen image'
             },
@@ -84,13 +84,9 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.FLOAT,
               pretty_name: 'Reaction time'
             },
-            isOptimal: {
+            response_optimal: {
               type: jspsych.ParameterType.BOOL,
-              pretty_name: 'Whether the choice was optimal'
-            },
-            trialphase: {
-              type: jspsych.ParameterType.STRING,
-              pretty_name: 'Phase of the trial (task or other)'
+              pretty_name: 'Whether the response was optimal'
             },
             initTime: {
               type: jspsych.ParameterType.FLOAT,
@@ -118,17 +114,16 @@ jsPsychPILT = (function(jspsych) {
                 pavCoinInterval: 300
             }
             this.data = {
-                choice:'',
+                response:'',
                 key: '',
-                imageLeft: '',
-                imageRight: '',
+                stimulus_left: '',
+                stimulus_right: '',
                 feedback_left: '',
                 feedback_right: '',
                 optimalSide: '',
-                chosenImg: '',
-                chosenOutcome: '',
-                rt: '',
-                trialphase: 'task',
+                chosen_stimulus: '',
+                chosen_feedback: '',
+                rt: ''
             }
             this.keys = {
                 'arrowleft':'left',
@@ -149,8 +144,8 @@ jsPsychPILT = (function(jspsych) {
                 img: [trial.stimulus_left, trial.stimulus_right],
                 outcome: [trial.feedback_left,trial.feedback_right],
             }
-            this.data.imageLeft = this.contingency.img[0]
-            this.data.imageRight = this.contingency.img[1]
+            this.data.stimulus_left = this.contingency.img[0]
+            this.data.stimulus_right = this.contingency.img[1]
             this.data.feedback_left = this.contingency.outcome[0]
             this.data.feedback_right = this.contingency.outcome[1]
             this.data.optimal_right = trial.optimal_right
@@ -185,22 +180,21 @@ jsPsychPILT = (function(jspsych) {
             let default_data = {
                 initTime: performance.now(),
                 key: this.jsPsych.pluginAPI.getValidKey(Object.keys(this.keys)),
-                imageLeft: trial.stimulus_left,
-                imageRight: trial.stimulus_right,
+                stimulus_left: trial.stimulus_left,
+                stimulus_right: trial.stimulus_right,
                 feedback_left: trial.feedback_left,
                 feedback_right: trial.feedback_right,
                 optimal_right: trial.optimal_right,
-                trialphase: 'task',
                 rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
             };
 
             default_data.optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
-            default_data.choice = this.keys[default_data.key]
-            default_data.isOptimal = default_data.choice === default_data.optimalSide
+            default_data.response = this.keys[default_data.key]
+            default_data.response_optimal = default_data.response === default_data.optimalSide
             default_data.endTime = performance.now()
             default_data.duration = default_data.endTime - default_data.initTime
-            default_data.chosenImg = default_data.choice === "right" ? default_data.imageRight : default_data.imageLeft
-            default_data.chosenOutcome = default_data.choice === "right" ? default_data.feedback_right : default_data.feedback_left
+            default_data.chosen_stimulus = default_data.response === "right" ? default_data.stimulus_right : default_data.stimulus_left
+            default_data.chosen_feedback = default_data.response === "right" ? default_data.feedback_right : default_data.feedback_left
 
 
             const data = this.jsPsych.pluginAPI.mergeSimulationData(default_data, simulation_options);
@@ -325,21 +319,21 @@ jsPsychPILT = (function(jspsych) {
             if (e !== '') {
                 // if there is a response:
                 this.data.key = e.key.toLowerCase()
-                this.data.choice = this.keys[e.key.toLowerCase()]
-                const inverse_choice = this.data.choice==='left'?'right':'left'
+                this.data.response = this.keys[e.key.toLowerCase()]
+                const inverse_response = this.data.response==='left'?'right':'left'
                 this.data.rt = e.rt
 
-                if (this.data.choice === 'left') {
-                    this.data.chosenImg = this.contingency.img[0]
-                    this.data.chosenOutcome = this.contingency.outcome[0]
+                if (this.data.response === 'left') {
+                    this.data.chosen_stimulus = this.contingency.img[0]
+                    this.data.chosen_feedback = this.contingency.outcome[0]
 
-                } else if (this.data.choice === 'right') {
-                    this.data.chosenImg = this.contingency.img[1]
-                    this.data.chosenOutcome = this.contingency.outcome[1]
+                } else if (this.data.response === 'right') {
+                    this.data.chosen_stimulus = this.contingency.img[1]
+                    this.data.chosen_feedback = this.contingency.outcome[1]
                 }
 
                 // draw selection box:
-                const selImg = document.getElementById(this.data.choice + 'Img')
+                const selImg = document.getElementById(this.data.response + 'Img')
                 selImg.style.border = '20px solid darkgrey'
                 document.getElementById('centerTxt').innerText = ''
 
@@ -355,32 +349,32 @@ jsPsychPILT = (function(jspsych) {
                 coinBackground.id = 'coinBackground'
                 coinBackground.className = 'coinBackground'
 
-                if (this.data.chosenOutcome === 1) {
+                if (this.data.chosen_feedback === 1) {
                     coin.src = 'imgs/1pound.png'
                     coinBackground.src = "imgs/marble1.png"
-                } else if (this.data.chosenOutcome === 0.5) {
+                } else if (this.data.chosen_feedback === 0.5) {
                     coin.src = 'imgs/50pence.png'
                     coinBackground.src = "imgs/marble2.png"
-                } else if (this.data.chosenOutcome === 0.01) {
+                } else if (this.data.chosen_feedback === 0.01) {
                     coin.src = 'imgs/1penny.png'
                     coinBackground.src = "imgs/marble3.png"
-                } else if (this.data.chosenOutcome === -1) {
+                } else if (this.data.chosen_feedback === -1) {
                     coin.src = 'imgs/1poundbroken.png'
                     coinBackground.src = "imgs/marble4.png"
-                } else if (this.data.chosenOutcome === -0.5) {
+                } else if (this.data.chosen_feedback === -0.5) {
                     coin.src = 'imgs/50pencebroken.png'
                     coinBackground.src = "imgs/marble5.png"
-                } else if (this.data.chosenOutcome === -0.01) {
+                } else if (this.data.chosen_feedback === -0.01) {
                     coin.src = 'imgs/1pennybroken.png'
                     coinBackground.src = "imgs/marble6.png"
                 }
 
-                document.getElementById(this.data.choice).appendChild(coinBackground)
-                document.getElementById(this.data.choice).appendChild(coinCircle)
-                document.getElementById(this.data.choice).appendChild(coin)
+                document.getElementById(this.data.response).appendChild(coinBackground)
+                document.getElementById(this.data.response).appendChild(coinCircle)
+                document.getElementById(this.data.response).appendChild(coin)
 
                 this.jsPsych.pluginAPI.setTimeout(()=> {
-                    document.getElementById(inverse_choice+'Img').style.opacity = '0'
+                    document.getElementById(inverse_response+'Img').style.opacity = '0'
                     const ani1 = selImg.animate([
                         { transform: "rotateY(0)", visibility: "visible" },
                         { transform: "rotateY(90deg)", visibility: "hidden"},
@@ -403,10 +397,10 @@ jsPsychPILT = (function(jspsych) {
                 },this.timing.flipFb)
             } else {
                 // no response
-                this.data.choice = 'noresp'
+                this.data.response = 'noresp'
 
                 // Set outcome to lowest possible on trial
-                this.data.chosenOutcome = Math.min(this.data.feedback_left, this.data.feedback_right)
+                this.data.chosen_feedback = Math.min(this.data.feedback_left, this.data.feedback_right)
 
                 // Display messge
                 document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
@@ -422,7 +416,7 @@ jsPsychPILT = (function(jspsych) {
             optionBox.style.display = 'none';
 
             this.data.optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
-            this.data.isOptimal = this.data.choice === this.data.optimalSide
+            this.data.response_optimal = this.data.response === this.data.optimalSide
             this.data.endTime = performance.now()
             this.data.duration = this.data.endTime - this.data.initTime
             this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
