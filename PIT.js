@@ -35,7 +35,7 @@ function generatePITstimulus(coin, ratio) {
     piggyBgImg = '';
   }
   return `
-    <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat;">
+    <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat; background-size: 30vw;">
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="bg-container">
