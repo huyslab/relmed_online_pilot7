@@ -292,11 +292,12 @@ jsPsychPILT = (function(jspsych) {
                     this.data.chosen_feedback = this.contingency.outcome[1]
                 }
 
-                // draw selection box:
+                // Draw selection box:
                 const selImg = document.getElementById(this.data.response + 'Img')
                 selImg.style.border = '20px solid darkgrey'
                 document.getElementById('centerTxt').innerText = ''
 
+                // Draw coin, circle around it and pavlovian background
                 const coin = document.createElement('img')
                 coin.id = 'PILTCoin'
                 coin.className = 'PILTCoin'
@@ -316,6 +317,7 @@ jsPsychPILT = (function(jspsych) {
                 document.getElementById(this.data.response).appendChild(coinCircle)
                 document.getElementById(this.data.response).appendChild(coin)
 
+                // Animation
                 this.jsPsych.pluginAPI.setTimeout(()=> {
                     document.getElementById(inverse_response+'Img').style.opacity = '0'
                     const ani1 = selImg.animate([
@@ -338,6 +340,7 @@ jsPsychPILT = (function(jspsych) {
                         });
                     })
                 },this.trial.choice_feedback_duration)
+           
             } else {
                 // no response
                 this.data.response = 'noresp'
@@ -348,7 +351,7 @@ jsPsychPILT = (function(jspsych) {
                 // Display messge
                 document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
 
-
+                // End trial after warning message
                 this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
             }
         }
