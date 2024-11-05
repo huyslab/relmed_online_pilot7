@@ -46,7 +46,6 @@
 
 .PILTCoin {
     visibility: hidden;
-    max-width: 12vw;
     margin: auto;
     z-index: 3;
 }
@@ -67,6 +66,7 @@
 .PILTOptionSide img.PILTCoinBackground {
     visibility: hidden;
     width: 30vw;
+    max-width: 30vw;
     z-index: 1;
     overflow: hidden;
     border: 1px solid darkgrey;
