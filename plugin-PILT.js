@@ -48,7 +48,7 @@ jsPsychPILT = (function(jspsych) {
             // Whether to present Pavlovian stimulus
             circle_around_coin: {
                 type: jspsych.ParameterType.BOOL,
-                default: false
+                default: true
             },
             // Response deadline
             response_deadline: {
