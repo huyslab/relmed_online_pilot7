@@ -181,9 +181,103 @@ jsPsychPILT = (function(jspsych) {
             // Create stimuli
             display_element.innerHTML = this.create_stimuli()
 
+            // Response function
+            const keyResponse = (e) => {
+                this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
+                this.jsPsych.pluginAPI.clearAllTimeouts()
+                this.data.keyPressOnset = performance.now()
+    
+                if (e !== '') {
+                    // if there is a response:
+                    this.data.key = e.key.toLowerCase()
+                    this.data.response = this.keys[e.key.toLowerCase()]
+                    const inverse_response = this.data.response==='left'?'right':'left'
+                    this.data.rt = e.rt
+    
+                    if (this.data.response === 'left') {
+                        this.data.chosen_stimulus = this.contingency.img[0]
+                        this.data.chosen_feedback = this.contingency.outcome[0]
+    
+                    } else if (this.data.response === 'right') {
+                        this.data.chosen_stimulus = this.contingency.img[1]
+                        this.data.chosen_feedback = this.contingency.outcome[1]
+                    }
+    
+                    // Helper function
+                    function capitalizeWord(word) {
+                        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                    }
+    
+                    // Draw selection box:
+                    const selImg = document.getElementById("PILT" + capitalizeWord(this.data.response) + 'Img')
+                    selImg.style.border = '20px solid darkgrey'
+                    document.getElementById('centerTxt').innerText = ''
+    
+                    // Draw coin, circle around it and pavlovian background
+                    const coin = document.createElement('img')
+                    coin.id = 'PILTCoin'
+                    coin.className = 'PILTCoin'
+    
+                    const coinCircle = document.createElement('div')
+                    coinCircle.id = 'PILTCoinCircle'
+                    coinCircle.className = 'PILTCoinCircle'
+    
+                    const coinBackground = document.createElement('img')
+                    coinBackground.id = '"PILTCoinBackground"'
+                    coinBackground.className = '"PILTCoinBackground"'
+    
+                    console.log(trial.coin_images)
+                    console.log(this.data.chosen_feedback)
+                    coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
+                    coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
+    
+                    document.getElementById(this.data.response).appendChild(coinBackground)
+                    document.getElementById(this.data.response).appendChild(coinCircle)
+                    document.getElementById(this.data.response).appendChild(coin)
+    
+                    // Animation
+                    this.jsPsych.pluginAPI.setTimeout(()=> {
+                        document.getElementById(inverse_response+'Img').style.opacity = '0'
+                        const ani1 = selImg.animate([
+                            { transform: "rotateY(0)", visibility: "visible" },
+                            { transform: "rotateY(90deg)", visibility: "hidden"},
+                        ],{duration:100,iterations:1,fill:'forwards'})
+    
+                        ani1.finished.then(()=> {
+    
+                            const ani2 = coinBackground.animate([
+                                { transform: "rotateY(90deg)", visibility: "hidden" },
+                                { transform: "rotateY(0deg)", visibility: "visible" },
+                            ], { duration: 100, iterations: 1, fill: 'forwards' });
+    
+                            ani2.finished.then(() => {
+                                this.jsPsych.pluginAPI.setTimeout(()=> {
+                                    coin.style.visibility = 'visible'
+                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
+                                },trial.pavlovian_stimulus_duration)
+                            });
+                        })
+                    },trial.choice_feedback_duration)
+               
+                } else {
+                    // no response
+                    this.data.response = 'noresp'
+    
+                    // Set outcome to lowest possible on trial
+                    this.data.chosen_feedback = Math.min(this.data.feedback_left, this.data.feedback_right)
+    
+                    // Display messge
+                    document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
+    
+                    // End trial after warning message
+                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
+                }
+            }
+
+
             // Keyboard listener
             this.jsPsych.pluginAPI.getKeyboardResponse({
-                callback_function: this.keyResponse,
+                callback_function: keyResponse,
                 valid_responses: Object.keys(this.keys),
                 rt_method: 'performance',
                 persist: false,
@@ -193,9 +287,10 @@ jsPsychPILT = (function(jspsych) {
             // Set listener for response_deadline
             if (trial.response_deadline > 0) {
                 this.jsPsych.pluginAPI.setTimeout(() => {
-                    this.keyResponse('')
+                    keyResponse('')
                 }, trial.response_deadline);
             }
+
         }
 
         // Simulation method
@@ -269,96 +364,6 @@ jsPsychPILT = (function(jspsych) {
             </body>
             `
             return html
-        }
-
-        keyResponse = (e) => {
-            this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
-            this.jsPsych.pluginAPI.clearAllTimeouts()
-            this.data.keyPressOnset = performance.now()
-
-            if (e !== '') {
-                // if there is a response:
-                this.data.key = e.key.toLowerCase()
-                this.data.response = this.keys[e.key.toLowerCase()]
-                const inverse_response = this.data.response==='left'?'right':'left'
-                this.data.rt = e.rt
-
-                if (this.data.response === 'left') {
-                    this.data.chosen_stimulus = this.contingency.img[0]
-                    this.data.chosen_feedback = this.contingency.outcome[0]
-
-                } else if (this.data.response === 'right') {
-                    this.data.chosen_stimulus = this.contingency.img[1]
-                    this.data.chosen_feedback = this.contingency.outcome[1]
-                }
-
-                // Helper function
-                function capitalizeWord(word) {
-                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-                }
-
-                // Draw selection box:
-                const selImg = document.getElementById("PILT" + capitalizeWord(this.data.response) + 'Img')
-                selImg.style.border = '20px solid darkgrey'
-                document.getElementById('centerTxt').innerText = ''
-
-                // Draw coin, circle around it and pavlovian background
-                const coin = document.createElement('img')
-                coin.id = 'PILTCoin'
-                coin.className = 'PILTCoin'
-
-                const coinCircle = document.createElement('div')
-                coinCircle.id = 'PILTCoinCircle'
-                coinCircle.className = 'PILTCoinCircle'
-
-                const coinBackground = document.createElement('img')
-                coinBackground.id = '"PILTCoinBackground"'
-                coinBackground.className = '"PILTCoinBackground"'
-
-                coin.src = `imgs/${this.trial.coin_images[this.data.chosen_feedback]}`;
-                coinBackground.src = `imgs/${this.trial.pavlovian_images[this.data.chosen_feedback]}`;
-
-                document.getElementById(this.data.response).appendChild(coinBackground)
-                document.getElementById(this.data.response).appendChild(coinCircle)
-                document.getElementById(this.data.response).appendChild(coin)
-
-                // Animation
-                this.jsPsych.pluginAPI.setTimeout(()=> {
-                    document.getElementById(inverse_response+'Img').style.opacity = '0'
-                    const ani1 = selImg.animate([
-                        { transform: "rotateY(0)", visibility: "visible" },
-                        { transform: "rotateY(90deg)", visibility: "hidden"},
-                    ],{duration:100,iterations:1,fill:'forwards'})
-
-                    ani1.finished.then(()=> {
-
-                        const ani2 = coinBackground.animate([
-                            { transform: "rotateY(90deg)", visibility: "hidden" },
-                            { transform: "rotateY(0deg)", visibility: "visible" },
-                        ], { duration: 100, iterations: 1, fill: 'forwards' });
-
-                        ani2.finished.then(() => {
-                            this.jsPsych.pluginAPI.setTimeout(()=> {
-                                coin.style.visibility = 'visible'
-                                this.jsPsych.pluginAPI.setTimeout(this.endTrial, this.trial.feedback_duration);
-                            },this.trial.pavlovian_stimulus_duration)
-                        });
-                    })
-                },this.trial.choice_feedback_duration)
-           
-            } else {
-                // no response
-                this.data.response = 'noresp'
-
-                // Set outcome to lowest possible on trial
-                this.data.chosen_feedback = Math.min(this.data.feedback_left, this.data.feedback_right)
-
-                // Display messge
-                document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
-
-                // End trial after warning message
-                this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
-            }
         }
 
         endTrial = () => {
