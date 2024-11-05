@@ -10,7 +10,6 @@
 .PILTOptionSide {
     display: grid;
     flex-direction: column;
-    height: 70vh;
     width: 25vw;
     max-width: 1000px;
     position: relative;
@@ -27,11 +26,11 @@
     grid-row: 1;
 }
 
-#PILTRightImg, #PILTLeftImg {
+#PILTRightImg, #PILTLeftImg, #PILTMiddleImg {
     border: 1px solid darkgrey;
 }
 
-.PILTHelperTxt {
+.PILTHelperTxt2 {
     display: flex;
     justify-content: space-around;
     margin: auto;
@@ -43,6 +42,17 @@
     font-weight: bold;
     line-height: 3rem;
 }
+
+.PILTHelperTxt3 {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;    
+    text-wrap: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 3rem;
+}
+
 
 .PILTCoin {
     visibility: hidden;
