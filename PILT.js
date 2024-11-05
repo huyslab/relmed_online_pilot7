@@ -83,7 +83,7 @@ const test_trial = {
                     <img id='leftImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                 </div>
                 <div class="helperTxt">
-                    <h2 id="centerTxt">?</h2>
+                    <p2 id="centerTxt">?</p2>
                 </div>
                 <div id='right' class="optionSide">
                     <img id='rightImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
@@ -172,7 +172,7 @@ const test_trial = {
                             <img id='leftImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                         </div>
                         <div class="helperTxt">
-                            <h2 id="centerTxt">Please respond more quickly!</h2>
+                            <p id="centerTxt">Please respond more quickly!</p>
                         </div>
                         <div id='right' class="optionSide">
                             <img id='rightImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>

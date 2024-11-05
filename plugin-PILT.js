@@ -268,7 +268,7 @@ jsPsychPILT = (function(jspsych) {
                     document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
     
                     // End trial after warning message
-                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
+                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, (trial.warning_duration))
                 }
             }
 
@@ -352,7 +352,7 @@ jsPsychPILT = (function(jspsych) {
                             <img id='PILTLeftImg' src=${this.contingency.img[0]}></img> 
                         </div>
                         <div class="PILTHelperTxt">
-                            <h2 id="centerTxt">?</h2>
+                            <p id="centerTxt">?</p>
                         </div>
                         <div id='right' class="PILTOptionSide">
                             <img id='PILTRightImg' src=${this.contingency.img[1]}></img>
