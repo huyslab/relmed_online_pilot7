@@ -459,13 +459,18 @@ async function load_squences(session) {
         // Add Pavlovaian test to the end of test strucutre
         test_sess_structure = test_sess_structure.concat(pav_test_structure);
 
-        run_full_experiment(sess_structure, test_sess_structure);
+        // Fetch WM structure
+        const WM_response = await fetch('pilot6_WM.json');
+        const WM_structure = await WM_response.json();
+        const WM_sess_structure = WM_structure[session - 1];
+
+        run_full_experiment(sess_structure, test_sess_structure, WM_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
 
-function return_PILT_full_sequence(structure, test_structure){
+function return_PILT_full_sequence(structure, test_structure, WM_structure){
     // Compute best-rest
     computeBestRest(structure);
 
@@ -482,8 +487,15 @@ function return_PILT_full_sequence(structure, test_structure){
     PILT_test_procedure.push(test_instructions);
     PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
+    // WM block
+    let WM_procedure = WM_instructions;
+
+    WM_procedure = WM_procedure.concat(build_PILT_task(WM_structure));
+
+
     return {
         PILT_procedure: PILT_procedure,
-        PILT_test_procedure: PILT_test_procedure
+        PILT_test_procedure: PILT_test_procedure,
+        WM_procedure: WM_procedure
     }
 }
