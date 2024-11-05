@@ -40,6 +40,16 @@ jsPsychPILT = (function(jspsych) {
                 pretty_name: 'Is the optimal stimulus on the right?',
                 default: '',
             },
+            // Whether to present Pavlovian stimulus
+            present_pavlovian: {
+                type: jspsych.ParameterType.BOOL,
+                default: true
+            },
+            // Whether to present Pavlovian stimulus
+            circle_around_coin: {
+                type: jspsych.ParameterType.BOOL,
+                default: false
+            },
             // Response deadline
             response_deadline: {
                 type: jspsych.ParameterType.INT,
@@ -134,6 +144,10 @@ jsPsychPILT = (function(jspsych) {
             response_optimal: {
               type: jspsych.ParameterType.BOOL,
               pretty_name: 'Whether the response was optimal'
+            },
+            pavlovian_stimulus: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Which Pavlovian stimulus was presented'
             }
         }
     }
@@ -202,6 +216,8 @@ jsPsychPILT = (function(jspsych) {
                         this.data.chosen_stimulus = this.contingency.img[1]
                         this.data.chosen_feedback = this.contingency.outcome[1]
                     }
+
+                    this.data.pavlovian_stimulus = trial.present_pavlovian ? trial.pavlovian_images[this.data.chosen_feedback] : '';
     
                     // Helper function
                     function capitalizeWord(word) {
@@ -228,9 +244,11 @@ jsPsychPILT = (function(jspsych) {
     
                     coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
                     coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
-    
-                    document.getElementById(this.data.response).appendChild(coinBackground)
-                    document.getElementById(this.data.response).appendChild(coinCircle)
+                    
+                    if (trial.present_pavlovian){
+                        document.getElementById(this.data.response).appendChild(coinBackground)
+                        document.getElementById(this.data.response).appendChild(coinCircle)    
+                    }
                     document.getElementById(this.data.response).appendChild(coin)
     
                     // Animation
@@ -242,18 +260,33 @@ jsPsychPILT = (function(jspsych) {
                         ],{duration:100,iterations:1,fill:'forwards'})
     
                         ani1.finished.then(()=> {
-    
-                            const ani2 = coinBackground.animate([
-                                { transform: "rotateY(90deg)", visibility: "hidden" },
-                                { transform: "rotateY(0deg)", visibility: "visible" },
-                            ], { duration: 100, iterations: 1, fill: 'forwards' });
-    
-                            ani2.finished.then(() => {
-                                this.jsPsych.pluginAPI.setTimeout(()=> {
-                                    coin.style.visibility = 'visible'
-                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
-                                },trial.pavlovian_stimulus_duration)
-                            });
+                            
+                            if (trial.present_pavlovian) {
+                                // Pavlovian stimulus flips and coin appears 
+                                const ani2 = coinBackground.animate([
+                                    { transform: "rotateY(90deg)", visibility: "hidden" },
+                                    { transform: "rotateY(0deg)", visibility: "visible" },
+                                ], { duration: 100, iterations: 1, fill: 'forwards' });
+        
+                                ani2.finished.then(() => {
+                                    this.jsPsych.pluginAPI.setTimeout(()=> {
+                                        coin.style.visibility = 'visible';
+                                        if (circle_around_coin){
+                                            coinCircle.style.visibility = 'visible';
+                                        }
+                                        this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
+                                    },trial.pavlovian_stimulus_duration)
+                                });
+                            } else {
+                                // Coin flips
+                                const ani2 = coin.animate([
+                                    { transform: "rotateY(90deg)", visibility: "hidden"},
+                                    { transform: "rotateY(0deg)", visibility: "visible" },
+                                ],{duration:250,iterations:1,fill:'forwards'})
+                                ani2.finished.then(()=> {
+                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration)
+                                });
+                            }
                         })
                     },trial.choice_feedback_duration)
                

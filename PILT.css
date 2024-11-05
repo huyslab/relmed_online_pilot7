@@ -69,5 +69,5 @@
     width: 30vw;
     z-index: 1;
     overflow: hidden;
-    object-fit: none;
+    border: 1px solid darkgrey;
 }
