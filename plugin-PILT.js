@@ -81,12 +81,12 @@ jsPsychPILT = (function(jspsych) {
             pavlovian_images: {
                 type: jspsych.ParameterType.OBJECT,
                 default: {
-                    0.01: "marble3.png",
-                    1.0: "marble1.png",
-                    0.5: "marble2.png",
-                    "-0.01": "marble6.png",
-                    "-1.0": "marble4.png",
-                    "-0.5": "marble5.png"
+                    0.01: "PIT3.png",
+                    1.0: "PIT1.png",
+                    0.5: "PIT2.png",
+                    "-0.01": "PIT6.png",
+                    "-1.0": "PIT4.png",
+                    "-0.5": "PIT5.png"
                 },
             } 
         },
