@@ -299,8 +299,6 @@ jsPsychPILT = (function(jspsych) {
 
                 // Draw selection box:
                 const selImg = document.getElementById("PILT" + capitalizeWord(this.data.response) + 'Img')
-                console.log(this.data.response)
-                console.log(selImg)
                 selImg.style.border = '20px solid darkgrey'
                 document.getElementById('centerTxt').innerText = ''
 
