@@ -432,7 +432,7 @@ function build_PILT_task(structure, insert_msg = true){
 async function load_squences(session) {
     try {
         // Fetch PILT sequences
-        const response = await fetch('pilot4_pilt.json');
+        const response = await fetch('pilot6_pilt.json');
         
         if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -443,7 +443,7 @@ async function load_squences(session) {
         window.totalBlockNumber = sess_structure.length
 
         // Fetch post-PILT test sequences
-        const test_response = await fetch('pilot4_pilt_test.json');
+        const test_response = await fetch('pilot6_pilt_test.json');
 
         if (!test_response.ok) {
             throw new Error('Network response was not ok');
@@ -456,10 +456,8 @@ async function load_squences(session) {
         const pavlovian_response = await fetch('pavlovian_test.json');
         const pav_test_structure = await pavlovian_response.json();
         
-        // Replace the second array in test_sess_structure with pav_test_structure
-        if (test_sess_structure.length > 1) {
-            test_sess_structure[1] = pav_test_structure;
-        }
+        // Add Pavlovaian test to the end of test strucutre
+        test_sess_structure = test_sess_structure.concat(pav_test_structure);
 
         run_full_experiment(sess_structure, test_sess_structure);
     } catch (error) {
