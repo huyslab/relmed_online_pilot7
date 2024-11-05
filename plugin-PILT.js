@@ -144,6 +144,10 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.INT,
               pretty_name: 'Whether the right image is optimal (1 for yes, 0 for no)'
             },
+            n_stimuli: {
+                type: jspsych.ParameterType.INT,
+                pretty_name: 'How many stimuli presented'
+            },
             chosen_stimulus: {
               type: jspsych.ParameterType.STRING,
               pretty_name: 'The chosen image (left or right)'
@@ -198,6 +202,7 @@ jsPsychPILT = (function(jspsych) {
             this.data.feedback_left = this.contingency.outcome[0];
             this.data.feedback_right = this.contingency.outcome[1];
             this.data.optimal_right = trial.optimal_right;
+            this.data.n_stimuli = trial.n_stimuli;
 
             if (trial.n_stimuli === 3){
                 this.data.stimulus_middle = trial.stimulus_middle;
@@ -365,6 +370,7 @@ jsPsychPILT = (function(jspsych) {
                 feedback_right: trial.feedback_right,
                 optimal_right: trial.optimal_right,
                 rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
+                n_stimuli: trial.n_stimuli
             };
 
             if (trial.n_stimuli === 3){
