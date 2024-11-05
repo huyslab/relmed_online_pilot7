@@ -64,7 +64,31 @@ jsPsychPILT = (function(jspsych) {
             pavlovian_stimulus_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 300
-            }
+            },
+            /** Coin image filenames */
+            coin_images: {
+                type: jspsych.ParameterType.OBJECT,
+                default: {
+                    0.01: "1penny.png",
+                    1.0: "1pound.png",
+                    0.5: "50pence.png",
+                    "-0.01": "1pennybroken.png",
+                    "-1.0": "1poundbroken.png",
+                    "-0.5": "50pencebroken.png"
+                },
+            },
+            /** Coin image filenames */
+            pavlovian_images: {
+                type: jspsych.ParameterType.OBJECT,
+                default: {
+                    0.01: "marble3.png",
+                    1.0: "marble1.png",
+                    0.5: "marble2.png",
+                    "-0.01": "marble6.png",
+                    "-1.0": "marble4.png",
+                    "-0.5": "marble5.png"
+                },
+            } 
         },
         data: {
             response: {
@@ -285,25 +309,8 @@ jsPsychPILT = (function(jspsych) {
                 coinBackground.id = '"PILTCoinBackground"'
                 coinBackground.className = '"PILTCoinBackground"'
 
-                if (this.data.chosen_feedback === 1) {
-                    coin.src = 'imgs/1pound.png'
-                    coinBackground.src = "imgs/marble1.png"
-                } else if (this.data.chosen_feedback === 0.5) {
-                    coin.src = 'imgs/50pence.png'
-                    coinBackground.src = "imgs/marble2.png"
-                } else if (this.data.chosen_feedback === 0.01) {
-                    coin.src = 'imgs/1penny.png'
-                    coinBackground.src = "imgs/marble3.png"
-                } else if (this.data.chosen_feedback === -1) {
-                    coin.src = 'imgs/1poundbroken.png'
-                    coinBackground.src = "imgs/marble4.png"
-                } else if (this.data.chosen_feedback === -0.5) {
-                    coin.src = 'imgs/50pencebroken.png'
-                    coinBackground.src = "imgs/marble5.png"
-                } else if (this.data.chosen_feedback === -0.01) {
-                    coin.src = 'imgs/1pennybroken.png'
-                    coinBackground.src = "imgs/marble6.png"
-                }
+                coin.src = `imgs/${this.trial.coin_images[this.data.chosen_feedback]}`;
+                coinBackground.src = `imgs/${this.trial.pavlovian_images[this.data.chosen_feedback]}`;
 
                 document.getElementById(this.data.response).appendChild(coinBackground)
                 document.getElementById(this.data.response).appendChild(coinCircle)
