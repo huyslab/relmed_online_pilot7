@@ -223,11 +223,9 @@ jsPsychPILT = (function(jspsych) {
                     coinCircle.className = 'PILTCoinCircle'
     
                     const coinBackground = document.createElement('img')
-                    coinBackground.id = '"PILTCoinBackground"'
-                    coinBackground.className = '"PILTCoinBackground"'
+                    coinBackground.id = "PILTCoinBackground"
+                    coinBackground.className = "PILTCoinBackground"
     
-                    console.log(trial.coin_images)
-                    console.log(this.data.chosen_feedback)
                     coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
                     coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
     
@@ -237,7 +235,7 @@ jsPsychPILT = (function(jspsych) {
     
                     // Animation
                     this.jsPsych.pluginAPI.setTimeout(()=> {
-                        document.getElementById(inverse_response+'Img').style.opacity = '0'
+                        document.getElementById("PILT" + capitalizeWord(inverse_response) + 'Img').style.opacity = '0'
                         const ani1 = selImg.animate([
                             { transform: "rotateY(0)", visibility: "visible" },
                             { transform: "rotateY(90deg)", visibility: "hidden"},
@@ -273,7 +271,6 @@ jsPsychPILT = (function(jspsych) {
                     this.jsPsych.pluginAPI.setTimeout(this.endTrial, (this.trial.warning_duration))
                 }
             }
-
 
             // Keyboard listener
             this.jsPsych.pluginAPI.getKeyboardResponse({
