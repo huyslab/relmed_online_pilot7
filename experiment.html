@@ -151,32 +151,29 @@
         }
     ]
 
-    function run_full_experiment(PILT_structure, test_structure){
+    function run_full_experiment(PILT_structure, test_structure, WM_procedure){
 
         let procedure = [];
 
-        // 0.0 Preliminary screen checks and load images
+        // Preliminary screen checks and load images
         procedure = procedure.concat(preliminary_checks);
 
-        // 1.0 Add PILT timeline
+        // Add PILT timeline
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
 
-        // 1.1 Add coin lottery
+        // Add coin lottery
         procedure.push(lottery_instructions);
         procedure.push(coin_lottery);
 
-        // 2.0 Add vigour task timeline
+        // Add vigour task timeline
         const vigourTimeline = [
             vigourInstructions,
             ...experimentTimeline,
         ];
         procedure = procedure.concat(vigourTimeline);
 
-        // 2.1 Add vigour bonus message
-        procedure.push(vigour_bonus);
-
-        // 3.0 Add PIT timeline: instructions, trials, bonus
+        // Add PIT timeline: instructions, trials, bonus
         const PITtimeline = [
             PITinstructions,
             PITtrials,
@@ -184,18 +181,24 @@
         ];
         procedure = procedure.concat(PITtimeline);
 
-         // 4.0 Add post-vigour test
+        // Add vigour bonus message
+        procedure.push(vigour_bonus);
+
+        // PILT & Pavlovian test
+        procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
+
+         // Add post-vigour test
         procedure = procedure.concat(postVigourInstructions);
         procedure = procedure.concat(postVigourTrials);
 
-        // 5.0 Add reversal timeline
-        // procedure = procedure.concat(reversal_instructions);
-        // procedure = procedure.concat(reversal_blocks);
+        // Add WM block
+        procedure.push(PILT_tasks.WM_procedure);
 
-        // Extra: PILT & Pavlovian test
-        procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
+        // Add reversal timeline
+        procedure = procedure.concat(reversal_instructions);
+        procedure = procedure.concat(reversal_blocks);
 
-        // 6.0 Debrief questions
+        // Debrief questions
         procedure = procedure.concat(acceptability);
 
         // Final messages and data saving
