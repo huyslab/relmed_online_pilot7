@@ -183,7 +183,7 @@ jsPsychPILT = (function(jspsych) {
             this.keys = {
                 'arrowleft': 'left',
                 'arrowright': 'right',
-                'arrowdown': 'middle'
+                'arrowup': 'middle'
             }
         }
 
