@@ -1,4 +1,4 @@
-// Instructions for the PLT
+// Instructions for the PILT
 const small_coin_size = 70;
 
 function prepare_PILT_instructions() {
@@ -65,7 +65,7 @@ function prepare_PILT_instructions() {
                 data: {trialphase: "instruction"}
             },
             {
-                timeline: build_PLT_task(
+                timeline: build_PILT_task(
                     [[
                         {
                             stimulus_left: "binoculars.png",
@@ -121,7 +121,7 @@ function prepare_PILT_instructions() {
 
     inst.push(
         {
-            timeline: build_PLT_task(
+            timeline: build_PILT_task(
                 [
                     dumbbell_on_right.map((e, i) => 
                         ({
@@ -172,7 +172,7 @@ function prepare_PILT_instructions() {
 
     inst.push(
         {
-            timeline: build_PLT_task(
+            timeline: build_PILT_task(
                 [
                     hammer_on_right.map((e, i) => 
                         ({
