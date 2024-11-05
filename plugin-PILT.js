@@ -28,7 +28,7 @@ jsPsychPILT = (function(jspsych) {
             stimulus_middle: {
                 type: jspsych.ParameterType.STRING,
                 pretty_name: 'Middle Image',
-                default: 'imgs/windchime1.png',
+                default: '',
             },
             feedback_left: {
                 type: jspsych.ParameterType.STRING,
@@ -38,7 +38,7 @@ jsPsychPILT = (function(jspsych) {
             feedback_middle: {
                 type: jspsych.ParameterType.STRING,
                 pretty_name: 'Middle Outcome',
-                default: '1',
+                default: '',
             },
             feedback_right: {
                 type: jspsych.ParameterType.STRING,
@@ -53,12 +53,12 @@ jsPsychPILT = (function(jspsych) {
             // How many stimuli to present, supported values are 2 and 3
             n_stimuli: {
                 type: jspsych.ParameterType.INT,
-                default: 3
+                default: 2
             },
             // Whether to present Pavlovian stimulus
             present_pavlovian: {
                 type: jspsych.ParameterType.BOOL,
-                default: false
+                default: true
             },
             // Whether to present Pavlovian stimulus
             circle_around_coin: {
