@@ -331,10 +331,10 @@ const WM_instructions = [
         type: jsPsychInstructions,
         css_classes: ['instructions'],
         pages: [
-            '<p>Next, you will play some more rounds of the card choosing game.</p>\
-                <p>Your goal is still to collect and keep from breaking as many high-value coins as you can.</p>',
+            '<p>Next, you will return to the card choosing game.</p>\
+                <p>Your goal remains to collect and keep from breaking as many high-value coins as you can.</p>',
             `<p>This time, you will choose between three cards on every turn.<p>
-            <p>As before, use the right arrow key to choose the card on the right, the left arrow key to choose the card on the left, 
+            <p>Use the right arrow key to choose the card on the right, the left arrow key to choose the card on the left, 
             and <b>use the upwards arrow key to choose the card in the middle.</b>
             `
         ],
@@ -344,7 +344,7 @@ const WM_instructions = [
     {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
-        stimulus: `<p>Let's start playing1</p>
+        stimulus: `<p>Let's start playing!</p>
         <p>Place your fingers on the left, right, and up arrow keys, and press the up arrow key to start playing.</p>`,
         choices: ['arrowup'],
         data: {trialphase: "WM_instructions"}
