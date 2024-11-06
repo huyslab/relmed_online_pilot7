@@ -247,8 +247,8 @@ const PITruleInstruction_2 = {
     </div>`,
     `
     <div id="instruction-text" style="text-align: left">
-      <p>In this cloudy place, the background will also change occasionally.</p>
-      <p>You may recognize some patterns from the previous <span class="highlight">Card Choosing game</span> - try to remember what you learned there.</p>
+      <p><strong>In this cloudy place, the background will also change occasionally.</strong></p>
+      <p>You may recognize some patterns from the previous <strong>Card Choosing game</strong>&#8212;try to remember what you learned there.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
@@ -263,8 +263,8 @@ const PITruleInstruction_2 = {
     </div>
     `,`
     <div id="instruction-text" style="text-align: left">
-          <p>Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</p>
-          <p>If this round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
+          <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
+          <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
