@@ -20,17 +20,17 @@ function generatePITstimulus(coin, ratio) {
   const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
   let piggyBgImg = '';
   if (coin === 1) {
-    piggyBgImg = 'imgs/marble1.png';
+    piggyBgImg = 'imgs/PIT1.png';
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/marble2.png';
+    piggyBgImg = 'imgs/PIT2.png';
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/marble3.png';
+    piggyBgImg = 'imgs/PIT3.png';
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/marble4.png';
+    piggyBgImg = 'imgs/PIT4.png';
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/marble5.png';
+    piggyBgImg = 'imgs/PIT5.png';
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/marble6.png';
+    piggyBgImg = 'imgs/PIT6.png';
   } else if (coin === 0) {
     piggyBgImg = '';
   }
@@ -39,8 +39,8 @@ function generatePITstimulus(coin, ratio) {
       <!-- Middle Row (Piggy Bank & Coins) -->
       <div id="experiment-container">
         <div id="bg-container">
-          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; ${cloud_style}">
-          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute;">
+          <img id="piggy-bg-1" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; height: 120%; width: auto; ${cloud_style}">
+          <img id="piggy-bg-2" src="imgs/piggy-cloud.png" alt="Piggy background" style="transform: translate(0vw, -4vh); position: absolute; height: 120%; width: auto;">
         </div>
         <div id="piggy-container">
           <!-- Piggy Bank Image -->
@@ -197,7 +197,7 @@ const PITruleInstruction = {
         <li>You can win coins of <strong>1 Penny, 2 Pence, and 5 Pence.</strong></li>
       </ul>
       <p><span class="highlight">But this time, you'll play in a cloudy place.<br>Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
-      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this round.</p>
+      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this game.</p>
       <p>When you're ready, press <span class="spacebar-icon">B</span> to start!</p>
     </div>
   `,
@@ -241,11 +241,51 @@ const PITruleInstruction_2 = {
     `,
     `<div id="instruction-text" style="text-align: left">
       <p><strong>But this time, you'll play in a cloudy place.</strong></p>
-      <img src="imgs/occluding_clouds.png" style="height:13em">
+      <img src="imgs/occluding_clouds.png" style="height:12em">
       <p><span class="highlight">Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
-      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this round.</p>
+      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this game.</p>
+    </div>`,
+    `
+    <div id="instruction-text" style="text-align: left">
+      <p><strong>In this cloudy place, the background will also change occasionally.</strong></p>
+      <p>You may recognize some patterns from the previous <strong>Card Choosing game</strong>&#8212;try to remember what you learned there.</p>
+
+          <div class="pav-stimuli-container">
+                <div class="pit-pav-row">
+                      <img src="imgs/PIT1.png" class="pit-pav-icon">
+                      <img src="imgs/PIT2.png" class="pit-pav-icon">
+                      <img src="imgs/PIT3.png" class="pit-pav-icon">
+                      <img src="imgs/PIT4.png" class="pit-pav-icon">
+                      <img src="imgs/PIT5.png" class="pit-pav-icon">
+                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                </div>
+          </div>
     </div>
-      `],
+    `,`
+    <div id="instruction-text" style="text-align: left">
+          <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
+          <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
+
+          <div class="pav-stimuli-container">
+                <div class="pit-pav-row">
+                      <img src="imgs/PIT1.png" class="pit-pav-icon">
+                      <img src="imgs/PIT2.png" class="pit-pav-icon">
+                      <img src="imgs/PIT3.png" class="pit-pav-icon">
+                      <img src="imgs/PIT4.png" class="pit-pav-icon">
+                      <img src="imgs/PIT5.png" class="pit-pav-icon">
+                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                </div>
+                <div class="pit-coin-row">
+                      <img src="imgs/1pound.png" class="pit-coin-icon">
+                      <img src="imgs/50pence.png" class="pit-coin-icon">
+                      <img src="imgs/1penny.png" class="pit-coin-icon">
+                      <img src="imgs/1poundbroken.png" class="pit-coin-icon">
+                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
+                      <img src="imgs/1pennybroken.png" class="pit-coin-icon">
+                </div>
+          </div>
+    </div>
+    `],
   simulation_options: {
     simulate: false
   }

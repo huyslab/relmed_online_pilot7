@@ -1,10 +1,10 @@
-const marble_imgs = [
-  "imgs/marble1.png",
-  "imgs/marble2.png",
-  "imgs/marble3.png",
-  "imgs/marble4.png",
-  "imgs/marble5.png",
-  "imgs/marble6.png"
+const PIT_imgs = [
+  "imgs/PIT1.png",
+  "imgs/PIT2.png",
+  "imgs/PIT3.png",
+  "imgs/PIT4.png",
+  "imgs/PIT5.png",
+  "imgs/PIT6.png"
 ];
 function getOrCreateImgContainer() {
   let imgContainer = document.getElementById('img-container');
@@ -52,7 +52,7 @@ function styleImgContainer(imgContainer, sortBorder) {
 
 const sortTrial = {
   type: jsPsychFreeSort,
-  stimuli: marble_imgs,
+  stimuli: PIT_imgs,
   stim_width: 100,
   stim_height: 100,
   scale_factor: 1.25,
