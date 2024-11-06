@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PIT</title>
+  <script src="jspsych/jspsych.js"></script>
+  <script>
+    // Initialize jsPysch object
+    let jsPsych = initJsPsych({
+      display_element: 'display_element',
+      on_finish: function () {
+        jsPsych.data.displayData('json');
+      }
+    });
+  </script>
+  <script src="jspsych/plugin-instructions.js"></script>
+  <script src="jspsych/plugin-survey-likert.js"></script>
+  <script src="jspsych/plugin-survey-multi-choice.js"></script>
+  <script src="questionnaires.js"></script>
+  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+  .jsPsychDE {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
+
+<body>
+  <div id='display_element' class='jsPsychDE'></div>
+</body>
+<script>
+  window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
+  window.debug = prolificPID.includes("debug");
+  // Run or simulate the experiment
+  if (window.prolificPID.includes("simulate")) {
+    jsPsych.simulate(questionnaires_timeline, "visual");
+  } else {
+    jsPsych.run(questionnaires_timeline);
+  }
+</script>
+
+</html>
