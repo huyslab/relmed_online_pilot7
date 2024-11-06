@@ -1,5 +1,5 @@
-# RELMED probabilistic learning task pilot #5
-This reposistory hosts the experiment website for the fourth pilot for RELMED (Internal name Pilot 5), which includes PILT, Vigour, PIT. The task is coded with jsPsych.
+# RELMED probabilistic learning task pilot #6
+This reposistory hosts the experiment website for the fourth pilot for RELMED (Internal name Pilot 6), which includes PILT, Vigour, PIT, reversal, WM, and questionnaires. The task is coded with jsPsych.
 
 Data is written to REDCap via a call to an AWS lamda function.
 
@@ -11,8 +11,8 @@ Data is written to REDCap via a call to an AWS lamda function.
 ├── PILT.js - main script for PILT
 ├── PILT_instructions.js - instructions for PILT
 ├── plugin-PLT.js - plugin for PILT trial
-├── pilot4_pilt.json - trial sequence for PILT
-├── pilot4_pilt_test.json - trial sequence for PILT test phase
+├── pilot6_pilt.json - trial sequence for PILT
+├── pilot6_pilt_test.json - trial sequence for PILT test phase
 ├── vigour.js - main vigour task script
 ├── vigour_instructions.js - vigour task 
 ├── visgour_styles.css - stylesheet for vigour task
@@ -20,6 +20,7 @@ Data is written to REDCap via a call to an AWS lamda function.
 ├── vigour.json - trial sequence for vigour task
 ├── reversal.js - main script for reversal task
 ├── PIT.js - main script for PIT transfer phase
+├── questionnaires.js - main script for all the questionnaires
 ├── plugin-reversal.js - plugin for reversal trial
 ├── pilot4_reversal_sequence.js - trial sequence for reversal task
 ├── utils.js - functions and trial objects shared across tasks
