@@ -432,7 +432,7 @@ function build_PILT_task(structure, insert_msg = true){
 async function load_squences(session) {
     try {
         // Fetch PILT sequences
-        const response = await fetch('pilot6_pilt.json');
+        const response = await fetch('pilot6_PILT.json');
         
         if (!response.ok) {
         throw new Error('Network response was not ok');
