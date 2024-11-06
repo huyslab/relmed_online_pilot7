@@ -241,7 +241,7 @@ const PITruleInstruction_2 = {
     `,
     `<div id="instruction-text" style="text-align: left">
       <p><strong>But this time, you'll play in a cloudy place.</strong></p>
-      <img src="imgs/occluding_clouds.png" style="height:13em">
+      <img src="imgs/occluding_clouds.png" style="height:12em">
       <p><span class="highlight">Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
       <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this game.</p>
     </div>`,
@@ -280,7 +280,7 @@ const PITruleInstruction_2 = {
                       <img src="imgs/50pence.png" class="pit-coin-icon">
                       <img src="imgs/1penny.png" class="pit-coin-icon">
                       <img src="imgs/1poundbroken.png" class="pit-coin-icon">
-                      <img src="imgs/50pence.png" class="pit-coin-icon">
+                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
                       <img src="imgs/1pennybroken.png" class="pit-coin-icon">
                 </div>
           </div>
