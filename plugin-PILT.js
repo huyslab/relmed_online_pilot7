@@ -50,6 +50,12 @@ jsPsychPILT = (function(jspsych) {
                 pretty_name: 'Is the optimal stimulus on the right?',
                 default: '',
             },
+            // For three stimulus version, we use optimal_side
+            optimal_side: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Which side is the optimal stimulus on?',
+                default: '',
+            },
             // How many stimuli to present, supported values are 2 and 3
             n_stimuli: {
                 type: jspsych.ParameterType.INT,
@@ -144,6 +150,10 @@ jsPsychPILT = (function(jspsych) {
               type: jspsych.ParameterType.INT,
               pretty_name: 'Whether the right image is optimal (1 for yes, 0 for no)'
             },
+            optimal_side: {
+                type: jspsych.ParameterType.STRING,
+                pretty_name: 'Which side was the optimal stimulus on'
+            },
             n_stimuli: {
                 type: jspsych.ParameterType.INT,
                 pretty_name: 'How many stimuli presented'
@@ -201,7 +211,12 @@ jsPsychPILT = (function(jspsych) {
             this.data.stimulus_right = this.contingency.img[1];
             this.data.feedback_left = this.contingency.outcome[0];
             this.data.feedback_right = this.contingency.outcome[1];
-            this.data.optimal_right = trial.optimal_right;
+            if (trial.n_stimuli === 2){
+                this.data.optimal_right = trial.optimal_right;
+            }else if(trial.n_stimuli === 3){
+                this.data.optimal_side = trial.optimal_side;
+            }
+            
             this.data.n_stimuli = trial.n_stimuli;
 
             if (trial.n_stimuli === 3){
@@ -211,6 +226,20 @@ jsPsychPILT = (function(jspsych) {
 
             // Create stimuli
             display_element.innerHTML = this.create_stimuli(trial.n_stimuli);
+
+            // Trial end function
+            const endTrial = () => {
+                // clear the display
+                let optionBox = document.getElementById("PILTOptionBox");
+                optionBox.style.display = 'none';
+    
+                const optimalSide = trial.n_stimuli === 2 ? (this.data.optimal_right == 1 ? 'right' : 'left') : trial.optimal_side
+                this.data.response_optimal = this.data.response === optimalSide
+                this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
+                this.jsPsych.pluginAPI.clearAllTimeouts()
+                this.jsPsych.finishTrial(this.data)
+    
+            }    
 
             // Response function
             const keyResponse = (e) => {
@@ -301,7 +330,7 @@ jsPsychPILT = (function(jspsych) {
                                         if (trial.circle_around_coin){
                                             coinCircle.style.visibility = 'visible';
                                         }
-                                        this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration);
+                                        this.jsPsych.pluginAPI.setTimeout(endTrial, trial.feedback_duration);
                                     },trial.pavlovian_stimulus_duration)
                                 });
                             } else {
@@ -311,7 +340,7 @@ jsPsychPILT = (function(jspsych) {
                                     { transform: "rotateY(0deg)", visibility: "visible" },
                                 ],{duration:250,iterations:1,fill:'forwards'})
                                 ani2.finished.then(()=> {
-                                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, trial.feedback_duration)
+                                    this.jsPsych.pluginAPI.setTimeout(endTrial, trial.feedback_duration)
                                 });
                             }
                         })
@@ -328,7 +357,7 @@ jsPsychPILT = (function(jspsych) {
                     document.getElementById('centerTxt').innerText = 'Please respond more quickly!'
     
                     // End trial after warning message
-                    this.jsPsych.pluginAPI.setTimeout(this.endTrial, (trial.warning_duration))
+                    this.jsPsych.pluginAPI.setTimeout(endTrial, (trial.warning_duration))
                 }
             }
 
@@ -369,7 +398,6 @@ jsPsychPILT = (function(jspsych) {
                 stimulus_right: trial.stimulus_right,
                 feedback_left: trial.feedback_left,
                 feedback_right: trial.feedback_right,
-                optimal_right: trial.optimal_right,
                 rt: this.jsPsych.randomization.sampleExGaussian(500, 50, 1 / 150, true),
                 n_stimuli: trial.n_stimuli
             };
@@ -377,9 +405,12 @@ jsPsychPILT = (function(jspsych) {
             if (trial.n_stimuli === 3){
                 default_data.stimulus_middle = trial.stimulus_middle;
                 default_data.feedback_middle = trial.feedback_middle;
+                default_data.optimal_side = trial.optimal_side;
+            } else if (trial.n_stimuli === 2){
+                default_data.optimal_right = trial.optimal_right;
             }
 
-            const optimalSide = default_data.optimal_right == 1 ? 'right' : 'left'
+            const optimalSide = trial.n_stimuli === 2 ? (default_data.optimal_right == 1 ? 'right' : 'left') : trial.optimal_side
             default_data.response = this.keys[default_data.key]
             default_data.response_optimal = default_data.response === optimalSide
             default_data.chosen_stimulus = default_data.response === "right" ? default_data.stimulus_right : default_data.stimulus_left
@@ -454,19 +485,6 @@ jsPsychPILT = (function(jspsych) {
                 `
             }
             return html
-        }
-
-        endTrial = () => {
-            // clear the display
-            let optionBox = document.getElementById("PILTOptionBox");
-            optionBox.style.display = 'none';
-
-            const optimalSide = this.data.optimal_right == 1 ? 'right' : 'left'
-            this.data.response_optimal = this.data.response === optimalSide
-            this.jsPsych.pluginAPI.cancelAllKeyboardResponses()
-            this.jsPsych.pluginAPI.clearAllTimeouts()
-            this.jsPsych.finishTrial(this.data)
-
         }
     }
     PILTPlugin.info = info;
