@@ -98,7 +98,7 @@ jsPsychPILT = (function(jspsych) {
                     1.0: "1pound.png",
                     0.5: "50pence.png",
                     "-0.01": "1pennybroken.png",
-                    "-1.0": "1poundbroken.png",
+                    "-1": "1poundbroken.png",
                     "-0.5": "50pencebroken.png"
                 },
             },
@@ -110,7 +110,7 @@ jsPsychPILT = (function(jspsych) {
                     1.0: "PIT1.png",
                     0.5: "PIT2.png",
                     "-0.01": "PIT6.png",
-                    "-1.0": "PIT4.png",
+                    "-1": "PIT4.png",
                     "-0.5": "PIT5.png"
                 },
             } 
