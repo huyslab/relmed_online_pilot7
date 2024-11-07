@@ -179,18 +179,18 @@ function format_date_from_string(s){
 }
 
 // Functions for computing remaining feedback after early stop
-function countPLTAfterLastNonPLT(arr) {
+function countPILTAfterLastNonPILT(arr) {
     let count = 0;
-    let foundNonPLT = false;
+    let foundNonPILT = false;
     
     // Iterate from the end to the beginning of the array
     for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i] !== "PLT") {
-        // If a non-PLT string is found, stop the iteration
-        foundNonPLT = true;
+      if (arr[i] !== "PILT") {
+        // If a non-PILT string is found, stop the iteration
+        foundNonPILT = true;
         break;
       } else {
-        // If foundNonPLT is true and we encounter "PLT", increase the count
+        // If foundNonPILT is true and we encounter "PILT", increase the count
         count++;
       }
     }
@@ -211,17 +211,17 @@ function getSumofMax(arr1, arr2) {
 // Extract observed coins for lottery
 function get_coins_from_data() {
     // Get block numbers for filtering
-    let blocks = jsPsych.data.get().filter({trial_type: "PLT"}).select('block').values;
+    let blocks = jsPsych.data.get().filter({trial_type: "PILT"}).select('block').values;
 
     // Get block valence for each trial
-    let valence = jsPsych.data.get().filter({trial_type: "PLT"}).select('valence').values;
+    let valence = jsPsych.data.get().filter({trial_type: "PILT"}).select('valence').values;
 
     // Get left and right outcome for each trial
-    let outcomeRight = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeRight').values;
-    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeLeft').values;
+    let outcomeRight = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeRight').values;
+    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeLeft').values;
 
     // Get choice
-    let choice = jsPsych.data.get().filter({trial_type: "PLT"}).select('choice').values;
+    let choice = jsPsych.data.get().filter({trial_type: "PILT"}).select('choice').values;
 
     let coins_for_lottery = []
     for (i=0; i<valence.length; i++){
@@ -348,7 +348,7 @@ function isValidNumber(value) {
 // Function to compile inter_block_stimulus
 function inter_block_stimulus(){
 
-    const last_trial = jsPsych.data.get().filter({trial_type: "PLT"}).last(1);
+    const last_trial = jsPsych.data.get().filter({trial_type: "PILT"}).last(1);
 
     // Valence of block
     const valence = last_trial.select("valence").values[0];
@@ -360,9 +360,9 @@ function inter_block_stimulus(){
     const n_pairs = last_trial.select("n_pairs").values[0]
 
     // Find chosen outcomes for block
-    let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
+    let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PILT",
         block: block
-    }).select('chosenOutcome').values;
+    }).select('chosen_feedback').values;
 
     // Summarize into counts
     chosen_outcomes = countOccurrences(chosen_outcomes);
