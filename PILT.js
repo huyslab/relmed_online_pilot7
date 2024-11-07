@@ -80,13 +80,13 @@ const test_trial = {
             </style>
             <div id="optionBox" class="optionBox">
                 <div id='left' class="optionSide">
-                    <img id='leftImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                    <img id='leftImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                 </div>
                 <div class="helperTxt">
                     <p2 id="centerTxt">?</p2>
                 </div>
                 <div id='right' class="optionSide">
-                    <img id='rightImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                    <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                 </div>
             </div>`
         },
@@ -169,13 +169,13 @@ const test_trial = {
                     </style>
                     <div id="optionBox" class="optionBox">
                         <div id='left' class="optionSide">
-                            <img id='leftImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                            <img id='leftImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                         </div>
                         <div class="helperTxt">
                             <p id="centerTxt">Please respond more quickly!</p>
                         </div>
                         <div id='right' class="optionSide">
-                            <img id='rightImg' src=imgs/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                            <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                         </div>
                     </div>`
                 },
@@ -247,7 +247,7 @@ function build_post_PILT_test(structure){
             type: jsPsychPreload,
             images: structure[1]
                 .flatMap(item => [item.stimulus_right, item.stimulus_left])
-                .map(value => `imgs/${value}`),
+                .map(value => `imgs/PILT_stims/${value}`),
             post_trial_gap: 800
         }
     ];
@@ -275,8 +275,8 @@ const PILT_trial =  {
         fullscreen_prompt,
     {
         type: jsPsychPILT,
-        stimulus_right: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
-        stimulus_left: () => 'imgs/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+        stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
         feedback_left: jsPsych.timelineVariable('feedback_left'),
         feedback_right: jsPsych.timelineVariable('feedback_right'),
         optimal_right: jsPsych.timelineVariable('optimal_right'),
@@ -400,7 +400,7 @@ function build_PILT_task(structure, insert_msg = true){
 
         // Get list of unique images in block to preload
         let preload_images = structure[i].flatMap(item => [item.stimulus_right, item.stimulus_left]);
-        preload_images = [...new Set(preload_images)].map(value => `imgs/${value}`);
+        preload_images = [...new Set(preload_images)].map(value => `imgs/PILT_stims/${value}`);
 
         // Build block
         block = [
