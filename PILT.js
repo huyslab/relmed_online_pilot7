@@ -285,10 +285,10 @@ const PILT_trial =  {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),
             trial: jsPsych.timelineVariable('trial'),
-            stimulus_pair: jsPsych.timelineVariable('pair'),
-            stimulus_pair_id: jsPsych.timelineVariable('cpair'),
+            stimulus_pair: 1,
+            stimulus_pair_id: jsPsych.timelineVariable('block'),
             valence: jsPsych.timelineVariable('valence'),
-            n_pairs: jsPsych.timelineVariable('n_pairs'),
+            n_pairs: 1,
             rest_1pound: jsPsych.timelineVariable('rest_1pound'),
             rest_50pence: jsPsych.timelineVariable('rest_50pence'),
             rest_1penny: jsPsych.timelineVariable('rest_1penny')
@@ -450,7 +450,7 @@ async function load_squences(session) {
         }
 
         const test_structure = await test_response.json();
-        const test_sess_structure = test_structure[session - 1];
+        let test_sess_structure = test_structure[session - 1];
 
         // Fetch pavlovian test sequences
         const pavlovian_response = await fetch('pavlovian_test.json');
@@ -477,7 +477,7 @@ function return_PILT_full_sequence(structure, test_structure, WM_structure){
     let PILT_procedure = [];
 
     // Add instructions
-    PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
+    // PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
     // Add PILT
     PILT_procedure = PILT_procedure.concat(build_PILT_task(structure));
