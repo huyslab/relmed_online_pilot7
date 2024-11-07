@@ -111,6 +111,7 @@ var prompt_gad = [
     "Trouble relaxing",
     "Being so restless that it is hard to sit still",
     "Becoming easily annoyed or irritable",
+    "Worrying about the 1974 Eurovision Song Contest", // Catch
     "Feeling afraid as if something awful might happen"
 ];
 
@@ -150,6 +151,7 @@ var prompt_BADS = [
     "I made good decisions about what type of activities and/or situations I put myself in.",
     "I was an active person and accomplished the goals I set out to do.",
     "Most of what I did was to escape from or avoid something unpleasant.",
+    "I was able to lift my coffee cup or water glass when drinking.", // Catch
     "I spent a long time thinking over and over about my problems.",
     "I engaged in activities that would distract me from feeling bad.",
     "I did things that were enjoyable."
@@ -193,6 +195,7 @@ var questionnaire_phq = {
         { prompt: "Feeling bad about yourself - or that you are a failure or have let yourself or your family down", labels: likert_phq, required: true },
         { prompt: "Trouble concentrating on things, such as reading the newspaper of watching television", labels: likert_phq, required: true },
         { prompt: "Moving or speaking so slowly that other people have noticed, or the opposite - being so fidgety or restless that you have been moving around a lot more than usual", labels: likert_phq, required: true },
+        { prompt: "Experiencing sadness or a sense of despair", labels: likert_phq, required: true }, // Catch
         { prompt: "Thoughts that you would be better off dead, or of hurting yourself in some way", labels: likert_phq, required: true },
     ],
     scale_width: 900,
@@ -283,7 +286,7 @@ var questionnaire_pvss = {
         { prompt: 'It <u>felt good</u> to have physical contact with someone I felt close to', labels: likert_pvss, required: true },
         { prompt: 'I <u>expected</u> to enjoy a brief moment outdoors', labels: likert_pvss, required: true },
         { prompt: 'I <u>looked forward</u> to hearing feedback on my work', labels: likert_pvss, required: true },
-        { prompt: 'I <u>expected</u> to enjoy my meals ', labels: likert_pvss, required: true },
+        { prompt: 'I <u>expected</u> to enjoy my meals', labels: likert_pvss, required: true },
         { prompt: 'Receiving praise about my work made me feel pleased <u>for the rest of the day</u>', labels: likert_pvss, required: true },
         { prompt: 'I <u>looked forward</u> to spending time with others', labels: likert_pvss, required: true },
         { prompt: 'I <u>wanted</u> to accomplish goals I set for myself', labels: likert_pvss, required: true },
@@ -294,6 +297,7 @@ var questionnaire_pvss = {
         { prompt: 'I <u>felt pleased</u> when I reached a goal I set for myself', labels: likert_pvss, required: true },
         { prompt: 'Getting a hug from someone close to me made me happy <u>even after</u> we parted', labels: likert_pvss, required: true },
         { prompt: 'I <u>expected</u> to master the tasks I undertook', labels: likert_pvss, required: true },
+        { prompt: "I wished to engage in enjoyable activities with people I'm close to", labels: likert_pvss, required: true }, // Catch
         { prompt: 'I <u>actively pursued</u> activities I thought would be fun', labels: likert_pvss, required: true },
         { prompt: 'I <u>went out of my way</u> to admire the beauty around me', labels: likert_pvss, required: true },
     ],
@@ -385,11 +389,11 @@ const questionnaires_timeline = [
         }
     },
     questionnaire_phq,
+    questionnaire_pvss,
     questionnaire_gad,
     questionnaire_WSAS,
     questionnaire_ICECAP,
     questionnaire_BFI,
-    questionnaire_pvss,
     questionnaire_BADS,
     questionnaire_hopelessness,
     questionnaire_RRS_brooding,
