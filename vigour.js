@@ -7,7 +7,7 @@ const experimentConfig = {
 experimentConfig.ratios.reverse();
 
 // Generate trials for Vigour task
-const vigourTrials = [{"magnitude":1,"ratio":1,"trialDuration":6825},{"magnitude":2,"ratio":8,"trialDuration":6956},{"magnitude":1,"ratio":16,"trialDuration":7228},{"magnitude":5,"ratio":1,"trialDuration":7221},{"magnitude":5,"ratio":16,"trialDuration":7261},{"magnitude":2,"ratio":1,"trialDuration":7386},{"magnitude":1,"ratio":8,"trialDuration":7009},{"magnitude":5,"ratio":8,"trialDuration":7376},{"magnitude":2,"ratio":16,"trialDuration":6666},{"magnitude":1,"ratio":1,"trialDuration":6962},{"magnitude":2,"ratio":8,"trialDuration":6501},{"magnitude":2,"ratio":1,"trialDuration":7236},{"magnitude":5,"ratio":1,"trialDuration":7490},{"magnitude":1,"ratio":16,"trialDuration":6902},{"magnitude":1,"ratio":8,"trialDuration":6888},{"magnitude":2,"ratio":16,"trialDuration":6891},{"magnitude":5,"ratio":8,"trialDuration":6535},{"magnitude":5,"ratio":16,"trialDuration":6652},{"magnitude":1,"ratio":8,"trialDuration":6890},{"magnitude":5,"ratio":8,"trialDuration":7452},{"magnitude":5,"ratio":16,"trialDuration":6954},{"magnitude":2,"ratio":1,"trialDuration":6827},{"magnitude":5,"ratio":1,"trialDuration":6679},{"magnitude":1,"ratio":16,"trialDuration":7199},{"magnitude":2,"ratio":16,"trialDuration":7207},{"magnitude":1,"ratio":1,"trialDuration":7145},{"magnitude":2,"ratio":8,"trialDuration":7465},{"magnitude":1,"ratio":8,"trialDuration":6870},{"magnitude":5,"ratio":8,"trialDuration":6726},{"magnitude":2,"ratio":16,"trialDuration":6688},{"magnitude":2,"ratio":8,"trialDuration":6506},{"magnitude":5,"ratio":1,"trialDuration":7044},{"magnitude":2,"ratio":1,"trialDuration":7293},{"magnitude":1,"ratio":1,"trialDuration":7182},{"magnitude":1,"ratio":16,"trialDuration":6862},{"magnitude":5,"ratio":16,"trialDuration":6985}] ;
+const vigourTrials = [{ "magnitude": 1, "ratio": 1, "trialDuration": 6825 }, { "magnitude": 2, "ratio": 8, "trialDuration": 6956 }, { "magnitude": 1, "ratio": 16, "trialDuration": 7228 }, { "magnitude": 5, "ratio": 1, "trialDuration": 7221 }, { "magnitude": 5, "ratio": 16, "trialDuration": 7261 }, { "magnitude": 2, "ratio": 1, "trialDuration": 7386 }, { "magnitude": 1, "ratio": 8, "trialDuration": 7009 }, { "magnitude": 5, "ratio": 8, "trialDuration": 7376 }, { "magnitude": 2, "ratio": 16, "trialDuration": 6666 }, { "magnitude": 1, "ratio": 1, "trialDuration": 6962 }, { "magnitude": 2, "ratio": 8, "trialDuration": 6501 }, { "magnitude": 2, "ratio": 1, "trialDuration": 7236 }, { "magnitude": 5, "ratio": 1, "trialDuration": 7490 }, { "magnitude": 1, "ratio": 16, "trialDuration": 6902 }, { "magnitude": 1, "ratio": 8, "trialDuration": 6888 }, { "magnitude": 2, "ratio": 16, "trialDuration": 6891 }, { "magnitude": 5, "ratio": 8, "trialDuration": 6535 }, { "magnitude": 5, "ratio": 16, "trialDuration": 6652 }, { "magnitude": 1, "ratio": 8, "trialDuration": 6890 }, { "magnitude": 5, "ratio": 8, "trialDuration": 7452 }, { "magnitude": 5, "ratio": 16, "trialDuration": 6954 }, { "magnitude": 2, "ratio": 1, "trialDuration": 6827 }, { "magnitude": 5, "ratio": 1, "trialDuration": 6679 }, { "magnitude": 1, "ratio": 16, "trialDuration": 7199 }, { "magnitude": 2, "ratio": 16, "trialDuration": 7207 }, { "magnitude": 1, "ratio": 1, "trialDuration": 7145 }, { "magnitude": 2, "ratio": 8, "trialDuration": 7465 }, { "magnitude": 1, "ratio": 8, "trialDuration": 6870 }, { "magnitude": 5, "ratio": 8, "trialDuration": 6726 }, { "magnitude": 2, "ratio": 16, "trialDuration": 6688 }, { "magnitude": 2, "ratio": 8, "trialDuration": 6506 }, { "magnitude": 5, "ratio": 1, "trialDuration": 7044 }, { "magnitude": 2, "ratio": 1, "trialDuration": 7293 }, { "magnitude": 1, "ratio": 1, "trialDuration": 7182 }, { "magnitude": 1, "ratio": 16, "trialDuration": 6862 }, { "magnitude": 5, "ratio": 16, "trialDuration": 6985 }];
 
 
 // Global variables
@@ -49,8 +49,8 @@ function wigglePiggy() {
     `translate(-1.5%, 0.5%) rotate(0deg)`,
     `translate(1.5%, 0.5%) rotate(-2deg)`,
     `translate(-0.5%, -0.5%) rotate(2deg)`,
-    `translate(0.5%, 1%) rotate(0deg)` ,
-    `translate(0.5%, -1%) rotate(-2deg)` 
+    `translate(0.5%, 1%) rotate(0deg)`,
+    `translate(0.5%, -1%) rotate(-2deg)`
   ], { duration: 100, easing: 'linear' });
 }
 
@@ -78,7 +78,7 @@ function getCoinAnimationOptions(magnitude) {
   const duration = magnitude === 0 ? 2500 : 1000;
   const topStart = '-15%';
   const opacityStart = 0.8;
-  
+
   return {
     keyframes: [
       { top: topStart, opacity: opacityStart, offset: 0 },
@@ -106,7 +106,7 @@ function observeResizing(elementId, callback) {
 function updatePersistentCoinContainer() {
   const coinContainer = document.getElementById('coin-container');
   const persistCoinContainer = document.getElementById('persist-coin-container');
-  
+
   if (coinContainer && persistCoinContainer) {
     const rect = coinContainer.getBoundingClientRect();
     persistCoinContainer.style.top = `${rect.top}px`;
@@ -130,27 +130,27 @@ function updatePiggyTails(magnitude, ratio) {
 
   // Wait for the piggy bank image to load
   piggyBank.onload = () => {
-      const piggyBankWidth = piggyBank.offsetWidth;
-      const tailWidth = piggyBankWidth * 0.1; // Adjust this factor as needed
-      const spacing = tailWidth * 0; // Adjust spacing between tails
-      for (let i = 0; i < magnitude_index + 1; i++) {
-          const tail = document.createElement('img');
-          tail.src = 'imgs/piggy-tail2.png';
-          tail.alt = 'Piggy Tail';
-          tail.className = 'piggy-tail';
-          
-          // Position each tail
-          tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
-          tail.style.width = `${tailWidth}px`;
-          tail.style.filter = `saturate(${50 * (400/50) ** ratio_factor}%)`;
+    const piggyBankWidth = piggyBank.offsetWidth;
+    const tailWidth = piggyBankWidth * 0.1; // Adjust this factor as needed
+    const spacing = tailWidth * 0; // Adjust spacing between tails
+    for (let i = 0; i < magnitude_index + 1; i++) {
+      const tail = document.createElement('img');
+      tail.src = 'imgs/piggy-tail2.png';
+      tail.alt = 'Piggy Tail';
+      tail.className = 'piggy-tail';
 
-          piggyContainer.appendChild(tail);
-      }
+      // Position each tail
+      tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
+      tail.style.width = `${tailWidth}px`;
+      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%)`;
+
+      piggyContainer.appendChild(tail);
+    }
   };
 
   // Trigger onload if the image is already cached
   if (piggyBank.complete) {
-      piggyBank.onload();
+    piggyBank.onload();
   }
 }
 
@@ -159,7 +159,7 @@ function generateTrialStimulus(magnitude, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400/50) ** ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
   return `
     <div class="experiment-wrapper">
       <!-- Middle Row (Piggy Bank & Coins) -->
@@ -174,6 +174,46 @@ function generateTrialStimulus(magnitude, ratio) {
   `;
 }
 
+// Function to create and show warning
+function showTemporaryWarning(message, duration = 500) {
+  // Create warning element
+  const warningElement = document.createElement('div');
+  warningElement.id = 'vigour-warning-temp';
+  warningElement.innerText = message;
+  
+  // Style the warning
+  warningElement.style.cssText = `
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  `;
+  
+  // Add to document body
+  document.body.appendChild(warningElement);
+  
+  // Force reflow to ensure transition works
+  warningElement.offsetHeight;
+  
+  // Show warning
+  warningElement.style.opacity = '1';
+  
+  // Remove after duration
+  setTimeout(() => {
+    warningElement.style.opacity = '0';
+    setTimeout(() => {
+      warningElement.remove();
+    }, 300); // Wait for fade out transition
+  }, duration);
+}
+
 // Box shaking trial
 let vigourTrialCounter = 0;
 const piggyBankTrial = {
@@ -183,7 +223,7 @@ const piggyBankTrial = {
   },
   choices: 'NO_KEYS',
   // response_ends_trial: false,
-  trial_duration: function() {
+  trial_duration: function () {
     return jsPsych.evaluateTimelineVariable('trialDuration')
   },
   save_timeline_variables: ["magnitude", "ratio"],
@@ -266,6 +306,18 @@ const piggyBankTrial = {
     if (vigourTrialCounter % (vigourTrials.length / 3) == 0 || vigourTrialCounter == vigourTrials.length) {
       saveDataREDCap(retry = 3);
     }
+
+    // No response
+    if (data.trial_presses === 0 && data.timeline_variables.ratio === 1) {
+      var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+      jsPsych.data.addProperties({
+        n_warnings: up_to_now + 1
+      });
+
+    // Show warning with dynamic element
+    showTemporaryWarning('Please respond more quickly!', 500);
+
+    }
   }
 };
 
@@ -274,7 +326,7 @@ const vigour_bonus = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
   choices: ['Finish'],
-  data: {trialphase: 'vigour_bonus'},
+  data: { trialphase: 'vigour_bonus' },
   on_start: function (trial) {
     const selected_trial = getSelectedTrial();
     trial.stimulus = `
