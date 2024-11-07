@@ -222,7 +222,8 @@ jsPsychPILT = (function(jspsych) {
                     // if there is a response:
                     this.data.key = e.key.toLowerCase()
                     this.data.response = this.keys[e.key.toLowerCase()]
-                    const inverse_response = Object.values(this.keys).filter(element => element !== this.data.response)
+                    const possible_responses = trial.n_stimuli === 3 ? ["right", "left", "middle"] : ["right", "left"]
+                    const inverse_response = possible_responses.filter(element => element !== this.data.response)
                     this.data.rt = e.rt
     
                     if (this.data.response === 'left') {
