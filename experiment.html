@@ -166,40 +166,40 @@
 
         // Add PILT timeline
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
-        procedure = procedure.concat(PILT_tasks.PILT_procedure);
-        procedure = procedure.concat([
-            acceptability_intro,
-            acceptability_PILT
-        ]);
+        // procedure = procedure.concat(PILT_tasks.PILT_procedure);
+        // procedure = procedure.concat([
+        //     acceptability_intro,
+        //     acceptability_PILT
+        // ]);
 
-        // Add vigour task timeline
-        const vigourTimeline = [
-            vigourInstructions,
-            ...experimentTimeline,
-        ];
-        procedure = procedure.concat(vigourTimeline);
-        procedure = procedure.concat([
-            acceptability_intro,
-            acceptability_vigour
-        ]);
+        // // Add vigour task timeline
+        // const vigourTimeline = [
+        //     vigourInstructions,
+        //     ...experimentTimeline,
+        // ];
+        // procedure = procedure.concat(vigourTimeline);
+        // procedure = procedure.concat([
+        //     acceptability_intro,
+        //     acceptability_vigour
+        // ]);
 
-        // Add PIT timeline: instructions, trials, bonus
-        const PITtimeline = [
-            PITinstructions,
-            PITtrials,
-            PIT_bonus
-        ];
-        procedure = procedure.concat(PITtimeline);
-        procedure = procedure.concat([
-            acceptability_intro,
-            acceptability_PIT
-        ]);
+        // // Add PIT timeline: instructions, trials, bonus
+        // const PITtimeline = [
+        //     PITinstructions,
+        //     PITtrials,
+        //     PIT_bonus
+        // ];
+        // procedure = procedure.concat(PITtimeline);
+        // procedure = procedure.concat([
+        //     acceptability_intro,
+        //     acceptability_PIT
+        // ]);
 
-        // Add post-vigour test
-        procedure = procedure.concat(postVigourInstructions);
-        procedure = procedure.concat(postVigourTrials);
+        // // Add post-vigour test
+        // procedure = procedure.concat(postVigourInstructions);
+        // procedure = procedure.concat(postVigourTrials);
 
-        // PILT & Pavlovian test /// PUT Pavlovian first!!!
+        // // PILT & Pavlovian test /// PUT Pavlovian first!!!
         procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
 
         // Add WM block

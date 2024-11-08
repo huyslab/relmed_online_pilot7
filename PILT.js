@@ -84,13 +84,13 @@ const test_trial = {
             </style>
             <div id="optionBox" class="optionBox">
                 <div id='left' class="optionSide">
-                    <img id='leftImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                    <img id='leftImg' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                 </div>
                 <div class="helperTxt">
                     <p2 id="centerTxt">?</p2>
                 </div>
                 <div id='right' class="optionSide">
-                    <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                    <img id='rightImg' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                 </div>
             </div>`
             },
@@ -173,13 +173,13 @@ const test_trial = {
                     </style>
                     <div id="optionBox" class="optionBox">
                         <div id='left' class="optionSide">
-                            <img id='leftImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                            <img id='leftImg' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                         </div>
                         <div class="helperTxt">
                             <p id="centerTxt">Please respond more quickly!</p>
                         </div>
                         <div id='right' class="optionSide">
-                            <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                            <img id='rightImg' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                         </div>
                     </div>`
                     },
@@ -250,8 +250,7 @@ function build_post_PILT_test(structure) {
         {
             type: jsPsychPreload,
             images: structure[1]
-                .flatMap(item => [item.stimulus_right, item.stimulus_left])
-                .map(value => `imgs/PILT_stims/${value}`),
+                .flatMap(item => [item.stimulus_right, item.stimulus_left]),
             post_trial_gap: 800
         }
     ];
@@ -475,9 +474,24 @@ async function load_squences(session) {
         const test_structure = await test_response.json();
         let test_sess_structure = test_structure[session - 1];
 
+        // Add folder to stimuli, and rename block
+        for (i=0; i<test_sess_structure.length; i++){
+            for(j=0; j<test_sess_structure[i].length; j++) {
+                test_sess_structure[i][j].stimulus_left = `imgs/PILT_stims/${test_sess_structure[i][j].stimulus_left}`
+                test_sess_structure[i][j].stimulus_right = `imgs/PILT_stims/${test_sess_structure[i][j].stimulus_right}`    
+            }
+        }
+
         // Fetch pavlovian test sequences
         const pavlovian_response = await fetch('pavlovian_test.json');
-        const pav_test_structure = await pavlovian_response.json();
+        let pav_test_structure = await pavlovian_response.json();
+
+        // Add folder to stimuli, and rename block
+        for (i=0; i<pav_test_structure.length; i++){
+            pav_test_structure[i].stimulus_left = `imgs/Pav_stims/session${window.sessionNum}/${pav_test_structure[i].stimulus_left}`
+            pav_test_structure[i].stimulus_right = `imgs/Pav_stims/session${window.sessionNum}/${pav_test_structure[i].stimulus_right}`
+            pav_test_structure[i].block = "pavlovian"
+        }
 
         // Add Pavlovaian test to the end of test strucutre
         test_sess_structure = [pav_test_structure].concat(test_sess_structure);
