@@ -278,44 +278,56 @@ const PILT_trial = {
     timeline: [
         kick_out,
         fullscreen_prompt,
-        {
-            type: jsPsychPILT,
-            stimulus_right: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_right'),
-            stimulus_left: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_left'),
-            stimulus_middle: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_middle'),
-            feedback_left: jsPsych.timelineVariable('feedback_left'),
-            feedback_right: jsPsych.timelineVariable('feedback_right'),
-            feedback_middle: jsPsych.timelineVariable('feedback_middle'),
-            optimal_right: jsPsych.timelineVariable('optimal_right'),
-            optimal_side: jsPsych.timelineVariable('optimal_side'),
-            response_deadline: jsPsych.timelineVariable('response_deadline'),
-            n_stimuli: jsPsych.timelineVariable('n_stimuli'),
-            present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
-            data: {
-                trialphase: "task",
-                block: jsPsych.timelineVariable('block'),
-                trial: jsPsych.timelineVariable('trial'),
-                stimulus_group: jsPsych.timelineVariable('stimulus_group'),
-                stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
-                valence: jsPsych.timelineVariable('valence'),
-                n_groups: jsPsych.timelineVariable('n_groups'),
-                rest_1pound: jsPsych.timelineVariable('rest_1pound'),
-                rest_50pence: jsPsych.timelineVariable('rest_50pence'),
-                rest_1penny: jsPsych.timelineVariable('rest_1penny')
-            },
-            on_finish: function (data) {
-                if (data.response === "noresp") {
-                    var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
-                    jsPsych.data.addProperties({
-                        n_warnings: up_to_now + 1
-                    });
-                }
-            },
-            simulation_options: {
-                mode: 'data-only'
-            },
-            post_trial_gap: 400
-        }
+    {
+        type: jsPsychPILT,
+        stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+        stimulus_middle: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_middle'),
+        feedback_left: jsPsych.timelineVariable('feedback_left'),
+        feedback_right: jsPsych.timelineVariable('feedback_right'),
+        feedback_middle: jsPsych.timelineVariable('feedback_middle'),
+        optimal_right: jsPsych.timelineVariable('optimal_right'),
+        optimal_side: jsPsych.timelineVariable('optimal_side'),
+        response_deadline: jsPsych.timelineVariable('response_deadline'),
+        n_stimuli: jsPsych.timelineVariable('n_stimuli'),
+        present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
+        pavlovian_images: () => {
+            let PIT_imgs = {
+                0.01: "PIT3.png",
+                1.0: "PIT1.png",
+                0.5: "PIT2.png",
+                "-0.01": "PIT6.png",
+                "-1": "PIT4.png",
+                "-0.5": "PIT5.png"
+            };
+            PIT_imgs = Object.fromEntries(Object.entries(PIT_imgs).map(([k, v]) => [k, "Pav_stims/session" + sessionNum + "/" + v]));
+            return PIT_imgs;
+        },
+        data: {
+            trialphase: "task",
+            block: jsPsych.timelineVariable('block'),
+            trial: jsPsych.timelineVariable('trial'),
+            stimulus_group: jsPsych.timelineVariable('stimulus_group'),
+            stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
+            valence: jsPsych.timelineVariable('valence'),
+            n_groups: jsPsych.timelineVariable('n_groups'),
+            rest_1pound: jsPsych.timelineVariable('rest_1pound'),
+            rest_50pence: jsPsych.timelineVariable('rest_50pence'),
+            rest_1penny: jsPsych.timelineVariable('rest_1penny')
+        },
+        on_finish: function(data) {
+            if (data.response === "noresp") {
+                var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+                jsPsych.data.addProperties({
+                    n_warnings: up_to_now + 1
+                });
+            }
+         },
+         simulation_options: {
+            mode: 'data-only'
+         },
+        post_trial_gap: 400
+    }
     ],
     conditional_function: function () {
 

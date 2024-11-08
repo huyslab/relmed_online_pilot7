@@ -7,9 +7,9 @@ const PITconfig = {
   trialDuration: 7000 // in milliseconds on average, U[9500, 10500]
 };
 
-var PITtrialList = [{"magnitude":5,"ratio":8,"coin":0,"trialDuration":4110},{"magnitude":5,"ratio":8,"coin":-0.01,"trialDuration":6666},{"magnitude":5,"ratio":8,"coin":0.01,"trialDuration":7261},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4188},{"magnitude":2,"ratio":8,"coin":-1,"trialDuration":7490},{"magnitude":2,"ratio":8,"coin":1,"trialDuration":6825},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":4130},{"magnitude":1,"ratio":1,"coin":0.01,"trialDuration":6891},{"magnitude":1,"ratio":1,"coin":-0.01,"trialDuration":6902},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4193},{"magnitude":2,"ratio":8,"coin":-0.5,"trialDuration":6535},{"magnitude":2,"ratio":8,"coin":-0.01,"trialDuration":6652},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":3978},{"magnitude":1,"ratio":1,"coin":-0.5,"trialDuration":6888},{"magnitude":1,"ratio":1,"coin":-1,"trialDuration":6962},{"magnitude":2,"ratio":16,"coin":0,"trialDuration":3833},{"magnitude":2,"ratio":16,"coin":0.5,"trialDuration":7452},{"magnitude":2,"ratio":16,"coin":0.01,"trialDuration":6954},{"magnitude":5,"ratio":8,"coin":0,"trialDuration":3913},{"magnitude":5,"ratio":8,"coin":-0.5,"trialDuration":6956},{"magnitude":5,"ratio":8,"coin":0.5,"trialDuration":7376},{"magnitude":2,"ratio":8,"coin":0,"trialDuration":4005},{"magnitude":2,"ratio":8,"coin":0.5,"trialDuration":7009},{"magnitude":2,"ratio":8,"coin":0.01,"trialDuration":7228},{"magnitude":5,"ratio":8,"coin":0,"trialDuration":4114},{"magnitude":5,"ratio":8,"coin":-1,"trialDuration":7386},{"magnitude":5,"ratio":8,"coin":1,"trialDuration":7221},{"magnitude":2,"ratio":16,"coin":0,"trialDuration":4245},{"magnitude":2,"ratio":16,"coin":1,"trialDuration":6679},{"magnitude":2,"ratio":16,"coin":-0.01,"trialDuration":7207},{"magnitude":1,"ratio":1,"coin":0,"trialDuration":3767},{"magnitude":1,"ratio":1,"coin":1,"trialDuration":7236},{"magnitude":1,"ratio":1,"coin":0.5,"trialDuration":6501},{"magnitude":2,"ratio":16,"coin":0,"trialDuration":3826},{"magnitude":2,"ratio":16,"coin":-0.5,"trialDuration":7465},{"magnitude":2,"ratio":16,"coin":-1,"trialDuration":6827}];
+var PITtrialList = [{ "magnitude": 5, "ratio": 8, "coin": 0, "trialDuration": 4110 }, { "magnitude": 5, "ratio": 8, "coin": -0.01, "trialDuration": 6666 }, { "magnitude": 5, "ratio": 8, "coin": 0.01, "trialDuration": 7261 }, { "magnitude": 2, "ratio": 8, "coin": 0, "trialDuration": 4188 }, { "magnitude": 2, "ratio": 8, "coin": -1, "trialDuration": 7490 }, { "magnitude": 2, "ratio": 8, "coin": 1, "trialDuration": 6825 }, { "magnitude": 1, "ratio": 1, "coin": 0, "trialDuration": 4130 }, { "magnitude": 1, "ratio": 1, "coin": 0.01, "trialDuration": 6891 }, { "magnitude": 1, "ratio": 1, "coin": -0.01, "trialDuration": 6902 }, { "magnitude": 2, "ratio": 8, "coin": 0, "trialDuration": 4193 }, { "magnitude": 2, "ratio": 8, "coin": -0.5, "trialDuration": 6535 }, { "magnitude": 2, "ratio": 8, "coin": -0.01, "trialDuration": 6652 }, { "magnitude": 1, "ratio": 1, "coin": 0, "trialDuration": 3978 }, { "magnitude": 1, "ratio": 1, "coin": -0.5, "trialDuration": 6888 }, { "magnitude": 1, "ratio": 1, "coin": -1, "trialDuration": 6962 }, { "magnitude": 2, "ratio": 16, "coin": 0, "trialDuration": 3833 }, { "magnitude": 2, "ratio": 16, "coin": 0.5, "trialDuration": 7452 }, { "magnitude": 2, "ratio": 16, "coin": 0.01, "trialDuration": 6954 }, { "magnitude": 5, "ratio": 8, "coin": 0, "trialDuration": 3913 }, { "magnitude": 5, "ratio": 8, "coin": -0.5, "trialDuration": 6956 }, { "magnitude": 5, "ratio": 8, "coin": 0.5, "trialDuration": 7376 }, { "magnitude": 2, "ratio": 8, "coin": 0, "trialDuration": 4005 }, { "magnitude": 2, "ratio": 8, "coin": 0.5, "trialDuration": 7009 }, { "magnitude": 2, "ratio": 8, "coin": 0.01, "trialDuration": 7228 }, { "magnitude": 5, "ratio": 8, "coin": 0, "trialDuration": 4114 }, { "magnitude": 5, "ratio": 8, "coin": -1, "trialDuration": 7386 }, { "magnitude": 5, "ratio": 8, "coin": 1, "trialDuration": 7221 }, { "magnitude": 2, "ratio": 16, "coin": 0, "trialDuration": 4245 }, { "magnitude": 2, "ratio": 16, "coin": 1, "trialDuration": 6679 }, { "magnitude": 2, "ratio": 16, "coin": -0.01, "trialDuration": 7207 }, { "magnitude": 1, "ratio": 1, "coin": 0, "trialDuration": 3767 }, { "magnitude": 1, "ratio": 1, "coin": 1, "trialDuration": 7236 }, { "magnitude": 1, "ratio": 1, "coin": 0.5, "trialDuration": 6501 }, { "magnitude": 2, "ratio": 16, "coin": 0, "trialDuration": 3826 }, { "magnitude": 2, "ratio": 16, "coin": -0.5, "trialDuration": 7465 }, { "magnitude": 2, "ratio": 16, "coin": -1, "trialDuration": 6827 }];
 
-  // var PITtrialList = jsPsych.randomization.shuffleNoRepeats(PITtrialList, function(trial1, trial2) {trial1.coin == trial2.coin && trial1.ratio == trial2.ratio && trial1.magnitude == trial2.magnitude});
+// var PITtrialList = jsPsych.randomization.shuffleNoRepeats(PITtrialList, function(trial1, trial2) {trial1.coin == trial2.coin && trial1.ratio == trial2.ratio && trial1.magnitude == trial2.magnitude});
 
 // Trial stimulus function
 function generatePITstimulus(coin, ratio) {
@@ -17,23 +17,18 @@ function generatePITstimulus(coin, ratio) {
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
   const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
-  const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
-  let piggyBgImg = '';
-  if (coin === 1) {
-    piggyBgImg = 'imgs/PIT1.png';
-  } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/PIT2.png';
-  } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/PIT3.png';
-  } else if (coin === -1) {
-    piggyBgImg = 'imgs/PIT4.png';
-  } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/PIT5.png';
-  } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/PIT6.png';
-  } else if (coin === 0) {
-    piggyBgImg = '';
-  }
+  const cloud_style = `filter: brightness(0.8) contrast(1.2);`;
+  let PIT_imgs = {
+    0.01: "PIT3.png",
+    1.0: "PIT1.png",
+    0.5: "PIT2.png",
+    "-0.01": "PIT6.png",
+    "-1": "PIT4.png",
+    "-0.5": "PIT5.png"
+  };
+  PIT_imgs = Object.fromEntries(Object.entries(PIT_imgs).map(([k, v]) => [k, "imgs/Pav_stims/session" + sessionNum + "/" + v]));
+  PIT_imgs["0"] = "";
+  const piggyBgImg = PIT_imgs[coin];
   return `
     <div class="experiment-wrapper" style="background-image: url(${piggyBgImg});background-repeat: repeat; background-size: 30vw;">
       <!-- Middle Row (Piggy Bank & Coins) -->
@@ -221,7 +216,7 @@ const PITruleInstruction = {
 
 const PITruleInstruction_2 = {
   type: jsPsychInstructions,
-  data: {trialphase: 'vigour_instructions'},
+  data: { trialphase: 'vigour_instructions' },
   show_clickable_nav: true,
   pages: [`
   <div id="instruction-text" style="text-align: left">
@@ -262,28 +257,28 @@ const PITruleInstruction_2 = {
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
-                      <img src="imgs/PIT1.png" class="pit-pav-icon">
-                      <img src="imgs/PIT2.png" class="pit-pav-icon">
-                      <img src="imgs/PIT3.png" class="pit-pav-icon">
-                      <img src="imgs/PIT4.png" class="pit-pav-icon">
-                      <img src="imgs/PIT5.png" class="pit-pav-icon">
-                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
                 </div>
           </div>
     </div>
-    `,`
+    `, `
     <div id="instruction-text" style="text-align: left">
           <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
           <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
-                      <img src="imgs/PIT1.png" class="pit-pav-icon">
-                      <img src="imgs/PIT2.png" class="pit-pav-icon">
-                      <img src="imgs/PIT3.png" class="pit-pav-icon">
-                      <img src="imgs/PIT4.png" class="pit-pav-icon">
-                      <img src="imgs/PIT5.png" class="pit-pav-icon">
-                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
                 </div>
                 <div class="pit-coin-row">
                       <img src="imgs/1pound.png" class="pit-coin-icon">
@@ -311,7 +306,7 @@ const startPITconfirmation = {
   </div>
     `,
   post_trial_gap: 300,
-  data: {trialphase: 'pit_instructions'},
+  data: { trialphase: 'pit_instructions' },
   simulation_options: {
     simulate: false
   }
