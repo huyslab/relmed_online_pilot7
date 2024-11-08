@@ -479,7 +479,7 @@ async function load_squences(session) {
         window.totalBlockNumber = sess_structure.length
 
         // Fetch post-PILT test sequences
-        const test_response = await fetch('pilot6_pilt_test.json');
+        const test_response = await fetch('pilot6_PILT_test.json');
 
         if (!test_response.ok) {
             throw new Error(`Network response was not ok ${test_response}`);
