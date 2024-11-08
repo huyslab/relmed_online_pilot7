@@ -163,10 +163,10 @@
         // Add PILT timeline
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
-
-        // Add coin lottery
-        procedure.push(lottery_instructions);
-        procedure.push(coin_lottery);
+        procedure = procedure.concat([
+            acceptability_into,
+            acceptability_pilt
+        ]);
 
         // Add vigour task timeline
         const vigourTimeline = [
@@ -174,6 +174,10 @@
             ...experimentTimeline,
         ];
         procedure = procedure.concat(vigourTimeline);
+        procedure = procedure.concat([
+            acceptability_into,
+            acceptability_vigour
+        ]);
 
         // Add PIT timeline: instructions, trials, bonus
         const PITtimeline = [
@@ -182,26 +186,43 @@
             PIT_bonus
         ];
         procedure = procedure.concat(PITtimeline);
+        procedure = procedure.concat([
+            acceptability_into,
+            acceptability_pit
+        ]);
 
-        // Add vigour bonus message
-        procedure.push(vigour_bonus);
-
-        // PILT & Pavlovian test
-        procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
-
-         // Add post-vigour test
+        // Add post-vigour test
         procedure = procedure.concat(postVigourInstructions);
         procedure = procedure.concat(postVigourTrials);
 
+        // PILT & Pavlovian test /// PUT Pavlovian first!!!
+        procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
+
         // Add WM block
         procedure.push(PILT_tasks.WM_procedure);
+        procedure = procedure.concat([
+            acceptability_into,
+            acceptability_wm
+        ]);
 
         // Add reversal timeline
         procedure = procedure.concat(reversal_instructions);
         procedure = procedure.concat(reversal_blocks);
+        procedure = procedure.concat([
+            acceptability_into,
+            acceptability_reversal
+        ]);
 
-        // Debrief questions
-        procedure = procedure.concat(acceptability);
+        // Add questionnaire timeline
+        procedure = procedure.concat(questionnaires_timeline);
+
+        // Add vigour bonus message
+        procedure.push(vigour_bonus);
+
+        // Add coin lottery
+        procedure.push(lottery_instructions);
+        procedure.push(coin_lottery);
+        
 
         // Final messages and data saving
         procedure = procedure.concat(end_experiment_msgs);
