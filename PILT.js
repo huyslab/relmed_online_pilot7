@@ -78,7 +78,6 @@ const test_trial = {
                     margin: auto;
                     width: 12vw;
                     max-width: 325px;
-                    
                     text-wrap: normal;
                     font-size: 1.5rem;
                     font-weight: bold;
@@ -171,11 +170,12 @@ const test_trial = {
                             margin: auto;
                             width: 12vw;
                             max-width: 325px;
-                            
+                            background-color: white;
                             text-wrap: normal;
                             font-size: 1.5rem;
                             font-weight: bold;
                             line-height: 3rem;
+                            z-index: 10
                         }
                         
                         .coin {
