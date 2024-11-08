@@ -338,13 +338,13 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
 
                 // Change message
-                var prompt = trial.n_flips > 1 ? "<p>The coins above" : "<p>This coin" + ` will be added to your bonus payment.</p>`
+                var prompt_txt = trial.n_flips > 1 ? "<p>The coins above" : "<p>This coin" + ` will be added to your bonus payment.</p>`
 
                 if (data.outcomes.some(item => item < 0)){
-                    prompt += "<p>(Broken coins are worth £0)</p>"
+                    prompt_txt += "<p>(Broken coins are worth £0)</p>"
                 }
-                prompt += `<p>Press the button to continue:  </p>`
-                prompt.innerHTML = prompt;
+                prompt_txt += `<p>Press the button to continue:  </p>`
+                prompt.innerHTML = prompt_txt;
 
                 // Add end trial button
                 const endButton = document.createElement('button');
