@@ -23,6 +23,12 @@ const inter_block_msg = {
 }
 
 // Post-PILT test trial
+const id_from_stimulus = () => {
+    const is_pit = jsPsych.evaluateTimelineVariable('stimulus_left').includes("PIT");
+
+    return is_pit ? "imgPIT" : "imgPILT"
+}
+
 const test_trial = {
     timeline: [
         kick_out,
@@ -58,8 +64,12 @@ const test_trial = {
                     grid-row: 1;
                 }
 
-                #rightImg, #leftImg {
+                #imgPILT, #imgPIT {
                     border: 1px solid darkgrey;
+                }
+
+                #imgPIT{
+                    transform: scale(1.5);             
                 }
                 
                 .helperTxt {
@@ -84,13 +94,13 @@ const test_trial = {
             </style>
             <div id="optionBox" class="optionBox">
                 <div id='left' class="optionSide">
-                    <img id='leftImg' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                    <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                 </div>
                 <div class="helperTxt">
                     <p2 id="centerTxt">?</p2>
                 </div>
                 <div id='right' class="optionSide">
-                    <img id='rightImg' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                    <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                 </div>
             </div>`
             },
@@ -147,10 +157,14 @@ const test_trial = {
                             grid-row: 1;
                         }
         
-                        #rightImg, #leftImg {
+                        #imgPILT, #imgPIT {
                             border: 1px solid darkgrey;
                         }
-                        
+
+                        #imgPIT{
+                            transform: scale(1.5);             
+                        }         
+
                         .helperTxt {
                             display: flex;
                             justify-content: space-around;
@@ -173,13 +187,13 @@ const test_trial = {
                     </style>
                     <div id="optionBox" class="optionBox">
                         <div id='left' class="optionSide">
-                            <img id='leftImg' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
+                            <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
                         </div>
                         <div class="helperTxt">
                             <p id="centerTxt">Please respond more quickly!</p>
                         </div>
                         <div id='right' class="optionSide">
-                            <img id='rightImg' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
+                            <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                         </div>
                     </div>`
                     },
