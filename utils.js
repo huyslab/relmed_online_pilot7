@@ -257,10 +257,13 @@ function get_coins_from_data() {
     // Get response
     response = trials.select('response').values;
 
+    // Get chosen feedback
+    chosen_feedback = trials.select('chosen_feedback').values;
+
     for (i=0; i<response.length; i++){
 
         // Worst outcome for missed response
-        if (response === null){
+        if ((response !== "right") & (response !== "left")){
             const worst = Math.min(feedback_right[i], feedback_left[i]);
 
             coins_for_lottery.push(worst);
