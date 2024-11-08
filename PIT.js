@@ -126,6 +126,16 @@ const PITtrial = {
     if (PITtrialCounter % (PITtrials.length / 3) == 0 || PITtrialCounter == PITtrials.length) {
       saveDataREDCap(retry = 3);
     }
+
+    // No response
+    if (data.trial_presses === 0 && data.timeline_variables.ratio === 1) {
+      var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+      jsPsych.data.addProperties({
+        n_warnings: up_to_now + 1
+      });
+      // console.log(jsPsych.data.get().last(1).select('n_warnings').values[0]);
+      showTemporaryWarning("Don't forget to participate!", 800); // Enable this line for non-stopping warning
+    }
   },
   simulation_options: {
     data: {
