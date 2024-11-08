@@ -206,7 +206,7 @@ var questionnaire_phq = {
 
 var questionnaire_gad = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 2</h1>" +
+    preamble: ["<h1>Questionnaire 3</h1>" +
         "<p>Over the <u>last 2 weeks</u>, how often have you been bothered by following problems?</p>"
     ],
     questions: prompt_gad.map(prompt => ({
@@ -228,7 +228,7 @@ var questions_WSAS = prompt_WSAS.map(prompt => ({
 questions_WSAS.unshift({prompt: "If you're retired or choose not to have a job for reasons unrelated to your problem, tick here", labels: [""], required: false});
 var questionnaire_WSAS = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 3</h1>" +
+    preamble: ["<h1>Questionnaire 4</h1>" +
         "<p>People's problems sometimes affect their ability to do certain day-to-day tasks in their lives. To rate your problems look at each section and determine on the scale provided how much your problem impairs your ability to carry out the activity. This assessment is not intended to be a diagnosis. If you are concerned about your results in any way, please speak with a qualified health professional.</p>"
     ],
     questions: questions_WSAS,
@@ -240,7 +240,7 @@ var questionnaire_WSAS = {
 
 var questionnaire_ICECAP = {
     type: jsPsychSurveyMultiChoice,
-    preamble: ["<h1>Questionnaire 4</h1>" +
+    preamble: ["<h1>Questionnaire 5</h1>" +
         "<p>Please indicate which statements best describe your overall quality of life at the moment by choosing ONE option for each of the five groups below.</p>"
     ],
     questions: prompt_ICECAP.map((prompt, index) => ({
@@ -256,7 +256,7 @@ var questionnaire_ICECAP = {
 
 var questionnaire_BFI = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 5</h1>" +
+    preamble: ["<h1>Questionnaire 6</h1>" +
         "<p>How well do the following statements describe your personality?</p>"
     ],
     questions: prompt_BFI.map(prompt => ({
@@ -272,7 +272,7 @@ var questionnaire_BFI = {
 
 var questionnaire_pvss = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 6</h1>" +
+    preamble: ["<h1>Questionnaire 2</h1>" +
         'Please indicate to what extent these statements describe your <b><u>responses over the last two weeks, including today.</u></br>' +
         'Did you NOT have this experience? No problem. Please indicate how you <u>would have responded</u> if you had experienced the situation over the last two weeks.</b></br>' +
         'Please consider only the aspect of the situation that is described, paying particular attention to the <u>underlined text</u>. For example, if the statement says, "<u>I wanted</u> to meet new people," rate how much you wanted or would have wanted to meet new people over the last two weeks, assuming that the opportunity presented itself. Do not consider what the situation would have required of you or whether it would have been possible for you to meet people.'
@@ -309,7 +309,7 @@ var questionnaire_pvss = {
 
 var questionnaire_BADS = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 8</h1>" +
+    preamble: ["<h1>Questionnaire 7</h1>" +
         "<p>Please read each statement carefully and then circle the number which best describes how much the statement was true for you DURING THE PAST WEEK, INCLUDING TODAY.</p>"
     ],
     questions: prompt_BADS.map(prompt => ({
@@ -325,7 +325,7 @@ var questionnaire_BADS = {
 
 var questionnaire_hopelessness = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 9</h1>" +
+    preamble: ["<h1>Questionnaire 8</h1>" +
         "<p>For each of the statements below, please choose the option that best applies to you.</p>"
     ],
     questions: prompt_hopelessness.map(prompt => ({
@@ -341,7 +341,7 @@ var questionnaire_hopelessness = {
 
 var questionnaire_RRS_brooding = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 10</h1>" +
+    preamble: ["<h1>Questionnaire 9</h1>" +
         "<p>People think and do many different things when they feel depressed. Please read each of the items below and indicate whether you almost never, sometimes, often, or almost always think or do each one when you feel down, sad, or depressed. Please indicate what you generally do, not what you think you should do.</p>"
     ],
     questions: prompt_RRS_brooding.map(prompt => ({
@@ -357,7 +357,7 @@ var questionnaire_RRS_brooding = {
 
 var questionnaire_PERS_negAct = {
     type: jsPsychSurveyLikert,
-    preamble: ["<h1>Questionnaire 11</h1>" +
+    preamble: ["<h1>Questionnaire 10</h1>" +
         "<p>This questionnaire is designed to measure different aspects of how you typically react to experiencing emotional events. Please score the following statements according to how much they apply or do not apply to you on a typical day.</p>"
     ],
     questions: prompt_PERS_negAct.map(prompt => ({
