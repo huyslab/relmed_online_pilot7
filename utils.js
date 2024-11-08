@@ -395,7 +395,8 @@ function inter_block_stimulus(){
     const n_stimuli = last_trial.select("n_stimuli").values[0];
 
     // Are there 50pence coins in the block?
-    const fifty = jsPsych.data.get().filter({trial_type: "PILT", block: block}).select("feedback_right").values.includes(0.5);
+    const feedbacks = jsPsych.data.get().filter({trial_type: "PILT", block: block}).select("feedback_right").values;
+    const fifty = feedbacks.includes(0.5) || feedbacks.includes(-0.5);
     console.log(fifty)
 
     // Find chosen outcomes for block
