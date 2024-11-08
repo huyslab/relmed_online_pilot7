@@ -419,7 +419,7 @@ function inter_block_stimulus(){
         txt += `<p>You've found the better ${n_groups > 1 ? "cards" : "card"}.</p><p>You will skip the remaining turns and `;
         
         txt += valence == 1 ? `collect the remaining coins hidden under ` : 
-            `lose only the remaining coins hidden under`;
+            `lose only the remaining coins hidden under `;
 
         txt +=  n_groups > 1 ? "these cards." : "this card."
         
