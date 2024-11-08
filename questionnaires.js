@@ -198,7 +198,7 @@ var questionnaire_phq = {
         { prompt: "Experiencing sadness or a sense of despair", labels: likert_phq, required: true }, // Catch
         { prompt: "Thoughts that you would be better off dead, or of hurting yourself in some way", labels: likert_phq, required: true },
     ],
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "PHQ"
     }
@@ -214,7 +214,7 @@ var questionnaire_gad = {
         labels: likert_gad,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "GAD"
     }
@@ -232,7 +232,7 @@ var questionnaire_WSAS = {
         "<p>People's problems sometimes affect their ability to do certain day-to-day tasks in their lives. To rate your problems look at each section and determine on the scale provided how much your problem impairs your ability to carry out the activity. This assessment is not intended to be a diagnosis. If you are concerned about your results in any way, please speak with a qualified health professional.</p>"
     ],
     questions: questions_WSAS,
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "WSAS"
     }
@@ -248,7 +248,7 @@ var questionnaire_ICECAP = {
         options: multichoice_ICECAP[index],
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "ICECAP"
     }
@@ -264,7 +264,7 @@ var questionnaire_BFI = {
         labels: likert_BFI,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "BFI"
     }
@@ -301,7 +301,7 @@ var questionnaire_pvss = {
         { prompt: 'I <u>actively pursued</u> activities I thought would be fun', labels: likert_pvss, required: true },
         { prompt: 'I <u>went out of my way</u> to admire the beauty around me', labels: likert_pvss, required: true },
     ],
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "PVSS"
     }
@@ -317,7 +317,7 @@ var questionnaire_BADS = {
         labels: likert_BADS,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "BADS"
     }
@@ -333,7 +333,7 @@ var questionnaire_hopelessness = {
         labels: likert_hopelessness,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "Hopelessness"
     }
@@ -349,7 +349,7 @@ var questionnaire_RRS_brooding = {
         labels: likert_RRS_brooding,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "RRS_brooding"
     }
@@ -365,7 +365,7 @@ var questionnaire_PERS_negAct = {
         labels: likert_PERS_negAct,
         required: true
     })),
-    scale_width: 900,
+    scale_width: 700,
     data: {
         trialphase: "PERS_negAct"
     }
