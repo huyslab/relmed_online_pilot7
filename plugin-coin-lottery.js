@@ -338,7 +338,7 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
 
                 // Change message
-                var prompt = trial.n_flips > 1 ? "The coins above" : "This coin" + `<p>${msg_part} will be added to your bonus payment.</p>`
+                var prompt = trial.n_flips > 1 ? "<p>The coins above" : "<p>This coin" + ` will be added to your bonus payment.</p>`
 
                 if (data.outcomes.some(item => item < 0)){
                     prompt += "<p>(Broken coins are worth £0)</p>"
