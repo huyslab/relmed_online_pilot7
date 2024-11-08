@@ -175,7 +175,7 @@ function generateTrialStimulus(magnitude, ratio) {
 }
 
 // Function to create and show warning
-function showTemporaryWarning(message, duration = 500) {
+function showTemporaryWarning(message, duration = 800) {
   // Create warning element
   const warningElement = document.createElement('div');
   warningElement.id = 'vigour-warning-temp';
@@ -188,12 +188,17 @@ function showTemporaryWarning(message, duration = 500) {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
-    background-color: rgba(255, 0, 0, 0.1);
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
+    background-color: rgba(244, 206, 92, 0.9);
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #182b4b;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
+    text-align: center;
+    letter-spacing: 0.0px;
   `;
   
   // Add to document body
@@ -210,7 +215,7 @@ function showTemporaryWarning(message, duration = 500) {
     warningElement.style.opacity = '0';
     setTimeout(() => {
       warningElement.remove();
-    }, 300); // Wait for fade out transition
+    }, 200); // Wait for fade out transition
   }, duration);
 }
 
