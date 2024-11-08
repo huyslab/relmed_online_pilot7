@@ -285,6 +285,7 @@ const PILT_trial =  {
         optimal_side: jsPsych.timelineVariable('optimal_side'),
         response_deadline: jsPsych.timelineVariable('response_deadline'),
         n_stimuli: jsPsych.timelineVariable('n_stimuli'),
+        present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
         data: {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),
@@ -477,6 +478,7 @@ async function load_squences(session) {
 function return_PILT_full_sequence(structure, test_structure, WM_structure){
     // Compute best-rest
     computeBestRest(structure);
+    computeBestRest(WM_structure);
 
     let PILT_procedure = [];
 
