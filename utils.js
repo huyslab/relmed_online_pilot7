@@ -210,34 +210,64 @@ function getSumofMax(arr1, arr2) {
 
 // Extract observed coins for lottery
 function get_coins_from_data() {
-    // Get block numbers for filtering
-    let blocks = jsPsych.data.get().filter({trial_type: "PILT"}).select('block').values;
 
-    // Get block valence for each trial
-    let valence = jsPsych.data.get().filter({trial_type: "PILT"}).select('valence').values;
+    // Get PILT trials
+    let trials = jsPsych.data.get().filter({trial_type: "PILT"});
+
+    // Get block numbers for filtering
+    let blocks = trials.select('block').values;
 
     // Get left and right outcome for each trial
-    let outcomeRight = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeRight').values;
-    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeLeft').values;
+    let feedback_right = trials.select('feedback_right').values;
+    let feedback_left = trials.select('feedback_left').values;
+    let feedback_middle = trials.select('feedback_middle').values;
 
-    // Get choice
-    let choice = jsPsych.data.get().filter({trial_type: "PILT"}).select('choice').values;
+    // Get response
+    let response = trials.select('response').values;
+
+    // Get presented feedback
+    let chosen_feedback = trials.select('chosen_feedback').values;
 
     let coins_for_lottery = []
-    for (i=0; i<valence.length; i++){
+    for (i=0; i<response.length; i++){
 
-        if ((typeof blocks[i] !== "number") || choice[i] == "noresp"){
-
+        // Skip practice blocks
+        if (typeof blocks[i] !== "number"){
             continue
         }
 
-        if (valence[i] == 1){
-            coins_for_lottery.push(choice[i] == "right" ? outcomeRight[i] : outcomeLeft[i]);
+        // Worst outcome for missed response
+        if (response === "noresp"){
+            const worst = Math.min(...[feedback_right[i], feedback_left[i], feedback_middle[i]].filter(item => typeof item === 'number'));
 
+            coins_for_lottery.push(worst);
         } else {
-            coins_for_lottery.push(choice[i] == "right" ? -outcomeLeft[i] : -outcomeRight[i]);
-
+            coins_for_lottery.push(chosen_feedback[i]);
         }
+        
+    }
+
+    // Get reversal trials
+    trials = jsPsych.data.get().filter({trial_type: "reversal"});
+
+    // Get left and right outcome for each trial
+    feedback_right = trials.select('feedback_right').values;
+    feedback_left = trials.select('feedback_left').values;
+    
+    // Get response
+    response = trials.select('response').values;
+
+    for (i=0; i<response.length; i++){
+
+        // Worst outcome for missed response
+        if (response === null){
+            const worst = Math.min(feedback_right[i], feedback_left[i]);
+
+            coins_for_lottery.push(worst);
+        } else {
+            coins_for_lottery.push(chosen_feedback[i]);
+        }
+        
     }
 
     return coins_for_lottery

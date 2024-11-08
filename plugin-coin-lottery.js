@@ -126,7 +126,10 @@ var jsPsychCoinLottery = (function(jspsych) {
             const coin_names = {
                 0.01: "1penny",
                 0.5: "50pence",
-                1: "1pound"
+                1: "1pound",
+                "-0.01": "1pennybroken",
+                "-0.5": "50pencebroken",
+                "-1": "1poundbroken"
             }
     
             // Create and append divs
