@@ -10,7 +10,7 @@ const inter_block_msg = {
     type: jsPsychHtmlKeyboardResponse,
     choices: () => {
 
-        const n_stimuli = jsPsych.data.get().filter({trial_type: "PILT"}).last(1).select("n_stimuli").values[0];
+        const n_stimuli = jsPsych.data.get().filter({ trial_type: "PILT" }).last(1).select("n_stimuli").values[0];
 
         return n_stimuli === 2 ? ['arrowright', 'arrowleft'] : ['arrowright', 'arrowleft', 'arrowup']
     },
@@ -20,7 +20,7 @@ const inter_block_msg = {
         trialphase: "inter_block",
     },
     on_start: saveDataREDCap,
-    on_finish: () => {window.skipThisBlock = false}
+    on_finish: () => { window.skipThisBlock = false }
 }
 
 // Post-PILT test trial
@@ -28,11 +28,11 @@ const test_trial = {
     timeline: [
         kick_out,
         fullscreen_prompt,
-    // Test trial
-    {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: () => {
-            return `<style>
+        // Test trial
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: () => {
+                return `<style>
                 .optionBox {
                     margin: auto;
                     display: flex;
@@ -94,34 +94,34 @@ const test_trial = {
                     <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                 </div>
             </div>`
-        },
-        choices: ["ArrowRight", "ArrowLeft"],
-        trial_duration: 4000,
-        data: {
-            trialphase: "PILT_test",
-            block: jsPsych.timelineVariable("block"),
-            trial: jsPsych.timelineVariable("trial"),
-            stimulus_left: jsPsych.timelineVariable("stimulus_left"),
-            stimulus_right: jsPsych.timelineVariable("stimulus_right"),
-            same_valence: jsPsych.timelineVariable("same_valence"),
-            same_block: jsPsych.timelineVariable("same_block"),
-            magnitude_left: jsPsych.timelineVariable("magnitude_left"),
-            magnitude_right: jsPsych.timelineVariable("magnitude_right"),
-            original_block_left: jsPsych.timelineVariable("original_block_left"),
-            original_block_right: jsPsych.timelineVariable("original_block_right"),
+            },
+            choices: ["ArrowRight", "ArrowLeft"],
+            trial_duration: 4000,
+            data: {
+                trialphase: "PILT_test",
+                block: jsPsych.timelineVariable("block"),
+                trial: jsPsych.timelineVariable("trial"),
+                stimulus_left: jsPsych.timelineVariable("stimulus_left"),
+                stimulus_right: jsPsych.timelineVariable("stimulus_right"),
+                same_valence: jsPsych.timelineVariable("same_valence"),
+                same_block: jsPsych.timelineVariable("same_block"),
+                magnitude_left: jsPsych.timelineVariable("magnitude_left"),
+                magnitude_right: jsPsych.timelineVariable("magnitude_right"),
+                original_block_left: jsPsych.timelineVariable("original_block_left"),
+                original_block_right: jsPsych.timelineVariable("original_block_right"),
 
-        }
-    },
-    // Timeout message
-    {
-        timeline: [
-            {
-                type: jsPsychHtmlKeyboardResponse,
-                data: {
-                    trialphase: "PILT_test_timeout"
-                },
-                stimulus: () => {
-                    return `<style>
+            }
+        },
+        // Timeout message
+        {
+            timeline: [
+                {
+                    type: jsPsychHtmlKeyboardResponse,
+                    data: {
+                        trialphase: "PILT_test_timeout"
+                    },
+                    stimulus: () => {
+                        return `<style>
                         .optionBox {
                             margin: auto;
                             display: flex;
@@ -183,69 +183,69 @@ const test_trial = {
                             <img id='rightImg' src=imgs/PILT_stims/${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
                         </div>
                     </div>`
-                },
-                choices: "NO_KEYS",
-                trial_duration: 1500
-            }
-        ],
-        conditional_function: () => {
-            let missed = jsPsych.data.get().filter({
-                trialphase: "PILT_test"
-            }).last(1).select("response").values[0] == null
-
-            if (missed){
-                // Update warning count
-                var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
-                jsPsych.data.addProperties({
-                n_warnings: up_to_now + 1
-                });
-            }
-
-            return missed
-        }
-    },
-    {
-        type: jsPsychHtmlKeyboardResponse,
-        choices: "NO_KEYS",
-        stimulus: "",
-        data: {
-            trialphase: "PILT_test_ITI"
-        },
-        trial_duration: 0,
-        post_trial_gap: 600
-    },
-    {
-        timeline: [
-            {
-                type: jsPsychHtmlButtonResponse,
-                stimulus: '<p>How confident are you that your last choice was correct?</p>',
-                choices: ["1<br>Not at all", "2", "3", "4", "5<br>Very confident"],
-                data: {
-                    trialphase: "pilt_confidence"
+                    },
+                    choices: "NO_KEYS",
+                    trial_duration: 1500
                 }
-            }
-        ],
-        conditional_function: () => {
-            let missed = jsPsych.data.get().filter({
-                trialphase: "PILT_test"
-            }).last(1).select("response").values[0] == null
+            ],
+            conditional_function: () => {
+                let missed = jsPsych.data.get().filter({
+                    trialphase: "PILT_test"
+                }).last(1).select("response").values[0] == null
 
-            let n_trials = jsPsych.data.get().filter({
-                trialphase: "PILT_test"
-            }).count()
-    
-            return !missed && ((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1))
+                if (missed) {
+                    // Update warning count
+                    var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+                    jsPsych.data.addProperties({
+                        n_warnings: up_to_now + 1
+                    });
+                }
+
+                return missed
+            }
         },
-        post_trial_gap: 800
-    }
-]
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            choices: "NO_KEYS",
+            stimulus: "",
+            data: {
+                trialphase: "PILT_test_ITI"
+            },
+            trial_duration: 0,
+            post_trial_gap: 600
+        },
+        {
+            timeline: [
+                {
+                    type: jsPsychHtmlButtonResponse,
+                    stimulus: '<p>How confident are you that your last choice was correct?</p>',
+                    choices: ["1<br>Not at all", "2", "3", "4", "5<br>Very confident"],
+                    data: {
+                        trialphase: "pilt_confidence"
+                    }
+                }
+            ],
+            conditional_function: () => {
+                let missed = jsPsych.data.get().filter({
+                    trialphase: "PILT_test"
+                }).last(1).select("response").values[0] == null
+
+                let n_trials = jsPsych.data.get().filter({
+                    trialphase: "PILT_test"
+                }).count()
+
+                return !missed && ((n_trials % window.pilt_test_confidence_every) === (window.pilt_test_confidence_every - 1))
+            },
+            post_trial_gap: 800
+        }
+    ]
 };
 
 // Post-PILT test confidence trial
 
 // Build post_PILT test block
-function build_post_PILT_test(structure){
-    
+function build_post_PILT_test(structure) {
+
     // Preload images
     let test = [
         {
@@ -258,7 +258,7 @@ function build_post_PILT_test(structure){
     ];
 
     // Push blocks from structure
-    for (let i=0; i < structure.length; i++){
+    for (let i = 0; i < structure.length; i++) {
 
         // Push block                
         test.push({
@@ -274,95 +274,95 @@ function build_post_PILT_test(structure){
 
 
 // PILT trial
-const PILT_trial =  {
+const PILT_trial = {
     timeline: [
         kick_out,
         fullscreen_prompt,
-    {
-        type: jsPsychPILT,
-        stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
-        stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
-        stimulus_middle: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_middle'),
-        feedback_left: jsPsych.timelineVariable('feedback_left'),
-        feedback_right: jsPsych.timelineVariable('feedback_right'),
-        feedback_middle: jsPsych.timelineVariable('feedback_middle'),
-        optimal_right: jsPsych.timelineVariable('optimal_right'),
-        optimal_side: jsPsych.timelineVariable('optimal_side'),
-        response_deadline: jsPsych.timelineVariable('response_deadline'),
-        n_stimuli: jsPsych.timelineVariable('n_stimuli'),
-        present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
-        data: {
-            trialphase: "task",
-            block: jsPsych.timelineVariable('block'),
-            trial: jsPsych.timelineVariable('trial'),
-            stimulus_group: jsPsych.timelineVariable('stimulus_group'),
-            stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
-            valence: jsPsych.timelineVariable('valence'),
-            n_groups: jsPsych.timelineVariable('n_groups'),
-            rest_1pound: jsPsych.timelineVariable('rest_1pound'),
-            rest_50pence: jsPsych.timelineVariable('rest_50pence'),
-            rest_1penny: jsPsych.timelineVariable('rest_1penny')
-        },
-        on_finish: function(data) {
-            if (data.response === "noresp") {
-                var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
-                jsPsych.data.addProperties({
-                    n_warnings: up_to_now + 1
-                });
-            }
-         },
-         simulation_options: {
-            mode: 'data-only'
-         },
-        post_trial_gap: 400
-    }
+        {
+            type: jsPsychPILT,
+            stimulus_right: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_right'),
+            stimulus_left: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_left'),
+            stimulus_middle: () => 'imgs/PILT_stims/' + jsPsych.evaluateTimelineVariable('stimulus_middle'),
+            feedback_left: jsPsych.timelineVariable('feedback_left'),
+            feedback_right: jsPsych.timelineVariable('feedback_right'),
+            feedback_middle: jsPsych.timelineVariable('feedback_middle'),
+            optimal_right: jsPsych.timelineVariable('optimal_right'),
+            optimal_side: jsPsych.timelineVariable('optimal_side'),
+            response_deadline: jsPsych.timelineVariable('response_deadline'),
+            n_stimuli: jsPsych.timelineVariable('n_stimuli'),
+            present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
+            data: {
+                trialphase: "task",
+                block: jsPsych.timelineVariable('block'),
+                trial: jsPsych.timelineVariable('trial'),
+                stimulus_group: jsPsych.timelineVariable('stimulus_group'),
+                stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
+                valence: jsPsych.timelineVariable('valence'),
+                n_groups: jsPsych.timelineVariable('n_groups'),
+                rest_1pound: jsPsych.timelineVariable('rest_1pound'),
+                rest_50pence: jsPsych.timelineVariable('rest_50pence'),
+                rest_1penny: jsPsych.timelineVariable('rest_1penny')
+            },
+            on_finish: function (data) {
+                if (data.response === "noresp") {
+                    var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
+                    jsPsych.data.addProperties({
+                        n_warnings: up_to_now + 1
+                    });
+                }
+            },
+            simulation_options: {
+                mode: 'data-only'
+            },
+            post_trial_gap: 400
+        }
     ],
-    conditional_function: function(){
+    conditional_function: function () {
 
         // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
-        if (Number.isInteger(jsPsych.evaluateTimelineVariable('block')) && 
+        if (Number.isInteger(jsPsych.evaluateTimelineVariable('block')) &&
             jsPsych.evaluateTimelineVariable('trial') > 5
-        ){
+        ) {
 
-                // Block number
-                const block = jsPsych.data.get().last(1).select('block').values[0];
+            // Block number
+            const block = jsPsych.data.get().last(1).select('block').values[0];
 
-                // Find all sitmulus-pairs in block
-                let unique_stimulus_pairs =  [...new Set(jsPsych.data.get().filter({
+            // Find all sitmulus-pairs in block
+            let unique_stimulus_pairs = [...new Set(jsPsych.data.get().filter({
+                trial_type: "PILT",
+                block: block
+            }).select('stimulus_group').values)]
+
+            // Initialize a variable to store the result
+            let all_optimal = true;
+
+            // Iterate over each unique stimulus_group and check the last 5 choices
+            unique_stimulus_pairs.forEach(g => {
+
+                // Filter data for the current stimulus_group
+                let num_optimal = jsPsych.data.get().filter({
                     trial_type: "PILT",
-                    block: block
-                }).select('stimulus_group').values)]
+                    block: block,
+                    stimulus_group: g
+                }).last(5).select('response_optimal').sum();
 
-                // Initialize a variable to store the result
-                let all_optimal = true;
-
-                // Iterate over each unique stimulus_group and check the last 5 choices
-                unique_stimulus_pairs.forEach(g => {
-
-                    // Filter data for the current stimulus_group
-                    let num_optimal = jsPsych.data.get().filter({
-                        trial_type: "PILT",
-                        block: block,
-                        stimulus_group: g
-                    }).last(5).select('response_optimal').sum();
-
-                    // Check if all last 5 choices for this group are correct
-                    if (num_optimal < 5) {
-                        all_optimal = false;
-                    }
-                });
-
-                if (all_optimal) {
-                    window.skipThisBlock = true;
+                // Check if all last 5 choices for this group are correct
+                if (num_optimal < 5) {
+                    all_optimal = false;
                 }
+            });
 
-                return !all_optimal
-        }else{
+            if (all_optimal) {
+                window.skipThisBlock = true;
+            }
+
+            return !all_optimal
+        } else {
             return true
         }
-        
+
     }
-} 
+}
 
 // Coin lottery trial
 const coin_lottery = {
@@ -397,9 +397,9 @@ const coin_lottery = {
 }
 
 // Build PILT task block
-function build_PILT_task(structure, insert_msg = true){
+function build_PILT_task(structure, insert_msg = true) {
     let PILT_task = [];
-    for (let i=0; i < structure.length; i++){
+    for (let i = 0; i < structure.length; i++) {
 
         // Set default value of response_deadline
         structure[i].forEach(trial => {
@@ -426,12 +426,12 @@ function build_PILT_task(structure, insert_msg = true){
                 timeline_variables: structure[i]
             }
         ];
-        
+
         // Add message
-        if (insert_msg){
+        if (insert_msg) {
             block.push(inter_block_msg);
         }
-        
+
         PILT_task = PILT_task.concat(block)
     }
 
@@ -443,9 +443,9 @@ async function load_squences(session) {
     try {
         // Fetch PILT sequences
         const response = await fetch('pilot6_PILT.json');
-        
+
         if (!response.ok) {
-        throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok');
         }
         const structure = await response.json();
         const sess_structure = structure[session - 1];
@@ -465,7 +465,7 @@ async function load_squences(session) {
         // Fetch pavlovian test sequences
         const pavlovian_response = await fetch('pavlovian_test.json');
         const pav_test_structure = await pavlovian_response.json();
-        
+
         // Add Pavlovaian test to the end of test strucutre
         test_sess_structure = test_sess_structure.concat(pav_test_structure);
 
@@ -480,7 +480,7 @@ async function load_squences(session) {
     }
 }
 
-function return_PILT_full_sequence(structure, test_structure, WM_structure){
+function return_PILT_full_sequence(structure, test_structure, WM_structure) {
     // Compute best-rest
     computeBestRest(structure);
     computeBestRest(WM_structure);
