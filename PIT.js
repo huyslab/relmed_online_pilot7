@@ -20,17 +20,17 @@ function generatePITstimulus(coin, ratio) {
   const cloud_style = `filter: brightness(0.8) contrast(1.2);`; 
   let piggyBgImg = '';
   if (coin === 1) {
-    piggyBgImg = 'imgs/PIT1.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT1.png";
   } else if (coin === 0.5) {
-    piggyBgImg = 'imgs/PIT2.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT2.png";
   } else if (coin === 0.01) {
-    piggyBgImg = 'imgs/PIT3.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT3.png";
   } else if (coin === -1) {
-    piggyBgImg = 'imgs/PIT4.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT4.png";
   } else if (coin === -0.5) {
-    piggyBgImg = 'imgs/PIT5.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT5.png";
   } else if (coin === -0.01) {
-    piggyBgImg = 'imgs/PIT6.png';
+    piggyBgImg = "imgs/Pav_stims/session" + sessionNum + "/PIT6.png";
   } else if (coin === 0) {
     piggyBgImg = '';
   }
@@ -262,12 +262,12 @@ const PITruleInstruction_2 = {
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
-                      <img src="imgs/PIT1.png" class="pit-pav-icon">
-                      <img src="imgs/PIT2.png" class="pit-pav-icon">
-                      <img src="imgs/PIT3.png" class="pit-pav-icon">
-                      <img src="imgs/PIT4.png" class="pit-pav-icon">
-                      <img src="imgs/PIT5.png" class="pit-pav-icon">
-                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
                 </div>
           </div>
     </div>
@@ -278,12 +278,12 @@ const PITruleInstruction_2 = {
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
-                      <img src="imgs/PIT1.png" class="pit-pav-icon">
-                      <img src="imgs/PIT2.png" class="pit-pav-icon">
-                      <img src="imgs/PIT3.png" class="pit-pav-icon">
-                      <img src="imgs/PIT4.png" class="pit-pav-icon">
-                      <img src="imgs/PIT5.png" class="pit-pav-icon">
-                      <img src="imgs/PIT6.png" class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
+                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
                 </div>
                 <div class="pit-coin-row">
                       <img src="imgs/1pound.png" class="pit-coin-icon">
