@@ -253,7 +253,7 @@ const PITruleInstruction_2 = {
     `
     <div id="instruction-text" style="text-align: left">
       <p><strong>In this cloudy place, the background will also change occasionally.</strong></p>
-      <p>You may recognize some patterns from the previous <strong>Card Choosing game</strong>&#8212;try to remember what you learned there.</p>
+      <p>You may recognize some patterns in the background from the previous <strong>Card Choosing Game</strong>&#8212;try to remember what you learned there.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">

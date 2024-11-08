@@ -114,7 +114,7 @@ const startConfirmation = {
   choices: ['b', 'r'],
   stimulus: `
   <div id="instruction-text">
-      <p><strong>When you're ready, press the <span class="spacebar-icon">B</span> to start!</strong></p>
+      <p><strong>When you're ready, press <span class="spacebar-icon">B</span> to start!</strong></p>
     <p>If you want to start over from the beginning, press <span class="spacebar-icon">R</span>.</p>
   </div>
     `,
@@ -176,7 +176,7 @@ function updateInstructionText(shakeCount) {
   const messages = [
     '<p>Welcome to the piggy bank game!</p><p>Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!</p>',
     '<p>Press <span class="spacebar-icon">B</span> on the keyboard to shake this piggy bank!</p><p>You can keep pressing <span class="spacebar-icon">B</span> to keep on shaking...</p>',
-    '<p>Well done! You just got a coin out of the piggy bank!</p><p><span class="highlight">You can always keep pressing for more coins.</span> Try getting some more!</p>'
+    '<p>Well done, You just got a coin out of the piggy bank!</p><p><span class="highlight">You can always keep pressing for more coins.</span> Try getting some more!</p>'
   ];
   let messageIndex = 0;
   if (shakeCount < 1) {

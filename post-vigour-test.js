@@ -144,7 +144,7 @@ const postVigourInstructions = {
       <p><span class="highlight">Your job is to choose which one you would prefer to play with in the future.</span></p>
       <p>Use the <span class="spacebar-icon">←</span> [left arrow] to choose the left piggy bank.</p>
       <p>Use the <span class="spacebar-icon">→</span> [right arrow] to choose the right piggy bank.</p>
-      <p>Press <span class="spacebar-icon">B</span> to begin the task.</p>
+      <p>When you're ready, press <span class="spacebar-icon">B</span> to begin.</p>
     </div>
   `,
   choices: ['b'],
