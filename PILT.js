@@ -275,20 +275,25 @@ const PILT_trial =  {
         fullscreen_prompt,
     {
         type: jsPsychPILT,
-        stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
-        stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+        stimulus_middle: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_middle'),
         feedback_left: jsPsych.timelineVariable('feedback_left'),
         feedback_right: jsPsych.timelineVariable('feedback_right'),
+        feedback_middle: jsPsych.timelineVariable('feedback_middle'),
         optimal_right: jsPsych.timelineVariable('optimal_right'),
+        optimal_side: jsPsych.timelineVariable('optimal_side'),
         response_deadline: jsPsych.timelineVariable('response_deadline'),
+        n_stimuli: jsPsych.timelineVariable('n_stimuli'),
+        present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
         data: {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),
             trial: jsPsych.timelineVariable('trial'),
-            stimulus_pair: jsPsych.timelineVariable('pair'),
-            stimulus_pair_id: jsPsych.timelineVariable('cpair'),
+            stimulus_group: jsPsych.timelineVariable('stimulus_group'),
+            stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
             valence: jsPsych.timelineVariable('valence'),
-            n_pairs: jsPsych.timelineVariable('n_pairs'),
+            n_groups: jsPsych.timelineVariable('n_groups'),
             rest_1pound: jsPsych.timelineVariable('rest_1pound'),
             rest_50pence: jsPsych.timelineVariable('rest_50pence'),
             rest_1penny: jsPsych.timelineVariable('rest_1penny')
@@ -321,22 +326,22 @@ const PILT_trial =  {
                 let unique_stimulus_pairs =  [...new Set(jsPsych.data.get().filter({
                     trial_type: "PILT",
                     block: block
-                }).select('stimulus_pair').values)]
+                }).select('stimulus_group').values)]
 
                 // Initialize a variable to store the result
                 let all_optimal = true;
 
-                // Iterate over each unique stimulus_pair and check the last 5 choices
-                unique_stimulus_pairs.forEach(pair => {
+                // Iterate over each unique stimulus_group and check the last 5 choices
+                unique_stimulus_pairs.forEach(g => {
 
-                    // Filter data for the current stimulus_pair
+                    // Filter data for the current stimulus_group
                     let num_optimal = jsPsych.data.get().filter({
                         trial_type: "PILT",
                         block: block,
-                        stimulus_pair: pair
+                        stimulus_group: g
                     }).last(5).select('response_optimal').sum();
 
-                    // Check if all last 5 choices for this pair are correct
+                    // Check if all last 5 choices for this group are correct
                     if (num_optimal < 5) {
                         all_optimal = false;
                     }
@@ -450,7 +455,7 @@ async function load_squences(session) {
         }
 
         const test_structure = await test_response.json();
-        const test_sess_structure = test_structure[session - 1];
+        let test_sess_structure = test_structure[session - 1];
 
         // Fetch pavlovian test sequences
         const pavlovian_response = await fetch('pavlovian_test.json');
@@ -473,11 +478,12 @@ async function load_squences(session) {
 function return_PILT_full_sequence(structure, test_structure, WM_structure){
     // Compute best-rest
     computeBestRest(structure);
+    computeBestRest(WM_structure);
 
     let PILT_procedure = [];
 
     // Add instructions
-    PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
+    // PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
     // Add PILT
     PILT_procedure = PILT_procedure.concat(build_PILT_task(structure));
