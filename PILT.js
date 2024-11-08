@@ -382,7 +382,7 @@ const coin_lottery = {
     coins: () => {
         const coins_from_data = get_coins_from_data();
 
-        return createProportionalArray(coins_from_data, 35)
+        return createProportionalArray(coins_from_data, 35).sort()
     },
     props: () => {
 
