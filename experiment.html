@@ -9,6 +9,23 @@
         let jsPsych = initJsPsych({
             display_element: 'display_element',
         });
+        
+        // Get condition from URL, all caps are prolific, lowercase are ours
+        window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
+        window.debug = prolificPID.includes("debug");
+        window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
+        window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
+        window.sessionNum = jsPsych.data.getURLVariable('session_num');
+
+        // Save participant variables to data
+        jsPsych.data.addProperties({
+            prolific_pid: window.prolificPID,
+            study_id: window.studyId,
+            session_id: window.sessionId,
+            session: window.sessionNum,
+            n_warnings: 0,
+            version: "6.0"
+        })
     </script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-html-button-response.js"></script>
@@ -62,23 +79,6 @@
     <div id="persist-coin-container"></div>
 </body>
 <script>
-// Get condition from URL, all caps are prolific, lowercase are ours
-    window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
-    window.debug = prolificPID.includes("debug");
-    window.studyId = jsPsych.data.getURLVariable('STUDY_ID');
-    window.sessionId = jsPsych.data.getURLVariable('SESSION_ID');
-    window.sessionNum = jsPsych.data.getURLVariable('session_num');
-
-    // Save participant variables to data
-    jsPsych.data.addProperties({
-        prolific_pid: window.prolificPID,
-        study_id: window.studyId,
-        session_id: window.sessionId,
-        session: window.sessionNum,
-        n_warnings: 0,
-        version: "6.0"
-    })
-
     // Preliminary checks
     const preliminary_checks = [
         {
