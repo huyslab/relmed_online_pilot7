@@ -180,7 +180,7 @@ function showTemporaryWarning(message, duration = 800) {
   const warningElement = document.createElement('div');
   warningElement.id = 'vigour-warning-temp';
   warningElement.innerText = message;
-  
+
   // Style the warning
   warningElement.style.cssText = `
     position: fixed;
@@ -200,16 +200,16 @@ function showTemporaryWarning(message, duration = 800) {
     text-align: center;
     letter-spacing: 0.0px;
   `;
-  
+
   // Add to document body
   document.body.appendChild(warningElement);
-  
+
   // Force reflow to ensure transition works
   warningElement.offsetHeight;
-  
+
   // Show warning
   warningElement.style.opacity = '1';
-  
+
   // Remove after duration
   setTimeout(() => {
     warningElement.style.opacity = '0';
@@ -318,11 +318,26 @@ const piggyBankTrial = {
       jsPsych.data.addProperties({
         n_warnings: up_to_now + 1
       });
-
-    // Show warning with dynamic element
-    showTemporaryWarning('Please respond more quickly!', 500);
-
+      // console.log(jsPsych.data.get().last(1).select('n_warnings').values[0]);
+      showTemporaryWarning("Don't forget to participate!", 800); // Enable this line for non-stopping warning
     }
+  }
+};
+
+const noPressWarning = {
+  timeline: [{
+    type: jsPsychHtmlKeyboardResponse,
+    choices: "NO_KEYS",
+    stimulus: "",
+    trial_duration: 1000,
+    on_load: function () {
+      showTemporaryWarning("Don't forget to participate!", 800);
+    }
+  }],
+  conditional_function: function () {
+    const last_trial_presses = jsPsych.data.get().last(1).select('trial_presses').values[0];
+    const last_ratio = jsPsych.data.get().last(1).select('timeline_variables').values[0].ratio;
+    return last_trial_presses === 0 && last_ratio === 1;
   }
 };
 
@@ -351,7 +366,7 @@ const vigour_bonus = {
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
   experimentTimeline.push({
-    timeline: [kick_out, fullscreen_prompt, piggyBankTrial],
+    timeline: [kick_out, fullscreen_prompt, piggyBankTrial], // Add noPressWarning if ITI-like warning is needed
     timeline_variables: [trial]
   });
 });
