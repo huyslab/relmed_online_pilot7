@@ -193,6 +193,7 @@ const PIT_bonus = {
 // Debriefing
 const vigour_PIT_bonus = {
   type: jsPsychHtmlButtonResponse,
+  css_classes: ['instructions'],
   stimulus: "Congratulations! You've finished the Piggy-Bank Game!",
   choices: ['Finish'],
   data: { trialphase: 'vigour_bonus' },
