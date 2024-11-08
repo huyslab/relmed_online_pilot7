@@ -357,7 +357,7 @@ function inter_block_stimulus(){
     const block = last_trial.select('block').values[0];
 
     // Number of pairs in block
-    const n_pairs = last_trial.select("n_pairs").values[0]
+    const n_groups = last_trial.select("n_groups").values[0]
 
     // Find chosen outcomes for block
     let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PILT",
@@ -373,12 +373,12 @@ function inter_block_stimulus(){
     // Add text and tallies for early stop
     if (window.skipThisBlock){
         
-        txt += `<p>You've found the better ${n_pairs > 1 ? "cards" : "card"}.</p><p>You will skip the remaining turns and `;
+        txt += `<p>You've found the better ${n_groups > 1 ? "cards" : "card"}.</p><p>You will skip the remaining turns and `;
         
         txt += valence == 1 ? `collect the remaining coins hidden under ` : 
             `lose only the remaining coins hidden under`;
 
-        txt +=  n_pairs > 1 ? "these cards." : "this card."
+        txt +=  n_groups > 1 ? "these cards." : "this card."
         
         txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
         <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken in your safe"} on this round:<p>`

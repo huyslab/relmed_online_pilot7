@@ -277,18 +277,22 @@ const PILT_trial =  {
         type: jsPsychPILT,
         stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
         stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+        stimulus_middle: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_middle'),
         feedback_left: jsPsych.timelineVariable('feedback_left'),
         feedback_right: jsPsych.timelineVariable('feedback_right'),
+        feedback_middle: jsPsych.timelineVariable('feedback_middle'),
         optimal_right: jsPsych.timelineVariable('optimal_right'),
+        optimal_side: jsPsych.timelineVariable('optimal_side'),
         response_deadline: jsPsych.timelineVariable('response_deadline'),
+        n_stimuli: jsPsych.timelineVariable('n_stimuli'),
         data: {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),
             trial: jsPsych.timelineVariable('trial'),
-            stimulus_pair: 1,
-            stimulus_pair_id: jsPsych.timelineVariable('block'),
+            stimulus_group: jsPsych.timelineVariable('stimulus_group'),
+            stimulus_group_id: jsPsych.timelineVariable('stimulus_group_id'),
             valence: jsPsych.timelineVariable('valence'),
-            n_pairs: 1,
+            n_groups: jsPsych.timelineVariable('n_groups'),
             rest_1pound: jsPsych.timelineVariable('rest_1pound'),
             rest_50pence: jsPsych.timelineVariable('rest_50pence'),
             rest_1penny: jsPsych.timelineVariable('rest_1penny')
@@ -321,22 +325,22 @@ const PILT_trial =  {
                 let unique_stimulus_pairs =  [...new Set(jsPsych.data.get().filter({
                     trial_type: "PILT",
                     block: block
-                }).select('stimulus_pair').values)]
+                }).select('stimulus_group').values)]
 
                 // Initialize a variable to store the result
                 let all_optimal = true;
 
-                // Iterate over each unique stimulus_pair and check the last 5 choices
-                unique_stimulus_pairs.forEach(pair => {
+                // Iterate over each unique stimulus_group and check the last 5 choices
+                unique_stimulus_pairs.forEach(g => {
 
-                    // Filter data for the current stimulus_pair
+                    // Filter data for the current stimulus_group
                     let num_optimal = jsPsych.data.get().filter({
                         trial_type: "PILT",
                         block: block,
-                        stimulus_pair: pair
+                        stimulus_group: g
                     }).last(5).select('response_optimal').sum();
 
-                    // Check if all last 5 choices for this pair are correct
+                    // Check if all last 5 choices for this group are correct
                     if (num_optimal < 5) {
                         all_optimal = false;
                     }
