@@ -413,8 +413,8 @@ jsPsychPILT = (function(jspsych) {
             const optimalSide = trial.n_stimuli === 2 ? (default_data.optimal_right == 1 ? 'right' : 'left') : trial.optimal_side
             default_data.response = this.keys[default_data.key]
             default_data.response_optimal = default_data.response === optimalSide
-            default_data.chosen_stimulus = default_data.response === "right" ? default_data.stimulus_right : default_data.stimulus_left
-            default_data.chosen_feedback = default_data.response === "right" ? default_data.feedback_right : default_data.feedback_left
+            default_data.chosen_stimulus = default_data[`stimulus_${default_data.response}`]
+            default_data.chosen_feedback =  default_data[`feedback_${default_data.response}`]
 
 
             const data = this.jsPsych.pluginAPI.mergeSimulationData(default_data, simulation_options);
