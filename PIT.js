@@ -190,6 +190,28 @@ const PIT_bonus = {
   }
 };
 
+// Debriefing
+const vigour_PIT_bonus = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: "Congratulations! You've finished the Piggy-Bank Game!",
+  choices: ['Finish'],
+  data: { trialphase: 'vigour_bonus' },
+  on_start: function (trial) {
+    const selected_trial = getSelectedTrial();
+    const selected_PIT_trial = getSelectedPITtrial();
+    trial.stimulus = `
+            <p>It is time to reveal your total bonus payment for the Piggy-Bank Game.</p>
+            <p>The computer selected piggy bank number ${selected_trial.trial_number} of the no-cloud version and number ${selected_PIT_trial.pit_trial_number} of the cloudy version, which means you will earn ${((window.sampledVigourReward + window.sampledPITreward)/ 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} in total for the game.</p>
+        `;
+  },
+  on_finish: (data) => {
+    data.vigour_bonus = (window.sampledVigourReward + window.sampledPITreward)/ 100
+  },
+  simulation_options: {
+    simulate: false
+  }
+};
+
 // Instructions for comparison task
 const PITruleInstruction = {
   type: jsPsychHtmlKeyboardResponse,
