@@ -51,7 +51,7 @@ const kick_out = {
             }
         },
         {
-        stimulus: `<p>It seems that you are not following the study instructions.</p>
+        stimulus: `<p>You may not be following the study instructions as intended, as you didn't respond more than 15 times.</p>
             <p>Unfortunately, you cannot continue with this study.</p>
             <p>If you believe this is a mistake, please email haoyang.lu@ucl.ac.uk, explaining the circumstances.</p>
             <p>Please return this study on Prolific.</p>

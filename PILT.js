@@ -1,5 +1,4 @@
 // Function setting up PILT blocks
-window.maxWarnings = 10;
 window.defaul_response_deadline = 3000;
 window.pilt_test_confidence_every = 4;
 
