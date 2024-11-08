@@ -164,7 +164,7 @@
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
         procedure = procedure.concat([
-            acceptability_into,
+            acceptability_intro,
             acceptability_pilt
         ]);
 
@@ -175,7 +175,7 @@
         ];
         procedure = procedure.concat(vigourTimeline);
         procedure = procedure.concat([
-            acceptability_into,
+            acceptability_intro,
             acceptability_vigour
         ]);
 
@@ -187,7 +187,7 @@
         ];
         procedure = procedure.concat(PITtimeline);
         procedure = procedure.concat([
-            acceptability_into,
+            acceptability_intro,
             acceptability_pit
         ]);
 
@@ -201,7 +201,7 @@
         // Add WM block
         procedure.push(PILT_tasks.WM_procedure);
         procedure = procedure.concat([
-            acceptability_into,
+            acceptability_intro,
             acceptability_wm
         ]);
 
@@ -209,7 +209,7 @@
         procedure = procedure.concat(reversal_instructions);
         procedure = procedure.concat(reversal_blocks);
         procedure = procedure.concat([
-            acceptability_into,
+            acceptability_intro,
             acceptability_reversal
         ]);
 
