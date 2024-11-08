@@ -311,7 +311,9 @@ function computeBestRest(structure){
 
         // Compute reverse cumulative sums
         for (let i=structure[b].length - 2; i>=0; i--){
-            const next_optimal_outcome = structure[b][i + 1].optimal_right === 1 ? structure[b][i + 1].feedback_right : structure[b][i + 1].feedback_left
+            const next_optimal_outcome = (structure[b][i + 1].n_stimuli === 2) ? 
+                (structure[b][i + 1].optimal_right === 1 ? structure[b][i + 1].feedback_right : structure[b][i + 1].feedback_left) :
+                (structure[b][i + 1][`feedback_${structure[b][i + 1].optimal_side}`])
 
             structure[b][i].rest_1pound = structure[b][i + 1].rest_1pound + 
                 (Math.abs(next_optimal_outcome) == 1);
