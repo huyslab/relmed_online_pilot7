@@ -361,6 +361,9 @@ function inter_block_stimulus(){
     // Number of pairs in block
     const n_groups = last_trial.select("n_groups").values[0]
 
+    // Number of stimuli in block
+    const n_stimuli = last_trial.select("n_stimuli").values[0];
+
     // Find chosen outcomes for block
     let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PILT",
         block: block
@@ -422,7 +425,8 @@ function inter_block_stimulus(){
     }
 
     if (isValidNumber(block)){
-        txt += `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`
+        txt += n_stimuli === 2 ? `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>` :
+         `<p>Place your fingers on the left, right, and up arrow keys, and press either one to continue.</p>`
     }
 
     return txt

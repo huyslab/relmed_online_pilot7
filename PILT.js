@@ -8,7 +8,12 @@ window.skipThisBlock = false;
 // Message between blocks
 const inter_block_msg = {
     type: jsPsychHtmlKeyboardResponse,
-    choices: ['arrowright', 'arrowleft'],
+    choices: () => {
+
+        const n_stimuli = jsPsych.data.get().filter({trial_type: "PILT"}).last(1).select("n_stimuli").values[0];
+
+        return n_stimuli === 2 ? ['arrowright', 'arrowleft'] : ['arrowright', 'arrowleft', 'arrowup']
+    },
     css_classes: ['instructions'],
     stimulus: inter_block_stimulus,
     data: {
