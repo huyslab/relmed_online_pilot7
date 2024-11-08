@@ -50,6 +50,7 @@
     <script src="post-vigour-test.js"></script>
     <script src="PIT.js"></script>
     <script src="acceptability.js"></script>
+    <script src="questionnaires.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
     <link href="reversal.css" rel="stylesheet" type="text/css" />
@@ -165,7 +166,7 @@
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
         procedure = procedure.concat([
             acceptability_intro,
-            acceptability_pilt
+            acceptability_PILT
         ]);
 
         // Add vigour task timeline
@@ -188,7 +189,7 @@
         procedure = procedure.concat(PITtimeline);
         procedure = procedure.concat([
             acceptability_intro,
-            acceptability_pit
+            acceptability_PIT
         ]);
 
         // Add post-vigour test
