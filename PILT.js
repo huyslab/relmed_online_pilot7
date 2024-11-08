@@ -170,7 +170,7 @@ const test_trial = {
                             margin: auto;
                             width: 12vw;
                             max-width: 325px;
-                            background-color: white;
+                            background-color: rgba(255, 255, 255, 0.5);
                             text-wrap: normal;
                             font-size: 1.5rem;
                             font-weight: bold;
