@@ -274,6 +274,19 @@ function build_post_PILT_test(structure) {
 
 
 // PILT trial
+const pavlovian_images_f = () => {
+    let PIT_imgs = {
+        0.01: "PIT3.png",
+        1.0: "PIT1.png",
+        0.5: "PIT2.png",
+        "-0.01": "PIT6.png",
+        "-1": "PIT4.png",
+        "-0.5": "PIT5.png"
+    };
+    PIT_imgs = Object.fromEntries(Object.entries(PIT_imgs).map(([k, v]) => [k, "Pav_stims/session" + sessionNum + "/" + v]));
+    return PIT_imgs;
+};
+
 const PILT_trial = {
     timeline: [
         kick_out,
@@ -291,18 +304,7 @@ const PILT_trial = {
         response_deadline: jsPsych.timelineVariable('response_deadline'),
         n_stimuli: jsPsych.timelineVariable('n_stimuli'),
         present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
-        pavlovian_images: () => {
-            let PIT_imgs = {
-                0.01: "PIT3.png",
-                1.0: "PIT1.png",
-                0.5: "PIT2.png",
-                "-0.01": "PIT6.png",
-                "-1": "PIT4.png",
-                "-0.5": "PIT5.png"
-            };
-            PIT_imgs = Object.fromEntries(Object.entries(PIT_imgs).map(([k, v]) => [k, "Pav_stims/session" + sessionNum + "/" + v]));
-            return PIT_imgs;
-        },
+        pavlovian_images: pavlovian_images_f(),
         data: {
             trialphase: "task",
             block: jsPsych.timelineVariable('block'),

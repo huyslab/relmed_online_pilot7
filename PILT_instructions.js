@@ -68,8 +68,14 @@ function prepare_PILT_instructions() {
                 timeline: build_PILT_task(
                     [[
                         {
-                            stimulus_left: "binoculars.png",
-                            stimulus_right: "clock.png",
+                            stimulus_left: "abacus1.jpg",
+                            stimulus_right: "airboat1.jpg",
+                            stimulus_middle: "",
+                            feedback_middle: "",
+                            n_stimuli: 2,
+                            present_pavlovian: true,
+                            pavlovian_images: pavlovian_images_f(),
+                            optimal_side: "",
                             feedback_left: 1,
                             feedback_right: 1,
                             optimal_right: 1,
@@ -126,8 +132,14 @@ function prepare_PILT_instructions() {
                 [
                     dumbbell_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "flashlight.png" : "dumbbell.png",
-                            stimulus_right: e ? "dumbbell.png" : "flashlight.png",
+                            stimulus_left: e ? "carriage1.jpg" : "bowtie1.jpg",
+                            stimulus_right: e ? "bowtie1.jpg" : "carriage1.jpg",
+                            stimulus_middle: "",
+                            feedback_middle: "",
+                            present_pavlovian: true,
+                            pavlovian_images: pavlovian_images_f(),
+                            n_stimuli: 2,
+                            optimal_side: "",
                             feedback_left: e ? 0.01 : reward_magnitude[i],
                             feedback_right: e ? reward_magnitude[i] : 0.01,
                             optimal_right: e,
@@ -177,8 +189,14 @@ function prepare_PILT_instructions() {
                 [
                     hammer_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "tricycle.png" : "hammer.png",
-                            stimulus_right: e ? "hammer.png" : "tricycle.png",
+                            stimulus_left: e ? "coverall1.jpg" : "blower1.jpg",
+                            stimulus_right: e ? "blower1.jpg" : "coverall1.jpg",
+                            stimulus_middle: "",
+                            feedback_middle: "",
+                            present_pavlovian: true,
+                            pavlovian_images: pavlovian_images_f(),
+                            n_stimuli: 2,
+                            optimal_side: "",
                             feedback_left: e ? -1 : punishment_magnitude[i],
                             feedback_right: e ? punishment_magnitude[i] : -1,
                             optimal_right: e,
