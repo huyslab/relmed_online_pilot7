@@ -51,7 +51,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             },
             values: {
                 type: jspsych.ParameterType.COMPLEX,
-                default: [0.01, 0.5, 1],
+                default: [0.01, 0.5, 1, -0.01, -0.5, -1],
                 description: "Unique coin values, match props in indices"
             }
         },
@@ -292,7 +292,7 @@ var jsPsychCoinLottery = (function(jspsych) {
 
                 // Call after_last_response if last response
                 if (data.choices.length >= trial.n_flips){
-                    after_last_response();
+                    after_last_response(data);
                 }
 
                 // Add coin
@@ -329,7 +329,7 @@ var jsPsychCoinLottery = (function(jspsych) {
             }
 
             // What to do after last response
-            function after_last_response(){
+            function after_last_response(data){
 
                 // Make cards unclickable
                 const rects = document.querySelectorAll('.rect');
@@ -338,9 +338,13 @@ var jsPsychCoinLottery = (function(jspsych) {
                 });
 
                 // Change message
-                var msg_part = trial.n_flips > 1 ? "The coins above" : "This coin"
-                prompt.innerHTML = `<p>${msg_part} will be added to your bonus payment.</p>\
-                    <p>Press the button to continue:  </p>`
+                var prompt = trial.n_flips > 1 ? "The coins above" : "This coin" + `<p>${msg_part} will be added to your bonus payment.</p>`
+
+                if (data.outcomes.some(item => item < 0)){
+                    prompt += "<p>(Broken coins are worth £0)</p>"
+                }
+                prompt += `<p>Press the button to continue:  </p>`
+                prompt.innerHTML = prompt;
 
                 // Add end trial button
                 const endButton = document.createElement('button');
