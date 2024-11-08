@@ -161,7 +161,7 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add PILT timeline
-        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure);
+        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
 
         // Add coin lottery

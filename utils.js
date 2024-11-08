@@ -179,18 +179,18 @@ function format_date_from_string(s){
 }
 
 // Functions for computing remaining feedback after early stop
-function countPLTAfterLastNonPLT(arr) {
+function countPILTAfterLastNonPILT(arr) {
     let count = 0;
-    let foundNonPLT = false;
+    let foundNonPILT = false;
     
     // Iterate from the end to the beginning of the array
     for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i] !== "PLT") {
-        // If a non-PLT string is found, stop the iteration
-        foundNonPLT = true;
+      if (arr[i] !== "PILT") {
+        // If a non-PILT string is found, stop the iteration
+        foundNonPILT = true;
         break;
       } else {
-        // If foundNonPLT is true and we encounter "PLT", increase the count
+        // If foundNonPILT is true and we encounter "PILT", increase the count
         count++;
       }
     }
@@ -211,17 +211,17 @@ function getSumofMax(arr1, arr2) {
 // Extract observed coins for lottery
 function get_coins_from_data() {
     // Get block numbers for filtering
-    let blocks = jsPsych.data.get().filter({trial_type: "PLT"}).select('block').values;
+    let blocks = jsPsych.data.get().filter({trial_type: "PILT"}).select('block').values;
 
     // Get block valence for each trial
-    let valence = jsPsych.data.get().filter({trial_type: "PLT"}).select('valence').values;
+    let valence = jsPsych.data.get().filter({trial_type: "PILT"}).select('valence').values;
 
     // Get left and right outcome for each trial
-    let outcomeRight = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeRight').values;
-    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PLT"}).select('outcomeLeft').values;
+    let outcomeRight = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeRight').values;
+    let outcomeLeft = jsPsych.data.get().filter({trial_type: "PILT"}).select('outcomeLeft').values;
 
     // Get choice
-    let choice = jsPsych.data.get().filter({trial_type: "PLT"}).select('choice').values;
+    let choice = jsPsych.data.get().filter({trial_type: "PILT"}).select('choice').values;
 
     let coins_for_lottery = []
     for (i=0; i<valence.length; i++){
@@ -311,7 +311,9 @@ function computeBestRest(structure){
 
         // Compute reverse cumulative sums
         for (let i=structure[b].length - 2; i>=0; i--){
-            const next_optimal_outcome = structure[b][i + 1].optimal_right === 1 ? structure[b][i + 1].feedback_right : structure[b][i + 1].feedback_left
+            const next_optimal_outcome = (structure[b][i + 1].n_stimuli === 2) ? 
+                (structure[b][i + 1].optimal_right === 1 ? structure[b][i + 1].feedback_right : structure[b][i + 1].feedback_left) :
+                (structure[b][i + 1][`feedback_${structure[b][i + 1].optimal_side}`])
 
             structure[b][i].rest_1pound = structure[b][i + 1].rest_1pound + 
                 (Math.abs(next_optimal_outcome) == 1);
@@ -348,7 +350,7 @@ function isValidNumber(value) {
 // Function to compile inter_block_stimulus
 function inter_block_stimulus(){
 
-    const last_trial = jsPsych.data.get().filter({trial_type: "PLT"}).last(1);
+    const last_trial = jsPsych.data.get().filter({trial_type: "PILT"}).last(1);
 
     // Valence of block
     const valence = last_trial.select("valence").values[0];
@@ -357,12 +359,15 @@ function inter_block_stimulus(){
     const block = last_trial.select('block').values[0];
 
     // Number of pairs in block
-    const n_pairs = last_trial.select("n_pairs").values[0]
+    const n_groups = last_trial.select("n_groups").values[0]
+
+    // Number of stimuli in block
+    const n_stimuli = last_trial.select("n_stimuli").values[0];
 
     // Find chosen outcomes for block
-    let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PLT",
+    let chosen_outcomes = jsPsych.data.get().filter({trial_type: "PILT",
         block: block
-    }).select('chosenOutcome').values;
+    }).select('chosen_feedback').values;
 
     // Summarize into counts
     chosen_outcomes = countOccurrences(chosen_outcomes);
@@ -373,12 +378,12 @@ function inter_block_stimulus(){
     // Add text and tallies for early stop
     if (window.skipThisBlock){
         
-        txt += `<p>You've found the better ${n_pairs > 1 ? "cards" : "card"}.</p><p>You will skip the remaining turns and `;
+        txt += `<p>You've found the better ${n_groups > 1 ? "cards" : "card"}.</p><p>You will skip the remaining turns and `;
         
         txt += valence == 1 ? `collect the remaining coins hidden under ` : 
             `lose only the remaining coins hidden under`;
 
-        txt +=  n_pairs > 1 ? "these cards." : "this card."
+        txt +=  n_groups > 1 ? "these cards." : "this card."
         
         txt += `<p><img src='imgs/safe.png' style='width:100px; height:100px;'></p>
         <p>Altogether, these coins were ${valence == 1 ? "added to your safe" : "broken in your safe"} on this round:<p>`
@@ -420,7 +425,8 @@ function inter_block_stimulus(){
     }
 
     if (isValidNumber(block)){
-        txt += `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`
+        txt += n_stimuli === 2 ? `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>` :
+         `<p>Place your fingers on the left, right, and up arrow keys, and press either one to continue.</p>`
     }
 
     return txt
