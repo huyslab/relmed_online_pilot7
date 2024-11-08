@@ -464,7 +464,7 @@ jsPsychPILT = (function(jspsych) {
                         </div>
                         `;
             } else if (num_stim == 3) {
-                console.log(this.contingency.img[2])
+
                 html += `<div id='middle' class="PILTOptionSide">
                             <img id='PILTMiddleImg' src=${this.contingency.img[2]}></img>
                         </div>
