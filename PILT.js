@@ -318,7 +318,7 @@ const PILT_trial = {
         present_pavlovian: jsPsych.timelineVariable('present_pavlovian'),
         pavlovian_images: pavlovian_images_f(),
         data: {
-            trialphase: "task",
+            trialphase: "PILT",
             block: jsPsych.timelineVariable('block'),
             trial: jsPsych.timelineVariable('trial'),
             stimulus_group: jsPsych.timelineVariable('stimulus_group'),
@@ -482,7 +482,7 @@ async function load_squences(session) {
         const test_response = await fetch('pilot6_pilt_test.json');
 
         if (!test_response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`Network response was not ok ${test_response}`);
         }
 
         const test_structure = await test_response.json();
