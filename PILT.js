@@ -480,7 +480,7 @@ async function load_squences(session) {
         const pav_test_structure = await pavlovian_response.json();
 
         // Add Pavlovaian test to the end of test strucutre
-        test_sess_structure = pav_test_structure.concat(test_sess_structure);
+        test_sess_structure = [pav_test_structure].concat(test_sess_structure);
 
         // Fetch WM structure
         const WM_response = await fetch('pilot6_WM.json');
