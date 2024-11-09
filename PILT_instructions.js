@@ -68,8 +68,8 @@ function prepare_PILT_instructions() {
                 timeline: build_PILT_task(
                     [[
                         {
-                            stimulus_left: "abacus1.jpg",
-                            stimulus_right: "airboat1.jpg",
+                            stimulus_left: "ukulele1.jpg",
+                            stimulus_right: "envelope1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             n_stimuli: 2,
@@ -132,8 +132,8 @@ function prepare_PILT_instructions() {
                 [
                     dumbbell_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "carriage1.jpg" : "bowtie1.jpg",
-                            stimulus_right: e ? "bowtie1.jpg" : "carriage1.jpg",
+                            stimulus_left: e ? "strainer1.jpg" : "can2.jpg",
+                            stimulus_right: e ? "can2.jpg" : "strainer1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             present_pavlovian: true,
@@ -189,8 +189,8 @@ function prepare_PILT_instructions() {
                 [
                     hammer_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "coverall1.jpg" : "blower1.jpg",
-                            stimulus_right: e ? "blower1.jpg" : "coverall1.jpg",
+                            stimulus_left: e ? "harp1.jpg" : "cantaloupe1.jpg",
+                            stimulus_right: e ? "cantaloupe1.jpg" : "harp1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             present_pavlovian: true,

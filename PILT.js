@@ -337,9 +337,9 @@ const PILT_trial = {
                 });
             }
          },
-         simulation_options: {
-            mode: 'data-only'
-         },
+        //  simulation_options: {
+        //     mode: 'data-only'
+        //  },
         post_trial_gap: 400
     }
     ],
