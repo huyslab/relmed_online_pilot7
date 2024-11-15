@@ -20,7 +20,8 @@ var reversal_blocks = [
         post_trial_gap: 400,
         data: {
             trialphase: "reversal_preload"
-        }
+        },
+        continue_after_error: true
     }
 ];
 for (i=0; i<reversal_timeline.length; i++){

@@ -265,7 +265,8 @@ function build_post_PILT_test(structure) {
             type: jsPsychPreload,
             images: structure[1]
                 .flatMap(item => [item.stimulus_right, item.stimulus_left]),
-            post_trial_gap: 800
+            post_trial_gap: 800,
+            continue_after_error: true
         }
     ];
 
@@ -443,7 +444,8 @@ function build_PILT_task(structure, insert_msg = true) {
             {
                 type: jsPsychPreload,
                 images: preload_images,
-                post_trial_gap: 800
+                post_trial_gap: 800,
+                continue_after_error: true
             },
             {
                 timeline: [
