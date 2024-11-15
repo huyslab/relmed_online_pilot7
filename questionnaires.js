@@ -111,7 +111,7 @@ var prompt_gad = [
     "Trouble relaxing",
     "Being so restless that it is hard to sit still",
     "Becoming easily annoyed or irritable",
-    "Worrying about the 1974 Eurovision Song Contest", // Catch
+    "Worrying about the 1974 Eurovision Song Contest", // Catch-
     "Feeling afraid as if something awful might happen"
 ];
 
@@ -151,7 +151,7 @@ var prompt_BADS = [
     "I made good decisions about what type of activities and/or situations I put myself in.",
     "I was an active person and accomplished the goals I set out to do.",
     "Most of what I did was to escape from or avoid something unpleasant.",
-    "I was able to lift my coffee cup or water glass when drinking.", // Catch
+    "I was able to lift my coffee cup or water glass when drinking.", // Catch+
     "I spent a long time thinking over and over about my problems.",
     "I engaged in activities that would distract me from feeling bad.",
     "I did things that were enjoyable."
@@ -188,7 +188,7 @@ var questionnaire_phq = {
     ],
     questions: [
         { prompt: "Little interest or pleasure in doing things", labels: likert_phq, required: true },
-        { prompt: "Feeling down, depressed, or hopeless", labels: likert_phq, required: true },
+        { prompt: "Feeling down, depressed, or hopeless", labels: likert_phq, required: true }, // Catch-origin
         { prompt: "Trouble falling or staying asleep, or sleeping too much", labels: likert_phq, required: true },
         { prompt: "Feeling tired or having little energy", labels: likert_phq, required: true },
         { prompt: "Poor appetite or overeating", labels: likert_phq, required: true },
@@ -291,7 +291,7 @@ var questionnaire_pvss = {
         { prompt: 'I <u>looked forward</u> to spending time with others', labels: likert_pvss, required: true },
         { prompt: 'I <u>wanted</u> to accomplish goals I set for myself', labels: likert_pvss, required: true },
         { prompt: 'I <u>expected</u> to enjoy being hugged by someone I love', labels: likert_pvss, required: true },
-        { prompt: 'I <u>wanted</u> to participate in a fun activity with friends', labels: likert_pvss, required: true },
+        { prompt: 'I <u>wanted</u> to participate in a fun activity with friends', labels: likert_pvss, required: true }, // Catch-origin
         { prompt: 'I <u>worked hard</u> to earn positive feedback on my projects', labels: likert_pvss, required: true },
         { prompt: 'I <u>looked forward</u> to an upcoming meal', labels: likert_pvss, required: true },
         { prompt: 'I <u>felt pleased</u> when I reached a goal I set for myself', labels: likert_pvss, required: true },
