@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PIT</title>
+  <script src="jspsych/jspsych.js"></script>
+  <script>
+    // Initialize jsPysch object
+    let jsPsych = initJsPsych({
+      display_element: 'display_element',
+      on_finish: function () {
+        jsPsych.data.displayData('json');
+      }
+    });
+    window.sessionNum = jsPsych.data.getURLVariable('session_num');
+    window.prolificPID = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    window.debug = prolificPID.includes("debug");
+  </script>
+  <script src="jspsych/plugin-html-keyboard-response.js"></script>
+  <script src="jspsych/plugin-html-button-response.js"></script>
+  <script src="jspsych/plugin-instructions.js"></script>
+  <script src="jspsych/plugin-preload.js"></script>
+  <script src="jspsych/plugin-fullscreen.js"></script>
+  <script src="jspsych/plugin-free-sort.js"></script>
+  <script src="utils.js"></script>
+  <script src="vigour.js"></script>
+  <script src="vigour_instructions.js"></script>
+  <link href="vigour_styles.css" rel="stylesheet" type="text/css" />
+  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+  .jsPsychDE {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
+
+<body>
+  <div id='display_element' class='jsPsychDE'></div>
+</body>
+<script>
+  // Add the comparison task to the main experiment timeline
+  const preload = {
+    type: jsPsychPreload,
+    images: [[
+      "1penny.png", "1pennybroken.png",
+      "1pound.png", "1poundbroken.png",
+      "50pence.png", "50pencebroken.png",
+      "safe.png",
+      "1p-num.png", "2p-num.png", "5p-num.png", "10p-num.png", "piggy-bank.png", "ooc_2p.png", "piggy-tail2.png", "saturate-icon.png", "tail-icon.png",
+      "occluding_clouds.png"
+    ].map(s => "imgs/" + s),
+    ["PIT1.png", "PIT2.png", "PIT3.png", "PIT4.png", "PIT5.png", "PIT6.png"].map(s => "imgs/Pav_stims/session" + sessionNum + "/" + s)
+    ].flat(),
+    post_trial_gap: 800,
+    continue_after_error: true
+  };
+  const vigourTimeline = [
+    preload,
+    vigourInstructions,
+    ...experimentTimeline,
+  ];
+
+  // Run or simulate the experiment
+  if (window.prolificPID.includes("simulate")) {
+    jsPsych.simulate(vigourTimeline, "visual");
+  } else {
+    jsPsych.run(vigourTimeline);
+  }
+</script>
+
+</html>
