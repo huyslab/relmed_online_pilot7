@@ -115,8 +115,8 @@ jsPsychPILT = (function (jspsych) {
                     0.01: "PIT3.png",
                     1.0: "PIT1.png",
                     0.5: "PIT2.png",
-                    "-0.01": "PIT6.png",
-                    "-1": "PIT4.png",
+                    "-0.01": "PIT4.png",
+                    "-1": "PIT6.png",
                     "-0.5": "PIT5.png"
                 },
             }
