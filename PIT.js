@@ -289,30 +289,6 @@ const PITruleInstruction_2 = {
                 </div>
           </div>
     </div>
-    `, `
-    <div id="instruction-text" style="text-align: left">
-          <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
-          <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
-
-          <div class="pav-stimuli-container">
-                <div class="pit-pav-row">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
-                </div>
-                <div class="pit-coin-row">
-                      <img src="imgs/1pound.png" class="pit-coin-icon">
-                      <img src="imgs/50pence.png" class="pit-coin-icon">
-                      <img src="imgs/1penny.png" class="pit-coin-icon">
-                      <img src="imgs/1poundbroken.png" class="pit-coin-icon">
-                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
-                      <img src="imgs/1pennybroken.png" class="pit-coin-icon">
-                </div>
-          </div>
-    </div>
     `],
   simulation_options: {
     simulate: false
