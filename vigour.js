@@ -362,6 +362,26 @@ const vigour_bonus = {
   }
 };
 
+const vigour_bonus2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: "Congratulations! You've finished this game!",
+  choices: ['Finish'],
+  data: { trialphase: 'vigour_bonus' },
+  on_start: function (trial) {
+    const total_bonus = getFracVigourReward();
+    trial.stimulus = `
+            <p>It is time to reveal your bonus payment for this round of piggy-bank game.</p>
+            <p>You will earn ${total_bonus.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} for the game.</p>
+        `;
+  },
+  on_finish: (data) => {
+    data.vigour_bonus = getFracVigourReward();
+  },
+  simulation_options: {
+    simulate: false
+  }
+};
+
 // Create main experiment timeline
 const experimentTimeline = [];
 vigourTrials.forEach(trial => {
@@ -386,4 +406,16 @@ function getSelectedTrial() {
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
   return { trial_index: selected_trial[0].trial_index, trial_number: selected_trial[0].trial_number };
+}
+
+// Get fractional rewards of Vigour
+function getFracVigourReward() {
+  const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trialphase == "vigour_trial");
+  const total_reward = raw_data.select('total_reward').values.slice(-1)[0];
+  try {
+    total_reward === window.trialReward;
+  } catch (error) {
+    console.error("Total reward for Vigour mismatch!");
+  }
+  return total_reward / 100 * 0.0213;
 }

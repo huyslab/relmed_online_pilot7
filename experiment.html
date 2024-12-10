@@ -220,7 +220,8 @@
         procedure = procedure.concat(questionnaires_timeline);
 
         // Add vigour bonus message
-        procedure.push(vigour_PIT_bonus);
+        // For fractional bonus, use vigour_PIT_bonus2
+        procedure.push(vigour_PIT_bonus2);
 
         // Add coin lottery
         procedure.push(lottery_instructions);

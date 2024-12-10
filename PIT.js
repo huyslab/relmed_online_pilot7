@@ -170,6 +170,18 @@ function getSelectedPITtrial() {
   return { trial_index: selected_trial[0].trial_index, pit_trial_number: selected_trial[0].pit_trial_number };
 }
 
+// Get fractional rewards of Vigour
+function getFracPITReward() {
+  const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trialphase == "pit_trial");
+  const total_reward = raw_data.select('total_reward').values.slice(-1)[0];
+  try {
+    total_reward === window.trialReward;
+  } catch (error) {
+    console.error("Total reward for PIT mismatch!");
+  }
+  return total_reward / 100 * 0.0213;
+}
+
 const PIT_bonus = {
   type: jsPsychHtmlButtonResponse,
   stimulus: "Congratulations! You've finished this game!",
@@ -207,6 +219,27 @@ const vigour_PIT_bonus = {
   },
   on_finish: (data) => {
     data.vigour_bonus = (window.sampledVigourReward + window.sampledPITreward)/ 100
+  },
+  simulation_options: {
+    simulate: false
+  }
+};
+
+const vigour_PIT_bonus2 = {
+  type: jsPsychHtmlButtonResponse,
+  css_classes: ['instructions'],
+  stimulus: "Congratulations! You've finished the Piggy-Bank Game!",
+  choices: ['Finish'],
+  data: { trialphase: 'vigour_bonus' },
+  on_start: function (trial) {
+    const total_bonus = getFracVigourReward() + getFracPITReward();
+    trial.stimulus = `
+            <p>It is time to reveal your total bonus payment for the Piggy-Bank Game.</p>
+            <p>With the cloudy version and the no-cloud version combined, you will earn ${total_bonus.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })} in total for the game.</p>
+        `;
+  },
+  on_finish: (data) => {
+    data.vigour_bonus = getFracVigourReward() + getFracPITReward();
   },
   simulation_options: {
     simulate: false
