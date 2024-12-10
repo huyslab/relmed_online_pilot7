@@ -104,7 +104,7 @@ const ruleInstruction = {
         </div>
     </div>
     
-    <p><span class="highlight">Your bonus</span>: We will pay you the total amount of coins from a randomly selected piggy bank at the end of the game.</p>
+    <p><span class="highlight">Your bonus</span>: At the end of the game, we will pay you a proportion of the total amount of coins collected across all the piggy banks.</p>
     </div>
       `]
 };

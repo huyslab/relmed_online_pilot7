@@ -271,7 +271,7 @@ const PITruleInstruction_2 = {
       <p><strong>But this time, you'll play in a cloudy place.</strong></p>
       <img src="imgs/occluding_clouds.png" style="height:12em">
       <p><span class="highlight">Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
-      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this game.</p>
+      <p>We will also pay you the bonus in the same way as in the previous game at the end.</p>
     </div>`,
     `
     <div id="instruction-text" style="text-align: left">
