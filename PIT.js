@@ -16,7 +16,7 @@ function generatePITstimulus(coin, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%);`;
   const cloud_style = `filter: brightness(0.8) contrast(1.2);`;
   let PIT_imgs = {
     0.01: "PIT3.png",
@@ -163,7 +163,7 @@ function getSelectedPITtrial() {
   const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trialphase == "pit_trial");
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
-  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward, Math.log(40), 0.3)));
+  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward+1, Math.log(40), 0.3)));
   // Side effect: Save the reward for the bonus round
   window.sampledPITreward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
@@ -271,7 +271,7 @@ const PITruleInstruction_2 = {
       <p><strong>But this time, you'll play in a cloudy place.</strong></p>
       <img src="imgs/occluding_clouds.png" style="height:12em">
       <p><span class="highlight">Coins will drop and be collected as usual, but they'll be hidden behind clouds.<br>You won't see them during the game.</span></p>
-      <p>We will also pay you the total amount of coins from a randomly selected piggy bank at the end of this game.</p>
+      <p>We will also pay you the bonus in the same way as in the previous game at the end.</p>
     </div>`,
     `
     <div id="instruction-text" style="text-align: left">
@@ -286,30 +286,6 @@ const PITruleInstruction_2 = {
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
-                </div>
-          </div>
-    </div>
-    `, `
-    <div id="instruction-text" style="text-align: left">
-          <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
-          <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
-
-          <div class="pav-stimuli-container">
-                <div class="pit-pav-row">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
-                      <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
-                </div>
-                <div class="pit-coin-row">
-                      <img src="imgs/1pound.png" class="pit-coin-icon">
-                      <img src="imgs/50pence.png" class="pit-coin-icon">
-                      <img src="imgs/1penny.png" class="pit-coin-icon">
-                      <img src="imgs/1poundbroken.png" class="pit-coin-icon">
-                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
-                      <img src="imgs/1pennybroken.png" class="pit-coin-icon">
                 </div>
           </div>
     </div>

@@ -142,7 +142,7 @@ function updatePiggyTails(magnitude, ratio) {
       // Position each tail
       tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
       tail.style.width = `${tailWidth}px`;
-      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%)`;
+      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%)`;
 
       piggyContainer.appendChild(tail);
     }
@@ -159,7 +159,7 @@ function generateTrialStimulus(magnitude, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%);`;
   return `
     <div class="experiment-wrapper">
       <!-- Middle Row (Piggy Bank & Coins) -->
@@ -381,7 +381,7 @@ function getSelectedTrial() {
   const raw_data = jsPsych.data.get().filterCustom((trial) => trial.trialphase == "vigour_trial");
   const trial_rewards = raw_data.select('trial_reward').values;
   // Select a random trial to be the bonus round with weights based on the rewards
-  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward, Math.log(40), 0.3)));
+  const selected_trial = jsPsych.randomization.sampleWithReplacement(raw_data.values(), 1, trial_rewards.map(reward => logNormalPDF(reward+1, Math.log(40), 0.3)));
   // Side effect: Save the reward for the bonus round
   window.sampledVigourReward = selected_trial[0].trial_reward;
   // Return the trial index for referencing and the trial number for display
