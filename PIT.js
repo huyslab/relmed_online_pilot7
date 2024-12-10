@@ -16,7 +16,7 @@ function generatePITstimulus(coin, ratio) {
   const ratio_index = experimentConfig.ratios.indexOf(ratio);
   // Calculate saturation based on ratio
   const ratio_factor = ratio_index / (experimentConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%);`;
   const cloud_style = `filter: brightness(0.8) contrast(1.2);`;
   let PIT_imgs = {
     0.01: "PIT3.png",

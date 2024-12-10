@@ -25,7 +25,7 @@ function generateComparisonStimulus(left, right) {
 function generatePiggyHTML(magnitude, ratio, side) {
   const ratio_index = comparisonConfig.ratios.indexOf(ratio);
   const ratio_factor = ratio_index / (comparisonConfig.ratios.length - 1);
-  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%);`;
+  const piggy_style = `filter: saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%);`;
 
   return `
       <img id="piggy-bank-${side}" src="imgs/piggy-bank.png" alt="Piggy Bank" style="${piggy_style}">
@@ -60,7 +60,7 @@ function updateDualPiggyTails(magnitude, ratio, side) {
       // Position each tail
       tail.style.left = `calc(50% + ${piggyBankWidth / 2 + (tailWidth + spacing) * i}px - ${tailWidth / 20}px)`;
       tail.style.width = `${tailWidth}px`;
-      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%)`;
+      tail.style.filter = `saturate(${50 * (400 / 50) ** ratio_factor}%) brightness(${115 * (90/115) ** ratio_factor}%)`;
 
       piggyContainer.appendChild(tail);
     }
