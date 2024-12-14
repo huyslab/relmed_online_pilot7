@@ -340,9 +340,9 @@ const PITruleInstruction_2 = {
                       <img src="imgs/1pound.png" class="pit-coin-icon">
                       <img src="imgs/50pence.png" class="pit-coin-icon">
                       <img src="imgs/1penny.png" class="pit-coin-icon">
-                      <img src="imgs/1poundbroken.png" class="pit-coin-icon">
-                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
                       <img src="imgs/1pennybroken.png" class="pit-coin-icon">
+                      <img src="imgs/50pencebroken.png" class="pit-coin-icon">
+                      <img src="imgs/1poundbroken.png" class="pit-coin-icon">
                 </div>
           </div>
     </div>
