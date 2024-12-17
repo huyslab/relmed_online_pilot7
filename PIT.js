@@ -22,8 +22,8 @@ function generatePITstimulus(coin, ratio) {
     0.01: "PIT3.png",
     1.0: "PIT1.png",
     0.5: "PIT2.png",
-    "-0.01": "PIT6.png",
-    "-1": "PIT4.png",
+    "-0.01": "PIT4.png",
+    "-1": "PIT6.png",
     "-0.5": "PIT5.png"
   };
   PIT_imgs = Object.fromEntries(Object.entries(PIT_imgs).map(([k, v]) => [k, "imgs/Pav_stims/session" + sessionNum + "/" + v]));
