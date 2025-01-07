@@ -87,9 +87,10 @@ const maxPressRateTrial = {
                             countdownElement.textContent = `${timeLeft.toFixed(1)} s left`;
                             updateSpeed();
                         } else {
-                            countdownElement.textContent = 'Time\'s up!';
                             clearInterval(countdownInterval);
                             cancelAnimationFrame(animationFrameId);
+                            updateSpeed();
+                            countdownElement.textContent = 'Time\'s up!';
                             jsPsych.pluginAPI.cancelAllKeyboardResponses();
                         }
                     }
@@ -118,7 +119,7 @@ const maxPressInstructions = {
     stimulus: `
     <div id="instruction-container">
         <div id="instruction-text" style="text-align: left;">
-            <h2>Hi there, welcome to today's game!</h2>
+            <h2>Hi there! Welcome to today's game.</h2>
             <p>Before start the game, you need to a <strong>quick warmup</strong>: <span class="highlight">Press <span class="spacebar-icon">J</span> repeatedly as fast as possible.</span><br>
             This is just for baseline measurement and won't affect your final bonuses.</p>
             <p>For the following warmup:</p>
@@ -141,7 +142,7 @@ const maxPressFeedback = {
             <div id="instruction-text" style="text-align: center;">
                 <h2>Well done!</h2>
                 <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the warmup.</p>
-                <p>Next, we will start the main game. Press <strong>Continue</strong> to proceed.</p>
+                <p>Next, we will start the <strong>first</strong> main game. Press <strong>Continue</strong> to proceed.</p>
             </div>
         </div>
         `;
