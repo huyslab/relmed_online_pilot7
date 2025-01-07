@@ -30,7 +30,6 @@ const maxPressRateTrial = {
         `;
     },
     choices: 'NO_KEYS',
-    post_trial_gap: 800,
     data: {trialphase: 'max_press_rate'},
     on_start: function (trial) {
         if (window.prolificPID.includes("simulate")) {
@@ -140,13 +139,14 @@ const maxPressFeedback = {
         return `
         <div id="instruction-container">
             <div id="instruction-text" style="text-align: center;">
-                <h2>Well done!</h2>
+                <h2><span class="highlight">Well done!</span></h2>
                 <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the warmup.</p>
-                <p>Next, we will start the <strong>first</strong> main game. Press <strong>Continue</strong> to proceed.</p>
+                <p>Next, we will start the very <strong>first</strong> game. Press <strong>Continue</strong> to proceed.</p>
             </div>
         </div>
         `;
     },
+    post_trial_gap: 800,
     choices: ['Continue']
 };
 
