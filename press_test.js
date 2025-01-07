@@ -17,13 +17,12 @@ const maxPressRateTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function() {
         return `
-            <div class="press-container" style="text-align: center;">
-                <h2>Press 'j' to start, then keep pressing as fast as you can!</h2>
-                <div id="countdown" style="font-size: 48px; margin: 20px;">Press 'j' to begin</div>
-                <div id="press-counter" style="font-size: 24px;">Presses: 0</div>
-                <div id="speed-display" style="font-size: 24px; color: #2563eb;">Speed: 0.00 presses/sec</div>
+            <div class="instruction-text" style="text-align: center;">
+                <h3><div id="countdown" style="margin: 20px;">Press <span class="spacebar-icon">J</span> to start the countdown, then keep pressing as fast as you can!</div></h3>
+                <div id="press-counter">Presses: 0</div>
+                <div id="speed-display" style="color: #0066cc;">Speed: 0.00 presses/sec</div>
                 <div style="width: 300px; margin: 20px auto; border: 1px solid black;">
-                    <div id="speed-bar" style="height: 20px; width: 0%; background-color: #2563eb; transition: width 0.1s ease;"></div>
+                    <div id="speed-bar" style="height: 20px; width: 0%; background-color: #0066cc; transition: width 0.1s ease;"></div>
                 </div>
             </div>
         `;
@@ -55,7 +54,7 @@ const maxPressRateTrial = {
                 if (speedDisplay) {
                     speedDisplay.textContent = `Speed: ${speed.toFixed(2)} presses/sec`;
                     // Assume max speed is 10 presses/sec for 100% bar width
-                    const barWidth = Math.min(speed * 10, 100);
+                    const barWidth = Math.min(speed * 10, 110);
                     speedBar.style.width = `${barWidth}%`;
                 }
             };
@@ -82,7 +81,7 @@ const maxPressRateTrial = {
                     const countdownElement = document.getElementById('countdown');
                     if (countdownElement) {
                         if (timeLeft > 0) {
-                            countdownElement.textContent = `${timeLeft.toFixed(1)}`;
+                            countdownElement.textContent = `${timeLeft.toFixed(1)} s left`;
                             updateSpeed();
                         } else {
                             countdownElement.textContent = 'Time\'s up!';
@@ -114,15 +113,15 @@ const maxPressRateTrial = {
 const maxPressInstructions = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-        <div id="instruction-text" style="text-align: left">
-            <p>Before starting the main tasks, <strong>you will first press <span class="spacebar-icon">J</span> on the keyboard as fast as you can for 7 seconds for a baseline measure.</strong></p>
-            <p>Your performance in this test will not have any effect on later tasks and potential bonuses.</p>
-            <p>When you're ready:</p>
-            <ul>
-                <li>Press <span class="spacebar-icon">J</span> once to start the timer</li>
+        <div id="instruction-text" style="text-align: left;">
+            <h2>Hi there, welcome to today's game!</h2>
+            <p>Before start the game, you need to a <strong>quick warmup</strong>: <span class="highlight">Press <span class="spacebar-icon">J</span> repeatedly as fast as possible.</span><br>
+            This is just for baseline measurement and won't affect your final bonuses.</p>
+            <p>For the following warmup:</p>
+            <ol>
+                <li>Press <span class="spacebar-icon">J</span> once to start</li>
                 <li>Keep pressing <span class="spacebar-icon">J</span> as fast as you can until time runs out</li>
-            </ul>
-            <p>Try to maintain the maximum speed you can achieve!</p>
+            </ol>
         </div>
     `,
     choices: ['Start']
