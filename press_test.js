@@ -50,7 +50,7 @@ const maxPressRateTrial = {
                 if (!isStarted) return;
                 const currentTime = performance.now();
                 const elapsedSeconds = (currentTime - startTime) / 1000;
-                const speed = (pressCount - 1) / elapsedSeconds; // Subtract initial press
+                const speed = (pressCount - 1) / Math.min(elapsedSeconds, maxPressConfig.duration/1000); // Subtract initial press
                 const speedDisplay = document.getElementById('speed-display');
                 const speedBar = document.getElementById('speed-bar');
                 if (speedDisplay) {
@@ -73,8 +73,9 @@ const maxPressRateTrial = {
 
                 // Set trial duration from first press
                 jsPsych.pluginAPI.setTimeout(function() {
-                    console.log(getDifferences(RTs).reduce((a, b) => a + b, 0));
-                    jsPsych.finishTrial({responseTime: getDifferences(RTs), trialPresses: pressCount - 1});
+                    // const totalTime = getDifferences(RTs).reduce((a, b) => a + b, 0);
+                    // console.log(totalTime);
+                    jsPsych.finishTrial({responseTime: getDifferences(RTs), trialPresses: pressCount - 1, avgSpeed: (pressCount - 1) / (maxPressConfig.duration / 1000)});
                 }, maxPressConfig.duration + 1000);
                 
                 // Start countdown
@@ -82,7 +83,7 @@ const maxPressRateTrial = {
                     timeLeft = timeLeft - 0.1;
                     const countdownElement = document.getElementById('countdown');
                     if (countdownElement) {
-                        if (timeLeft > 0) {
+                        if (timeLeft >= 0) {
                             countdownElement.textContent = `${timeLeft.toFixed(1)} s left`;
                             updateSpeed();
                         } else {
@@ -131,10 +132,28 @@ const maxPressInstructions = {
     choices: ['Start']
 };
 
+const maxPressFeedback = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: function() {
+        const data = jsPsych.data.get().last(1).values()[0];
+        return `
+        <div id="instruction-container">
+            <div id="instruction-text" style="text-align: center;">
+                <h2>Well done!</h2>
+                <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the warmup.</p>
+                <p>Next, we will start the main game. Press <strong>Continue</strong> to proceed.</p>
+            </div>
+        </div>
+        `;
+    },
+    choices: ['Continue']
+};
+
 // Define the timeline
 const maxPressTimeline = [
     maxPressInstructions,
-    maxPressRateTrial
+    maxPressRateTrial,
+    maxPressFeedback
 ];
 
 // Example usage:
