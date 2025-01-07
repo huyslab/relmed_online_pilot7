@@ -17,7 +17,8 @@ const maxPressRateTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function() {
         return `
-            <div class="instruction-text" style="text-align: center;">
+        <div id="instruction-container">
+            <div id="instruction-text" style="text-align: center;">
                 <h3><div id="countdown" style="margin: 20px;">Press <span class="spacebar-icon">J</span> to start the countdown, then keep pressing as fast as you can!</div></h3>
                 <div id="press-counter">Presses: 0</div>
                 <div id="speed-display" style="color: #0066cc;">Speed: 0.00 presses/sec</div>
@@ -25,6 +26,7 @@ const maxPressRateTrial = {
                     <div id="speed-bar" style="height: 20px; width: 0%; background-color: #0066cc; transition: width 0.1s ease;"></div>
                 </div>
             </div>
+        </div>
         `;
     },
     choices: 'NO_KEYS',
@@ -113,6 +115,7 @@ const maxPressRateTrial = {
 const maxPressInstructions = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
+    <div id="instruction-container">
         <div id="instruction-text" style="text-align: left;">
             <h2>Hi there, welcome to today's game!</h2>
             <p>Before start the game, you need to a <strong>quick warmup</strong>: <span class="highlight">Press <span class="spacebar-icon">J</span> repeatedly as fast as possible.</span><br>
@@ -123,6 +126,7 @@ const maxPressInstructions = {
                 <li>Keep pressing <span class="spacebar-icon">J</span> as fast as you can until time runs out</li>
             </ol>
         </div>
+    </div>
     `,
     choices: ['Start']
 };
