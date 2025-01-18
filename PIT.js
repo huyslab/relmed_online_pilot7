@@ -308,8 +308,8 @@ const PITruleInstruction_2 = {
     </div>`,
     `
     <div id="instruction-text" style="text-align: left">
-      <p><strong>In this cloudy place, the background will also change occasionally.</strong></p>
-      <p>You may recognize some patterns in the background from the previous <strong>Card Choosing Game</strong>&#8212;try to remember what you learned there.</p>
+      <p><span class="highlight">In this cloudy place, the background will also change occasionally.</span></p>
+      <p>These are the backgrounds you will see. Each background will either add or remove <strong>one</strong> coin from your earnings, regardless of what you do.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
@@ -324,14 +324,15 @@ const PITruleInstruction_2 = {
     </div>
     `, `
     <div id="instruction-text" style="text-align: left">
-          <p><span class="highlight">Each time you see one of the backgrounds shown below, a coin will be added or removed in addition to your bonus for that round.</span></p>
-          <p>If a round is selected at the end of the game, the adjusted bonus from that round will be paid.</p>
+          <p><strong>Here's how each background affects your earnings:</strong></p>
+          <p>The backgrounds on the left will <strong>add</strong> £1, 50p, or 1p, while the backgrounds on the right will <strong>remove</strong> 1p, 50p, or £1, regardless of what you do.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT1.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT2.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT3.png"} class="pit-pav-icon">
+                      <div class="vertical"></div>
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT4.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT5.png"} class="pit-pav-icon">
                       <img src=${"imgs/Pav_stims/session" + sessionNum + "/PIT6.png"} class="pit-pav-icon">
@@ -340,6 +341,7 @@ const PITruleInstruction_2 = {
                       <img src="imgs/1pound.png" class="pit-coin-icon">
                       <img src="imgs/50pence.png" class="pit-coin-icon">
                       <img src="imgs/1penny.png" class="pit-coin-icon">
+                      <div class="vertical"></div>
                       <img src="imgs/1pennybroken.png" class="pit-coin-icon">
                       <img src="imgs/50pencebroken.png" class="pit-coin-icon">
                       <img src="imgs/1poundbroken.png" class="pit-coin-icon">
