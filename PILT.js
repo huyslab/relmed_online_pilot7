@@ -346,8 +346,9 @@ const PILT_trial = {
     ],
     conditional_function: function () {
 
-        // Only consider stopping if this is an early stop group, if this is not a practice block, and if there had been at least five previous trials
-        if (Number.isInteger(jsPsych.evaluateTimelineVariable('block')) &&
+        // Only consider stopping if this is an early stop task, if this is not a practice block, and if there had been at least five previous trials
+        if (jsPsych.evaluateTimelineVariable('early_stop') &&
+            Number.isInteger(jsPsych.evaluateTimelineVariable('block')) &&
             jsPsych.evaluateTimelineVariable('trial') > 5
         ) {
 
