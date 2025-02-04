@@ -513,7 +513,7 @@ async function load_squences(session) {
         test_sess_structure = [pav_test_structure].concat(test_sess_structure);
 
         // Fetch WM structure
-        const WM_response = await fetch('pilot6_WM.json');
+        const WM_response = await fetch('pilot7_WM.json');
         const WM_structure = await WM_response.json();
         const WM_sess_structure = WM_structure[session - 1];
 
