@@ -157,7 +157,7 @@
         }
     ]
 
-    function run_full_experiment(PILT_structure, test_structure){
+    function run_full_experiment(PILT_structure, test_structure, WM_procedure){
 
         let procedure = [];
 
@@ -165,7 +165,7 @@
         procedure = procedure.concat(preliminary_checks);
 
         // Add PILT timeline
-        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure);
+        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
         procedure = procedure.concat([
             acceptability_intro,
@@ -198,8 +198,26 @@
         procedure = procedure.concat(postVigourInstructions);
         procedure = procedure.concat(postVigourTrials);
 
-        // PILT & Pavlovian test 
+        // // PILT & Pavlovian test /// PUT Pavlovian first!!!
         procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
+
+        // Add WM block
+        procedure.push(PILT_tasks.WM_procedure);
+        procedure = procedure.concat([
+            acceptability_intro,
+            acceptability_wm
+        ]);
+
+        // Add reversal timeline
+        procedure = procedure.concat(reversal_instructions);
+        procedure = procedure.concat(reversal_blocks);
+        procedure = procedure.concat([
+            acceptability_intro,
+            acceptability_reversal
+        ]);
+
+        // Add questionnaire timeline
+        procedure = procedure.concat(questionnaires_timeline);
 
         // Add vigour bonus message
         // For fractional bonus, use vigour_PIT_bonus2

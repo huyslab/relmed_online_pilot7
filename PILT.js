@@ -470,7 +470,7 @@ function build_PILT_task(structure, insert_msg = true) {
 async function load_squences(session) {
     try {
         // Fetch PILT sequences
-        const response = await fetch('pilot7_PILT.json');
+        const response = await fetch('pilot6_PILT.json');
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -481,7 +481,7 @@ async function load_squences(session) {
         window.totalBlockNumber = sess_structure.length
 
         // Fetch post-PILT test sequences
-        const test_response = await fetch('pilot7_PILT_test.json');
+        const test_response = await fetch('pilot6_PILT_test.json');
 
         if (!test_response.ok) {
             throw new Error(`Network response was not ok ${test_response}`);
@@ -512,15 +512,21 @@ async function load_squences(session) {
         // Add Pavlovaian test to the end of test strucutre
         test_sess_structure = [pav_test_structure].concat(test_sess_structure);
 
-        run_full_experiment(sess_structure, test_sess_structure);
+        // Fetch WM structure
+        const WM_response = await fetch('pilot7_WM.json');
+        const WM_structure = await WM_response.json();
+        const WM_sess_structure = WM_structure[session - 1];
+
+        run_full_experiment(sess_structure, test_sess_structure, WM_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
 
-function return_PILT_full_sequence(structure, test_structure) {
+function return_PILT_full_sequence(structure, test_structure, WM_structure) {
     // Compute best-rest
     computeBestRest(structure);
+    computeBestRest(WM_structure);
 
     let PILT_procedure = [];
 
@@ -535,9 +541,15 @@ function return_PILT_full_sequence(structure, test_structure) {
     PILT_test_procedure.push(test_instructions);
     PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
+    // WM block
+    let WM_procedure = WM_instructions;
+
+    WM_procedure = WM_procedure.concat(build_PILT_task(WM_structure));
+
 
     return {
         PILT_procedure: PILT_procedure,
-        PILT_test_procedure: PILT_test_procedure
+        PILT_test_procedure: PILT_test_procedure,
+        WM_procedure: WM_procedure
     }
 }
