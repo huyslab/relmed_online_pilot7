@@ -29,7 +29,44 @@ const fullscreen_prompt = {
     }
 }
 
-const kick_out = {
+const pre_kick_out_warning = {
+    type: jsPsychHtmlKeyboardResponse,
+    conditional_function: function() {
+      if ((jsPsych.data.get().last(1).select('n_warnings').values[0] >= window.interimWarning) &&
+      !jsPsych.data.get().last(1).select('pre_kick_out_warned').values[0]
+    ) {
+        jsPsych.data.addProperties(
+            {
+                pre_kick_out_warned: true
+            }
+        );
+        return true;
+      } else {
+        return false;
+      }
+    },
+    css_classes: ['instructions'],
+    timeline: [
+        {
+            stimulus: `<p>You seem to be taking too long to respond on the tasks.</p>
+                <p>Please try to respond more quickly. Also, please keep your attention on the task window, and don't use other tabs or windows.</p>
+                <p>If you continue to receive too many warnings, we will have to stop your particpation in this experiment</p>
+                <p>Place your fingers back on the keyboard, and press one of the keys your were using for this task to continue.</p>
+            `,
+            on_start: function(trial) {
+                // Save data
+                saveDataREDCap(retry = 3);
+        }
+        }
+    ],
+    choices: ["arrowright", "arrowleft", "arrowup", "b"],
+    data: {
+      trialphase: 'pre-kick-out-warning'
+    }
+}
+
+
+const kick_out_warning = {
     type: jsPsychHtmlKeyboardResponse,
     conditional_function: function() {
       if (jsPsych.data.get().last(1).select('n_warnings').values[0] >= window.maxWarnings) {
@@ -63,6 +100,13 @@ const kick_out = {
     data: {
       trialphase: 'kick-out'
     }
+}
+
+const kick_out = {
+    timeline: [
+        pre_kick_out_warning,
+        kick_out_warning
+    ]
 }
   
   
