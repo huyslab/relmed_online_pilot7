@@ -362,8 +362,9 @@ const WM_instructions = [
     {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
-        stimulus: `<p>Let's start playing!</p>
-        <p>Place your fingers on the left, right, and up arrow keys, and press the up arrow key to start playing.</p>`,
+        stimulus: `<p>Let's get started!</p>
+        <p>You will play one round with no breaks, lasting about 10 minutes.</p>
+        <p>When you are ready to start playing, place your fingers on the left, right, and up arrow keys, and press the up arrow key.</p>`,
         choices: ['arrowup'],
         data: {trialphase: "WM_instructions"}
     }
