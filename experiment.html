@@ -6,6 +6,7 @@
     <script src="jspsych/jspsych.js"></script>
     <script>
         window.maxWarnings = 15;
+        window.interimWarning = 5;
 
         // Initialize jsPysch object
         let jsPsych = initJsPsych({
@@ -26,6 +27,7 @@
             session_id: window.sessionId,
             session: window.sessionNum,
             n_warnings: 0,
+            pre_kick_out_warned: false,
             version: "6.01"
         })
     </script>
