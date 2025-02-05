@@ -17,12 +17,11 @@ function prepare_PILT_instructions() {
         pages: () => {
 
             let pages = [
-                `<p>Welcome!</p>
-                <p>In this study, you'll play a few simple games of learning from trial and error.</p>
-                <p>Your goal in each game is to win as many coins as possible.</p>
-                <p>The games might feel a bit fast-paced because we're interested in your quick, intuitive judgments.</p>
-                <p>Since the games are about learning from trial and error, everyone is expected to make quite a few mistakes when they play. Over time, you can learn how to make better choices and earn more coins.</p>
-                <p>Let's start with the first game.</p>
+                `<p><b>Thank you for taking part in this study!</b></p>
+                <p>The purpose of this study is to examine how people learn from positive and negative feedback while playing games.
+                <p>In this study, you'll play a few simple trial-and-error learning games. Your goal in each game is to win as many coins as possible.</p>
+                <p>The games may feel a bit fast-paced because we're interested in your quick, intuitive decisions. Since they're designed around learning from experience, making mistakes is completely expected. Over time, you'll figure out better choices and improve your performance.</p>
+                <p>Let's start with the first game!</p>
                 `
             ];
 
