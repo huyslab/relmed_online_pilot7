@@ -309,7 +309,7 @@ const PITruleInstruction_2 = {
     `
     <div id="instruction-text" style="text-align: left">
       <p><span class="highlight">In this cloudy place, the background will also change occasionally.</span></p>
-      <p>These are the backgrounds you will see. Each background will either add or remove <strong>one</strong> coin from your earnings, regardless of what you do.</p>
+      <p>These are the backgrounds you will see. Each time you see a background, <strong>one</strong> coin will either be added or removed from your earnings, regardless of what you do.</p>
 
           <div class="pav-stimuli-container">
                 <div class="pit-pav-row">
