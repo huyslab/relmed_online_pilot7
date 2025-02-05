@@ -120,7 +120,9 @@ function prepare_PILT_instructions() {
         stimulus: `<p>Let's practice collecting coins. \
             On the next screen, choose cards to collect as much money as you can.</p>
             <p>One of the picture cards has mostly high value coins behind it, while the other has mostly pennies behind it.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start practising.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>
+`,
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
     }]);
@@ -176,7 +178,8 @@ function prepare_PILT_instructions() {
             stimulus: `<p>Now, let's practice minimizing your coin losses. 
             On the next screen, choose cards to lose as little money as possible.</p>
             <p>One of the picture cards will often break the high-value coins in your safe, while the other will mostly break only your pennies.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start practising.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>`,
             choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"} 
         }
@@ -311,7 +314,8 @@ function prepare_PILT_instructions() {
             stimulus: `<p>Great! Let's start playing for real.</p>
             <p>You will now complete 20 rounds of the card choosing game, taking 15-20 minutes to complete on average.</p>
             <p>You will be able to take a short break between rounds, if you feel you need it.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>`,
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start playing.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>`,
             choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"}
         }
@@ -374,7 +378,8 @@ const WM_instructions = [
         css_classes: ['instructions'],
         stimulus: `<p>Let's get started!</p>
         <p>You will play one round with no breaks, lasting about 10 minutes.</p>
-        <p>When you are ready to start playing, place your fingers on the left, right, and up arrow keys, and press the up arrow key.</p>`,
+        <p>When you are ready to start playing, place your fingers on the left, right, and up arrow keys as shown below, and press the up arrow key.</p>
+        <img src='imgs/WM_keys.jpg' style='width:250px;'></img>`,
         choices: ['arrowup'],
         data: {trialphase: "WM_instructions"}
     }
