@@ -101,7 +101,9 @@ const reversal_instructions = [
     {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
-        stimulus: `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+        stimulus: `
+            <p>You will now play the squirrel game for about 5 minutes without breaks.</p>
+            <p>Place your fingers on the left and right arrow keys, and press either one to start.</p>`,
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "reversal_instruction"}
     },
