@@ -47,6 +47,7 @@
     <script src="plugin-reversal.js"></script>
     <script src="reversal.js"></script>
     <script src="plugin-coin-lottery.js"></script>
+    <script src="press_test.js"></script>
     <script src="PILT.js"></script>
     <script src="PILT_instructions.js"></script>
     <script src="vigour.js"></script>
@@ -165,6 +166,9 @@
 
         // Preliminary screen checks and load images
         procedure = procedure.concat(preliminary_checks);
+
+        // Add max press rate test
+        procedure = procedure.concat(maxPressTimeline);
 
         // Add PILT timeline
         PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
