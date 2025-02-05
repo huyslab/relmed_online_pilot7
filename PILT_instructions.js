@@ -64,7 +64,9 @@ function prepare_PILT_instructions() {
                 css_classes: ['instructions'],
                 stimulus: `<p>You choose a card by pressing the left or the right arrow keys.</p>
                         <p>Let's try it out now! Flip a card on the next screen.</p>
-                        <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+                        <p>Place your fingers on the left and right arrow keys as shown below, and press either one to continue.</p>
+                        <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>
+                        `,
                 choices: ['arrowleft', 'arrowright'],
                 data: {trialphase: "instruction"}
             },
