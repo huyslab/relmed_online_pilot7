@@ -17,8 +17,12 @@ function prepare_PILT_instructions() {
         pages: () => {
 
             let pages = [
-                ` <p>Welcome!</p>
-                <p>In this study you will complete a few tasks. Let's start with the first game.</p>`
+                `<p><b>Thank you for taking part in this study!</b></p>
+                <p>The purpose of this study is to examine how people learn from positive and negative feedback while playing games.
+                <p>In this study, you'll play a few simple trial-and-error learning games. Your goal in each game is to win as many coins as possible.</p>
+                <p>The games may feel a bit fast-paced because we're interested in your quick, intuitive decisions. Since they're designed around learning from experience, making mistakes is completely expected. Over time, you'll figure out better choices and improve your performance.</p>
+                <p>Let's start with the first game!</p>
+                `
             ];
 
             pages = pages.concat([
@@ -31,7 +35,7 @@ function prepare_PILT_instructions() {
                 <td><img src='imgs/1penny.png' style='width:${small_coin_size}px; height:${small_coin_size}px;'></td></tr>
                 <tr><td>60x one pound coins</td><td>60x fifty pence coins</td><td>60x one penny coins</td></tr></table></div>
                 <p>At the end of the game, you will draw one coin from your safe, and that will be your bonus payment.</p>
-                <p>Your goal is to add coins to your safe while avoid losing coins already in it.</p>`,
+                <p>Your goal is to add valuable coins to your safe while avoid losing the valuable coins already in it.</p>`,
             `<p>On each turn of this game, you will see two cards.
                 You have three seconds to flip one of the two cards.</p>
                 <p>This will reveal the coin you collect: either 1 pound, 50 pence, or 1 penny.</p>
@@ -60,7 +64,9 @@ function prepare_PILT_instructions() {
                 css_classes: ['instructions'],
                 stimulus: `<p>You choose a card by pressing the left or the right arrow keys.</p>
                         <p>Let's try it out now! Flip a card on the next screen.</p>
-                        <p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+                        <p>Place your fingers on the left and right arrow keys as shown below, and press either one to continue.</p>
+                        <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>
+                        `,
                 choices: ['arrowleft', 'arrowright'],
                 data: {trialphase: "instruction"}
             },
@@ -102,8 +108,8 @@ function prepare_PILT_instructions() {
         css_classes: ['instructions'],
         pages: [
             `${window.sessionNum == 1 ? `<p>You found a one pound coin!</p>` : ``}
-            <p>Some cards are better than others, but even good cards can sometimes only give a penny 
-            or might sometimes break a one pound coin.</p>`
+            <p>Some cards are better than others, and through trial and error, you can learn which ones are best.</p> 
+            <p>However, even the best cards may sometimes give only a penny or occasionally break a one-pound coin.</p>`
         ],
         show_clickable_nav: true,
         data: {trialphase: "instruction"}
@@ -112,8 +118,11 @@ function prepare_PILT_instructions() {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
         stimulus: `<p>Let's practice collecting coins. \
-            On the next screen, choose card to collect as much money as you can.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
+            On the next screen, choose cards to collect as much money as you can.</p>
+            <p>One of the picture cards has mostly high value coins behind it, while the other has mostly pennies behind it.</p>
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start practising.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>
+`,
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "instruction"}
     }]);
@@ -166,11 +175,13 @@ function prepare_PILT_instructions() {
         {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
-            stimulus: `<p>Now, let's practice avoiding losing coins. 
-            On the next screen, choose card to lose as little money as you can.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start practicing.</p>`,
+            stimulus: `<p>Now, let's practice minimizing your coin losses. 
+            On the next screen, choose cards to lose as little money as possible.</p>
+            <p>One of the picture cards will often break the high-value coins in your safe, while the other will mostly break only your pennies.</p>
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start practising.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>`,
             choices: ['arrowright', 'arrowleft'],
-            data: {trialphase: "instruction"}
+            data: {trialphase: "instruction"} 
         }
     ]);
 
@@ -301,7 +312,10 @@ function prepare_PILT_instructions() {
             type: jsPsychHtmlKeyboardResponse,
             css_classes: ['instructions'],
             stimulus: `<p>Great! Let's start playing for real.</p>
-            <p>Place your fingers on the left and right arrow keys, and press either one to start playing.</p>`,
+            <p>You will now complete 20 rounds of the card choosing game, taking 15-20 minutes to complete on average.</p>
+            <p>You will be able to take a short break between rounds, if you feel you need it.</p>
+            <p>Place your fingers on the left and right arrow keys as shown below, and press either one to start playing.</p>
+            <img src='imgs/PILT_keys.jpg' style='width:250px;'></img>`,
             choices: ['arrowright', 'arrowleft'],
             data: {trialphase: "instruction"}
         }
@@ -364,7 +378,8 @@ const WM_instructions = [
         css_classes: ['instructions'],
         stimulus: `<p>Let's get started!</p>
         <p>You will play one round with no breaks, lasting about 10 minutes.</p>
-        <p>When you are ready to start playing, place your fingers on the left, right, and up arrow keys, and press the up arrow key.</p>`,
+        <p>When you are ready to start playing, place your fingers on the left, right, and up arrow keys as shown below, and press the up arrow key.</p>
+        <img src='imgs/WM_keys.jpg' style='width:250px;'></img>`,
         choices: ['arrowup'],
         data: {trialphase: "WM_instructions"}
     }

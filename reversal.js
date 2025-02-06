@@ -92,7 +92,7 @@ const reversal_instructions = [
             Use the arrow keys to choose either the left or right squirrel. 
             The squirrel you pick will give you a coin to add to your safe.</p>`,
             `<p>One squirrel has higher-value coins, and the other has lower-value coins. 
-            But sometimes, they secretly switch bags.</p>
+            But every few turns they secretly switch bags.</p>
             <p>Your goal is to figure out which squirrel has the better coins and collect as many high-value ones as possible.<p>`
         ],
         show_clickable_nav: true,
@@ -101,7 +101,9 @@ const reversal_instructions = [
     {
         type: jsPsychHtmlKeyboardResponse,
         css_classes: ['instructions'],
-        stimulus: `<p>Place your fingers on the left and right arrow keys, and press either one to continue.</p>`,
+        stimulus: `
+            <p>You will now play the squirrel game for about 5 minutes without breaks.</p>
+            <p>Place your fingers on the left and right arrow keys, and press either one to start.</p>`,
         choices: ['arrowleft', 'arrowright'],
         data: {trialphase: "reversal_instruction"}
     },

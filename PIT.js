@@ -359,6 +359,7 @@ const startPITconfirmation = {
   choices: ['b', 'r'],
   stimulus: `
   <div id="instruction-text">
+      <p>You will now play the piggy-bank game in the clouds for about eight minutes.</p>
       <p>When you're ready, press <span class="spacebar-icon">B</span> to start!</p>
       <p>If you want to read the rules again, press <span class="spacebar-icon">R</span>.</p>
   </div>

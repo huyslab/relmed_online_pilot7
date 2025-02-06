@@ -471,7 +471,7 @@ function build_PILT_task(structure, insert_msg = true) {
 async function load_squences(session) {
     try {
         // Fetch PILT sequences
-        const response = await fetch('pilot6_PILT.json');
+        const response = await fetch('pilot7_PILT.json');
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -532,7 +532,7 @@ function return_PILT_full_sequence(structure, test_structure, WM_structure) {
     let PILT_procedure = [];
 
     // Add instructions
-    // PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
+    PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
     // Add PILT
     PILT_procedure = PILT_procedure.concat(build_PILT_task(structure));
