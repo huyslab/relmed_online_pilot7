@@ -74,8 +74,8 @@ function prepare_PILT_instructions() {
                 timeline: build_PILT_task(
                     [[
                         {
-                            stimulus_left: "ukulele1.jpg",
-                            stimulus_right: "envelope1.jpg",
+                            stimulus_left: "ukulele_1.jpg",
+                            stimulus_right: "envelope_1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             n_stimuli: 2,
@@ -94,7 +94,8 @@ function prepare_PILT_instructions() {
                             n_groups: 1,
                             rest_1pound: 0,
                             rest_50pence: 0,
-                            rest_1penny: 0
+                            rest_1penny: 0,
+                            early_stop: false
                         }
                     ]],
                     false
@@ -141,8 +142,8 @@ function prepare_PILT_instructions() {
                 [
                     dumbbell_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "strainer1.jpg" : "can2.jpg",
-                            stimulus_right: e ? "can2.jpg" : "strainer1.jpg",
+                            stimulus_left: e ? "strainer_1.jpg" : "can_2.jpg",
+                            stimulus_right: e ? "can_2.jpg" : "strainer_1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             present_pavlovian: true,
@@ -160,7 +161,8 @@ function prepare_PILT_instructions() {
                             n_groups: 1,
                             rest_1pound: 0,
                             rest_50pence: 0,
-                            rest_1penny: 0
+                            rest_1penny: 0,
+                            early_stop: false
                         })
                     )
                 ],
@@ -200,8 +202,8 @@ function prepare_PILT_instructions() {
                 [
                     hammer_on_right.map((e, i) => 
                         ({
-                            stimulus_left: e ? "harp1.jpg" : "cantaloupe1.jpg",
-                            stimulus_right: e ? "cantaloupe1.jpg" : "harp1.jpg",
+                            stimulus_left: e ? "harp_1.jpg" : "cantaloupe_1.jpg",
+                            stimulus_right: e ? "cantaloupe_1.jpg" : "harp_1.jpg",
                             stimulus_middle: "",
                             feedback_middle: "",
                             present_pavlovian: true,
@@ -219,7 +221,8 @@ function prepare_PILT_instructions() {
                             n_groups: 1,
                             rest_1pound: 0,
                             rest_50pence: 0,
-                            rest_1penny: 0
+                            rest_1penny: 0,
+                            early_stop: false
                         })
                     )
                 ],
