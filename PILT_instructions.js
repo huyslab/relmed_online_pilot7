@@ -267,6 +267,7 @@ function prepare_PILT_instructions() {
         {
             type: jsPsychSurveyMultiChoice,
             questions: quiz_questions,
+            css_classes: ["instructions"],
             preamble: `<div class=instructions><p>For each statement, please indicate whether it is true or false:</p></div>`,
             data: {
                 trialphase: "instruction_quiz"
