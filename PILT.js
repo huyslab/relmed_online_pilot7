@@ -69,7 +69,7 @@ const test_trial = {
                     });
                 }
              },
-            post_trial_gap: 400
+            post_trial_gap: 600
         },
         {
             timeline: [
