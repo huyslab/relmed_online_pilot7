@@ -35,76 +35,19 @@ const test_trial = {
         fullscreen_prompt,
         // Test trial
         {
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: () => {
-                return `<style>
-                .optionBox {
-                    margin: auto;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                }
-                
-                .optionSide {
-                    display: grid;
-                    flex-direction: column;
-                    height: 70vh;
-                    width: 25vw;
-                    max-width: 1000px;
-                    position: relative;
-                }
-                
-                .optionSide img {
-                    height: auto;
-                    width: 20vw;
-                    max-width: 500px;
-                   /* flex-direction: column;*/
-                    margin: auto;
-                    grid-column: 1;
-                    grid-row: 1;
-                }
-
-                #imgPILT, #imgPIT {
-                    border: 1px solid darkgrey;
-                }
-
-                #imgPIT{
-                    transform: scale(1.5);             
-                }
-                
-                .helperTxt {
-                    display: flex;
-                    justify-content: space-around;
-                    margin: auto;
-                    width: 12vw;
-                    max-width: 325px;
-                    text-wrap: normal;
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    line-height: 3rem;
-                }
-                
-                .coin {
-                    visibility: hidden;
-                    max-width: 12vw;
-                    margin: auto;
-                }
-                
-            </style>
-            <div id="optionBox" class="optionBox">
-                <div id='left' class="optionSide">
-                    <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
-                </div>
-                <div class="helperTxt">
-                    <p2 id="centerTxt">?</p2>
-                </div>
-                <div id='right' class="optionSide">
-                    <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
-                </div>
-            </div>`
-            },
-            choices: ["ArrowRight", "ArrowLeft"],
-            trial_duration: 4000,
+            type: jsPsychPILT,
+            stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
+            stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+            stimulus_middle: '',
+            feedback_left: '',
+            feedback_right: '',
+            feedback_middle: '',
+            optimal_right: false,
+            optimal_side: '',
+            response_deadline: window.defaul_response_deadline,
+            n_stimuli: 2,
+            present_pavlovian: false,
+            present_feedback: false,
             data: {
                 trialphase: "PILT_test",
                 block: jsPsych.timelineVariable("block"),
@@ -117,115 +60,16 @@ const test_trial = {
                 magnitude_right: jsPsych.timelineVariable("magnitude_right"),
                 original_block_left: jsPsych.timelineVariable("original_block_left"),
                 original_block_right: jsPsych.timelineVariable("original_block_right"),
-
-            }
-        },
-        // Timeout message
-        {
-            timeline: [
-                {
-                    type: jsPsychHtmlKeyboardResponse,
-                    data: {
-                        trialphase: "PILT_test_timeout"
-                    },
-                    stimulus: () => {
-                        return `<style>
-                        .optionBox {
-                            margin: auto;
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                        }
-                        
-                        .optionSide {
-                            display: grid;
-                            flex-direction: column;
-                            height: 70vh;
-                            width: 25vw;
-                            max-width: 1000px;
-                            position: relative;
-                        }
-                        
-                        .optionSide img {
-                            height: auto;
-                            width: 20vw;
-                            max-width: 500px;
-                           /* flex-direction: column;*/
-                            margin: auto;
-                            grid-column: 1;
-                            grid-row: 1;
-                        }
-        
-                        #imgPILT, #imgPIT {
-                            border: 1px solid darkgrey;
-                        }
-
-                        #imgPIT{
-                            transform: scale(1.5);             
-                        }         
-
-                        .helperTxt {
-                            display: flex;
-                            justify-content: space-around;
-                            margin: auto;
-                            width: 12vw;
-                            max-width: 325px;
-                            background-color: rgba(255, 255, 255, 0.5);
-                            text-wrap: normal;
-                            font-size: 1.5rem;
-                            font-weight: bold;
-                            line-height: 3rem;
-                            z-index: 10
-                        }
-                        
-                        .coin {
-                            visibility: hidden;
-                            max-width: 12vw;
-                            margin: auto;
-                        }
-                        
-                    </style>
-                    <div id="optionBox" class="optionBox">
-                        <div id='left' class="optionSide">
-                            <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_left')}></img> 
-                        </div>
-                        <div class="helperTxt">
-                            <p id="centerTxt">Please respond more quickly!</p>
-                        </div>
-                        <div id='right' class="optionSide">
-                            <img id='${id_from_stimulus()}' src=${jsPsych.evaluateTimelineVariable('stimulus_right')}></img>
-                        </div>
-                    </div>`
-                    },
-                    choices: "NO_KEYS",
-                    trial_duration: 1500
-                }
-            ],
-            conditional_function: () => {
-                let missed = jsPsych.data.get().filter({
-                    trialphase: "PILT_test"
-                }).last(1).select("response").values[0] == null
-
-                if (missed) {
-                    // Update warning count
+            },
+            on_finish: function(data) {
+                if (data.response === "noresp") {
                     var up_to_now = parseInt(jsPsych.data.get().last(1).select('n_warnings').values);
                     jsPsych.data.addProperties({
                         n_warnings: up_to_now + 1
                     });
                 }
-
-                return missed
-            }
-        },
-        {
-            type: jsPsychHtmlKeyboardResponse,
-            choices: "NO_KEYS",
-            stimulus: "",
-            data: {
-                trialphase: "PILT_test_ITI"
-            },
-            trial_duration: 0,
-            post_trial_gap: 600
+             },
+            post_trial_gap: 400
         },
         {
             timeline: [
@@ -532,7 +376,7 @@ function return_PILT_full_sequence(structure, test_structure, WM_structure) {
     let PILT_procedure = [];
 
     // Add instructions
-    PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
+    // PILT_procedure = PILT_procedure.concat(prepare_PILT_instructions());
 
     // Add PILT
     PILT_procedure = PILT_procedure.concat(build_PILT_task(structure));
