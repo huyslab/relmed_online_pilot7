@@ -36,8 +36,8 @@ const test_trial = {
         // Test trial
         {
             type: jsPsychPILT,
-            stimulus_right: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_right'),
-            stimulus_left: () => 'imgs/PILT_stims/'+ jsPsych.evaluateTimelineVariable('stimulus_left'),
+            stimulus_right: jsPsych.timelineVariable('stimulus_right'),
+            stimulus_left: jsPsych.timelineVariable('stimulus_left'),
             stimulus_middle: '',
             feedback_left: '',
             feedback_right: '',
@@ -326,7 +326,7 @@ async function load_squences(session) {
         window.totalBlockNumber = sess_structure.length
 
         // Fetch post-PILT test sequences
-        const test_response = await fetch('pilot6_PILT_test.json');
+        const test_response = await fetch('pilot7_PILT_test.json');
 
         if (!test_response.ok) {
             throw new Error(`Network response was not ok ${test_response}`);
