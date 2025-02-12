@@ -296,30 +296,31 @@ jsPsychPILT = (function (jspsych) {
                         document.getElementById('centerTxt').innerText = '';
                     }
 
-                    // Draw coin, circle around it and pavlovian background
-                    const coin = document.createElement('img')
-                    coin.id = 'PILTCoin'
-                    coin.className = 'PILTCoin'
-
-                    const coinCircle = document.createElement('div')
-                    coinCircle.id = 'PILTCoinCircle'
-                    coinCircle.className = 'PILTCoinCircle'
-
-                    const coinBackground = document.createElement('img')
-                    coinBackground.id = "PILTCoinBackground"
-                    coinBackground.className = "PILTCoinBackground"
-
-                    coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
-                    coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
-
-                    if (trial.present_pavlovian) {
-                        document.getElementById(this.data.response).appendChild(coinBackground)
-                        document.getElementById(this.data.response).appendChild(coinCircle)
-                    }
-                    document.getElementById(this.data.response).appendChild(coin)
-
-                    // Set timer post response feedback
                     if (trial.present_feedback){
+                        // Draw coin, circle around it and pavlovian background
+                        const coin = document.createElement('img')
+                        coin.id = 'PILTCoin'
+                        coin.className = 'PILTCoin'
+
+                        const coinCircle = document.createElement('div')
+                        coinCircle.id = 'PILTCoinCircle'
+                        coinCircle.className = 'PILTCoinCircle'
+
+                        const coinBackground = document.createElement('img')
+                        coinBackground.id = "PILTCoinBackground"
+                        coinBackground.className = "PILTCoinBackground"
+
+                        coin.src = `imgs/${trial.coin_images[this.data.chosen_feedback]}`;
+                        coinBackground.src = `imgs/${trial.pavlovian_images[this.data.chosen_feedback]}`;
+
+                        if (trial.present_pavlovian) {
+                            document.getElementById(this.data.response).appendChild(coinBackground)
+                            document.getElementById(this.data.response).appendChild(coinCircle)
+                        }
+                        document.getElementById(this.data.response).appendChild(coin)
+
+                        // Set timer post response feedback
+                    
                         this.jsPsych.pluginAPI.setTimeout(() => {
 
                             inverse_response.forEach(response => {
