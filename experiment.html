@@ -160,7 +160,7 @@
         }
     ]
 
-    function run_full_experiment(PILT_structure, test_structure, WM_procedure){
+    function run_full_experiment(PILT_structure, test_structure, WM_procedure, WM_test_procedure){
 
         let procedure = [];
 
@@ -171,7 +171,7 @@
         procedure = procedure.concat(maxPressTimeline);
 
         // Add PILT timeline
-        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure);
+        PILT_tasks = return_PILT_full_sequence(PILT_structure, test_structure, WM_procedure, WM_test_procedure);
         procedure = procedure.concat(PILT_tasks.PILT_procedure);
         procedure = procedure.concat([
             acceptability_intro,
@@ -204,7 +204,7 @@
         procedure = procedure.concat(postVigourInstructions);
         procedure = procedure.concat(postVigourTrials);
 
-        // // PILT & Pavlovian test /// PUT Pavlovian first!!!
+        // // PILT & Pavlovian test
         procedure = procedure.concat(PILT_tasks.PILT_test_procedure);
 
         // Add WM block
@@ -213,6 +213,9 @@
             acceptability_intro,
             acceptability_wm
         ]);
+
+        // Add post-WM test
+        procedure.push(PILT_tasks.WM_test_procedure);
 
         // Add reversal timeline
         procedure = procedure.concat(reversal_instructions);

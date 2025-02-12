@@ -107,8 +107,9 @@ function build_post_PILT_test(structure) {
     let test = [
         {
             type: jsPsychPreload,
-            images: structure[1]
-                .flatMap(item => [item.stimulus_right, item.stimulus_left]),
+            images: [
+                ...new Set(structure.flat().flatMap(obj => [obj.stimulus_right, obj.stimulus_left]))
+            ],
             post_trial_gap: 800,
             continue_after_error: true
         }
@@ -335,7 +336,7 @@ async function load_squences(session) {
         const test_structure = await test_response.json();
         let test_sess_structure = test_structure[session - 1];
 
-        // Add folder to stimuli, and rename block
+        // Add folder to stimuli
         for (i=0; i<test_sess_structure.length; i++){
             for(j=0; j<test_sess_structure[i].length; j++) {
                 test_sess_structure[i][j].stimulus_left = `imgs/PILT_stims/${test_sess_structure[i][j].stimulus_left}`
@@ -362,13 +363,26 @@ async function load_squences(session) {
         const WM_structure = await WM_response.json();
         const WM_sess_structure = WM_structure[session - 1];
 
-        run_full_experiment(sess_structure, test_sess_structure, WM_sess_structure);
+        // Fetch WM test structure
+        const WM_test_response = await fetch('pilot7_WM_test.json');
+        const WM_test_structure = await WM_test_response.json();
+        let WM_test_sess_structure = WM_test_structure[session - 1];
+
+        // Add folder to stimuli
+        for (i=0; i<WM_test_sess_structure.length; i++){
+            for(j=0; j<WM_test_sess_structure[i].length; j++) {
+                WM_test_sess_structure[i][j].stimulus_left = `imgs/PILT_stims/${WM_test_sess_structure[i][j].stimulus_left}`
+                WM_test_sess_structure[i][j].stimulus_right = `imgs/PILT_stims/${WM_test_sess_structure[i][j].stimulus_right}`    
+            }
+        }
+        
+        run_full_experiment(sess_structure, test_sess_structure, WM_sess_structure, WM_test_sess_structure);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
 
-function return_PILT_full_sequence(structure, test_structure, WM_structure) {
+function return_PILT_full_sequence(structure, test_structure, WM_structure, WM_test_structure) {
     // Compute best-rest
     computeBestRest(structure);
     computeBestRest(WM_structure);
@@ -386,15 +400,24 @@ function return_PILT_full_sequence(structure, test_structure, WM_structure) {
     PILT_test_procedure.push(test_instructions);
     PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
+    console.log(PILT_test_procedure)
+
     // WM block
     let WM_procedure = WM_instructions;
 
     WM_procedure = WM_procedure.concat(build_PILT_task(WM_structure));
 
+    // WM test block
+    let WM_test_procedure = [];
+    WM_test_procedure.push(test_instructions);
+    WM_test_procedure = WM_test_procedure.concat(build_post_PILT_test(WM_test_structure));
+
+
 
     return {
         PILT_procedure: PILT_procedure,
         PILT_test_procedure: PILT_test_procedure,
-        WM_procedure: WM_procedure
+        WM_procedure: WM_procedure,
+        WM_test_procedure: WM_test_procedure
     }
 }
