@@ -182,6 +182,9 @@
         // Preliminary screen checks and load images
         procedure = procedure.concat(preliminary_checks);
 
+        // Welcome message
+        procedure.push(welcome_msgs);
+
         // Add max press rate test
         procedure = procedure.concat(maxPressTimeline);
 
