@@ -19,7 +19,7 @@ const maxPressRateTrial = {
         return `
         <div id="instruction-container">
             <div id="instruction-text" style="text-align: center;">
-                <h3><div id="countdown" style="margin: 20px;">Press <span class="spacebar-icon">J</span> to start the countdown, then keep pressing as fast as you can!</div></h3>
+                <h3><div id="countdown" style="margin: 20px;">Place your finger on the  <span class="spacebar-icon">J</span> key.<br>When you are ready, start pressing it repeatedly as fast as you can!</div></h3>
                 <div id="press-counter">Presses: 0</div>
                 <div id="speed-display" style="color: #0066cc;">Speed: 0.00 presses/sec</div>
                 <div style="width: 300px; margin: 20px auto; border: 1px solid black;">
@@ -115,15 +115,11 @@ const maxPressRateTrial = {
 // Instructions trial
 const maxPressInstructions = {
     type: jsPsychHtmlButtonResponse,
+    css_classes: ["instructions"],
     stimulus: `
     <div id="instruction-container">
         <div id="instruction-text" style="text-align: left;">
-            <p>Before we start the first game, we need to complete a short test of your keyboard: Please <span class="highlight">P
-            press the <span class="spacebar-icon">J</span> key repeatedly as fast as you can.</span></p>
-            <ol>
-                <li>Please start pressing repeatedly when you are ready.</li>
-                <li>Keep pressing <span class="spacebar-icon">J</span> as fast as you can until timer runs out</li>
-            </ol>
+            <p>Before we start the first game, we need to complete a short test of your keyboard. On the next screen, you will need to <span class="highlight">press the <span class="spacebar-icon">J</span> key repeatedly as fast as you can.</span></p>
         </div>
     </div>
     `,
@@ -138,7 +134,7 @@ const maxPressFeedback = {
         <div id="instruction-container">
             <div id="instruction-text" style="text-align: center;">
                 <h2><span class="highlight">Well done!</span></h2>
-                <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the test.</p>
+                <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the keyboard test.</p>
                 <p>Press <strong>Continue</strong> to proceed to the first game.</p>
             </div>
         </div>
