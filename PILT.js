@@ -400,8 +400,6 @@ function return_PILT_full_sequence(structure, test_structure, WM_structure, WM_t
     PILT_test_procedure.push(test_instructions);
     PILT_test_procedure = PILT_test_procedure.concat(build_post_PILT_test(test_structure));
 
-    console.log(PILT_test_procedure)
-
     // WM block
     let WM_procedure = WM_instructions;
 
