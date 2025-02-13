@@ -39,8 +39,8 @@ const test_trial = {
             stimulus_right: jsPsych.timelineVariable('stimulus_right'),
             stimulus_left: jsPsych.timelineVariable('stimulus_left'),
             stimulus_middle: '',
-            feedback_left: '',
-            feedback_right: '',
+            feedback_left: jsPsych.timelineVariable('feedback_left'),
+            feedback_right: jsPsych.timelineVariable('feedback_right'),
             feedback_middle: '',
             optimal_right: false,
             optimal_side: '',
@@ -126,6 +126,8 @@ function build_post_PILT_test(structure) {
             timeline_variables: structure[i]
         });
     }
+
+    console.log(test)
 
     return test
 }
@@ -353,6 +355,8 @@ async function load_squences(session) {
             pav_test_structure[i].stimulus_left = `imgs/Pav_stims/session${window.sessionNum}/${pav_test_structure[i].stimulus_left}`
             pav_test_structure[i].stimulus_right = `imgs/Pav_stims/session${window.sessionNum}/${pav_test_structure[i].stimulus_right}`
             pav_test_structure[i].block = "pavlovian"
+            pav_test_structure[i].feedback_left = pav_test_structure[i].magnitude_left
+            pav_test_structure[i].feedback_right = pav_test_structure[i].magnitude_right
         }
 
         // Add Pavlovaian test to the end of test strucutre
