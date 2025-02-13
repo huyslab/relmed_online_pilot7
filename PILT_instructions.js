@@ -348,7 +348,7 @@ const test_instructions = {
     css_classes: ['instructions'],
     pages: [
         '<p>You will now continue to another round of the card choosing game.</p>\
-            <p>The game proceeds the same as before, except you won\'t be able to see the coins you discover and collect.</p>\
+            <p>On this round you won\'t be able to see the coins you discover and collect. However, they are still being added to your safe.</p>\
             <p>You will be presented with cards you already know. Do you best to choose the best card possible on each turn.</p>'
     ],
     show_clickable_nav: true,
