@@ -118,13 +118,11 @@ const maxPressInstructions = {
     stimulus: `
     <div id="instruction-container">
         <div id="instruction-text" style="text-align: left;">
-            <h2>Hi there! Welcome to today's game.</h2>
-            <p>Before start the game, you need to a <strong>quick warmup</strong>: <span class="highlight">Press <span class="spacebar-icon">J</span> repeatedly as fast as possible.</span><br>
-            This is just for baseline measurement and won't affect your final bonuses.</p>
-            <p>For the following warmup:</p>
+            <p>Before we start the first game, we need to complete a short test of your keyboard: Please <span class="highlight">P
+            press the <span class="spacebar-icon">J</span> key repeatedly as fast as you can.</span></p>
             <ol>
-                <li>Press <span class="spacebar-icon">J</span> once to start</li>
-                <li>Keep pressing <span class="spacebar-icon">J</span> as fast as you can until time runs out</li>
+                <li>Please start pressing repeatedly when you are ready.</li>
+                <li>Keep pressing <span class="spacebar-icon">J</span> as fast as you can until timer runs out</li>
             </ol>
         </div>
     </div>
@@ -140,8 +138,8 @@ const maxPressFeedback = {
         <div id="instruction-container">
             <div id="instruction-text" style="text-align: center;">
                 <h2><span class="highlight">Well done!</span></h2>
-                <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the warmup.</p>
-                <p>Next, we will start the very <strong>first</strong> game. Press <strong>Continue</strong> to proceed.</p>
+                <p>On average, you pressed <strong>${data.avgSpeed.toFixed(2)} times per second</strong> during the test.</p>
+                <p>Press <strong>Continue</strong> to proceed to the first game.</p>
             </div>
         </div>
         `;
