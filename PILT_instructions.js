@@ -17,12 +17,6 @@ function prepare_PILT_instructions() {
         pages: () => {
 
             let pages = [
-                `<p><b>Thank you for taking part in this study!</b></p>
-                <p>The purpose of this study is to examine how people learn from positive and negative feedback while playing games.
-                <p>In this study, you'll play a few simple trial-and-error learning games. Your goal in each game is to win as many coins as possible.</p>
-                <p>The games may feel a bit fast-paced because we're interested in your quick, intuitive decisions. Since they're designed around learning from experience, making mistakes is completely expected. Over time, you'll figure out better choices and improve your performance.</p>
-                <p>Let's start with the first game!</p>
-                `
             ];
 
             pages = pages.concat([
