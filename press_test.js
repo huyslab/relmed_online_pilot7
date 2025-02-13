@@ -31,6 +31,9 @@ const maxPressRateTrial = {
     },
     choices: 'NO_KEYS',
     data: {trialphase: 'max_press_rate'},
+    simulation_options: {
+        simulate: false
+    },
     on_start: function (trial) {
         if (window.prolificPID.includes("simulate")) {
             trial.trial_duration = 1000;
@@ -129,7 +132,7 @@ const maxPressInstructions = {
 const maxPressFeedback = {
     type: jsPsychHtmlButtonResponse,
     stimulus: function() {
-        const data = jsPsych.data.get().last(1).values()[0];
+        const data = window.prolificPID.includes("simulate") ? {avgSpeed: 0} : jsPsych.data.get().last(1).values()[0];
         return `
         <div id="instruction-container">
             <div id="instruction-text" style="text-align: center;">
